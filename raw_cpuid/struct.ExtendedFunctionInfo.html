@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ExtendedFunctionInfo` struct in crate `raw_cpuid`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ExtendedFunctionInfo">
+
+    <title>raw_cpuid::ExtendedFunctionInfo - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>raw_cpuid</a></p><script>window.sidebarCurrent = {name: 'ExtendedFunctionInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>raw_cpuid</a>::<wbr><a class='struct' href=''>ExtendedFunctionInfo</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-10892' class='srclink' href='../src/raw_cpuid/lib.rs.html#1643-1646' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct ExtendedFunctionInfo {
+    // some fields omitted
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ExtendedFunctionInfo.html' title='raw_cpuid::ExtendedFunctionInfo'>ExtendedFunctionInfo</a></code></h3><div class='impl-items'><h4 id='method.processor_brand_string' class='method'><code>fn <a href='#method.processor_brand_string' class='fnname'>processor_brand_string</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;</code></h4>
+<div class='docblock'><p>Retrieve processor brand string.</p>
+</div><h4 id='method.extended_signature' class='method'><code>fn <a href='#method.extended_signature' class='fnname'>extended_signature</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code></h4>
+<div class='docblock'><p>Extended Processor Signature and Feature Bits.</p>
+</div><h4 id='method.cache_line_size' class='method'><code>fn <a href='#method.cache_line_size' class='fnname'>cache_line_size</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;</code></h4>
+<div class='docblock'><p>Cache Line size in bytes</p>
+</div><h4 id='method.l2_associativity' class='method'><code>fn <a href='#method.l2_associativity' class='fnname'>l2_associativity</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../raw_cpuid/enum.L2Associativity.html' title='raw_cpuid::L2Associativity'>L2Associativity</a>&gt;</code></h4>
+<div class='docblock'><p>L2 Associativity field</p>
+</div><h4 id='method.cache_size' class='method'><code>fn <a href='#method.cache_size' class='fnname'>cache_size</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>&gt;</code></h4>
+<div class='docblock'><p>Cache size in 1K units</p>
+</div><h4 id='method.physical_address_bits' class='method'><code>fn <a href='#method.physical_address_bits' class='fnname'>physical_address_bits</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;</code></h4>
+<div class='docblock'>
+<h1 id="physical-address-bits" class='section-header'><a
+                           href="#physical-address-bits">Physical Address Bits</a></h1></div><h4 id='method.linear_address_bits' class='method'><code>fn <a href='#method.linear_address_bits' class='fnname'>linear_address_bits</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;</code></h4>
+<div class='docblock'>
+<h1 id="linear-address-bits" class='section-header'><a
+                           href="#linear-address-bits">Linear Address Bits</a></h1></div><h4 id='method.has_invariant_tsc' class='method'><code>fn <a href='#method.has_invariant_tsc' class='fnname'>has_invariant_tsc</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Is Invariant TSC available?</p>
+</div><h4 id='method.has_lahf_sahf' class='method'><code>fn <a href='#method.has_lahf_sahf' class='fnname'>has_lahf_sahf</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Is LAHF/SAHF available in 64-bit mode?</p>
+</div><h4 id='method.has_lzcnt' class='method'><code>fn <a href='#method.has_lzcnt' class='fnname'>has_lzcnt</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Is LZCNT available?</p>
+</div><h4 id='method.has_prefetchw' class='method'><code>fn <a href='#method.has_prefetchw' class='fnname'>has_prefetchw</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Is PREFETCHW available?</p>
+</div><h4 id='method.has_syscall_sysret' class='method'><code>fn <a href='#method.has_syscall_sysret' class='fnname'>has_syscall_sysret</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Are fast system calls available.</p>
+</div><h4 id='method.has_execute_disable' class='method'><code>fn <a href='#method.has_execute_disable' class='fnname'>has_execute_disable</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Is there support for execute disable bit.</p>
+</div><h4 id='method.has_1gib_pages' class='method'><code>fn <a href='#method.has_1gib_pages' class='fnname'>has_1gib_pages</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Is there support for 1GiB pages.</p>
+</div><h4 id='method.has_rdtscp' class='method'><code>fn <a href='#method.has_rdtscp' class='fnname'>has_rdtscp</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Check support for rdtscp instruction.</p>
+</div><h4 id='method.has_64bit_mode' class='method'><code>fn <a href='#method.has_64bit_mode' class='fnname'>has_64bit_mode</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Check support for 64-bit mode.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.ExtendedFunctionInfo.html' title='raw_cpuid::ExtendedFunctionInfo'>ExtendedFunctionInfo</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div>
+            <div class="shortcuts">
+                <h1>Keyboard Shortcuts</h1>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h1>Search Tricks</h1>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "raw_cpuid";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

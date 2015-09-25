@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["cr0","Contains various flags to control operations."],["cr0_write","Write cr0."],["cr2","Contains page-fault linear address."],["cr3","Contains page-table root pointer."],["cr3_write","Switch page-table PML4 pointer."],["cr4","Contains various flags to control operations in protected mode."],["cr4_write","Write cr4."]]});

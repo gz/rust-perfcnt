@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `irq` mod in crate `x86`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, irq">
+
+    <title>x86::irq - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>x86</a></p><script>window.sidebarCurrent = {name: 'irq', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>x86</a>::<wbr><a class='mod' href=''>irq</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-3431' class='srclink' href='../../src/x86/irq.rs.html#1-130' title='goto source code'>[src]</a></span></h1>
+<h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.IdtEntry.html'
+                               title='x86::irq::IdtEntry'>IdtEntry</a></td>
+                        <td class='docblock short'>
+                             <p>A struct describing an interrupt gate.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.InterruptDescription.html'
+                               title='x86::irq::InterruptDescription'>InterruptDescription</a></td>
+                        <td class='docblock short'>
+                             <p>x86 Exception description (see also Intel Vol. 3a Chapter 6).</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.PageFaultError.html'
+                               title='x86::irq::PageFaultError'>PageFaultError</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.PFAULT_ERROR_ID.html'
+                               title='x86::irq::PFAULT_ERROR_ID'>PFAULT_ERROR_ID</a></td>
+                        <td class='docblock short'>
+                             <p>0: The fault was not caused by an instruction fetch.
+1: The fault was caused by an instruction fetch.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.PFAULT_ERROR_P.html'
+                               title='x86::irq::PFAULT_ERROR_P'>PFAULT_ERROR_P</a></td>
+                        <td class='docblock short'>
+                             <p>0: The fault was caused by a non-present page.
+1: The fault was caused by a page-level protection violation</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.PFAULT_ERROR_RSVD.html'
+                               title='x86::irq::PFAULT_ERROR_RSVD'>PFAULT_ERROR_RSVD</a></td>
+                        <td class='docblock short'>
+                             <p>0: The fault was not caused by reserved bit violation.
+1: The fault was caused by reserved bits set to 1 in a page directory.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.PFAULT_ERROR_US.html'
+                               title='x86::irq::PFAULT_ERROR_US'>PFAULT_ERROR_US</a></td>
+                        <td class='docblock short'>
+                             <p>0: The access causing the fault originated when the processor
+was executing in supervisor mode.
+1: The access causing the fault originated when the processor
+was executing in user mode.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.PFAULT_ERROR_WR.html'
+                               title='x86::irq::PFAULT_ERROR_WR'>PFAULT_ERROR_WR</a></td>
+                        <td class='docblock short'>
+                             <p>0: The access causing the fault was a read.
+1: The access causing the fault was a write.</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='statics' class='section-header'><a href="#statics">Statics</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='static' href='static.EXCEPTIONS.html'
+                               title='x86::irq::EXCEPTIONS'>EXCEPTIONS</a></td>
+                        <td class='docblock short'>
+                             <p>x86 External Interrupts (1-16).</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.disable.html'
+                               title='x86::irq::disable'>disable</a></td>
+                        <td class='docblock short'>
+                             <p>Disable Interrupts.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.enable.html'
+                               title='x86::irq::enable'>enable</a></td>
+                        <td class='docblock short'>
+                             <p>Enable Interrupts.</p>
+
+                        </td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div>
+            <div class="shortcuts">
+                <h1>Keyboard Shortcuts</h1>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h1>Search Tricks</h1>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "x86";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["int!","Generate a software interrupt. This is a macro argument needs to be an immediate."],["syscall!","SYSCALL invokes an OS system-call handler at privilege level 0."]],"mod":[["controlregs",""],["cpuid",""],["dtables",""],["io",""],["irq",""],["msr",""],["paging",""],["rflags",""],["segmentation",""],["syscall",""],["task",""],["time",""]]});
