@@ -1,0 +1,13 @@
+[package]
+name = "perfcnt"
+version = "0.0.1"
+authors = ["Gerd Zellweger <mail@gerdzellweger.com>"]
+
+[dependencies.bitflags]
+bitflags = "*"
+
+[dependencies.libc]
+libc = "0.1.10"
+
+[dependencies.syscall]
+git = "https://github.com/kmcallister/syscall.rs.git"
