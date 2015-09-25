@@ -36,7 +36,10 @@ fn basic_perfcnt_linux() {
     println!("{:?} {:?} {:?}", i1, i2, i3);
 
     let c = linux::read_counter(fd);
-    println!("Counter is {:?}", c.unwrap());
+    match c {
+        Ok(cnt) => println!("Counter is {:?}", cnt),
+        Err(e) => println!("Can't read counter: {:?}", e),
+    }
 
 
 }
