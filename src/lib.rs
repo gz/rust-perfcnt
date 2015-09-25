@@ -2,7 +2,7 @@
 
 extern crate libc;
 #[macro_use]
-extern crate syscall;
+extern crate x86;
 #[macro_use]
 extern crate bitflags;
 

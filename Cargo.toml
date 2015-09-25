@@ -18,5 +18,8 @@ bitflags = "*"
 [dependencies.libc]
 libc = "0.1.10"
 
-[dependencies.syscall]
-git = "https://github.com/kmcallister/syscall.rs.git"
+[dependencies.x86]
+x86 = "*"
+
+#[dependencies.syscall]
+#git = "https://github.com/kmcallister/syscall.rs.git"

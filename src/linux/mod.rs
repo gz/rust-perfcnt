@@ -12,6 +12,9 @@ mod hw_breakpoint;
 pub mod perf_event;
 
 
+pub const IOCTL: usize = 16;
+pub const PERF_EVENT_OPEN: usize = 298;
+
 pub fn perf_event_open(hw_event: perf_event::perf_event_attr,
                        pid: perf_event::__kernel_pid_t,
                        cpu:  ::libc::c_int,
