@@ -7,7 +7,7 @@ use std::mem;
 #[allow(dead_code, non_camel_case_types)]
 mod hw_breakpoint;
 #[allow(dead_code, non_camel_case_types)]
-pub mod perf_event;
+mod perf_event;
 
 use ::PerfCounterControl;
 
@@ -47,10 +47,13 @@ impl PerfCounterControl for PerfCounter {
 
     fn new() -> PerfCounter {
         let mut hw_event: perf_event::perf_event_attr = Default::default();
-        hw_event._type = perf_event::PERF_TYPE_HARDWARE;
+        hw_event._type = perf_event::PERF_TYPE_RAW;
         hw_event.size = mem::size_of::<perf_event::perf_event_attr>() as u32;
         hw_event.config = perf_event::PERF_COUNT_HW_INSTRUCTIONS as u64;
-        hw_event.settings = perf_event::EVENT_ATTR_DISABLED | perf_event::EVENT_ATTR_EXCLUDE_KERNEL | perf_event::EVENT_ATTR_EXCLUDE_HV;
+        hw_event.settings =
+            perf_event::EVENT_ATTR_DISABLED |
+            perf_event::EVENT_ATTR_EXCLUDE_KERNEL |
+            perf_event::EVENT_ATTR_EXCLUDE_HV;
 
         let pid = 0;
         let cpu = -1;

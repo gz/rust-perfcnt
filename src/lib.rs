@@ -10,6 +10,10 @@ extern crate bitflags;
 pub mod arch;
 
 
+enum PerfCountTypes {
+
+}
+
 
 /// Abstract trait to control performance counters.
 trait PerfCounterControl {
