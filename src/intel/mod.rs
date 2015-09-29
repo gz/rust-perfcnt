@@ -1,12 +1,20 @@
+pub mod haswell;
+
 enum PebsType {
-    RegularEvent,
-    PebsOrRegularEvent,
-    PebsOnlyEvent
+    Regular,
+    PebsOrRegular,
+    PebsOnly
 }
 
 enum EventCode {
-    OneCode(u8),
-    TwoCodes(u8,u8)
+    One(u8),
+    Two(u8,u8)
+}
+
+enum MSRIndex {
+    None,
+    One(u8),
+    Two(u8, u8)
 }
 
 enum Counter {
@@ -75,7 +83,7 @@ struct IntelPerformanceCounterDescription {
 
     /// Additional MSRs may be required for programming certain events.
     /// This field gives the address of such MSRS.
-    msr_index: Option<u64>,
+    msr_index: MSRIndex,
 
     /// When an MSRIndex is used (indicated by the MSRIndex column), this field will
     /// contain the value that needs to be loaded into the
@@ -83,7 +91,7 @@ struct IntelPerformanceCounterDescription {
     ///
     /// For example, in the case of the load latency events, MSRValue defines the
     /// latency threshold value to write into the MSR defined in MSRIndex (0x3F6).
-    msr_value: Option<u64>,
+    msr_value: u64,
 
     /// This field is set for an event which can only be sampled or counted by itself,
     /// meaning that when this event is being collected,

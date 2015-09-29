@@ -9,6 +9,7 @@ extern crate bitflags;
 #[cfg(target_os="linux")] #[path="linux/mod.rs"]
 pub mod arch;
 
+pub mod intel;
 
 enum PerfCountTypes {
 
