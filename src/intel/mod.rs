@@ -155,3 +155,41 @@ struct IntelPerformanceCounterDescription {
     /// This field is set to 1 for offcore events and 0 for core events.
     offcore: bool,
 }
+
+impl IntelPerformanceCounterDescription {
+
+    fn new(event_code: EventCode, umask: u8, event_name: &'static str,
+           brief_description: &'static str, public_description: Option<&'static str>,
+           counter: Counter, counter_ht_off: Counter, pebs_counters: Option<Counter>,
+           sample_after_value: u64, msr_index: MSRIndex, msr_value: u64, taken_alone: bool,
+           counter_mask: u8, invert: bool, any_thread: bool, edge_detect: bool, pebs:
+           PebsType, precise_store: bool, data_la: bool, l1_hit_indication: bool,
+           errata: Option<&'static str>, offcore: bool) {
+
+        IntelPerformanceCounterDescription {
+            event_code: event_code,
+            umask: umask,
+            event_name: event_name,
+            brief_description: brief_description,
+            public_description: public_description,
+            counter: counter,
+            counter_ht_off: counter_ht_off,
+            pebs_counters: pebs_counters,
+            sample_after_value: sample_after_value,
+            msr_index: msr_index,
+            msr_value: msr_value,
+            taken_alone: taken_alone,
+            counter_mask: counter_mask,
+            invert: invert,
+            any_thread: any_thread,
+            edge_detect: edge_detect,
+            pebs: pebs,
+            precise_store: precise_store,
+            data_la: data_la,
+            l1_hit_indication: l1_hit_indication,
+            errata: errata,
+            offcore: offcore
+        }
+
+    }
+}
