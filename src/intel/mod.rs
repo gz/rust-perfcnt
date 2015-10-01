@@ -1,22 +1,26 @@
 //pub mod haswell;
 
+#[derive(Debug)]
 enum PebsType {
     Regular,
     PebsOrRegular,
     PebsOnly
 }
 
+#[derive(Debug)]
 enum EventCode {
     One(u8),
     Two(u8,u8)
 }
 
+#[derive(Debug)]
 enum MSRIndex {
     None,
     One(u8),
     Two(u8, u8)
 }
 
+#[derive(Debug)]
 enum Counter {
     /// Bit-mask containing the fixed counters
     /// usable with the corresponding performance event.
@@ -27,6 +31,7 @@ enum Counter {
     Programmable(u8),
 }
 
+#[derive(Debug)]
 struct IntelPerformanceCounterDescription {
 
     /// This field maps to the Event Select field in the IA32_PERFEVTSELx[7:0]MSRs.
@@ -164,7 +169,7 @@ impl IntelPerformanceCounterDescription {
            sample_after_value: u64, msr_index: MSRIndex, msr_value: u64, taken_alone: bool,
            counter_mask: u8, invert: bool, any_thread: bool, edge_detect: bool, pebs:
            PebsType, precise_store: bool, data_la: bool, l1_hit_indication: bool,
-           errata: Option<&'static str>, offcore: bool) {
+           errata: Option<&'static str>, offcore: bool) -> IntelPerformanceCounterDescription {
 
         IntelPerformanceCounterDescription {
             event_code: event_code,
