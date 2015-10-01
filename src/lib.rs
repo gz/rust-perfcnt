@@ -1,4 +1,5 @@
 #![feature(negate_unsigned)]
+extern crate phf;
 
 extern crate libc;
 #[macro_use]
@@ -8,7 +9,6 @@ extern crate bitflags;
 
 #[cfg(target_os="linux")] #[path="linux/mod.rs"]
 pub mod arch;
-
 pub mod intel;
 
 enum PerfCountTypes {

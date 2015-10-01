@@ -1,4 +1,5 @@
-//pub mod haswell;
+//use phf::Map;
+pub mod haswell;
 
 #[derive(Debug)]
 enum PebsType {
@@ -30,6 +31,11 @@ enum Counter {
     /// usable with the corresponding performance event.
     Programmable(u8),
 }
+
+//use Counter::{Fixed, Programmable};
+//use PebsType::{Regular, PebsOrRegular, PebsOnly};
+//use EventCode::{One, Two};
+//use MSRIndex::{One, Two};
 
 #[derive(Debug)]
 struct IntelPerformanceCounterDescription {

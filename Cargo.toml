@@ -3,11 +3,9 @@ name = "perfcnt"
 version = "0.0.1"
 authors = ["Gerd Zellweger <mail@gerdzellweger.com>"]
 description = "Library to configure and read hardware performance counters in rust."
-
 homepage = "https://github.com/gz/rust-perfcnt"
 repository = "https://github.com/gz/rust-perfcnt"
 documentation = "http://gz.github.io/rust-perfcnt/perfcnt/"
-
 readme = "README.md"
 keywords = ["amd64", "x86", "performance", "counter", "hardware"]
 license = "MIT"
