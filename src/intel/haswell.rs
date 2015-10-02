@@ -1,8 +1,8 @@
 use phf;
-use super::IntelPerformanceCounterDescription;
-use super::Counter;
-use super::PebsType;
-use super::EventCode;
-use super::MSRIndex;
+use super::description::IntelPerformanceCounterDescription;
+use super::description::Counter;
+use super::description::PebsType;
+use super::description::Tuple;
+use super::description::MSRIndex;
 
 include!(concat!(env!("OUT_DIR"), "/codegen.rs"));

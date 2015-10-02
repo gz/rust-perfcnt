@@ -7,14 +7,10 @@ extern crate x86;
 #[macro_use]
 extern crate bitflags;
 
-#[cfg(target_os="linux")] #[path="linux/mod.rs"]
-pub mod arch;
 pub mod intel;
 
-enum PerfCountTypes {
-
-}
-
+#[cfg(target_os="linux")] #[path="linux/mod.rs"]
+pub mod arch;
 
 /// Abstract trait to control performance counters.
 trait PerfCounterControl {
@@ -23,6 +19,13 @@ trait PerfCounterControl {
     fn start(&self);
     fn stop(&self);
     fn read(&self) -> u64;
+}
+
+#[test]
+fn list_them() {
+    for counter in intel::haswell::PERFORMANCE_COUNTER_HASWELL.values() {
+        println!("{:?}", counter);
+    }
 }
 
 #[test]

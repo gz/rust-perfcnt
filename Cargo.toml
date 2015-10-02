@@ -18,6 +18,9 @@ phf_codegen = "0.7.5"
 [build-dependencies.serde_json]
 serde_json = "0.6.0"
 
+[build-dependencies.csv]
+csv = "0.14.3"
+
 [dependencies.bitflags]
 bitflags = "*"
 
