@@ -4,6 +4,7 @@ extern crate phf_codegen;
 extern crate serde_json;
 extern crate csv;
 
+use std::ascii::AsciiExt;
 use std::env;
 use std::fs::File;
 use std::io::{BufWriter, BufReader, Write};
@@ -26,7 +27,15 @@ fn string_to_static_str<'a>(s: &'a str) -> &'static str {
     }
 }
 
-fn parse_performance_counters(input: &str) {
+fn parse_bool(input: &str) -> bool {
+    match input.trim() {
+        "0" => false,
+        "1" => true,
+        _ => panic!("Unknown boolean value {}", input),
+    }
+}
+
+fn parse_performance_counters(input: &str, stem: &str, variable: &str) {
     let mut builder = phf_codegen::Map::new();
     let f = File::open(input).unwrap();
     let reader = BufReader::new(f);
@@ -75,8 +84,6 @@ fn parse_performance_counters(input: &str) {
                 let value_str = string_to_static_str(value_string).trim();
                 let split_str_parts: Vec<&str> = value_string.split(",").map(|x| x.trim()).collect();
 
-                //println!("{:?} {}", key, input);
-
                 match key.as_str() {
                     "EventName" => {
                         if !all_events.contains_key(value_str.clone()) {
@@ -88,8 +95,6 @@ fn parse_performance_counters(input: &str) {
                             do_insert = false;
                             println!("WARN: Key {} already exists.", value_str);
                         }
-                        println!("{:?} {}", value_str, input);
-
                         event_name = value_str;
                     }
 
@@ -223,11 +228,7 @@ fn parse_performance_counters(input: &str) {
                         }
                     },
                     "TakenAlone" => {
-                        taken_alone = match value_str.trim() {
-                            "0" => false,
-                            "1" => true,
-                            _ => panic!("Unknown boolean value {}", value_str),
-                        };
+                        taken_alone = parse_bool(value_str);
                     },
                     "CounterMask" => {
                         counter_mask = if value_str.len() > 2 && value_str[..2].starts_with("0x") {
@@ -238,22 +239,10 @@ fn parse_performance_counters(input: &str) {
                         }
                     },
                     "Invert" => {
-                        invert = match value_str.trim() {
-                            "0" => false,
-                            "1" => true,
-                            _ => panic!("Unknown boolean value {}", value_str),
-                        };
+                        invert = parse_bool(value_str);
                     }
-                    "AnyThread" => any_thread = match value_str.trim() {
-                            "0" => false,
-                            "1" => true,
-                            _ => panic!("Unknown boolean value {}", value_str),
-                        },
-                    "EdgeDetect" => edge_detect = match value_str.trim() {
-                            "0" => false,
-                            "1" => true,
-                            _ => panic!("Unknown boolean value {}", value_str),
-                        },
+                    "AnyThread" => any_thread = parse_bool(value_str),
+                    "EdgeDetect" => edge_detect = parse_bool(value_str),
                     "PEBS" => {
                         pebs = match value_str.trim() {
                             "0" => PebsType::Regular,
@@ -262,21 +251,9 @@ fn parse_performance_counters(input: &str) {
                             _ => panic!("Unknown PEBS type: {}", value_str),
                         }
                     },
-                    "PRECISE_STORE" => precise_store = match value_str.trim() {
-                            "0" => false,
-                            "1" => true,
-                            _ => panic!("Unknown boolean value {}", value_str),
-                        },
-                    "Data_LA" => data_la = match value_str.trim() {
-                            "0" => false,
-                            "1" => true,
-                            _ => panic!("Unknown boolean value {}", value_str),
-                        },
-                    "L1_Hit_Indication" => l1_hit_indication = match value_str.trim() {
-                            "0" => false,
-                            "1" => true,
-                            _ => panic!("Unknown boolean value {}", value_str),
-                        },
+                    "PRECISE_STORE" => precise_store = parse_bool(value_str),
+                    "Data_LA" => data_la = parse_bool(value_str),
+                    "L1_Hit_Indication" => l1_hit_indication = parse_bool(value_str),
                     "Errata" => {
                         errata = if value_str != "null" {
                             Some(value_str)
@@ -285,11 +262,7 @@ fn parse_performance_counters(input: &str) {
                             None
                         };
                     },
-                    "Offcore" => offcore = match value_str.trim() {
-                            "0" => false,
-                            "1" => true,
-                            _ => panic!("Unknown boolean value {}", value_str),
-                    },
+                    "Offcore" => offcore = parse_bool(value_str),
                     "ELLC" => {
                         // Ignored due to missing documentation.
                     },
@@ -332,9 +305,9 @@ fn parse_performance_counters(input: &str) {
         panic!("JSON data is not an array.");
     }
 
-    let path = Path::new(&env::var("OUT_DIR").unwrap()).join("codegen.rs");
+    let path = Path::new(&env::var("OUT_DIR").unwrap()).join(format!("{}.rs", stem));
     let mut file = BufWriter::new(File::create(&path).unwrap());
-    write!(&mut file, "pub static PERFORMANCE_COUNTER_HASWELL: phf::Map<&'static str, IntelPerformanceCounterDescription> = ").unwrap();
+    write!(&mut file, "pub static {}: phf::Map<&'static str, IntelPerformanceCounterDescription> = ", variable).unwrap();
     builder.build(&mut file).unwrap();
     write!(&mut file, ";\n").unwrap();
 }
@@ -348,15 +321,23 @@ fn main() {
         let (family_model, version, file_name, event_type): (String, String, String, String) = record.unwrap();
         if !data_files.contains_key(&file_name) {
             println!("{} {} {} {}", family_model, version, file_name, event_type);
-
-            data_files.insert(Box::new(file_name), 0);
+            data_files.insert(Box::new(file_name), (family_model, version, event_type));
         }
     }
 
-    for file in data_files.keys() {
+    for (file, data) in &data_files {
         if file.contains("_core_") {
-            println!("Processing {:?}", file);
-            parse_performance_counters(format!("perfmon_data{}", file).as_str());
+            let (ref family_model, ref version, ref event_type): (String, String, String) = *data;
+
+            println!("Processing {:?} {} {} {}", file, family_model, version, event_type);
+
+            let path = Path::new(file.as_str());
+            let stem = path.file_stem().unwrap().to_str().unwrap();
+            let stem_upper = stem.to_ascii_uppercase();
+            let version_start = stem_upper.find("_V").unwrap();
+            let (variable, _) = stem_upper.split_at(version_start);
+            parse_performance_counters(format!("perfmon_data{}", file).as_str(), stem, variable);
         }
     }
+    //panic!("done");
 }
