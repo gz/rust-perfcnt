@@ -35,7 +35,7 @@ fn parse_bool(input: &str) -> bool {
     }
 }
 
-fn parse_performance_counters(input: &str, stem: &str, variable: &str) {
+fn parse_performance_counters(input: &str, output_file: &str, variable: &str) {
     let mut builder = phf_codegen::Map::new();
     let f = File::open(input).unwrap();
     let reader = BufReader::new(f);
@@ -305,7 +305,7 @@ fn parse_performance_counters(input: &str, stem: &str, variable: &str) {
         panic!("JSON data is not an array.");
     }
 
-    let path = Path::new(&env::var("OUT_DIR").unwrap()).join(format!("{}.rs", stem));
+    let path = Path::new(&env::var("OUT_DIR").unwrap()).join(format!("{}.rs", output_file));
     let mut file = BufWriter::new(File::create(&path).unwrap());
     write!(&mut file, "pub static {}: phf::Map<&'static str, IntelPerformanceCounterDescription> = ", variable).unwrap();
     builder.build(&mut file).unwrap();
@@ -333,10 +333,20 @@ fn main() {
 
             let path = Path::new(file.as_str());
             let stem = path.file_stem().unwrap().to_str().unwrap();
-            let stem_upper = stem.to_ascii_uppercase();
-            let version_start = stem_upper.find("_V").unwrap();
-            let (variable, _) = stem_upper.split_at(version_start);
-            parse_performance_counters(format!("perfmon_data{}", file).as_str(), stem, variable);
+
+            // File name without _core*.json
+            let core_start = stem.find("_core").unwrap();
+            let (output_file, _) = stem.split_at(core_start);
+
+            // File name without _V*.json at the end:
+            let version_start = stem.find("_V").unwrap();
+            let (variable, _) = stem.split_at(version_start);
+            let uppercase = variable.to_ascii_uppercase();
+            let variable_clean = uppercase.replace("-", "_");
+            let variable_upper = variable_clean.as_str();
+
+            parse_performance_counters(format!("perfmon_data{}", file).as_str(),
+                                       output_file, variable_upper);
         }
     }
     //panic!("done");

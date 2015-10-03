@@ -1,0 +1,23 @@
+use phf;
+use super::description::IntelPerformanceCounterDescription;
+use super::description::Counter;
+use super::description::PebsType;
+use super::description::Tuple;
+use super::description::MSRIndex;
+
+include!(concat!(env!("OUT_DIR"), "/Bonnell.rs"));
+include!(concat!(env!("OUT_DIR"), "/Broadwell.rs"));
+include!(concat!(env!("OUT_DIR"), "/BroadwellDE.rs"));
+include!(concat!(env!("OUT_DIR"), "/Haswell.rs"));
+include!(concat!(env!("OUT_DIR"), "/HaswellX.rs"));
+include!(concat!(env!("OUT_DIR"), "/IvyBridge.rs"));
+include!(concat!(env!("OUT_DIR"), "/IvyTown.rs"));
+include!(concat!(env!("OUT_DIR"), "/Jaketown.rs"));
+include!(concat!(env!("OUT_DIR"), "/NehalemEP.rs"));
+include!(concat!(env!("OUT_DIR"), "/NehalemEX.rs"));
+include!(concat!(env!("OUT_DIR"), "/SandyBridge.rs"));
+include!(concat!(env!("OUT_DIR"), "/Silvermont.rs"));
+include!(concat!(env!("OUT_DIR"), "/Skylake.rs"));
+include!(concat!(env!("OUT_DIR"), "/WestmereEP-DP.rs"));
+include!(concat!(env!("OUT_DIR"), "/WestmereEP-SP.rs"));
+include!(concat!(env!("OUT_DIR"), "/WestmereEX.rs"));
