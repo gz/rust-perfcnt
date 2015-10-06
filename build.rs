@@ -312,42 +312,63 @@ fn parse_performance_counters(input: &str, output_file: &str, variable: &str) {
     write!(&mut file, ";\n").unwrap();
 }
 
-fn main() {
+fn make_file_name<'a>(path: &'a Path) -> (String, String) {
+    let stem = path.file_stem().unwrap().to_str().unwrap();
 
+    // File name without _core*.json
+    println!("{:?}", stem);
+    let core_start = stem.find("_core").unwrap();
+    let (output_file, _) = stem.split_at(core_start);
+
+    // File name without _V*.json at the end:
+    let version_start = stem.find("_V").unwrap();
+    let (variable, _) = stem.split_at(version_start);
+    let uppercase = variable.to_ascii_uppercase();
+    let variable_clean = uppercase.replace("-", "_");
+    let variable_upper = variable_clean.as_str();
+
+    (output_file.to_string(), variable_upper.to_string())
+}
+
+fn main() {
     let mut rdr = csv::Reader::from_file("./perfmon_data/mapfile.csv").unwrap();
     let mut data_files = HashMap::new();
 
+    // Parse CSV
     for record in rdr.decode() {
         let (family_model, version, file_name, event_type): (String, String, String, String) = record.unwrap();
-        if !data_files.contains_key(&file_name) {
-            println!("{} {} {} {}", family_model, version, file_name, event_type);
-            data_files.insert(Box::new(file_name), (family_model, version, event_type));
+        if file_name.contains("_core_") && !data_files.contains_key(&file_name) {
+            data_files.insert(file_name.clone(), (family_model, version, event_type));
         }
     }
 
+    // build hash-table to select performance counter per CPU architecture
+    let path = Path::new(&env::var("OUT_DIR").unwrap()).join("mapping.rs");
+    let mut file = BufWriter::new(File::create(&path).unwrap());
+    let mut builder = phf_codegen::Map::new();
+    for (file, data) in &data_files {
+        let (ref family_model, _, _): (String, String, String) = *data;
+        let path = Path::new(file.as_str());
+        let (_, ref variable_upper) = make_file_name(&path);
+
+        builder.entry(family_model.as_str(), variable_upper.as_str());
+    }
+
+    write!(&mut file, "pub static {}: phf::Map<&'static str, IntelPerformanceCounterDescription> = ", "COUNTER_MAP").unwrap();
+    builder.build(&mut file).unwrap();
+    write!(&mut file, ";\n").unwrap();
+
+    // Parse all json files and write hash-tables from it
     for (file, data) in &data_files {
         if file.contains("_core_") {
             let (ref family_model, ref version, ref event_type): (String, String, String) = *data;
-
             println!("Processing {:?} {} {} {}", file, family_model, version, event_type);
 
             let path = Path::new(file.as_str());
-            let stem = path.file_stem().unwrap().to_str().unwrap();
-
-            // File name without _core*.json
-            let core_start = stem.find("_core").unwrap();
-            let (output_file, _) = stem.split_at(core_start);
-
-            // File name without _V*.json at the end:
-            let version_start = stem.find("_V").unwrap();
-            let (variable, _) = stem.split_at(version_start);
-            let uppercase = variable.to_ascii_uppercase();
-            let variable_clean = uppercase.replace("-", "_");
-            let variable_upper = variable_clean.as_str();
-
+            let (ref output_file, ref variable_upper) = make_file_name(&path);
             parse_performance_counters(format!("perfmon_data{}", file).as_str(),
                                        output_file, variable_upper);
         }
     }
-    //panic!("done");
+
 }
