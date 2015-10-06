@@ -28,7 +28,7 @@ fn list_them() {
     }
 }
 
-#[test]
+// #[test]
 fn basic_perfcnt() {
     let pc = arch::PerfCounter::new();
 

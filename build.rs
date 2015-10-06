@@ -17,7 +17,7 @@ use serde_json::Value;
 include!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/intel/description.rs"));
 
 /// We need to convert parsed strings to static because we're reusing
-/// the struct definition which declare strings (rightgully) as
+/// the struct definition which declare strings (rightfully) as
 /// static in the generated code.
 fn string_to_static_str<'a>(s: &'a str) -> &'static str {
     unsafe {
@@ -336,6 +336,7 @@ fn main() {
     // Parse CSV
     for record in rdr.decode() {
         let (family_model, version, file_name, event_type): (String, String, String, String) = record.unwrap();
+        // TODO: Parse offcore counter descriptions.
         if file_name.contains("_core_") && !data_files.contains_key(&file_name) {
             data_files.insert(file_name.clone(), (family_model, version, event_type));
         }
@@ -359,6 +360,7 @@ fn main() {
     write!(&mut filewriter, ";\n").unwrap();
 
     // Parse all json files and write hash-tables from it
+    // TODO: Parse offcore counter descriptions.
     for (file, data) in &data_files {
         if file.contains("_core_") {
             let (ref family_model, ref version, ref event_type): (String, String, String) = *data;
