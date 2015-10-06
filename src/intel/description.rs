@@ -198,6 +198,7 @@ pub struct IntelPerformanceCounterDescription {
 
 impl IntelPerformanceCounterDescription {
 
+    #[allow(dead_code)]
     fn new(event_code: Tuple, umask: Tuple, event_name: &'static str,
            brief_description: &'static str, public_description: Option<&'static str>,
            counter: Counter, counter_ht_off: Counter, pebs_counters: Option<Counter>,

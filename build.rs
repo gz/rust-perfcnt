@@ -35,7 +35,7 @@ fn parse_bool(input: &str) -> bool {
     }
 }
 
-fn parse_performance_counters(input: &str, output_file: &str, variable: &str) {
+fn parse_performance_counters(input: &str, variable: &str, file: &mut BufWriter<File>) {
     let mut builder = phf_codegen::Map::new();
     let f = File::open(input).unwrap();
     let reader = BufReader::new(f);
@@ -305,11 +305,10 @@ fn parse_performance_counters(input: &str, output_file: &str, variable: &str) {
         panic!("JSON data is not an array.");
     }
 
-    let path = Path::new(&env::var("OUT_DIR").unwrap()).join(format!("{}.rs", output_file));
-    let mut file = BufWriter::new(File::create(&path).unwrap());
-    write!(&mut file, "pub static {}: phf::Map<&'static str, IntelPerformanceCounterDescription> = ", variable).unwrap();
-    builder.build(&mut file).unwrap();
-    write!(&mut file, ";\n").unwrap();
+
+    write!(file, "pub static {}: phf::Map<&'static str, IntelPerformanceCounterDescription> = ", variable).unwrap();
+    builder.build(file).unwrap();
+    write!(file, ";\n").unwrap();
 }
 
 fn make_file_name<'a>(path: &'a Path) -> (String, String) {
@@ -343,20 +342,21 @@ fn main() {
     }
 
     // build hash-table to select performance counter per CPU architecture
-    let path = Path::new(&env::var("OUT_DIR").unwrap()).join("mapping.rs");
-    let mut file = BufWriter::new(File::create(&path).unwrap());
+    let path = Path::new(&env::var("OUT_DIR").unwrap()).join("counters.rs");
+    let mut filewriter = BufWriter::new(File::create(&path).unwrap());
+
     let mut builder = phf_codegen::Map::new();
     for (file, data) in &data_files {
         let (ref family_model, _, _): (String, String, String) = *data;
         let path = Path::new(file.as_str());
         let (_, ref variable_upper) = make_file_name(&path);
 
-        builder.entry(family_model.as_str(), variable_upper.as_str());
+        builder.entry(family_model.as_str(), format!("&{}", variable_upper.as_str()).as_str());
     }
 
-    write!(&mut file, "pub static {}: phf::Map<&'static str, IntelPerformanceCounterDescription> = ", "COUNTER_MAP").unwrap();
-    builder.build(&mut file).unwrap();
-    write!(&mut file, ";\n").unwrap();
+    write!(&mut filewriter, "pub static {}: phf::Map<&'static str, &'static phf::Map<&'static str, IntelPerformanceCounterDescription>> = ", "COUNTER_MAP").unwrap();
+    builder.build(&mut filewriter).unwrap();
+    write!(&mut filewriter, ";\n").unwrap();
 
     // Parse all json files and write hash-tables from it
     for (file, data) in &data_files {
@@ -365,9 +365,9 @@ fn main() {
             println!("Processing {:?} {} {} {}", file, family_model, version, event_type);
 
             let path = Path::new(file.as_str());
-            let (ref output_file, ref variable_upper) = make_file_name(&path);
+            let (_, ref variable_upper) = make_file_name(&path);
             parse_performance_counters(format!("perfmon_data{}", file).as_str(),
-                                       output_file, variable_upper);
+                                       variable_upper, &mut filewriter);
         }
     }
 

@@ -23,7 +23,7 @@ trait PerfCounterControl {
 
 #[test]
 fn list_them() {
-    for counter in intel::haswell::PERFORMANCE_COUNTER_HASWELL.values() {
+    for counter in intel::counters::HASWELLX_CORE.values() {
         println!("{:?}", counter);
     }
 }
