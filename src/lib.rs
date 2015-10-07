@@ -21,6 +21,13 @@ trait PerfCounterControl {
     fn read(&self) -> u64;
 }
 
+// #[test]
+fn list_mine() {
+    for counter in intel::available_counters() {
+        println!("{:?}", counter);
+    }
+}
+
 #[test]
 fn list_them() {
     for counter in intel::counters::HASWELLX_CORE.values() {
