@@ -10,17 +10,6 @@ readme = "README.md"
 keywords = ["amd64", "x86", "performance", "counter", "hardware"]
 license = "MIT"
 
-build = "build.rs"
-
-[build-dependencies.phf_codegen]
-phf_codegen = "0.7.5"
-
-[build-dependencies.serde_json]
-serde_json = "0.6.0"
-
-[build-dependencies.csv]
-csv = "0.14.3"
-
 [dependencies.bitflags]
 bitflags = "*"
 
@@ -29,7 +18,3 @@ libc = "0.1.10"
 
 [dependencies.x86]
 x86 = "*"
-
-[dependencies.phf]
-git = "https://github.com/sfackler/rust-phf.git"
-features = ["core"]
