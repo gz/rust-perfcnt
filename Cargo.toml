@@ -10,11 +10,7 @@ readme = "README.md"
 keywords = ["amd64", "x86", "performance", "counter", "hardware"]
 license = "MIT"
 
-[dependencies.bitflags]
+[dependencies]
 bitflags = "*"
-
-[dependencies.libc]
 libc = "0.1.10"
-
-[dependencies.x86]
 x86 = "*"
