@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `IntelPerformanceCounterDescription` struct in crate `x86`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, IntelPerformanceCounterDescription">
+
+    <title>x86::perfcnt::intel::description::IntelPerformanceCounterDescription - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../../../index.html'>x86</a>::<wbr><a href='../../index.html'>perfcnt</a>::<wbr><a href='../index.html'>intel</a>::<wbr><a href='index.html'>description</a></p><script>window.sidebarCurrent = {name: 'IntelPerformanceCounterDescription', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../../index.html'>x86</a>::<wbr><a href='../../index.html'>perfcnt</a>::<wbr><a href='../index.html'>intel</a>::<wbr><a href='index.html'>description</a>::<wbr><a class='struct' href=''>IntelPerformanceCounterDescription</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-2790' class='srclink' href='../../../../src/x86/perfcnt/intel/description.rs.html#70-202' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct IntelPerformanceCounterDescription {
+    pub event_code: <a class='enum' href='../../../../x86/perfcnt/intel/description/enum.Tuple.html' title='x86::perfcnt::intel::description::Tuple'>Tuple</a>,
+    pub umask: <a class='enum' href='../../../../x86/perfcnt/intel/description/enum.Tuple.html' title='x86::perfcnt::intel::description::Tuple'>Tuple</a>,
+    pub event_name: &amp;'static str,
+    pub brief_description: &amp;'static str,
+    pub public_description: <a class='enum' href='../../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'static str&gt;,
+    pub counter: <a class='enum' href='../../../../x86/perfcnt/intel/description/enum.Counter.html' title='x86::perfcnt::intel::description::Counter'>Counter</a>,
+    pub counter_ht_off: <a class='enum' href='../../../../x86/perfcnt/intel/description/enum.Counter.html' title='x86::perfcnt::intel::description::Counter'>Counter</a>,
+    pub pebs_counters: <a class='enum' href='../../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../../../x86/perfcnt/intel/description/enum.Counter.html' title='x86::perfcnt::intel::description::Counter'>Counter</a>&gt;,
+    pub sample_after_value: u64,
+    pub msr_index: <a class='enum' href='../../../../x86/perfcnt/intel/description/enum.MSRIndex.html' title='x86::perfcnt::intel::description::MSRIndex'>MSRIndex</a>,
+    pub msr_value: u64,
+    pub taken_alone: bool,
+    pub counter_mask: u8,
+    pub invert: bool,
+    pub any_thread: bool,
+    pub edge_detect: bool,
+    pub pebs: <a class='enum' href='../../../../x86/perfcnt/intel/description/enum.PebsType.html' title='x86::perfcnt::intel::description::PebsType'>PebsType</a>,
+    pub precise_store: bool,
+    pub data_la: bool,
+    pub l1_hit_indication: bool,
+    pub errata: <a class='enum' href='../../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'static str&gt;,
+    pub offcore: bool,
+    pub unit: <a class='enum' href='../../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'static str&gt;,
+    pub filter: <a class='enum' href='../../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'static str&gt;,
+    pub extsel: bool,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr class='stab '>
+                                  <td id='structfield.event_code'><code>event_code</code></td><td><div class='docblock'><p>This field maps to the Event Select field in the IA32_PERFEVTSELx[7:0]MSRs.</p>
+
+<p>The set of values for this field is defined architecturally.
+Each value corresponds to an event logic unit and should be used with a unit
+mask value to obtain an architectural performance event.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.umask'><code>umask</code></td><td><div class='docblock'><p>This field maps to the Unit Mask filed in the IA32_PERFEVTSELx[15:8] MSRs.</p>
+
+<p>It further qualifies the event logic unit selected in the event select
+field to detect a specific micro-architectural condition.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.event_name'><code>event_name</code></td><td><div class='docblock'><p>It is a string of characters to identify the programming of an event.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.brief_description'><code>brief_description</code></td><td><div class='docblock'><p>This field contains a description of what is being counted by a particular event.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.public_description'><code>public_description</code></td><td><div class='docblock'><p>In some cases, this field will contain a more detailed description of what is counted by an event.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.counter'><code>counter</code></td><td><div class='docblock'><p>This field lists the fixed (PERF_FIXED_CTRX) or programmable (IA32_PMCX)
+counters that can be used to count the event.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.counter_ht_off'><code>counter_ht_off</code></td><td><div class='docblock'><p>This field lists the counters where this event can be sampled
+when Intel® Hyper-Threading Technology (Intel® HT Technology) is
+disabled.</p>
+
+<p>When Intel® HT Technology is disabled, some processor cores gain access to
+the programmable counters of the second thread, making a total of eight
+programmable counters available. The additional counters will be
+numbered 4,5,6,7. Fixed counter behavior remains unaffected.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.pebs_counters'><code>pebs_counters</code></td><td><div class='docblock'><p>This field is only relevant to PEBS events.</p>
+
+<p>It lists the counters where the event can be sampled when it is programmed as a PEBS event.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.sample_after_value'><code>sample_after_value</code></td><td><div class='docblock'><p>Sample After Value (SAV) is the value that can be preloaded
+into the counter registers to set the point at which they will overflow.</p>
+
+<p>To make the counter overflow after N occurrences of the event,
+it should be loaded with (0xFF..FF – N) or –(N-1). On overflow a
+hardware interrupt is generated through the Local APIC and additional
+architectural state can be collected in the interrupt handler.
+This is useful in event-based sampling. This field gives a recommended
+default overflow value, which may be adjusted based on workload or tool preference.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.msr_index'><code>msr_index</code></td><td><div class='docblock'><p>Additional MSRs may be required for programming certain events.
+This field gives the address of such MSRS.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.msr_value'><code>msr_value</code></td><td><div class='docblock'><p>When an MSRIndex is used (indicated by the MSRIndex column), this field will
+contain the value that needs to be loaded into the
+register whose address is given in MSRIndex column.</p>
+
+<p>For example, in the case of the load latency events, MSRValue defines the
+latency threshold value to write into the MSR defined in MSRIndex (0x3F6).</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.taken_alone'><code>taken_alone</code></td><td><div class='docblock'><p>This field is set for an event which can only be sampled or counted by itself,
+meaning that when this event is being collected,
+the remaining programmable counters are not available to count any other events.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.counter_mask'><code>counter_mask</code></td><td><div class='docblock'><p>This field maps to the Counter Mask (CMASK) field in IA32_PERFEVTSELx[31:24] MSR.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.invert'><code>invert</code></td><td><div class='docblock'><p>This field corresponds to the Invert Counter Mask (INV) field in IA32_PERFEVTSELx[23] MSR.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.any_thread'><code>any_thread</code></td><td><div class='docblock'><p>This field corresponds to the Any Thread (ANY) bit of IA32_PERFEVTSELx[21] MSR.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.edge_detect'><code>edge_detect</code></td><td><div class='docblock'><p>This field corresponds to the Edge Detect (E) bit of IA32_PERFEVTSELx[18] MSR.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.pebs'><code>pebs</code></td><td><div class='docblock'><p>A &#39;0&#39; in this field means that the event cannot be programmed as a PEBS event.
+A &#39;1&#39; in this field means that the event is a  precise event and can be programmed
+in one of two ways – as a regular event or as a PEBS event.
+And a &#39;2&#39; in this field means that the event can only be programmed as a PEBS event.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.precise_store'><code>precise_store</code></td><td><div class='docblock'><p>A &#39;1&#39; in this field means the event uses the Precise Store feature and Bit 3 and
+bit 63 in IA32_PEBS_ENABLE MSR must be set to enable IA32_PMC3 as a PEBS counter
+and enable the precise store facility respectively.</p>
+
+<p>Processors based on SandyBridge and IvyBridge micro-architecture offer a
+precise store capability that provides a means to profile store memory
+references in the system.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.data_la'><code>data_la</code></td><td><div class='docblock'><p>A &#39;1&#39; in this field means that when the event is configured as a PEBS event,
+the Data Linear Address facility is supported.</p>
+
+<p>The Data Linear Address facility is a new feature added to Haswell as a
+replacement or extension of the precise store facility in SNB.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.l1_hit_indication'><code>l1_hit_indication</code></td><td><div class='docblock'><p>A &#39;1&#39; in this field means that when the event is configured as a PEBS event,
+the DCU hit field of the PEBS record is set to 1 when the store hits in the
+L1 cache and 0 when it misses.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.errata'><code>errata</code></td><td><div class='docblock'><p>This field lists the known bugs that apply to the events.</p>
+
+<p>For the latest, up to date errata refer to the following links:
+/
+* Haswell:
+  <a href="http://www.intel.com/content/dam/www/public/us/en/documents/specification-updates/4th-gen-core-family-mobile-specification-update.pdf">http://www.intel.com/content/dam/www/public/us/en/documents/specification-updates/4th-gen-core-family-mobile-specification-update.pdf</a></p>
+
+<ul>
+<li><p>IvyBridge:
+<a href="https://www-ssl.intel.com/content/dam/www/public/us/en/documents/specification-updates/3rd-gen-core-desktop-specification-update.pdf">https://www-ssl.intel.com/content/dam/www/public/us/en/documents/specification-updates/3rd-gen-core-desktop-specification-update.pdf</a></p></li>
+<li><p>SandyBridge:
+<a href="https://www-ssl.intel.com/content/dam/www/public/us/en/documents/specification-updates/2nd-gen-core-family-mobile-specification-update.pdf">https://www-ssl.intel.com/content/dam/www/public/us/en/documents/specification-updates/2nd-gen-core-family-mobile-specification-update.pdf</a></p></li>
+</ul>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.offcore'><code>offcore</code></td><td><div class='docblock'><p>There is only 1 file for core and offcore events in this format.
+This field is set to 1 for offcore events and 0 for core events.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.unit'><code>unit</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.filter'><code>filter</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.extsel'><code>extsel</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='../../../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../../../x86/perfcnt/intel/description/struct.IntelPerformanceCounterDescription.html' title='x86::perfcnt::intel::description::IntelPerformanceCounterDescription'>IntelPerformanceCounterDescription</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='../../../../core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='../../../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "x86";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    
+    <script defer src="../../../../search-index.js"></script>
+</body>
+</html>

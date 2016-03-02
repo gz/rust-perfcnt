@@ -9,6 +9,7 @@
 
     <title>x86::dtables::DescriptorTablePointer - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='../index.html'>x86</a>::<wbr><a href='index.html'>dtables</a></p><script>window.sidebarCurrent = {name: 'DescriptorTablePointer', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,28 +46,29 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-11586' class='srclink' href='../../src/x86/dtables.rs.html#7-12' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-2622' class='srclink' href='../../src/x86/dtables.rs.html#7-12' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct DescriptorTablePointer {
-    pub limit: <a href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>,
-    pub base: <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
-}</pre><div class='docblock'><p>Functions and data-structures to load descriptor tables.
-A struct describing a pointer to a descriptor table (GDT / IDT).
+    pub limit: u16,
+    pub base: u64,
+}</pre><div class='docblock'><p>A struct describing a pointer to a descriptor table (GDT / IDT).
 This is in a format suitable for giving to &#39;lgdt&#39; or &#39;lidt&#39;.</p>
 </div><h2 class='fields'>Fields</h2>
 <table><tr class='stab '>
                                   <td id='structfield.limit'><code>limit</code></td><td><div class='docblock'><p>Size of the DT.</p>
 </div></td></tr><tr class='stab '>
                                   <td id='structfield.base'><code>base</code></td><td><div class='docblock'><p>Pointer to the memory region containing the DT.</p>
-</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../x86/dtables/struct.DescriptorTablePointer.html' title='x86::dtables::DescriptorTablePointer'>DescriptorTablePointer</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../x86/dtables/struct.DescriptorTablePointer.html' title='x86::dtables::DescriptorTablePointer'>DescriptorTablePointer</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='../../core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -83,7 +85,7 @@ This is in a format suitable for giving to &#39;lgdt&#39; or &#39;lidt&#39;.</p>
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -103,7 +105,7 @@ This is in a format suitable for giving to &#39;lgdt&#39; or &#39;lidt&#39;.</p>
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -115,6 +117,6 @@ This is in a format suitable for giving to &#39;lgdt&#39; or &#39;lidt&#39;.</p>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

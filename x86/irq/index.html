@@ -9,6 +9,7 @@
 
     <title>x86::irq - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='../index.html'>x86</a></p><script>window.sidebarCurrent = {name: 'irq', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,14 +46,17 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-3431' class='srclink' href='../../src/x86/irq.rs.html#1-130' title='goto source code'>[src]</a></span></h1>
-<h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+        </span><a id='src-1120' class='srclink' href='../../src/x86/irq.rs.html#1-297' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>Interrupt description and set-up code.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                     <tr class=' module-item'>
                         <td><a class='struct' href='struct.IdtEntry.html'
                                title='x86::irq::IdtEntry'>IdtEntry</a></td>
                         <td class='docblock short'>
-                             <p>A struct describing an interrupt gate.</p>
+                             <p>A struct describing an interrupt gate.  See the Intel manual mentioned
+above for details, specifically, the section &quot;6.14.1 64-Bit Mode IDT&quot;
+and &quot;Table 3-2. System-Segment and Gate-Descriptor Types&quot;.</p>
 
                         </td>
                     </tr>
@@ -91,6 +95,16 @@
                         <td class='docblock short'>
                              <p>0: The fault was caused by a non-present page.
 1: The fault was caused by a page-level protection violation</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.PFAULT_ERROR_PK.html'
+                               title='x86::irq::PFAULT_ERROR_PK'>PFAULT_ERROR_PK</a></td>
+                        <td class='docblock short'>
+                             <p>0: The fault was not by protection keys.
+1: There was a protection key violation.</p>
 
                         </td>
                     </tr>
@@ -160,10 +174,12 @@ was executing in user mode.</p>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -180,7 +196,7 @@ was executing in user mode.</p>
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -200,7 +216,7 @@ was executing in user mode.</p>
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -212,6 +228,6 @@ was executing in user mode.</p>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 
     <title>raw_cpuid::ExtendedStateInfo - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>raw_cpuid</a></p><script>window.sidebarCurrent = {name: 'ExtendedStateInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,25 +46,42 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-10173' class='srclink' href='../src/raw_cpuid/lib.rs.html#1486-1492' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-1553' class='srclink' href='../src/raw_cpuid/lib.rs.html#1655-1661' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ExtendedStateInfo {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ExtendedStateInfo.html' title='raw_cpuid::ExtendedStateInfo'>ExtendedStateInfo</a></code></h3><div class='impl-items'><h4 id='method.xcr0' class='method'><code>fn <a href='#method.xcr0' class='fnname'>xcr0</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code></h4>
-<div class='docblock'><p>Reports the valid bit fields of the lower 32 bits of XCR0. If a bit is 0,
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ExtendedStateInfo.html' title='raw_cpuid::ExtendedStateInfo'>ExtendedStateInfo</a></code></h3><div class='impl-items'><h4 id='method.xcr0_supported' class='method'><code>fn <a href='#method.xcr0_supported' class='fnname'>xcr0_supported</a>(&amp;self) -&gt; u64</code></h4>
+<div class='docblock'><p>Reports the valid bit fields of XCR0. If a bit is 0,
 the corresponding bit field in XCR0 is reserved.</p>
-</div><h4 id='method.xcr0_upper_bits' class='method'><code>fn <a href='#method.xcr0_upper_bits' class='fnname'>xcr0_upper_bits</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
-<div class='docblock'><p>Reports the valid bit fields of the upper 32 bits of XCR0. If a bit is 0,
-the corresponding bit field in XCR0 is reserved.</p>
-</div><h4 id='method.maximum_size_enabled_features' class='method'><code>fn <a href='#method.maximum_size_enabled_features' class='fnname'>maximum_size_enabled_features</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.has_legacy_x87' class='method'><code>fn <a href='#method.has_legacy_x87' class='fnname'>has_legacy_x87</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>Legacy x87.</p>
+</div><h4 id='method.has_sse_128' class='method'><code>fn <a href='#method.has_sse_128' class='fnname'>has_sse_128</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>SSE 128-bit.</p>
+</div><h4 id='method.has_avx_256' class='method'><code>fn <a href='#method.has_avx_256' class='fnname'>has_avx_256</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>AVX 256-bit.</p>
+</div><h4 id='method.has_mpx' class='method'><code>fn <a href='#method.has_mpx' class='fnname'>has_mpx</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>MPX.</p>
+</div><h4 id='method.has_avx_512' class='method'><code>fn <a href='#method.has_avx_512' class='fnname'>has_avx_512</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>AVX 512-bit.</p>
+</div><h4 id='method.has_ia32_xss' class='method'><code>fn <a href='#method.has_ia32_xss' class='fnname'>has_ia32_xss</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>IA32_XSS.</p>
+</div><h4 id='method.has_pkru' class='method'><code>fn <a href='#method.has_pkru' class='fnname'>has_pkru</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>PKRU.</p>
+</div><h4 id='method.maximum_size_enabled_features' class='method'><code>fn <a href='#method.maximum_size_enabled_features' class='fnname'>maximum_size_enabled_features</a>(&amp;self) -&gt; u32</code></h4>
 <div class='docblock'><p>Maximum size (bytes, from the beginning of the XSAVE/XRSTOR save area) required by
 enabled features in XCR0. May be different than ECX if some features at the end of the XSAVE save area
 are not enabled.</p>
-</div><h4 id='method.maximum_size_supported_features' class='method'><code>fn <a href='#method.maximum_size_supported_features' class='fnname'>maximum_size_supported_features</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.maximum_size_supported_features' class='method'><code>fn <a href='#method.maximum_size_supported_features' class='fnname'>maximum_size_supported_features</a>(&amp;self) -&gt; u32</code></h4>
 <div class='docblock'><p>Maximum size (bytes, from the beginning of the XSAVE/XRSTOR save area) of the
 XSAVE/XRSTOR save area required by all supported features in the processor,
 i.e all the valid bit fields in XCR0.</p>
-</div><h4 id='method.has_xsaveopt' class='method'><code>fn <a href='#method.has_xsaveopt' class='fnname'>has_xsaveopt</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_xsaveopt' class='method'><code>fn <a href='#method.has_xsaveopt' class='fnname'>has_xsaveopt</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>CPU has xsaveopt feature.</p>
+</div><h4 id='method.has_xsavec' class='method'><code>fn <a href='#method.has_xsavec' class='fnname'>has_xsavec</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>Supports XSAVEC and the compacted form of XRSTOR if set.</p>
+</div><h4 id='method.has_xgetbv' class='method'><code>fn <a href='#method.has_xgetbv' class='fnname'>has_xgetbv</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>Supports XGETBV with ECX = 1 if set.</p>
+</div><h4 id='method.has_xsaves_xrstors' class='method'><code>fn <a href='#method.has_xsaves_xrstors' class='fnname'>has_xsaves_xrstors</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>Supports XSAVES/XRSTORS and IA32_XSS if set.</p>
 </div><h4 id='method.iter' class='method'><code>fn <a href='#method.iter' class='fnname'>iter</a>(&amp;self) -&gt; <a class='struct' href='../raw_cpuid/struct.ExtendedStateIter.html' title='raw_cpuid::ExtendedStateIter'>ExtendedStateIter</a></code></h4>
 <div class='docblock'><p>Iterator over extended state enumeration levels &gt;= 2.</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.ExtendedStateInfo.html' title='raw_cpuid::ExtendedStateInfo'>ExtendedStateInfo</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
@@ -72,10 +90,12 @@ i.e all the valid bit fields in XCR0.</p>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -92,7 +112,7 @@ i.e all the valid bit fields in XCR0.</p>
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -112,7 +132,7 @@ i.e all the valid bit fields in XCR0.</p>
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -124,6 +144,6 @@ i.e all the valid bit fields in XCR0.</p>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

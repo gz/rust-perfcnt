@@ -9,6 +9,7 @@
 
     <title>raw_cpuid - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'></p><script>window.sidebarCurrent = {name: 'raw_cpuid', ty: 'mod', relpath: '../'};</script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/raw_cpuid/lib.rs.html#1-2173' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/raw_cpuid/lib.rs.html#1-2601' title='goto source code'>[src]</a></span></h1>
 <h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
 <table>
                     <tr class=' module-item'>
@@ -129,32 +130,8 @@ If in doubt use <code>CpuId</code> instead.</p>
                     </tr>
                 
                     <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ExtendedFeaturesEbx.html'
-                               title='raw_cpuid::ExtendedFeaturesEbx'>ExtendedFeaturesEbx</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
                         <td><a class='struct' href='struct.ExtendedFunctionInfo.html'
                                title='raw_cpuid::ExtendedFunctionInfo'>ExtendedFunctionInfo</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ExtendedFunctionInfoEcx.html'
-                               title='raw_cpuid::ExtendedFunctionInfoEcx'>ExtendedFunctionInfoEcx</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ExtendedFunctionInfoEdx.html'
-                               title='raw_cpuid::ExtendedFunctionInfoEdx'>ExtendedFunctionInfoEdx</a></td>
                         <td class='docblock short'>
                              
                         </td>
@@ -209,32 +186,8 @@ If in doubt use <code>CpuId</code> instead.</p>
                     </tr>
                 
                     <tr class=' module-item'>
-                        <td><a class='struct' href='struct.FeatureInfoEcx.html'
-                               title='raw_cpuid::FeatureInfoEcx'>FeatureInfoEcx</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.FeatureInfoEdx.html'
-                               title='raw_cpuid::FeatureInfoEdx'>FeatureInfoEdx</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
                         <td><a class='struct' href='struct.MonitorMwaitInfo.html'
                                title='raw_cpuid::MonitorMwaitInfo'>MonitorMwaitInfo</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.PerformanceMonitoringFeaturesEbx.html'
-                               title='raw_cpuid::PerformanceMonitoringFeaturesEbx'>PerformanceMonitoringFeaturesEbx</a></td>
                         <td class='docblock short'>
                              
                         </td>
@@ -249,10 +202,70 @@ If in doubt use <code>CpuId</code> instead.</p>
                     </tr>
                 
                     <tr class=' module-item'>
+                        <td><a class='struct' href='struct.ProcessorFrequencyInfo.html'
+                               title='raw_cpuid::ProcessorFrequencyInfo'>ProcessorFrequencyInfo</a></td>
+                        <td class='docblock short'>
+                             <p>Processor Frequency Information</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
                         <td><a class='struct' href='struct.ProcessorSerial.html'
                                title='raw_cpuid::ProcessorSerial'>ProcessorSerial</a></td>
                         <td class='docblock short'>
                              
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.ProcessorTrace.html'
+                               title='raw_cpuid::ProcessorTrace'>ProcessorTrace</a></td>
+                        <td class='docblock short'>
+                             <p>Processor Trace information sub-leaf.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.ProcessorTraceInfo.html'
+                               title='raw_cpuid::ProcessorTraceInfo'>ProcessorTraceInfo</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.ProcessorTraceIter.html'
+                               title='raw_cpuid::ProcessorTraceIter'>ProcessorTraceIter</a></td>
+                        <td class='docblock short'>
+                             <p>Iterator over the Processor Trace sub-leafs.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.QoSEnforcement.html'
+                               title='raw_cpuid::QoSEnforcement'>QoSEnforcement</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.QoSEnforcementInfo.html'
+                               title='raw_cpuid::QoSEnforcementInfo'>QoSEnforcementInfo</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.QoSEnforcementIter.html'
+                               title='raw_cpuid::QoSEnforcementIter'>QoSEnforcementIter</a></td>
+                        <td class='docblock short'>
+                             <p>Iterator over the QoSEnforcement sub-leafs.</p>
+
                         </td>
                     </tr>
                 
@@ -265,26 +278,19 @@ If in doubt use <code>CpuId</code> instead.</p>
                     </tr>
                 
                     <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ThermalPowerFeaturesEax.html'
-                               title='raw_cpuid::ThermalPowerFeaturesEax'>ThermalPowerFeaturesEax</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ThermalPowerFeaturesEcx.html'
-                               title='raw_cpuid::ThermalPowerFeaturesEcx'>ThermalPowerFeaturesEcx</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
                         <td><a class='struct' href='struct.ThermalPowerInfo.html'
                                title='raw_cpuid::ThermalPowerInfo'>ThermalPowerInfo</a></td>
                         <td class='docblock short'>
                              
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.TscInfo.html'
+                               title='raw_cpuid::TscInfo'>TscInfo</a></td>
+                        <td class='docblock short'>
+                             <p>Contains time stamp counter information.</p>
+
                         </td>
                     </tr>
                 
@@ -314,14 +320,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                     </tr>
                 
                     <tr class=' module-item'>
-                        <td><a class='enum' href='enum.ExtendedStateIdent.html'
-                               title='raw_cpuid::ExtendedStateIdent'>ExtendedStateIdent</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
                         <td><a class='enum' href='enum.L2Associativity.html'
                                title='raw_cpuid::L2Associativity'>L2Associativity</a></td>
                         <td class='docblock short'>
@@ -343,834 +341,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                                title='raw_cpuid::CACHE_INFO_TABLE'>CACHE_INFO_TABLE</a></td>
                         <td class='docblock short'>
                              <p>This table is taken from Intel manual (Section CPUID instruction).</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_1GIB_PAGES.html'
-                               title='raw_cpuid::CPU_FEATURE_1GIB_PAGES'>CPU_FEATURE_1GIB_PAGES</a></td>
-                        <td class='docblock short'>
-                             <p>1-GByte pages are available if 1 (Bit 26).</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_64BIT_MODE.html'
-                               title='raw_cpuid::CPU_FEATURE_64BIT_MODE'>CPU_FEATURE_64BIT_MODE</a></td>
-                        <td class='docblock short'>
-                             <p>Intel ® 64 Architecture available if 1 (Bit 29).</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_ACPI.html'
-                               title='raw_cpuid::CPU_FEATURE_ACPI'>CPU_FEATURE_ACPI</a></td>
-                        <td class='docblock short'>
-                             <p>Thermal Monitor and Software Controlled Clock Facilities. The processor implements internal MSRs that allow processor temperature to be monitored and processor performance to be modulated in predefined duty cycles under software control.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_ADJUST_MSR.html'
-                               title='raw_cpuid::CPU_FEATURE_ADJUST_MSR'>CPU_FEATURE_ADJUST_MSR</a></td>
-                        <td class='docblock short'>
-                             <p>IA32_TSC_ADJUST MSR is supported if 1. (Bit 01)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_AESNI.html'
-                               title='raw_cpuid::CPU_FEATURE_AESNI'>CPU_FEATURE_AESNI</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates that the processor supports the AESNI instruction extensions.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_APIC.html'
-                               title='raw_cpuid::CPU_FEATURE_APIC'>CPU_FEATURE_APIC</a></td>
-                        <td class='docblock short'>
-                             <p>APIC On-Chip. The processor contains an Advanced Programmable Interrupt Controller (APIC), responding to memory mapped commands in the physical address range FFFE0000H to FFFE0FFFH (by default - some processors permit the APIC to be relocated).</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_ARAT.html'
-                               title='raw_cpuid::CPU_FEATURE_ARAT'>CPU_FEATURE_ARAT</a></td>
-                        <td class='docblock short'>
-                             <p>ARAT. APIC-Timer-always-running feature is supported if set. (Bit 02)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_AVX.html'
-                               title='raw_cpuid::CPU_FEATURE_AVX'>CPU_FEATURE_AVX</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates the processor supports the AVX instruction extensions.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_AVX2.html'
-                               title='raw_cpuid::CPU_FEATURE_AVX2'>CPU_FEATURE_AVX2</a></td>
-                        <td class='docblock short'>
-                             <p>AVX2 (Bit 05)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_BMI1.html'
-                               title='raw_cpuid::CPU_FEATURE_BMI1'>CPU_FEATURE_BMI1</a></td>
-                        <td class='docblock short'>
-                             <p>BMI1 (Bit 03)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_BMI2.html'
-                               title='raw_cpuid::CPU_FEATURE_BMI2'>CPU_FEATURE_BMI2</a></td>
-                        <td class='docblock short'>
-                             <p>BMI2 (Bit 08)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_BRANCH_INST_RET_EV_UNAVAILABLE.html'
-                               title='raw_cpuid::CPU_FEATURE_BRANCH_INST_RET_EV_UNAVAILABLE'>CPU_FEATURE_BRANCH_INST_RET_EV_UNAVAILABLE</a></td>
-                        <td class='docblock short'>
-                             <p>Branch instruction retired event not available if 1. (Bit 05)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_BRANCH_MISPRED_EV_UNAVAILABLE.html'
-                               title='raw_cpuid::CPU_FEATURE_BRANCH_MISPRED_EV_UNAVAILABLE'>CPU_FEATURE_BRANCH_MISPRED_EV_UNAVAILABLE</a></td>
-                        <td class='docblock short'>
-                             <p>Branch mispredict retired event not available if 1. (Bit 06)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_CACHE_REF_EV_UNAVAILABLE.html'
-                               title='raw_cpuid::CPU_FEATURE_CACHE_REF_EV_UNAVAILABLE'>CPU_FEATURE_CACHE_REF_EV_UNAVAILABLE</a></td>
-                        <td class='docblock short'>
-                             <p>Last-level cache reference event not available if 1. (Bit 03)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_CLFSH.html'
-                               title='raw_cpuid::CPU_FEATURE_CLFSH'>CPU_FEATURE_CLFSH</a></td>
-                        <td class='docblock short'>
-                             <p>CLFLUSH Instruction. CLFLUSH Instruction is supported.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_CMOV.html'
-                               title='raw_cpuid::CPU_FEATURE_CMOV'>CPU_FEATURE_CMOV</a></td>
-                        <td class='docblock short'>
-                             <p>Conditional Move Instructions. The conditional move instruction CMOV is supported. In addition, if x87 FPU is present as indicated by the CPUID.FPU feature bit, then the FCOMI and FCMOV instructions are supported</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_CMPXCHG16B.html'
-                               title='raw_cpuid::CPU_FEATURE_CMPXCHG16B'>CPU_FEATURE_CMPXCHG16B</a></td>
-                        <td class='docblock short'>
-                             <p>CMPXCHG16B Available. A value of 1 indicates that the feature is available. See the CMPXCHG8B/CMPXCHG16B Compare and Exchange Bytes section. 14</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_CNXTID.html'
-                               title='raw_cpuid::CPU_FEATURE_CNXTID'>CPU_FEATURE_CNXTID</a></td>
-                        <td class='docblock short'>
-                             <p>L1 Context ID. A value of 1 indicates the L1 data cache mode can be set to either adaptive mode or shared mode. A value of 0 indicates this feature is not supported. See definition of the IA32_MISC_ENABLE MSR Bit 24 (L1 Data Cache Context Mode) for details.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_CORE_CYC_EV_UNAVAILABLE.html'
-                               title='raw_cpuid::CPU_FEATURE_CORE_CYC_EV_UNAVAILABLE'>CPU_FEATURE_CORE_CYC_EV_UNAVAILABLE</a></td>
-                        <td class='docblock short'>
-                             <p>Core cycle event not available if 1. (Bit 0)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_CX8.html'
-                               title='raw_cpuid::CPU_FEATURE_CX8'>CPU_FEATURE_CX8</a></td>
-                        <td class='docblock short'>
-                             <p>CMPXCHG8B Instruction. The compare-and-exchange 8 bytes (64 bits) instruction is supported (implicitly locked and atomic).</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_DCA.html'
-                               title='raw_cpuid::CPU_FEATURE_DCA'>CPU_FEATURE_DCA</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates the processor supports the ability to prefetch data from a memory mapped device.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_DE.html'
-                               title='raw_cpuid::CPU_FEATURE_DE'>CPU_FEATURE_DE</a></td>
-                        <td class='docblock short'>
-                             <p>Debugging Extensions. Support for I/O breakpoints, including CR4.DE for controlling the feature, and optional trapping of accesses to DR4 and DR5.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_DEPRECATE_FPU_CS_DS.html'
-                               title='raw_cpuid::CPU_FEATURE_DEPRECATE_FPU_CS_DS'>CPU_FEATURE_DEPRECATE_FPU_CS_DS</a></td>
-                        <td class='docblock short'>
-                             <p>Deprecates FPU CS and FPU DS values if 1. (Bit 13)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_DS.html'
-                               title='raw_cpuid::CPU_FEATURE_DS'>CPU_FEATURE_DS</a></td>
-                        <td class='docblock short'>
-                             <p>Debug Store. The processor supports the ability to write debug information into a memory resident buffer. This feature is used by the branch trace store (BTS) and precise event-based sampling (PEBS) facilities (see Chapter 23, Introduction to Virtual-Machine Extensions, in the Intel® 64 and IA-32 Architectures Software Developers Manual, Volume 3C).</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_DSCPL.html'
-                               title='raw_cpuid::CPU_FEATURE_DSCPL'>CPU_FEATURE_DSCPL</a></td>
-                        <td class='docblock short'>
-                             <p>CPL Qualified Debug Store. A value of 1 indicates the processor supports the extensions to the  Debug Store feature to allow for branch message storage qualified by CPL.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_DTES64.html'
-                               title='raw_cpuid::CPU_FEATURE_DTES64'>CPU_FEATURE_DTES64</a></td>
-                        <td class='docblock short'>
-                             <p>64-bit DS Area. A value of 1 indicates the processor supports DS area using 64-bit layout</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_DTS.html'
-                               title='raw_cpuid::CPU_FEATURE_DTS'>CPU_FEATURE_DTS</a></td>
-                        <td class='docblock short'>
-                             <p>Digital temperature sensor is supported if set. (Bit 00)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_ECMD.html'
-                               title='raw_cpuid::CPU_FEATURE_ECMD'>CPU_FEATURE_ECMD</a></td>
-                        <td class='docblock short'>
-                             <p>ECMD. Clock modulation duty cycle extension is supported if set. (Bit 05)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_EIST.html'
-                               title='raw_cpuid::CPU_FEATURE_EIST'>CPU_FEATURE_EIST</a></td>
-                        <td class='docblock short'>
-                             <p>Enhanced Intel SpeedStep® technology. A value of 1 indicates that the processor supports this technology.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_ENERGY_BIAS_PREF.html'
-                               title='raw_cpuid::CPU_FEATURE_ENERGY_BIAS_PREF'>CPU_FEATURE_ENERGY_BIAS_PREF</a></td>
-                        <td class='docblock short'>
-                             <p>The processor supports performance-energy bias preference if CPUID.06H:ECX.SETBH[bit 3] is set and it also implies the presence of a new architectural MSR called IA32_ENERGY_PERF_BIAS (1B0H)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_EXECUTE_DISABLE.html'
-                               title='raw_cpuid::CPU_FEATURE_EXECUTE_DISABLE'>CPU_FEATURE_EXECUTE_DISABLE</a></td>
-                        <td class='docblock short'>
-                             <p>Execute Disable Bit available (Bit 20).</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_F16C.html'
-                               title='raw_cpuid::CPU_FEATURE_F16C'>CPU_FEATURE_F16C</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates that processor supports 16-bit floating-point conversion instructions.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_FMA.html'
-                               title='raw_cpuid::CPU_FEATURE_FMA'>CPU_FEATURE_FMA</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates the processor supports FMA extensions using YMM state.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_FPU.html'
-                               title='raw_cpuid::CPU_FEATURE_FPU'>CPU_FEATURE_FPU</a></td>
-                        <td class='docblock short'>
-                             <p>Floating Point Unit On-Chip. The processor contains an x87 FPU.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_FSGSBASE.html'
-                               title='raw_cpuid::CPU_FEATURE_FSGSBASE'>CPU_FEATURE_FSGSBASE</a></td>
-                        <td class='docblock short'>
-                             <p>FSGSBASE. Supports RDFSBASE/RDGSBASE/WRFSBASE/WRGSBASE if 1. (Bit 00)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_FXSR.html'
-                               title='raw_cpuid::CPU_FEATURE_FXSR'>CPU_FEATURE_FXSR</a></td>
-                        <td class='docblock short'>
-                             <p>FXSAVE and FXRSTOR Instructions. The FXSAVE and FXRSTOR instructions are supported for fast save and restore of the floating point context. Presence of this bit also indicates that CR4.OSFXSR is available for an operating system to indicate that it supports the FXSAVE and FXRSTOR instructions.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_HLE.html'
-                               title='raw_cpuid::CPU_FEATURE_HLE'>CPU_FEATURE_HLE</a></td>
-                        <td class='docblock short'>
-                             <p>HLE (Bit 04)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_HTT.html'
-                               title='raw_cpuid::CPU_FEATURE_HTT'>CPU_FEATURE_HTT</a></td>
-                        <td class='docblock short'>
-                             <p>Max APIC IDs reserved field is Valid. A value of 0 for HTT indicates there is only a single logical processor in the package and software should assume only a single APIC ID is reserved.  A value of 1 for HTT indicates the value in CPUID.1.EBX<a href="the%20Maximum%20number%20of%20addressable%20IDs%20for%20logical%20processors%20in%20this%20package">23:16</a> is valid for the package.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_HW_COORD_FEEDBACK.html'
-                               title='raw_cpuid::CPU_FEATURE_HW_COORD_FEEDBACK'>CPU_FEATURE_HW_COORD_FEEDBACK</a></td>
-                        <td class='docblock short'>
-                             <p>Hardware Coordination Feedback Capability (Presence of IA32_MPERF and IA32_APERF). The capability to provide a measure of delivered processor performance (since last reset of the counters), as a percentage of expected processor performance at frequency specified in CPUID Brand String Bits 02 - 01</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_INST_RET_EV_UNAVAILABLE.html'
-                               title='raw_cpuid::CPU_FEATURE_INST_RET_EV_UNAVAILABLE'>CPU_FEATURE_INST_RET_EV_UNAVAILABLE</a></td>
-                        <td class='docblock short'>
-                             <p>Instruction retired event not available if 1. (Bit 01)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_INVPCID.html'
-                               title='raw_cpuid::CPU_FEATURE_INVPCID'>CPU_FEATURE_INVPCID</a></td>
-                        <td class='docblock short'>
-                             <p>INVPCID. If 1, supports INVPCID instruction for system software that manages process-context identifiers. (Bit 10)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_LAHF_SAHF.html'
-                               title='raw_cpuid::CPU_FEATURE_LAHF_SAHF'>CPU_FEATURE_LAHF_SAHF</a></td>
-                        <td class='docblock short'>
-                             <p>LAHF/SAHF available in 64-bit mode.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_LL_CACHE_MISS_EV_UNAVAILABLE.html'
-                               title='raw_cpuid::CPU_FEATURE_LL_CACHE_MISS_EV_UNAVAILABLE'>CPU_FEATURE_LL_CACHE_MISS_EV_UNAVAILABLE</a></td>
-                        <td class='docblock short'>
-                             <p>Last-level cache misses event not available if 1. (Bit 04)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_LZCNT.html'
-                               title='raw_cpuid::CPU_FEATURE_LZCNT'>CPU_FEATURE_LZCNT</a></td>
-                        <td class='docblock short'>
-                             <p>Bit 05: LZCNT</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_MCA.html'
-                               title='raw_cpuid::CPU_FEATURE_MCA'>CPU_FEATURE_MCA</a></td>
-                        <td class='docblock short'>
-                             <p>Machine Check Architecture. The Machine Check Architecture, which provides a compatible mechanism for error reporting in P6 family, Pentium 4, Intel Xeon processors, and future processors, is supported. The MCG_CAP MSR contains feature bits describing how many banks of error reporting MSRs are supported.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_MCE.html'
-                               title='raw_cpuid::CPU_FEATURE_MCE'>CPU_FEATURE_MCE</a></td>
-                        <td class='docblock short'>
-                             <p>Machine Check Exception. Exception 18 is defined for Machine Checks, including CR4.MCE for controlling the feature. This feature does not define the model-specific implementations of machine-check error logging, reporting, and processor shutdowns. Machine Check exception handlers may have to depend on processor version to do model specific processing of the exception, or test for the presence of the Machine Check feature.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_MMX.html'
-                               title='raw_cpuid::CPU_FEATURE_MMX'>CPU_FEATURE_MMX</a></td>
-                        <td class='docblock short'>
-                             <p>Intel MMX Technology. The processor supports the Intel MMX technology.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_MONITOR.html'
-                               title='raw_cpuid::CPU_FEATURE_MONITOR'>CPU_FEATURE_MONITOR</a></td>
-                        <td class='docblock short'>
-                             <p>MONITOR/MWAIT. A value of 1 indicates the processor supports this feature.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_MOVBE.html'
-                               title='raw_cpuid::CPU_FEATURE_MOVBE'>CPU_FEATURE_MOVBE</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates that the processor supports MOVBE instruction.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_MSR.html'
-                               title='raw_cpuid::CPU_FEATURE_MSR'>CPU_FEATURE_MSR</a></td>
-                        <td class='docblock short'>
-                             <p>Model Specific Registers RDMSR and WRMSR Instructions. The RDMSR and WRMSR instructions are supported. Some of the MSRs are implementation dependent.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_MTRR.html'
-                               title='raw_cpuid::CPU_FEATURE_MTRR'>CPU_FEATURE_MTRR</a></td>
-                        <td class='docblock short'>
-                             <p>Memory Type Range Registers. MTRRs are supported. The MTRRcap MSR contains feature bits that describe what memory types are supported, how many variable MTRRs are supported, and whether fixed MTRRs are supported.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_OSXSAVE.html'
-                               title='raw_cpuid::CPU_FEATURE_OSXSAVE'>CPU_FEATURE_OSXSAVE</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates that the OS has enabled XSETBV/XGETBV instructions to access XCR0, and support for processor extended state management using XSAVE/XRSTOR.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PAE.html'
-                               title='raw_cpuid::CPU_FEATURE_PAE'>CPU_FEATURE_PAE</a></td>
-                        <td class='docblock short'>
-                             <p>Physical Address Extension. Physical addresses greater than 32 bits are supported: extended page table entry formats, an extra level in the page translation tables is defined, 2-MByte pages are supported instead of 4 Mbyte pages if PAE bit is 1.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PAT.html'
-                               title='raw_cpuid::CPU_FEATURE_PAT'>CPU_FEATURE_PAT</a></td>
-                        <td class='docblock short'>
-                             <p>Page Attribute Table. Page Attribute Table is supported. This feature augments the Memory Type Range Registers (MTRRs), allowing an operating system to specify attributes of memory accessed through a linear address on a 4KB granularity.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PBE.html'
-                               title='raw_cpuid::CPU_FEATURE_PBE'>CPU_FEATURE_PBE</a></td>
-                        <td class='docblock short'>
-                             <p>Pending Break Enable. The processor supports the use of the FERR#/PBE# pin when the processor is in the stop-clock state (STPCLK# is asserted) to signal the processor that an interrupt is pending and that the processor should return to normal operation to handle the interrupt. Bit 10 (PBE enable) in the IA32_MISC_ENABLE MSR enables this capability.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PCID.html'
-                               title='raw_cpuid::CPU_FEATURE_PCID'>CPU_FEATURE_PCID</a></td>
-                        <td class='docblock short'>
-                             <p>Process-context identifiers. A value of 1 indicates that the processor supports PCIDs and the software may set CR4.PCIDE to 1.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PCLMULQDQ.html'
-                               title='raw_cpuid::CPU_FEATURE_PCLMULQDQ'>CPU_FEATURE_PCLMULQDQ</a></td>
-                        <td class='docblock short'>
-                             <p>PCLMULQDQ. A value of 1 indicates the processor supports the PCLMULQDQ instruction</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PDCM.html'
-                               title='raw_cpuid::CPU_FEATURE_PDCM'>CPU_FEATURE_PDCM</a></td>
-                        <td class='docblock short'>
-                             <p>Perfmon and Debug Capability: A value of 1 indicates the processor supports the performance   and debug feature indication MSR IA32_PERF_CAPABILITIES.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PGE.html'
-                               title='raw_cpuid::CPU_FEATURE_PGE'>CPU_FEATURE_PGE</a></td>
-                        <td class='docblock short'>
-                             <p>Page Global Bit. The global bit is supported in paging-structure entries that map a page, indicating TLB entries that are common to different processes and need not be flushed. The CR4.PGE bit controls this feature.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PLN.html'
-                               title='raw_cpuid::CPU_FEATURE_PLN'>CPU_FEATURE_PLN</a></td>
-                        <td class='docblock short'>
-                             <p>PLN. Power limit notification controls are supported if set. (Bit 04)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_POPCNT.html'
-                               title='raw_cpuid::CPU_FEATURE_POPCNT'>CPU_FEATURE_POPCNT</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates that the processor supports the POPCNT instruction.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PREFETCHW.html'
-                               title='raw_cpuid::CPU_FEATURE_PREFETCHW'>CPU_FEATURE_PREFETCHW</a></td>
-                        <td class='docblock short'>
-                             <p>Bit 08: PREFETCHW</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PSE.html'
-                               title='raw_cpuid::CPU_FEATURE_PSE'>CPU_FEATURE_PSE</a></td>
-                        <td class='docblock short'>
-                             <p>Page Size Extension. Large pages of size 4 MByte are supported, including CR4.PSE for controlling the feature, the defined dirty bit in PDE (Page Directory Entries), optional reserved bit trapping in CR3, PDEs, and PTEs.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PSE36.html'
-                               title='raw_cpuid::CPU_FEATURE_PSE36'>CPU_FEATURE_PSE36</a></td>
-                        <td class='docblock short'>
-                             <p>36-Bit Page Size Extension. 4-MByte pages addressing physical memory beyond 4 GBytes are supported with 32-bit paging. This feature indicates that upper bits of the physical address of a 4-MByte page are encoded in bits 20:13 of the page-directory entry. Such physical addresses are limited by MAXPHYADDR and may be up to 40 bits in size.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PSN.html'
-                               title='raw_cpuid::CPU_FEATURE_PSN'>CPU_FEATURE_PSN</a></td>
-                        <td class='docblock short'>
-                             <p>Processor Serial Number. The processor supports the 96-bit processor identification number feature and the feature is enabled.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_PTM.html'
-                               title='raw_cpuid::CPU_FEATURE_PTM'>CPU_FEATURE_PTM</a></td>
-                        <td class='docblock short'>
-                             <p>PTM. Package thermal management is supported if set. (Bit 06)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_QM.html'
-                               title='raw_cpuid::CPU_FEATURE_QM'>CPU_FEATURE_QM</a></td>
-                        <td class='docblock short'>
-                             <p>Supports Quality of Service Monitoring (QM) capability if 1. (Bit 12)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_RDRAND.html'
-                               title='raw_cpuid::CPU_FEATURE_RDRAND'>CPU_FEATURE_RDRAND</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates that processor supports RDRAND instruction.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_RDTSCP.html'
-                               title='raw_cpuid::CPU_FEATURE_RDTSCP'>CPU_FEATURE_RDTSCP</a></td>
-                        <td class='docblock short'>
-                             <p>RDTSCP and IA32_TSC_AUX are available if 1 (Bit 27).</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_REF_CYC_EV_UNAVAILABLE.html'
-                               title='raw_cpuid::CPU_FEATURE_REF_CYC_EV_UNAVAILABLE'>CPU_FEATURE_REF_CYC_EV_UNAVAILABLE</a></td>
-                        <td class='docblock short'>
-                             <p>Reference cycles event not available if 1. (Bit 02)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_REP_MOVSB_STOSB.html'
-                               title='raw_cpuid::CPU_FEATURE_REP_MOVSB_STOSB'>CPU_FEATURE_REP_MOVSB_STOSB</a></td>
-                        <td class='docblock short'>
-                             <p>Supports Enhanced REP MOVSB/STOSB if 1. (Bit 09)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_RTM.html'
-                               title='raw_cpuid::CPU_FEATURE_RTM'>CPU_FEATURE_RTM</a></td>
-                        <td class='docblock short'>
-                             <p>RTM (Bit 11)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_SEP.html'
-                               title='raw_cpuid::CPU_FEATURE_SEP'>CPU_FEATURE_SEP</a></td>
-                        <td class='docblock short'>
-                             <p>SYSENTER and SYSEXIT Instructions. The SYSENTER and SYSEXIT and associated MSRs are supported.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_SMEP.html'
-                               title='raw_cpuid::CPU_FEATURE_SMEP'>CPU_FEATURE_SMEP</a></td>
-                        <td class='docblock short'>
-                             <p>SMEP. Supports Supervisor-Mode Execution Prevention if 1. (Bit 07)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_SMX.html'
-                               title='raw_cpuid::CPU_FEATURE_SMX'>CPU_FEATURE_SMX</a></td>
-                        <td class='docblock short'>
-                             <p>Safer Mode Extensions. A value of 1 indicates that the processor supports this technology. See Chapter 5, Safer Mode Extensions Reference.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_SS.html'
-                               title='raw_cpuid::CPU_FEATURE_SS'>CPU_FEATURE_SS</a></td>
-                        <td class='docblock short'>
-                             <p>Self Snoop. The processor supports the management of conflicting memory types by performing a snoop of its own cache structure for transactions issued to the bus.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_SSE.html'
-                               title='raw_cpuid::CPU_FEATURE_SSE'>CPU_FEATURE_SSE</a></td>
-                        <td class='docblock short'>
-                             <p>SSE. The processor supports the SSE extensions.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_SSE2.html'
-                               title='raw_cpuid::CPU_FEATURE_SSE2'>CPU_FEATURE_SSE2</a></td>
-                        <td class='docblock short'>
-                             <p>SSE2. The processor supports the SSE2 extensions.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_SSE3.html'
-                               title='raw_cpuid::CPU_FEATURE_SSE3'>CPU_FEATURE_SSE3</a></td>
-                        <td class='docblock short'>
-                             <p>Streaming SIMD Extensions 3 (SSE3). A value of 1 indicates the processor supports this technology.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_SSE41.html'
-                               title='raw_cpuid::CPU_FEATURE_SSE41'>CPU_FEATURE_SSE41</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates that the processor supports SSE4.1.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_SSE42.html'
-                               title='raw_cpuid::CPU_FEATURE_SSE42'>CPU_FEATURE_SSE42</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates that the processor supports SSE4.2.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_SSSE3.html'
-                               title='raw_cpuid::CPU_FEATURE_SSSE3'>CPU_FEATURE_SSSE3</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates the presence of the Supplemental Streaming SIMD Extensions 3 (SSSE3). A value of 0 indicates the instruction extensions are not present in the processor</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_SYSCALL_SYSRET.html'
-                               title='raw_cpuid::CPU_FEATURE_SYSCALL_SYSRET'>CPU_FEATURE_SYSCALL_SYSRET</a></td>
-                        <td class='docblock short'>
-                             <p>SYSCALL/SYSRET available in 64-bit mode (Bit 11).</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_TM.html'
-                               title='raw_cpuid::CPU_FEATURE_TM'>CPU_FEATURE_TM</a></td>
-                        <td class='docblock short'>
-                             <p>Thermal Monitor. The processor implements the thermal monitor automatic thermal control circuitry (TCC).</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_TM2.html'
-                               title='raw_cpuid::CPU_FEATURE_TM2'>CPU_FEATURE_TM2</a></td>
-                        <td class='docblock short'>
-                             <p>Thermal Monitor 2. A value of 1 indicates whether the processor supports this technology.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_TSC.html'
-                               title='raw_cpuid::CPU_FEATURE_TSC'>CPU_FEATURE_TSC</a></td>
-                        <td class='docblock short'>
-                             <p>Time Stamp Counter. The RDTSC instruction is supported, including CR4.TSD for controlling privilege.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_TSC_DEADLINE.html'
-                               title='raw_cpuid::CPU_FEATURE_TSC_DEADLINE'>CPU_FEATURE_TSC_DEADLINE</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates that the processors local APIC timer supports one-shot operation using a TSC deadline value.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_TURBO_BOOST.html'
-                               title='raw_cpuid::CPU_FEATURE_TURBO_BOOST'>CPU_FEATURE_TURBO_BOOST</a></td>
-                        <td class='docblock short'>
-                             <p>Intel Turbo Boost Technology Available (see description of IA32_MISC_ENABLE[38]). (Bit 01)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_VME.html'
-                               title='raw_cpuid::CPU_FEATURE_VME'>CPU_FEATURE_VME</a></td>
-                        <td class='docblock short'>
-                             <p>Virtual 8086 Mode Enhancements. Virtual 8086 mode enhancements, including CR4.VME for controlling the feature, CR4.PVI for protected mode virtual interrupts, software interrupt indirection, expansion of the TSS with the software indirection bitmap, and EFLAGS.VIF and EFLAGS.VIP flags.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_VMX.html'
-                               title='raw_cpuid::CPU_FEATURE_VMX'>CPU_FEATURE_VMX</a></td>
-                        <td class='docblock short'>
-                             <p>Virtual Machine Extensions. A value of 1 indicates that the processor supports this technology.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_X2APIC.html'
-                               title='raw_cpuid::CPU_FEATURE_X2APIC'>CPU_FEATURE_X2APIC</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates that the processor supports x2APIC feature.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CPU_FEATURE_XSAVE.html'
-                               title='raw_cpuid::CPU_FEATURE_XSAVE'>CPU_FEATURE_XSAVE</a></td>
-                        <td class='docblock short'>
-                             <p>A value of 1 indicates that the processor supports the XSAVE/XRSTOR processor extended states feature, the XSETBV/XGETBV instructions, and XCR0.</p>
 
                         </td>
                     </tr>
@@ -1202,10 +372,12 @@ If in doubt use <code>CpuId</code> instead.</p>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -1222,7 +394,7 @@ If in doubt use <code>CpuId</code> instead.</p>
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -1242,7 +414,7 @@ If in doubt use <code>CpuId</code> instead.</p>
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -1254,6 +426,6 @@ If in doubt use <code>CpuId</code> instead.</p>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

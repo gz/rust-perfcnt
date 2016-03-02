@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/gz/.cargo/registry/src/github.com-0a35038f75765ae4/x86-0.3.1/src/controlregs.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/gz/.multirust/toolchains/nightly/cargo/registry/src/github.com-88ac128001ac3a9a/x86-0.6.0/src/controlregs.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>controlregs.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -83,51 +84,49 @@
 <span id="41">41</span>
 <span id="42">42</span>
 <span id="43">43</span>
-<span id="44">44</span>
 </pre><pre class='rust '>
-<span class='doccomment'>/// Contains various flags to control operations.</span>
-<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>cr0</span>() <span class='op'>-&gt;</span> <span class='ident'>u64</span>
-{
+<span class='doccomment'>//! Functions to read and write control registers.</span>
+
+<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>cr0</span>() <span class='op'>-&gt;</span> <span class='ident'>u64</span> {
     <span class='kw'>let</span> <span class='ident'>ret</span>: <span class='ident'>u64</span>;
-    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov %cr0, $0&quot;</span> : <span class='string'>&quot;=r&quot;</span> (<span class='ident'>ret</span>) : );
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov %cr0, $0&quot;</span> : <span class='string'>&quot;=r&quot;</span> (<span class='ident'>ret</span>));
     <span class='ident'>ret</span>
 }
 
 <span class='doccomment'>/// Write cr0.</span>
-<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>cr0_write</span>(<span class='ident'>val</span>: <span class='ident'>u64</span>)
-{
-    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov $0, %cr0&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>val</span>));
+<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>cr0_write</span>(<span class='ident'>val</span>: <span class='ident'>u64</span>) {
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov $0, %cr0&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>val</span>) : <span class='string'>&quot;memory&quot;</span>);
 }
 
 <span class='doccomment'>/// Contains page-fault linear address.</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>cr2</span>() <span class='op'>-&gt;</span> <span class='ident'>u64</span> {
     <span class='kw'>let</span> <span class='ident'>ret</span>: <span class='ident'>u64</span>;
-    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov %cr2, $0&quot;</span> : <span class='string'>&quot;=r&quot;</span> (<span class='ident'>ret</span>) :);
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov %cr2, $0&quot;</span> : <span class='string'>&quot;=r&quot;</span> (<span class='ident'>ret</span>));
     <span class='ident'>ret</span>
 }
 
 <span class='doccomment'>/// Contains page-table root pointer.</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>cr3</span>() <span class='op'>-&gt;</span> <span class='ident'>u64</span> {
     <span class='kw'>let</span> <span class='ident'>ret</span>: <span class='ident'>u64</span>;
-    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov %cr3, $0&quot;</span> : <span class='string'>&quot;=r&quot;</span> (<span class='ident'>ret</span>) :);
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov %cr3, $0&quot;</span> : <span class='string'>&quot;=r&quot;</span> (<span class='ident'>ret</span>));
     <span class='ident'>ret</span>
 }
 
 <span class='doccomment'>/// Switch page-table PML4 pointer.</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>cr3_write</span>(<span class='ident'>val</span>: <span class='ident'>u64</span>) {
-    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov $0, %cr3&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>val</span>));
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov $0, %cr3&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>val</span>) : <span class='string'>&quot;memory&quot;</span>);
 }
 
 <span class='doccomment'>/// Contains various flags to control operations in protected mode.</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>cr4</span>() <span class='op'>-&gt;</span> <span class='ident'>u64</span> {
     <span class='kw'>let</span> <span class='ident'>ret</span>: <span class='ident'>u64</span>;
-    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov %cr4, $0&quot;</span> : <span class='string'>&quot;=r&quot;</span> (<span class='ident'>ret</span>) :);
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov %cr4, $0&quot;</span> : <span class='string'>&quot;=r&quot;</span> (<span class='ident'>ret</span>));
     <span class='ident'>ret</span>
 }
 
 <span class='doccomment'>/// Write cr4.</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>cr4_write</span>(<span class='ident'>val</span>: <span class='ident'>u64</span>) {
-    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov $0, %cr4&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>val</span>));
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;mov $0, %cr4&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>val</span>) : <span class='string'>&quot;memory&quot;</span>);
 }
 </pre>
 </section>
@@ -135,10 +134,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -155,7 +156,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -175,7 +176,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -187,6 +188,6 @@
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

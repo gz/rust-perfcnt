@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/gz/.cargo/registry/src/github.com-0a35038f75765ae4/x86-0.3.1/src/paging.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/gz/.multirust/toolchains/nightly/cargo/registry/src/github.com-88ac128001ac3a9a/x86-0.6.0/src/paging.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>paging.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -331,17 +332,221 @@
 <span id="289">289</span>
 <span id="290">290</span>
 <span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
 </pre><pre class='rust '>
-<span class='doccomment'>/// The focus on this file is to describe the data-structures</span>
-<span class='doccomment'>/// for IA-32e paging mode.</span>
+<span class='doccomment'>//! Description of the data-structures for IA-32e paging mode.</span>
 <span class='kw'>use</span> <span class='ident'>core</span>::<span class='ident'>fmt</span>;
 
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PAddr</span> <span class='op'>=</span> <span class='ident'>u64</span>;
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>VAddr</span> <span class='op'>=</span> <span class='ident'>usize</span>;
+<span class='doccomment'>/// Represents a physical memory address</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Debug</span>, <span class='ident'>Eq</span>, <span class='ident'>Ord</span>, <span class='ident'>PartialEq</span>, <span class='ident'>PartialOrd</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PAddr</span>(<span class='ident'>u64</span>);
+
+<span class='doccomment'>/// Represent a virtual (linear) memory address</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Debug</span>, <span class='ident'>Eq</span>, <span class='ident'>Ord</span>, <span class='ident'>PartialEq</span>, <span class='ident'>PartialOrd</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>VAddr</span>(<span class='ident'>usize</span>);
+
+<span class='kw'>impl</span> <span class='ident'>PAddr</span> {
+    <span class='doccomment'>/// Convert to `u64`</span>
+    <span class='kw'>pub</span> <span class='kw'>const</span> <span class='kw'>fn</span> <span class='ident'>as_u64</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u64</span> {
+        <span class='self'>self</span>.<span class='number'>0</span>
+    }
+    <span class='doccomment'>/// Convert from `u64`</span>
+    <span class='kw'>pub</span> <span class='kw'>const</span> <span class='kw'>fn</span> <span class='ident'>from_u64</span>(<span class='ident'>v</span>: <span class='ident'>u64</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+        <span class='ident'>PAddr</span>(<span class='ident'>v</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>VAddr</span> {
+    <span class='doccomment'>/// Convert to `usize`</span>
+    <span class='kw'>pub</span> <span class='kw'>const</span> <span class='kw'>fn</span> <span class='ident'>as_usize</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
+        <span class='self'>self</span>.<span class='number'>0</span>
+    }
+    <span class='doccomment'>/// Convert from `usize`</span>
+    <span class='kw'>pub</span> <span class='kw'>const</span> <span class='kw'>fn</span> <span class='ident'>from_usize</span>(<span class='ident'>v</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+        <span class='ident'>VAddr</span>(<span class='ident'>v</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Binary</span> <span class='kw'>for</span> <span class='ident'>PAddr</span> {
+    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
+        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>fmt</span>(<span class='ident'>f</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Display</span> <span class='kw'>for</span> <span class='ident'>PAddr</span> {
+    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
+        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>fmt</span>(<span class='ident'>f</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>LowerHex</span> <span class='kw'>for</span> <span class='ident'>PAddr</span> {
+    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
+        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>fmt</span>(<span class='ident'>f</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Octal</span> <span class='kw'>for</span> <span class='ident'>PAddr</span> {
+    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
+        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>fmt</span>(<span class='ident'>f</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>UpperHex</span> <span class='kw'>for</span> <span class='ident'>PAddr</span> {
+    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
+        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>fmt</span>(<span class='ident'>f</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Binary</span> <span class='kw'>for</span> <span class='ident'>VAddr</span> {
+    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
+        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>fmt</span>(<span class='ident'>f</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Display</span> <span class='kw'>for</span> <span class='ident'>VAddr</span> {
+    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
+        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>fmt</span>(<span class='ident'>f</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>LowerHex</span> <span class='kw'>for</span> <span class='ident'>VAddr</span> {
+    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
+        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>fmt</span>(<span class='ident'>f</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Octal</span> <span class='kw'>for</span> <span class='ident'>VAddr</span> {
+    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
+        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>fmt</span>(<span class='ident'>f</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>UpperHex</span> <span class='kw'>for</span> <span class='ident'>VAddr</span> {
+    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
+        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>fmt</span>(<span class='ident'>f</span>)
+    }
+}
 
 <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>BASE_PAGE_SIZE</span>: <span class='ident'>u64</span> <span class='op'>=</span> <span class='number'>4096</span>; <span class='comment'>// 4 KiB</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>LARGE_PAGE_SIZE</span>: <span class='ident'>u64</span> <span class='op'>=</span> <span class='number'>1024</span><span class='op'>*</span><span class='number'>1024</span><span class='op'>*</span><span class='number'>2</span>; <span class='comment'>// 2 MiB</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>HUGE_PAGE_SIZE</span>: <span class='ident'>u64</span> <span class='op'>=</span> <span class='number'>1024</span><span class='op'>*</span><span class='number'>1024</span><span class='op'>*</span><span class='number'>1024</span>; <span class='comment'>// 1 GiB</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>LARGE_PAGE_SIZE</span>: <span class='ident'>u64</span> <span class='op'>=</span> <span class='number'>1024</span> <span class='op'>*</span> <span class='number'>1024</span> <span class='op'>*</span> <span class='number'>2</span>; <span class='comment'>// 2 MiB</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>HUGE_PAGE_SIZE</span>: <span class='ident'>u64</span> <span class='op'>=</span> <span class='number'>1024</span> <span class='op'>*</span> <span class='number'>1024</span> <span class='op'>*</span> <span class='number'>1024</span>; <span class='comment'>// 1 GiB</span>
 <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CACHE_LINE_SIZE</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>64</span>; <span class='comment'>// 64 Bytes</span>
 
 <span class='doccomment'>/// MAXPHYADDR, which is at most 52; (use CPUID for finding system value).</span>
@@ -352,68 +557,68 @@
 
 <span class='doccomment'>/// A PML4 table.</span>
 <span class='doccomment'>/// In practice this has only 4 entries but it still needs to be the size of a 4K page.</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PML4</span>  <span class='op'>=</span> [<span class='ident'>PML4Entry</span>; <span class='number'>512</span>];
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PML4</span> <span class='op'>=</span> [<span class='ident'>PML4Entry</span>; <span class='number'>512</span>];
 
 <span class='doccomment'>/// A page directory pointer table.</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PDPT</span>  <span class='op'>=</span> [<span class='ident'>PDPTEntry</span>; <span class='number'>512</span>];
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PDPT</span> <span class='op'>=</span> [<span class='ident'>PDPTEntry</span>; <span class='number'>512</span>];
 
 <span class='doccomment'>/// A page directory.</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PD</span>    <span class='op'>=</span> [<span class='ident'>PDEntry</span>; <span class='number'>512</span>];
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PD</span> <span class='op'>=</span> [<span class='ident'>PDEntry</span>; <span class='number'>512</span>];
 
 <span class='doccomment'>/// A page table.</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PT</span>    <span class='op'>=</span> [<span class='ident'>PTEntry</span>; <span class='number'>512</span>];
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PT</span> <span class='op'>=</span> [<span class='ident'>PTEntry</span>; <span class='number'>512</span>];
 
 <span class='doccomment'>/// Given virtual address calculate corresponding entry in PML4.</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>pml4_index</span>(<span class='ident'>addr</span>: <span class='ident'>VAddr</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
-    (<span class='ident'>addr</span> <span class='op'>&gt;&gt;</span> <span class='number'>39</span>) <span class='kw-2'>&amp;</span> <span class='number'>0b111111111</span>
+    (<span class='ident'>addr</span>.<span class='ident'>as_usize</span>() <span class='op'>&gt;&gt;</span> <span class='number'>39</span>) <span class='kw-2'>&amp;</span> <span class='number'>0b111111111</span>
 }
 
 <span class='doccomment'>/// Given virtual address calculate corresponding entry in PDPT.</span>
 <span class='attribute'>#[<span class='ident'>inline</span>]</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>pdpt_index</span>(<span class='ident'>addr</span>: <span class='ident'>VAddr</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
-    (<span class='ident'>addr</span> <span class='op'>&gt;&gt;</span> <span class='number'>30</span>) <span class='kw-2'>&amp;</span> <span class='number'>0b111111111</span>
+    (<span class='ident'>addr</span>.<span class='ident'>as_usize</span>() <span class='op'>&gt;&gt;</span> <span class='number'>30</span>) <span class='kw-2'>&amp;</span> <span class='number'>0b111111111</span>
 }
 
 <span class='doccomment'>/// Given virtual address calculate corresponding entry in PD.</span>
 <span class='attribute'>#[<span class='ident'>inline</span>]</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>pd_index</span>(<span class='ident'>addr</span>: <span class='ident'>VAddr</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
-    (<span class='ident'>addr</span> <span class='op'>&gt;&gt;</span> <span class='number'>21</span>) <span class='kw-2'>&amp;</span> <span class='number'>0b111111111</span>
+    (<span class='ident'>addr</span>.<span class='ident'>as_usize</span>() <span class='op'>&gt;&gt;</span> <span class='number'>21</span>) <span class='kw-2'>&amp;</span> <span class='number'>0b111111111</span>
 }
 
 <span class='doccomment'>/// Given virtual address calculate corresponding entry in PT.</span>
 <span class='attribute'>#[<span class='ident'>inline</span>]</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>pt_index</span>(<span class='ident'>addr</span>: <span class='ident'>VAddr</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
-    (<span class='ident'>addr</span> <span class='op'>&gt;&gt;</span> <span class='number'>12</span>) <span class='kw-2'>&amp;</span> <span class='number'>0b111111111</span>
+    (<span class='ident'>addr</span>.<span class='ident'>as_usize</span>() <span class='op'>&gt;&gt;</span> <span class='number'>12</span>) <span class='kw-2'>&amp;</span> <span class='number'>0b111111111</span>
 }
 
 <span class='doccomment'>/// PML4 Entry bits description.</span>
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
+    <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
     <span class='ident'>flags</span> <span class='ident'>PML4Entry</span>: <span class='ident'>u64</span> {
         <span class='doccomment'>/// Present; must be 1 to reference a page-directory-pointer table</span>
-        <span class='kw'>const</span> <span class='ident'>PML4_P</span>       <span class='op'>=</span> <span class='number'>0b00000001</span>,
+        <span class='kw'>const</span> <span class='ident'>PML4_P</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>0</span>),
         <span class='doccomment'>/// Read/write; if 0, writes may not be allowed to the 512-GByte region</span>
         <span class='doccomment'>/// controlled by this entry (see Section 4.6)</span>
-        <span class='kw'>const</span> <span class='ident'>PML4_RW</span>      <span class='op'>=</span> <span class='number'>0b00000010</span>,
+        <span class='kw'>const</span> <span class='ident'>PML4_RW</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>1</span>),
         <span class='doccomment'>/// User/supervisor; if 0, user-mode accesses are not allowed</span>
         <span class='doccomment'>/// to the 512-GByte region controlled by this entry.</span>
-        <span class='kw'>const</span> <span class='ident'>PML4_US</span>      <span class='op'>=</span> <span class='number'>0b00000100</span>,
+        <span class='kw'>const</span> <span class='ident'>PML4_US</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>2</span>),
         <span class='doccomment'>/// Page-level write-through; indirectly determines the memory type used to</span>
         <span class='doccomment'>/// access the page-directory-pointer table referenced by this entry.</span>
-        <span class='kw'>const</span> <span class='ident'>PML4_PWT</span>     <span class='op'>=</span> <span class='number'>0b00001000</span>,
+        <span class='kw'>const</span> <span class='ident'>PML4_PWT</span>     <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>3</span>),
         <span class='doccomment'>/// Page-level cache disable; indirectly determines the memory type used to</span>
         <span class='doccomment'>/// access the page-directory-pointer table referenced by this entry.</span>
-        <span class='kw'>const</span> <span class='ident'>PML4_PCD</span>     <span class='op'>=</span> <span class='number'>0b00010000</span>,
+        <span class='kw'>const</span> <span class='ident'>PML4_PCD</span>     <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>4</span>),
         <span class='doccomment'>/// Accessed; indicates whether this entry has been used for linear-address translation.</span>
-        <span class='kw'>const</span> <span class='ident'>PML4_A</span>       <span class='op'>=</span> <span class='number'>0b00100000</span>,
+        <span class='kw'>const</span> <span class='ident'>PML4_A</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>5</span>),
         <span class='doccomment'>/// If IA32_EFER.NXE = 1, execute-disable</span>
         <span class='doccomment'>/// If 1, instruction fetches are not allowed from the 512-GByte region.</span>
-        <span class='kw'>const</span> <span class='ident'>PML4_XD</span>      <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>63</span>,
+        <span class='kw'>const</span> <span class='ident'>PML4_XD</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>63</span>),
     }
 }
 
 
 <span class='kw'>impl</span> <span class='ident'>PML4Entry</span> {
-
     <span class='doccomment'>/// Creates a new PML4Entry.</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// # Arguments</span>
@@ -421,62 +626,66 @@
     <span class='doccomment'>///  * `pdpt` - The physical address of the pdpt table.</span>
     <span class='doccomment'>///  * `flags`- Additional flags for the entry.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>pdpt</span>: <span class='ident'>PAddr</span>, <span class='ident'>flags</span>: <span class='ident'>PML4Entry</span>) <span class='op'>-&gt;</span> <span class='ident'>PML4Entry</span> {
-        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>pdpt</span> <span class='op'>%</span> <span class='ident'>BASE_PAGE_SIZE</span> <span class='op'>==</span> <span class='number'>0</span>);
-        <span class='ident'>PML4Entry</span> { <span class='ident'>bits</span>: <span class='ident'>pdpt</span> <span class='op'>|</span> <span class='ident'>flags</span>.<span class='ident'>bits</span> }
+        <span class='kw'>let</span> <span class='ident'>pdpt_val</span> <span class='op'>=</span> <span class='ident'>pdpt</span>.<span class='ident'>as_u64</span>();
+        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>pdpt_val</span> <span class='op'>%</span> <span class='ident'>BASE_PAGE_SIZE</span> <span class='op'>==</span> <span class='number'>0</span>);
+        <span class='ident'>PML4Entry</span> { <span class='ident'>bits</span>: <span class='ident'>pdpt_val</span> <span class='op'>|</span> <span class='ident'>flags</span>.<span class='ident'>bits</span> }
     }
 
     <span class='doccomment'>/// Retrieves the physical address in this entry.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_address</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PAddr</span> {
-        <span class='self'>self</span>.<span class='ident'>bits</span> <span class='kw-2'>&amp;</span> <span class='ident'>ADDRESS_MASK</span>
+        <span class='ident'>PAddr</span>::<span class='ident'>from_u64</span>(<span class='self'>self</span>.<span class='ident'>bits</span> <span class='kw-2'>&amp;</span> <span class='ident'>ADDRESS_MASK</span>)
     }
 
-    <span class='doccomment'>/// Convenience function to check if the present bit is set.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_present</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>PML4_P</span>)
-    }
-}
-
-<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Debug</span> <span class='kw'>for</span> <span class='ident'>PML4Entry</span> {
-    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
-        <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;{}&quot;</span>, <span class='self'>self</span>.<span class='ident'>bits</span>)
-    }
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Is page present?&quot;</span>, <span class='ident'>is_present</span>, <span class='ident'>PML4_P</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Read/write; if 0, writes may not be allowed to the 512-GByte region, controlled by this entry (see Section 4.6)&quot;</span>,
+                <span class='ident'>is_writeable</span>, <span class='ident'>PML4_RW</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;User/supervisor; if 0, user-mode accesses are not allowed to the 512-GByte region controlled by this entry.&quot;</span>,
+                <span class='ident'>is_user_mode_allowed</span>, <span class='ident'>PML4_US</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Page-level write-through; indirectly determines the memory type used to access the page-directory-pointer table referenced by this entry.&quot;</span>,
+                <span class='ident'>is_page_write_through</span>, <span class='ident'>PML4_PWT</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Page-level cache disable; indirectly determines the memory type used to access the page-directory-pointer table referenced by this entry.&quot;</span>,
+                <span class='ident'>is_page_level_cache_disabled</span>, <span class='ident'>PML4_PCD</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Accessed; indicates whether this entry has been used for linear-address translation.&quot;</span>,
+                <span class='ident'>is_accessed</span>, <span class='ident'>PML4_A</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If IA32_EFER.NXE = 1, execute-disable. If 1, instruction fetches are not allowed from the 512-GByte region.&quot;</span>,
+                <span class='ident'>is_instruction_fetching_disabled</span>, <span class='ident'>PML4_XD</span>);
 }
 
 <span class='doccomment'>/// PDPT Entry bits description.</span>
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
+    <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
     <span class='ident'>flags</span> <span class='ident'>PDPTEntry</span>: <span class='ident'>u64</span> {
         <span class='doccomment'>/// Present; must be 1 to map a 1-GByte page or reference a page directory.</span>
-        <span class='kw'>const</span> <span class='ident'>PDPT_P</span>       <span class='op'>=</span> <span class='number'>0b00000001</span>,
+        <span class='kw'>const</span> <span class='ident'>PDPT_P</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>0</span>),
         <span class='doccomment'>/// Read/write; if 0, writes may not be allowed to the 1-GByte region controlled by this entry</span>
-        <span class='kw'>const</span> <span class='ident'>PDPT_RW</span>      <span class='op'>=</span> <span class='number'>0b00000010</span>,
+        <span class='kw'>const</span> <span class='ident'>PDPT_RW</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>1</span>),
         <span class='doccomment'>/// User/supervisor; user-mode accesses are not allowed to the 1-GByte region controlled by this entry.</span>
-        <span class='kw'>const</span> <span class='ident'>PDPT_US</span>      <span class='op'>=</span> <span class='number'>0b00000100</span>,
+        <span class='kw'>const</span> <span class='ident'>PDPT_US</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>2</span>),
         <span class='doccomment'>/// Page-level write-through.</span>
-        <span class='kw'>const</span> <span class='ident'>PDPT_PWT</span>     <span class='op'>=</span> <span class='number'>0b00001000</span>,
+        <span class='kw'>const</span> <span class='ident'>PDPT_PWT</span>     <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>3</span>),
         <span class='doccomment'>/// Page-level cache disable.</span>
-        <span class='kw'>const</span> <span class='ident'>PDPT_PCD</span>     <span class='op'>=</span> <span class='number'>0b00010000</span>,
+        <span class='kw'>const</span> <span class='ident'>PDPT_PCD</span>     <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>4</span>),
         <span class='doccomment'>/// Accessed; if PDPT_PS set indicates whether software has accessed the 1-GByte page</span>
         <span class='doccomment'>/// else indicates whether this entry has been used for linear-address translation</span>
-        <span class='kw'>const</span> <span class='ident'>PDPT_A</span>       <span class='op'>=</span> <span class='number'>0b00100000</span>,
+        <span class='kw'>const</span> <span class='ident'>PDPT_A</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>5</span>),
         <span class='doccomment'>/// Dirty; if PDPT_PS indicates whether software has written to the 1-GByte page referenced by this entry.</span>
         <span class='doccomment'>/// else ignored.</span>
-        <span class='kw'>const</span> <span class='ident'>PDPT_D</span>       <span class='op'>=</span> <span class='number'>0b01000000</span>,
+        <span class='kw'>const</span> <span class='ident'>PDPT_D</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>6</span>),
         <span class='doccomment'>/// Page size; if set this entry maps a 1-GByte page; otherwise, this entry references a page directory.</span>
         <span class='doccomment'>/// if not PDPT_PS this is ignored.</span>
-        <span class='kw'>const</span> <span class='ident'>PDPT_PS</span>      <span class='op'>=</span> <span class='number'>0b10000000</span>,
+        <span class='kw'>const</span> <span class='ident'>PDPT_PS</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>7</span>),
         <span class='doccomment'>/// Global; if PDPT_PS &amp;&amp; CR4.PGE = 1, determines whether the translation is global; ignored otherwise</span>
         <span class='doccomment'>/// if not PDPT_PS this is ignored.</span>
-        <span class='kw'>const</span> <span class='ident'>PDPT_G</span>       <span class='op'>=</span> <span class='number'>1</span><span class='op'>&lt;&lt;</span><span class='number'>8</span>,
+        <span class='kw'>const</span> <span class='ident'>PDPT_G</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>8</span>),
         <span class='doccomment'>/// Indirectly determines the memory type used to access the 1-GByte page referenced by this entry.</span>
-        <span class='kw'>const</span> <span class='ident'>PDPT_PAT</span>     <span class='op'>=</span> <span class='number'>1</span><span class='op'>&lt;&lt;</span><span class='number'>12</span>,
+        <span class='kw'>const</span> <span class='ident'>PDPT_PAT</span>     <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>12</span>),
         <span class='doccomment'>/// If IA32_EFER.NXE = 1, execute-disable</span>
         <span class='doccomment'>/// If 1, instruction fetches are not allowed from the 512-GByte region.</span>
-        <span class='kw'>const</span> <span class='ident'>PDPT_XD</span>      <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>63</span>,
+        <span class='kw'>const</span> <span class='ident'>PDPT_XD</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>63</span>),
     }
 }
 
 <span class='kw'>impl</span> <span class='ident'>PDPTEntry</span> {
-
     <span class='doccomment'>/// Creates a new PDPTEntry.</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// # Arguments</span>
@@ -484,62 +693,68 @@
     <span class='doccomment'>///  * `pd` - The physical address of the page directory.</span>
     <span class='doccomment'>///  * `flags`- Additional flags for the entry.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>pd</span>: <span class='ident'>PAddr</span>, <span class='ident'>flags</span>: <span class='ident'>PDPTEntry</span>) <span class='op'>-&gt;</span> <span class='ident'>PDPTEntry</span> {
-        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>pd</span> <span class='op'>%</span> <span class='ident'>BASE_PAGE_SIZE</span> <span class='op'>==</span> <span class='number'>0</span>);
-        <span class='ident'>PDPTEntry</span> { <span class='ident'>bits</span>: <span class='ident'>pd</span> <span class='op'>|</span> <span class='ident'>flags</span>.<span class='ident'>bits</span> }
+        <span class='kw'>let</span> <span class='ident'>pd_val</span> <span class='op'>=</span> <span class='ident'>pd</span>.<span class='ident'>as_u64</span>();
+        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>pd_val</span> <span class='op'>%</span> <span class='ident'>BASE_PAGE_SIZE</span> <span class='op'>==</span> <span class='number'>0</span>);
+        <span class='ident'>PDPTEntry</span> { <span class='ident'>bits</span>: <span class='ident'>pd_val</span> <span class='op'>|</span> <span class='ident'>flags</span>.<span class='ident'>bits</span> }
     }
 
     <span class='doccomment'>/// Retrieves the physical address in this entry.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_address</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PAddr</span> {
-        <span class='self'>self</span>.<span class='ident'>bits</span> <span class='kw-2'>&amp;</span> <span class='ident'>ADDRESS_MASK</span>
+        <span class='ident'>PAddr</span>::<span class='ident'>from_u64</span>(<span class='self'>self</span>.<span class='ident'>bits</span> <span class='kw-2'>&amp;</span> <span class='ident'>ADDRESS_MASK</span>)
     }
 
-    <span class='doccomment'>/// Convenience function to check if the present bit is set.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_present</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>PDPT_P</span>)
-    }
-}
-
-<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Debug</span> <span class='kw'>for</span> <span class='ident'>PDPTEntry</span> {
-    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
-        <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;{}&quot;</span>, <span class='self'>self</span>.<span class='ident'>bits</span>)
-    }
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Is page present?&quot;</span>, <span class='ident'>is_present</span>, <span class='ident'>PDPT_P</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Read/write; if 0, writes may not be allowed to the 1-GByte region controlled by this entry.&quot;</span>,
+                <span class='ident'>is_writeable</span>, <span class='ident'>PDPT_RW</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;User/supervisor; user-mode accesses are not allowed to the 1-GByte region controlled by this entry.&quot;</span>,
+                <span class='ident'>is_user_mode_allowed</span>, <span class='ident'>PDPT_US</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Page-level write-through.&quot;</span>,
+                <span class='ident'>is_page_write_through</span>, <span class='ident'>PDPT_PWT</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Page-level cache disable.&quot;</span>,
+                <span class='ident'>is_page_level_cache_disabled</span>, <span class='ident'>PDPT_PCD</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Accessed; indicates whether this entry has been used for linear-address translation.&quot;</span>,
+                <span class='ident'>is_accessed</span>, <span class='ident'>PDPT_A</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Indirectly determines the memory type used to access the 1-GByte page referenced by this entry. if not PDPT_PS this is ignored.&quot;</span>,
+                <span class='ident'>is_pat</span>, <span class='ident'>PDPT_PAT</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If IA32_EFER.NXE = 1, execute-disable. If 1, instruction fetches are not allowed from the 512-GByte region.&quot;</span>,
+                <span class='ident'>is_instruction_fetching_disabled</span>, <span class='ident'>PDPT_XD</span>);
 }
 
 <span class='doccomment'>/// PD Entry bits description.</span>
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
+    <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
     <span class='ident'>flags</span> <span class='ident'>PDEntry</span>: <span class='ident'>u64</span> {
         <span class='doccomment'>/// Present; must be 1 to map a 2-MByte page or reference a page table.</span>
-        <span class='kw'>const</span> <span class='ident'>PD_P</span>       <span class='op'>=</span> <span class='number'>0b00000001</span>,
+        <span class='kw'>const</span> <span class='ident'>PD_P</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>0</span>),
         <span class='doccomment'>/// Read/write; if 0, writes may not be allowed to the 2-MByte region controlled by this entry</span>
-        <span class='kw'>const</span> <span class='ident'>PD_RW</span>      <span class='op'>=</span> <span class='number'>0b00000010</span>,
+        <span class='kw'>const</span> <span class='ident'>PD_RW</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>1</span>),
         <span class='doccomment'>/// User/supervisor; user-mode accesses are not allowed to the 2-MByte region controlled by this entry.</span>
-        <span class='kw'>const</span> <span class='ident'>PD_US</span>      <span class='op'>=</span> <span class='number'>0b00000100</span>,
+        <span class='kw'>const</span> <span class='ident'>PD_US</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>2</span>),
         <span class='doccomment'>/// Page-level write-through.</span>
-        <span class='kw'>const</span> <span class='ident'>PD_PWT</span>     <span class='op'>=</span> <span class='number'>0b00001000</span>,
+        <span class='kw'>const</span> <span class='ident'>PD_PWT</span>     <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>3</span>),
         <span class='doccomment'>/// Page-level cache disable.</span>
-        <span class='kw'>const</span> <span class='ident'>PD_PCD</span>     <span class='op'>=</span> <span class='number'>0b00010000</span>,
+        <span class='kw'>const</span> <span class='ident'>PD_PCD</span>     <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>4</span>),
         <span class='doccomment'>/// Accessed; if PD_PS set indicates whether software has accessed the 2-MByte page</span>
         <span class='doccomment'>/// else indicates whether this entry has been used for linear-address translation</span>
-        <span class='kw'>const</span> <span class='ident'>PD_A</span>       <span class='op'>=</span> <span class='number'>0b00100000</span>,
+        <span class='kw'>const</span> <span class='ident'>PD_A</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>5</span>),
         <span class='doccomment'>/// Dirty; if PD_PS indicates whether software has written to the 2-MByte page referenced by this entry.</span>
         <span class='doccomment'>/// else ignored.</span>
-        <span class='kw'>const</span> <span class='ident'>PD_D</span>       <span class='op'>=</span> <span class='number'>0b01000000</span>,
+        <span class='kw'>const</span> <span class='ident'>PD_D</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>6</span>),
         <span class='doccomment'>/// Page size; if set this entry maps a 2-MByte page; otherwise, this entry references a page directory.</span>
-        <span class='kw'>const</span> <span class='ident'>PD_PS</span>      <span class='op'>=</span> <span class='number'>0b10000000</span>,
+        <span class='kw'>const</span> <span class='ident'>PD_PS</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>7</span>),
         <span class='doccomment'>/// Global; if PD_PS &amp;&amp; CR4.PGE = 1, determines whether the translation is global; ignored otherwise</span>
         <span class='doccomment'>/// if not PD_PS this is ignored.</span>
-        <span class='kw'>const</span> <span class='ident'>PD_G</span>       <span class='op'>=</span> <span class='number'>1</span><span class='op'>&lt;&lt;</span><span class='number'>8</span>,
+        <span class='kw'>const</span> <span class='ident'>PD_G</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>8</span>),
         <span class='doccomment'>/// Indirectly determines the memory type used to access the 2-MByte page referenced by this entry.</span>
         <span class='doccomment'>/// if not PD_PS this is ignored.</span>
-        <span class='kw'>const</span> <span class='ident'>PD_PAT</span>     <span class='op'>=</span> <span class='number'>1</span><span class='op'>&lt;&lt;</span><span class='number'>12</span>,
+        <span class='kw'>const</span> <span class='ident'>PD_PAT</span>     <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>12</span>),
         <span class='doccomment'>/// If IA32_EFER.NXE = 1, execute-disable</span>
         <span class='doccomment'>/// If 1, instruction fetches are not allowed from the 512-GByte region.</span>
-        <span class='kw'>const</span> <span class='ident'>PD_XD</span>      <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>63</span>,
+        <span class='kw'>const</span> <span class='ident'>PD_XD</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>63</span>),
     }
 }
 
 <span class='kw'>impl</span> <span class='ident'>PDEntry</span> {
-
     <span class='doccomment'>/// Creates a new PDEntry.</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// # Arguments</span>
@@ -547,55 +762,68 @@
     <span class='doccomment'>///  * `pt` - The physical address of the page table.</span>
     <span class='doccomment'>///  * `flags`- Additional flags for the entry.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>pt</span>: <span class='ident'>PAddr</span>, <span class='ident'>flags</span>: <span class='ident'>PDEntry</span>) <span class='op'>-&gt;</span> <span class='ident'>PDEntry</span> {
-        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>pt</span> <span class='op'>%</span> <span class='ident'>BASE_PAGE_SIZE</span> <span class='op'>==</span> <span class='number'>0</span>);
-        <span class='ident'>PDEntry</span> { <span class='ident'>bits</span>: <span class='ident'>pt</span> <span class='op'>|</span> <span class='ident'>flags</span>.<span class='ident'>bits</span> }
+        <span class='kw'>let</span> <span class='ident'>pt_val</span> <span class='op'>=</span> <span class='ident'>pt</span>.<span class='ident'>as_u64</span>();
+        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>pt_val</span> <span class='op'>%</span> <span class='ident'>BASE_PAGE_SIZE</span> <span class='op'>==</span> <span class='number'>0</span>);
+        <span class='ident'>PDEntry</span> { <span class='ident'>bits</span>: <span class='ident'>pt_val</span> <span class='op'>|</span> <span class='ident'>flags</span>.<span class='ident'>bits</span> }
     }
 
     <span class='doccomment'>/// Retrieves the physical address in this entry.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_address</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PAddr</span> {
-        <span class='self'>self</span>.<span class='ident'>bits</span> <span class='kw-2'>&amp;</span> <span class='ident'>ADDRESS_MASK</span>
+        <span class='ident'>PAddr</span>::<span class='ident'>from_u64</span>(<span class='self'>self</span>.<span class='ident'>bits</span> <span class='kw-2'>&amp;</span> <span class='ident'>ADDRESS_MASK</span>)
     }
 
-    <span class='doccomment'>/// Convenience function to check if the present bit is set.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_present</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>PD_P</span>)
-    }
-}
-
-<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Debug</span> <span class='kw'>for</span> <span class='ident'>PDEntry</span> {
-    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
-        <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;{}&quot;</span>, <span class='self'>self</span>.<span class='ident'>bits</span>)
-    }
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Present; must be 1 to map a 2-MByte page or reference a page table.&quot;</span>,
+                <span class='ident'>is_present</span>, <span class='ident'>PD_P</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Read/write; if 0, writes may not be allowed to the 2-MByte region controlled by this entry&quot;</span>,
+                <span class='ident'>is_writeable</span>, <span class='ident'>PD_RW</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;User/supervisor; user-mode accesses are not allowed to the 2-MByte region controlled by this entry.&quot;</span>,
+                <span class='ident'>is_user_mode_allowed</span>, <span class='ident'>PD_US</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Page-level write-through.&quot;</span>,
+                <span class='ident'>is_page_write_through</span>, <span class='ident'>PD_PWT</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Page-level cache disable.&quot;</span>,
+                <span class='ident'>is_page_level_cache_disabled</span>, <span class='ident'>PD_PCD</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Accessed; if PD_PS set indicates whether software has accessed the 2-MByte page else indicates whether this entry has been used for linear-address translation.&quot;</span>,
+                <span class='ident'>is_accessed</span>, <span class='ident'>PD_A</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Dirty; if PD_PS set indicates whether software has written to the 2-MByte page referenced by this entry else ignored.&quot;</span>,
+                <span class='ident'>is_dirty</span>, <span class='ident'>PD_D</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Page size; if set this entry maps a 2-MByte page; otherwise, this entry references a page directory.&quot;</span>,
+                <span class='ident'>is_page</span>, <span class='ident'>PD_PS</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Global; if PD_PS &amp;&amp; CR4.PGE = 1, determines whether the translation is global; ignored otherwise if not PD_PS this is ignored.&quot;</span>,
+                <span class='ident'>is_global</span>, <span class='ident'>PD_G</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Indirectly determines the memory type used to access the 2-MByte page referenced by this entry. if not PD_PS this is ignored.&quot;</span>,
+                <span class='ident'>is_pat</span>, <span class='ident'>PD_PAT</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If IA32_EFER.NXE = 1, execute-disable. If 1, instruction fetches are not allowed from the 2-Mbyte region.&quot;</span>,
+                <span class='ident'>is_instruction_fetching_disabled</span>, <span class='ident'>PD_XD</span>);
 }
 
 <span class='doccomment'>/// PT Entry bits description.</span>
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
+    <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
     <span class='ident'>flags</span> <span class='ident'>PTEntry</span>: <span class='ident'>u64</span> {
         <span class='doccomment'>/// Present; must be 1 to map a 4-KByte page.</span>
-        <span class='kw'>const</span> <span class='ident'>PT_P</span>       <span class='op'>=</span> <span class='number'>0b00000001</span>,
+        <span class='kw'>const</span> <span class='ident'>PT_P</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>0</span>),
         <span class='doccomment'>/// Read/write; if 0, writes may not be allowed to the 4-KByte region controlled by this entry</span>
-        <span class='kw'>const</span> <span class='ident'>PT_RW</span>      <span class='op'>=</span> <span class='number'>0b00000010</span>,
+        <span class='kw'>const</span> <span class='ident'>PT_RW</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>1</span>),
         <span class='doccomment'>/// User/supervisor; user-mode accesses are not allowed to the 4-KByte region controlled by this entry.</span>
-        <span class='kw'>const</span> <span class='ident'>PT_US</span>      <span class='op'>=</span> <span class='number'>0b00000100</span>,
+        <span class='kw'>const</span> <span class='ident'>PT_US</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>2</span>),
         <span class='doccomment'>/// Page-level write-through.</span>
-        <span class='kw'>const</span> <span class='ident'>PT_PWT</span>     <span class='op'>=</span> <span class='number'>0b00001000</span>,
+        <span class='kw'>const</span> <span class='ident'>PT_PWT</span>     <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>3</span>),
         <span class='doccomment'>/// Page-level cache disable.</span>
-        <span class='kw'>const</span> <span class='ident'>PT_PCD</span>     <span class='op'>=</span> <span class='number'>0b00010000</span>,
+        <span class='kw'>const</span> <span class='ident'>PT_PCD</span>     <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>4</span>),
         <span class='doccomment'>/// Accessed; indicates whether software has accessed the 4-KByte page</span>
-        <span class='kw'>const</span> <span class='ident'>PT_A</span>       <span class='op'>=</span> <span class='number'>0b00100000</span>,
+        <span class='kw'>const</span> <span class='ident'>PT_A</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>5</span>),
         <span class='doccomment'>/// Dirty; indicates whether software has written to the 4-KByte page referenced by this entry.</span>
-        <span class='kw'>const</span> <span class='ident'>PT_D</span>       <span class='op'>=</span> <span class='number'>0b01000000</span>,
+        <span class='kw'>const</span> <span class='ident'>PT_D</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>6</span>),
         <span class='doccomment'>/// Global; if CR4.PGE = 1, determines whether the translation is global (see Section 4.10); ignored otherwise</span>
-        <span class='kw'>const</span> <span class='ident'>PT_G</span>       <span class='op'>=</span> <span class='number'>1</span><span class='op'>&lt;&lt;</span><span class='number'>8</span>,
+        <span class='kw'>const</span> <span class='ident'>PT_G</span>       <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>8</span>),
         <span class='doccomment'>/// If IA32_EFER.NXE = 1, execute-disable</span>
         <span class='doccomment'>/// If 1, instruction fetches are not allowed from the 512-GByte region.</span>
-        <span class='kw'>const</span> <span class='ident'>PT_XD</span>      <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>63</span>,
+        <span class='kw'>const</span> <span class='ident'>PT_XD</span>      <span class='op'>=</span> <span class='macro'>bit</span><span class='macro'>!</span>(<span class='number'>63</span>),
     }
 }
 
 
 <span class='kw'>impl</span> <span class='ident'>PTEntry</span> {
-
     <span class='doccomment'>/// Creates a new PTEntry.</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// # Arguments</span>
@@ -603,25 +831,34 @@
     <span class='doccomment'>///  * `page` - The physical address of the backing 4 KiB page.</span>
     <span class='doccomment'>///  * `flags`- Additional flags for the entry.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>page</span>: <span class='ident'>PAddr</span>, <span class='ident'>flags</span>: <span class='ident'>PTEntry</span>) <span class='op'>-&gt;</span> <span class='ident'>PTEntry</span> {
-        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>page</span> <span class='op'>%</span> <span class='ident'>BASE_PAGE_SIZE</span> <span class='op'>==</span> <span class='number'>0</span>);
-        <span class='ident'>PTEntry</span>{ <span class='ident'>bits</span>: <span class='ident'>page</span> <span class='op'>|</span> <span class='ident'>flags</span>.<span class='ident'>bits</span> }
+        <span class='kw'>let</span> <span class='ident'>page_val</span> <span class='op'>=</span> <span class='ident'>page</span>.<span class='ident'>as_u64</span>();
+        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>page_val</span> <span class='op'>%</span> <span class='ident'>BASE_PAGE_SIZE</span> <span class='op'>==</span> <span class='number'>0</span>);
+        <span class='ident'>PTEntry</span> { <span class='ident'>bits</span>: <span class='ident'>page_val</span> <span class='op'>|</span> <span class='ident'>flags</span>.<span class='ident'>bits</span> }
     }
 
     <span class='doccomment'>/// Retrieves the physical address in this entry.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_address</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PAddr</span> {
-        <span class='self'>self</span>.<span class='ident'>bits</span> <span class='kw-2'>&amp;</span> <span class='ident'>ADDRESS_MASK</span>
+        <span class='ident'>PAddr</span>::<span class='ident'>from_u64</span>(<span class='self'>self</span>.<span class='ident'>bits</span> <span class='kw-2'>&amp;</span> <span class='ident'>ADDRESS_MASK</span>)
     }
 
-    <span class='doccomment'>/// Convenience function to check if the present bit is set.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_present</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>PT_P</span>)
-    }
-}
-
-<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Debug</span> <span class='kw'>for</span> <span class='ident'>PTEntry</span> {
-    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
-        <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;{}&quot;</span>, <span class='self'>self</span>.<span class='ident'>bits</span>)
-    }
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Present; must be 1 to map a 4-KByte page or reference a page table.&quot;</span>,
+                <span class='ident'>is_present</span>, <span class='ident'>PT_P</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Read/write; if 0, writes may not be allowed to the 4-KByte region controlled by this entry&quot;</span>,
+                <span class='ident'>is_writeable</span>, <span class='ident'>PT_RW</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;User/supervisor; user-mode accesses are not allowed to the 4-KByte region controlled by this entry.&quot;</span>,
+                <span class='ident'>is_user_mode_allowed</span>, <span class='ident'>PT_US</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Page-level write-through.&quot;</span>,
+                <span class='ident'>is_page_write_through</span>, <span class='ident'>PT_PWT</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Page-level cache disable.&quot;</span>,
+                <span class='ident'>is_page_level_cache_disabled</span>, <span class='ident'>PT_PCD</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Accessed; if PT_PS set indicates whether software has accessed the 4-KByte page else indicates whether this entry has been used for linear-address translation.&quot;</span>,
+                <span class='ident'>is_accessed</span>, <span class='ident'>PT_A</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Dirty; if PD_PS set indicates whether software has written to the 4-KByte page referenced by this entry else ignored.&quot;</span>,
+                <span class='ident'>is_dirty</span>, <span class='ident'>PT_D</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Global; if PT_PS &amp;&amp; CR4.PGE = 1, determines whether the translation is global; ignored otherwise if not PT_PS this is ignored.&quot;</span>,
+                <span class='ident'>is_global</span>, <span class='ident'>PT_G</span>);
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If IA32_EFER.NXE = 1, execute-disable. If 1, instruction fetches are not allowed from the 4-KByte region.&quot;</span>,
+                <span class='ident'>is_instruction_fetching_disabled</span>, <span class='ident'>PT_XD</span>);
 }
 </pre>
 </section>
@@ -629,10 +866,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -649,7 +888,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -669,7 +908,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -681,6 +920,6 @@
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

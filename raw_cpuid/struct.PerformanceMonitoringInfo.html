@@ -9,6 +9,7 @@
 
     <title>raw_cpuid::PerformanceMonitoringInfo - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>raw_cpuid</a></p><script>window.sidebarCurrent = {name: 'PerformanceMonitoringInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,34 +46,34 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-8662' class='srclink' href='../src/raw_cpuid/lib.rs.html#1323-1328' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-1287' class='srclink' href='../src/raw_cpuid/lib.rs.html#1466-1471' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct PerformanceMonitoringInfo {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.PerformanceMonitoringInfo.html' title='raw_cpuid::PerformanceMonitoringInfo'>PerformanceMonitoringInfo</a></code></h3><div class='impl-items'><h4 id='method.version_id' class='method'><code>fn <a href='#method.version_id' class='fnname'>version_id</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.PerformanceMonitoringInfo.html' title='raw_cpuid::PerformanceMonitoringInfo'>PerformanceMonitoringInfo</a></code></h3><div class='impl-items'><h4 id='method.version_id' class='method'><code>fn <a href='#method.version_id' class='fnname'>version_id</a>(&amp;self) -&gt; u8</code></h4>
 <div class='docblock'><p>Version ID of architectural performance monitoring. (Bits 07 - 00)</p>
-</div><h4 id='method.number_of_counters' class='method'><code>fn <a href='#method.number_of_counters' class='fnname'>number_of_counters</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code></h4>
+</div><h4 id='method.number_of_counters' class='method'><code>fn <a href='#method.number_of_counters' class='fnname'>number_of_counters</a>(&amp;self) -&gt; u8</code></h4>
 <div class='docblock'><p>Number of general-purpose performance monitoring counter per logical processor. (Bits 15- 08)</p>
-</div><h4 id='method.counter_bit_width' class='method'><code>fn <a href='#method.counter_bit_width' class='fnname'>counter_bit_width</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code></h4>
+</div><h4 id='method.counter_bit_width' class='method'><code>fn <a href='#method.counter_bit_width' class='fnname'>counter_bit_width</a>(&amp;self) -&gt; u8</code></h4>
 <div class='docblock'><p>Bit width of general-purpose, performance monitoring counter. (Bits 23 - 16)</p>
-</div><h4 id='method.ebx_length' class='method'><code>fn <a href='#method.ebx_length' class='fnname'>ebx_length</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code></h4>
+</div><h4 id='method.ebx_length' class='method'><code>fn <a href='#method.ebx_length' class='fnname'>ebx_length</a>(&amp;self) -&gt; u8</code></h4>
 <div class='docblock'><p>Length of EBX bit vector to enumerate architectural performance monitoring events. (Bits 31 - 24)</p>
-</div><h4 id='method.fixed_function_counters' class='method'><code>fn <a href='#method.fixed_function_counters' class='fnname'>fixed_function_counters</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code></h4>
+</div><h4 id='method.fixed_function_counters' class='method'><code>fn <a href='#method.fixed_function_counters' class='fnname'>fixed_function_counters</a>(&amp;self) -&gt; u8</code></h4>
 <div class='docblock'><p>Number of fixed-function performance counters (if Version ID &gt; 1). (Bits 04 - 00)</p>
-</div><h4 id='method.fixed_function_counters_bit_width' class='method'><code>fn <a href='#method.fixed_function_counters_bit_width' class='fnname'>fixed_function_counters_bit_width</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code></h4>
+</div><h4 id='method.fixed_function_counters_bit_width' class='method'><code>fn <a href='#method.fixed_function_counters_bit_width' class='fnname'>fixed_function_counters_bit_width</a>(&amp;self) -&gt; u8</code></h4>
 <div class='docblock'><p>Bit width of fixed-function performance counters (if Version ID &gt; 1). (Bits 12- 05)</p>
-</div><h4 id='method.is_core_cyc_ev_unavailable' class='method'><code>fn <a href='#method.is_core_cyc_ev_unavailable' class='fnname'>is_core_cyc_ev_unavailable</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_core_cyc_ev_unavailable' class='method'><code>fn <a href='#method.is_core_cyc_ev_unavailable' class='fnname'>is_core_cyc_ev_unavailable</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Core cycle event not available if 1.</p>
-</div><h4 id='method.is_inst_ret_ev_unavailable' class='method'><code>fn <a href='#method.is_inst_ret_ev_unavailable' class='fnname'>is_inst_ret_ev_unavailable</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_inst_ret_ev_unavailable' class='method'><code>fn <a href='#method.is_inst_ret_ev_unavailable' class='fnname'>is_inst_ret_ev_unavailable</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Instruction retired event not available if 1.</p>
-</div><h4 id='method.is_ref_cycle_ev_unavailable' class='method'><code>fn <a href='#method.is_ref_cycle_ev_unavailable' class='fnname'>is_ref_cycle_ev_unavailable</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_ref_cycle_ev_unavailable' class='method'><code>fn <a href='#method.is_ref_cycle_ev_unavailable' class='fnname'>is_ref_cycle_ev_unavailable</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Reference cycles event not available if 1.</p>
-</div><h4 id='method.is_cache_ref_ev_unavailable' class='method'><code>fn <a href='#method.is_cache_ref_ev_unavailable' class='fnname'>is_cache_ref_ev_unavailable</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_cache_ref_ev_unavailable' class='method'><code>fn <a href='#method.is_cache_ref_ev_unavailable' class='fnname'>is_cache_ref_ev_unavailable</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Last-level cache reference event not available if 1.</p>
-</div><h4 id='method.is_ll_cache_miss_ev_unavailable' class='method'><code>fn <a href='#method.is_ll_cache_miss_ev_unavailable' class='fnname'>is_ll_cache_miss_ev_unavailable</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_ll_cache_miss_ev_unavailable' class='method'><code>fn <a href='#method.is_ll_cache_miss_ev_unavailable' class='fnname'>is_ll_cache_miss_ev_unavailable</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Last-level cache misses event not available if 1.</p>
-</div><h4 id='method.is_branch_inst_ret_ev_unavailable' class='method'><code>fn <a href='#method.is_branch_inst_ret_ev_unavailable' class='fnname'>is_branch_inst_ret_ev_unavailable</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_branch_inst_ret_ev_unavailable' class='method'><code>fn <a href='#method.is_branch_inst_ret_ev_unavailable' class='fnname'>is_branch_inst_ret_ev_unavailable</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Branch instruction retired event not available if 1.</p>
-</div><h4 id='method.is_branch_midpred_ev_unavailable' class='method'><code>fn <a href='#method.is_branch_midpred_ev_unavailable' class='fnname'>is_branch_midpred_ev_unavailable</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_branch_midpred_ev_unavailable' class='method'><code>fn <a href='#method.is_branch_midpred_ev_unavailable' class='fnname'>is_branch_midpred_ev_unavailable</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Branch mispredict retired event not available if 1.</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.PerformanceMonitoringInfo.html' title='raw_cpuid::PerformanceMonitoringInfo'>PerformanceMonitoringInfo</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
 </div></section>
@@ -80,10 +81,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -100,7 +103,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -120,7 +123,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -132,6 +135,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 
     <title>raw_cpuid::QoSInfo - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>raw_cpuid</a></p><script>window.sidebarCurrent = {name: 'QoSInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,18 +46,18 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-10758' class='srclink' href='../src/raw_cpuid/lib.rs.html#1605-1611' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-1634' class='srclink' href='../src/raw_cpuid/lib.rs.html#1822-1828' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct QoSInfo {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.QoSInfo.html' title='raw_cpuid::QoSInfo'>QoSInfo</a></code></h3><div class='impl-items'><h4 id='method.maximum_rmid_range' class='method'><code>fn <a href='#method.maximum_rmid_range' class='fnname'>maximum_rmid_range</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.QoSInfo.html' title='raw_cpuid::QoSInfo'>QoSInfo</a></code></h3><div class='impl-items'><h4 id='method.maximum_rmid_range' class='method'><code>fn <a href='#method.maximum_rmid_range' class='fnname'>maximum_rmid_range</a>(&amp;self) -&gt; u32</code></h4>
 <div class='docblock'><p>Maximum range (zero-based) of RMID within this physical processor of all types.</p>
-</div><h4 id='method.has_l3_qos' class='method'><code>fn <a href='#method.has_l3_qos' class='fnname'>has_l3_qos</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_l3_qos' class='method'><code>fn <a href='#method.has_l3_qos' class='fnname'>has_l3_qos</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Supports L3 Cache QoS if true.</p>
-</div><h4 id='method.conversion_factor' class='method'><code>fn <a href='#method.conversion_factor' class='fnname'>conversion_factor</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.conversion_factor' class='method'><code>fn <a href='#method.conversion_factor' class='fnname'>conversion_factor</a>(&amp;self) -&gt; u32</code></h4>
 <div class='docblock'><p>Conversion factor from reported IA32_QM_CTR value to occupancy metric (bytes).</p>
-</div><h4 id='method.maximum_range_l3_rmid' class='method'><code>fn <a href='#method.maximum_range_l3_rmid' class='fnname'>maximum_range_l3_rmid</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.maximum_range_l3_rmid' class='method'><code>fn <a href='#method.maximum_range_l3_rmid' class='fnname'>maximum_range_l3_rmid</a>(&amp;self) -&gt; u32</code></h4>
 <div class='docblock'><p>Maximum range (zero-based) of RMID of L3.</p>
-</div><h4 id='method.has_l3_occupancy_monitoring' class='method'><code>fn <a href='#method.has_l3_occupancy_monitoring' class='fnname'>has_l3_occupancy_monitoring</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_l3_occupancy_monitoring' class='method'><code>fn <a href='#method.has_l3_occupancy_monitoring' class='fnname'>has_l3_occupancy_monitoring</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Supports L3 occupancy monitoring if true.</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.QoSInfo.html' title='raw_cpuid::QoSInfo'>QoSInfo</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
 </div></section>
@@ -64,10 +65,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -84,7 +87,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -104,7 +107,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -116,6 +119,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

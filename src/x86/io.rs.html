@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/gz/.cargo/registry/src/github.com-0a35038f75765ae4/x86-0.3.1/src/io.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/gz/.multirust/toolchains/nightly/cargo/registry/src/github.com-88ac128001ac3a9a/x86-0.6.0/src/io.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>io.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -75,41 +76,45 @@
 <span id="33">33</span>
 <span id="34">34</span>
 <span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
 </pre><pre class='rust '>
+<span class='doccomment'>//! I/O port functionality.</span>
+
 <span class='doccomment'>/// Write 8 bits to port</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>outb</span>(<span class='ident'>port</span>: <span class='ident'>u16</span>, <span class='ident'>val</span>: <span class='ident'>u8</span>) {
-	<span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;outb %al, %dx&quot;</span> : : <span class='string'>&quot;{dx}&quot;</span>(<span class='ident'>port</span>), <span class='string'>&quot;{al}&quot;</span>(<span class='ident'>val</span>));
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;outb %al, %dx&quot;</span> :: <span class='string'>&quot;{dx}&quot;</span>(<span class='ident'>port</span>), <span class='string'>&quot;{al}&quot;</span>(<span class='ident'>val</span>));
 }
 
 <span class='doccomment'>/// Read 8 bits from port</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>inb</span>(<span class='ident'>port</span>: <span class='ident'>u16</span>) <span class='op'>-&gt;</span> <span class='ident'>u8</span> {
-	<span class='kw'>let</span> <span class='ident'>ret</span> : <span class='ident'>u8</span>;
-	<span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;inb %dx, %al&quot;</span> : <span class='string'>&quot;={ax}&quot;</span>(<span class='ident'>ret</span>) : <span class='string'>&quot;{dx}&quot;</span>(<span class='ident'>port</span>));
-	<span class='kw'>return</span> <span class='ident'>ret</span>;
+    <span class='kw'>let</span> <span class='ident'>ret</span>: <span class='ident'>u8</span>;
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;inb %dx, %al&quot;</span> : <span class='string'>&quot;={ax}&quot;</span>(<span class='ident'>ret</span>) : <span class='string'>&quot;{dx}&quot;</span>(<span class='ident'>port</span>) :: <span class='string'>&quot;volatile&quot;</span>);
+    <span class='kw'>return</span> <span class='ident'>ret</span>;
 }
 
 <span class='doccomment'>/// Write 16 bits to port</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>outw</span>(<span class='ident'>port</span>: <span class='ident'>u16</span>, <span class='ident'>val</span>: <span class='ident'>u16</span>) {
-	<span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;outw %ax, %dx&quot;</span> : : <span class='string'>&quot;{dx}&quot;</span>(<span class='ident'>port</span>), <span class='string'>&quot;{al}&quot;</span>(<span class='ident'>val</span>));
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;outw %ax, %dx&quot;</span> :: <span class='string'>&quot;{dx}&quot;</span>(<span class='ident'>port</span>), <span class='string'>&quot;{al}&quot;</span>(<span class='ident'>val</span>));
 }
 
 <span class='doccomment'>/// Read 16 bits from port</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>inw</span>(<span class='ident'>port</span>: <span class='ident'>u16</span>) <span class='op'>-&gt;</span> <span class='ident'>u16</span> {
-	<span class='kw'>let</span> <span class='ident'>ret</span> : <span class='ident'>u16</span>;
-	<span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;inw %dx, %ax&quot;</span> : <span class='string'>&quot;={ax}&quot;</span>(<span class='ident'>ret</span>) : <span class='string'>&quot;{dx}&quot;</span>(<span class='ident'>port</span>));
-	<span class='kw'>return</span> <span class='ident'>ret</span>;
+    <span class='kw'>let</span> <span class='ident'>ret</span>: <span class='ident'>u16</span>;
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;inw %dx, %ax&quot;</span> : <span class='string'>&quot;={ax}&quot;</span>(<span class='ident'>ret</span>) : <span class='string'>&quot;{dx}&quot;</span>(<span class='ident'>port</span>) :: <span class='string'>&quot;volatile&quot;</span>);
+    <span class='kw'>return</span> <span class='ident'>ret</span>;
 }
 
 <span class='doccomment'>/// Write 32 bits to port</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>outl</span>(<span class='ident'>port</span>: <span class='ident'>u16</span>, <span class='ident'>val</span>: <span class='ident'>u32</span>) {
-	<span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;outl %eax, %dx&quot;</span> : : <span class='string'>&quot;{dx}&quot;</span>(<span class='ident'>port</span>), <span class='string'>&quot;{al}&quot;</span>(<span class='ident'>val</span>));
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;outl %eax, %dx&quot;</span> :: <span class='string'>&quot;{dx}&quot;</span>(<span class='ident'>port</span>), <span class='string'>&quot;{al}&quot;</span>(<span class='ident'>val</span>));
 }
 
 <span class='doccomment'>/// Read 32 bits from port</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>inl</span>(<span class='ident'>port</span>: <span class='ident'>u16</span>) <span class='op'>-&gt;</span> <span class='ident'>u32</span> {
-	<span class='kw'>let</span> <span class='ident'>ret</span> : <span class='ident'>u32</span>;
-	<span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;inl %dx, %eax&quot;</span> : <span class='string'>&quot;={ax}&quot;</span>(<span class='ident'>ret</span>) : <span class='string'>&quot;{dx}&quot;</span>(<span class='ident'>port</span>));
-	<span class='kw'>return</span> <span class='ident'>ret</span>;
+    <span class='kw'>let</span> <span class='ident'>ret</span>: <span class='ident'>u32</span>;
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;inl %dx, %eax&quot;</span> : <span class='string'>&quot;={ax}&quot;</span>(<span class='ident'>ret</span>) : <span class='string'>&quot;{dx}&quot;</span>(<span class='ident'>port</span>) :: <span class='string'>&quot;volatile&quot;</span>);
+    <span class='kw'>return</span> <span class='ident'>ret</span>;
 }
 </pre>
 </section>
@@ -117,10 +122,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -137,7 +144,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -157,7 +164,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -169,6 +176,6 @@
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

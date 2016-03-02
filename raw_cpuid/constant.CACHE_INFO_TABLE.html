@@ -9,6 +9,7 @@
 
     <title>raw_cpuid::CACHE_INFO_TABLE - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>raw_cpuid</a></p><script>window.sidebarCurrent = {name: 'CACHE_INFO_TABLE', ty: 'constant', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,8 +46,8 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-1701' class='srclink' href='../src/raw_cpuid/lib.rs.html#455-559' title='goto source code'>[src]</a></span></h1>
-<pre class='rust const'>pub const CACHE_INFO_TABLE: <a href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a>; 103]</a><code> = </code><code>[
+        </span><a id='src-244' class='srclink' href='../src/raw_cpuid/lib.rs.html#528-632' title='goto source code'>[src]</a></span></h1>
+<pre class='rust const'>pub const CACHE_INFO_TABLE: [<a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a>; 103]<code> = </code><code>[
     CacheInfo{num: 0x00, typ: CacheInfoType::GENERAL, desc: "Null descriptor, this byte contains no information"},
     CacheInfo{num: 0x01, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4 KByte pages, 4-way set associative, 32 entries"},
     CacheInfo{num: 0x02, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4 MByte pages, fully associative, 2 entries"},
@@ -156,10 +157,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -176,7 +179,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -196,7 +199,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -208,6 +211,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 
     <title>raw_cpuid::CpuId - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>raw_cpuid</a></p><script>window.sidebarCurrent = {name: 'CpuId', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-228' class='srclink' href='../src/raw_cpuid/lib.rs.html#102-104' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-33' class='srclink' href='../src/raw_cpuid/lib.rs.html#117-119' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct CpuId {
     // some fields omitted
 }</pre><div class='docblock'><p>Main type used to query for information about the CPU we&#39;re running on.</p>
@@ -80,8 +81,16 @@ set size, line size etc. for each level of the cache hierarchy.</p>
 <div class='docblock'><p>Information about topology (how many cores and what kind of cores).</p>
 </div><h4 id='method.get_extended_state_info' class='method'><code>fn <a href='#method.get_extended_state_info' class='fnname'>get_extended_state_info</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../raw_cpuid/struct.ExtendedStateInfo.html' title='raw_cpuid::ExtendedStateInfo'>ExtendedStateInfo</a>&gt;</code></h4>
 <div class='docblock'><p>Information for saving/restoring extended register state.</p>
-</div><h4 id='method.get_quality_of_service_info' class='method'><code>fn <a href='#method.get_quality_of_service_info' class='fnname'>get_quality_of_service_info</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../raw_cpuid/struct.QoSInfo.html' title='raw_cpuid::QoSInfo'>QoSInfo</a>&gt;</code></h4>
-<div class='docblock'><p>QoS informations.</p>
+</div><h4 id='method.get_qos_info' class='method'><code>fn <a href='#method.get_qos_info' class='fnname'>get_qos_info</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../raw_cpuid/struct.QoSInfo.html' title='raw_cpuid::QoSInfo'>QoSInfo</a>&gt;</code></h4>
+<div class='docblock'><p>Quality of service informations.</p>
+</div><h4 id='method.get_qos_enforcement_info' class='method'><code>fn <a href='#method.get_qos_enforcement_info' class='fnname'>get_qos_enforcement_info</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../raw_cpuid/struct.QoSEnforcementInfo.html' title='raw_cpuid::QoSEnforcementInfo'>QoSEnforcementInfo</a>&gt;</code></h4>
+<div class='docblock'><p>Quality of service enforcement information.</p>
+</div><h4 id='method.get_processor_trace_info' class='method'><code>fn <a href='#method.get_processor_trace_info' class='fnname'>get_processor_trace_info</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../raw_cpuid/struct.ProcessorTraceInfo.html' title='raw_cpuid::ProcessorTraceInfo'>ProcessorTraceInfo</a>&gt;</code></h4>
+<div class='docblock'><p>Intel Processor Trace Enumeration Information.</p>
+</div><h4 id='method.get_tsc_info' class='method'><code>fn <a href='#method.get_tsc_info' class='fnname'>get_tsc_info</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../raw_cpuid/struct.TscInfo.html' title='raw_cpuid::TscInfo'>TscInfo</a>&gt;</code></h4>
+<div class='docblock'><p>Time Stamp Counter/Core Crystal Clock Information.</p>
+</div><h4 id='method.get_processor_frequency_info' class='method'><code>fn <a href='#method.get_processor_frequency_info' class='fnname'>get_processor_frequency_info</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../raw_cpuid/struct.ProcessorFrequencyInfo.html' title='raw_cpuid::ProcessorFrequencyInfo'>ProcessorFrequencyInfo</a>&gt;</code></h4>
+<div class='docblock'><p>Processor Frequency Information.</p>
 </div><h4 id='method.get_extended_function_info' class='method'><code>fn <a href='#method.get_extended_function_info' class='fnname'>get_extended_function_info</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../raw_cpuid/struct.ExtendedFunctionInfo.html' title='raw_cpuid::ExtendedFunctionInfo'>ExtendedFunctionInfo</a>&gt;</code></h4>
 <div class='docblock'><p>Extended functionality of CPU described here (including more supported features).
 This also contains a more detailed CPU model identifier.</p>
@@ -91,10 +100,12 @@ This also contains a more detailed CPU model identifier.</p>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -111,7 +122,7 @@ This also contains a more detailed CPU model identifier.</p>
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -131,7 +142,7 @@ This also contains a more detailed CPU model identifier.</p>
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -143,6 +154,6 @@ This also contains a more detailed CPU model identifier.</p>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

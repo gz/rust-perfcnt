@@ -9,6 +9,7 @@
 
     <title>raw_cpuid::ProcessorSerial - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>raw_cpuid</a></p><script>window.sidebarCurrent = {name: 'ProcessorSerial', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,13 +46,13 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-2164' class='srclink' href='../src/raw_cpuid/lib.rs.html#567-570' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-251' class='srclink' href='../src/raw_cpuid/lib.rs.html#640-643' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ProcessorSerial {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ProcessorSerial.html' title='raw_cpuid::ProcessorSerial'>ProcessorSerial</a></code></h3><div class='impl-items'><h4 id='method.serial_lower' class='method'><code>fn <a href='#method.serial_lower' class='fnname'>serial_lower</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ProcessorSerial.html' title='raw_cpuid::ProcessorSerial'>ProcessorSerial</a></code></h3><div class='impl-items'><h4 id='method.serial_lower' class='method'><code>fn <a href='#method.serial_lower' class='fnname'>serial_lower</a>(&amp;self) -&gt; u32</code></h4>
 <div class='docblock'><p>Bits 00-31 of 96 bit processor serial number.
 (Available in Pentium III processor only; otherwise, the value in this register is reserved.)</p>
-</div><h4 id='method.serial_middle' class='method'><code>fn <a href='#method.serial_middle' class='fnname'>serial_middle</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+</div><h4 id='method.serial_middle' class='method'><code>fn <a href='#method.serial_middle' class='fnname'>serial_middle</a>(&amp;self) -&gt; u32</code></h4>
 <div class='docblock'><p>Bits 32-63 of 96 bit processor serial number.
 (Available in Pentium III processor only; otherwise, the value in this register is reserved.)</p>
 </div></div></section>
@@ -59,10 +60,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -79,7 +82,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -99,7 +102,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -111,6 +114,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 
     <title>raw_cpuid::ExtendedFeatures - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>raw_cpuid</a></p><script>window.sidebarCurrent = {name: 'ExtendedFeatures', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,43 +46,47 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-7582' class='srclink' href='../src/raw_cpuid/lib.rs.html#1218-1223' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-1102' class='srclink' href='../src/raw_cpuid/lib.rs.html#1354-1359' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ExtendedFeatures {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ExtendedFeatures.html' title='raw_cpuid::ExtendedFeatures'>ExtendedFeatures</a></code></h3><div class='impl-items'><h4 id='method.has_fsgsbase' class='method'><code>fn <a href='#method.has_fsgsbase' class='fnname'>has_fsgsbase</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ExtendedFeatures.html' title='raw_cpuid::ExtendedFeatures'>ExtendedFeatures</a></code></h3><div class='impl-items'><h4 id='method.has_fsgsbase' class='method'><code>fn <a href='#method.has_fsgsbase' class='fnname'>has_fsgsbase</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>FSGSBASE. Supports RDFSBASE/RDGSBASE/WRFSBASE/WRGSBASE if 1.</p>
-</div><h4 id='method.has_tsc_adjust_msr' class='method'><code>fn <a href='#method.has_tsc_adjust_msr' class='fnname'>has_tsc_adjust_msr</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_tsc_adjust_msr' class='method'><code>fn <a href='#method.has_tsc_adjust_msr' class='fnname'>has_tsc_adjust_msr</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>IA32_TSC_ADJUST MSR is supported if 1.</p>
-</div><h4 id='method.has_bmi1' class='method'><code>fn <a href='#method.has_bmi1' class='fnname'>has_bmi1</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_bmi1' class='method'><code>fn <a href='#method.has_bmi1' class='fnname'>has_bmi1</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>BMI1</p>
-</div><h4 id='method.has_hle' class='method'><code>fn <a href='#method.has_hle' class='fnname'>has_hle</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_hle' class='method'><code>fn <a href='#method.has_hle' class='fnname'>has_hle</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>HLE</p>
-</div><h4 id='method.has_avx2' class='method'><code>fn <a href='#method.has_avx2' class='fnname'>has_avx2</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_avx2' class='method'><code>fn <a href='#method.has_avx2' class='fnname'>has_avx2</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>AVX2</p>
-</div><h4 id='method.has_smep' class='method'><code>fn <a href='#method.has_smep' class='fnname'>has_smep</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_smep' class='method'><code>fn <a href='#method.has_smep' class='fnname'>has_smep</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>SMEP. Supports Supervisor-Mode Execution Prevention if 1.</p>
-</div><h4 id='method.has_bmi2' class='method'><code>fn <a href='#method.has_bmi2' class='fnname'>has_bmi2</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_bmi2' class='method'><code>fn <a href='#method.has_bmi2' class='fnname'>has_bmi2</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>BMI2</p>
-</div><h4 id='method.has_rep_movsb_stosb' class='method'><code>fn <a href='#method.has_rep_movsb_stosb' class='fnname'>has_rep_movsb_stosb</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_rep_movsb_stosb' class='method'><code>fn <a href='#method.has_rep_movsb_stosb' class='fnname'>has_rep_movsb_stosb</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Supports Enhanced REP MOVSB/STOSB if 1.</p>
-</div><h4 id='method.has_invpcid' class='method'><code>fn <a href='#method.has_invpcid' class='fnname'>has_invpcid</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_invpcid' class='method'><code>fn <a href='#method.has_invpcid' class='fnname'>has_invpcid</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>INVPCID. If 1, supports INVPCID instruction for system software that manages process-context identifiers.</p>
-</div><h4 id='method.has_rtm' class='method'><code>fn <a href='#method.has_rtm' class='fnname'>has_rtm</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_rtm' class='method'><code>fn <a href='#method.has_rtm' class='fnname'>has_rtm</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>RTM</p>
-</div><h4 id='method.has_qm' class='method'><code>fn <a href='#method.has_qm' class='fnname'>has_qm</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_qm' class='method'><code>fn <a href='#method.has_qm' class='fnname'>has_qm</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Supports Quality of Service Monitoring (QM) capability if 1.</p>
-</div><h4 id='method.has_fpu_cs_ds_deprecated' class='method'><code>fn <a href='#method.has_fpu_cs_ds_deprecated' class='fnname'>has_fpu_cs_ds_deprecated</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_fpu_cs_ds_deprecated' class='method'><code>fn <a href='#method.has_fpu_cs_ds_deprecated' class='fnname'>has_fpu_cs_ds_deprecated</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Deprecates FPU CS and FPU DS values if 1.</p>
+</div><h4 id='method.has_mpx' class='method'><code>fn <a href='#method.has_mpx' class='fnname'>has_mpx</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>MPX. Supports Intel Memory Protection Extensions if 1.</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.ExtendedFeatures.html' title='raw_cpuid::ExtendedFeatures'>ExtendedFeatures</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -98,7 +103,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -118,7 +123,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -130,6 +135,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

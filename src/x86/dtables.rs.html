@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/gz/.cargo/registry/src/github.com-0a35038f75765ae4/x86-0.3.1/src/dtables.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/gz/.multirust/toolchains/nightly/cargo/registry/src/github.com-88ac128001ac3a9a/x86-0.6.0/src/dtables.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>dtables.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -68,42 +69,45 @@
 <span id="26">26</span>
 <span id="27">27</span>
 </pre><pre class='rust '>
-<span class='doccomment'>/// Functions and data-structures to load descriptor tables.</span>
+<span class='doccomment'>//! Functions and data-structures to load descriptor tables.</span>
 
 <span class='doccomment'>/// A struct describing a pointer to a descriptor table (GDT / IDT).</span>
 <span class='doccomment'>/// This is in a format suitable for giving to &#39;lgdt&#39; or &#39;lidt&#39;.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>, <span class='ident'>packed</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>DescriptorTablePointer</span> {
-   <span class='doccomment'>/// Size of the DT.</span>
-   <span class='kw'>pub</span> <span class='ident'>limit</span>: <span class='ident'>u16</span>,
-   <span class='doccomment'>/// Pointer to the memory region containing the DT.</span>
-   <span class='kw'>pub</span> <span class='ident'>base</span>: <span class='ident'>u64</span>
+    <span class='doccomment'>/// Size of the DT.</span>
+    <span class='kw'>pub</span> <span class='ident'>limit</span>: <span class='ident'>u16</span>,
+    <span class='doccomment'>/// Pointer to the memory region containing the DT.</span>
+    <span class='kw'>pub</span> <span class='ident'>base</span>: <span class='ident'>u64</span>,
 }
 
 <span class='doccomment'>/// Load GDT table.</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>lgdt</span>(<span class='ident'>gdt</span>: <span class='kw-2'>&amp;</span><span class='ident'>DescriptorTablePointer</span>) {
-    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;lgdt ($0)&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>gdt</span>));
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;lgdt ($0)&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>gdt</span>) : <span class='string'>&quot;memory&quot;</span>);
 }
 
 <span class='doccomment'>/// Load LDT table.</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>lldt</span>(<span class='ident'>ldt</span>: <span class='kw-2'>&amp;</span><span class='ident'>DescriptorTablePointer</span>) {
-    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;lldt ($0)&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>ldt</span>));
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;lldt ($0)&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>ldt</span>) : <span class='string'>&quot;memory&quot;</span>);
 }
 
 <span class='doccomment'>/// Load IDT table.</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>lidt</span>(<span class='ident'>idt</span>: <span class='kw-2'>&amp;</span><span class='ident'>DescriptorTablePointer</span>) {
-    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;lidt ($0)&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>idt</span>));
-}</pre>
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;lidt ($0)&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>idt</span>) : <span class='string'>&quot;memory&quot;</span>);
+}
+</pre>
 </section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -120,7 +124,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -140,7 +144,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -152,6 +156,6 @@
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

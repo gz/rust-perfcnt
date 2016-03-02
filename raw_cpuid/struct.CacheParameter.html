@@ -9,6 +9,7 @@
 
     <title>raw_cpuid::CacheParameter - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>raw_cpuid</a></p><script>window.sidebarCurrent = {name: 'CacheParameter', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,38 +46,38 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-5077' class='srclink' href='../src/raw_cpuid/lib.rs.html#968-973' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-711' class='srclink' href='../src/raw_cpuid/lib.rs.html#1100-1105' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct CacheParameter {
     // some fields omitted
 }</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.CacheParameter.html' title='raw_cpuid::CacheParameter'>CacheParameter</a></code></h3><div class='impl-items'><h4 id='method.cache_type' class='method'><code>fn <a href='#method.cache_type' class='fnname'>cache_type</a>(&amp;self) -&gt; <a class='enum' href='../raw_cpuid/enum.CacheType.html' title='raw_cpuid::CacheType'>CacheType</a></code></h4>
 <div class='docblock'><p>Cache Type</p>
-</div><h4 id='method.level' class='method'><code>fn <a href='#method.level' class='fnname'>level</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code></h4>
+</div><h4 id='method.level' class='method'><code>fn <a href='#method.level' class='fnname'>level</a>(&amp;self) -&gt; u8</code></h4>
 <div class='docblock'><p>Cache Level (starts at 1)</p>
-</div><h4 id='method.is_self_initializing' class='method'><code>fn <a href='#method.is_self_initializing' class='fnname'>is_self_initializing</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_self_initializing' class='method'><code>fn <a href='#method.is_self_initializing' class='fnname'>is_self_initializing</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Self Initializing cache level (does not need SW initialization).</p>
-</div><h4 id='method.is_fully_associative' class='method'><code>fn <a href='#method.is_fully_associative' class='fnname'>is_fully_associative</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_fully_associative' class='method'><code>fn <a href='#method.is_fully_associative' class='fnname'>is_fully_associative</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Fully Associative cache</p>
-</div><h4 id='method.max_cores_for_cache' class='method'><code>fn <a href='#method.max_cores_for_cache' class='fnname'>max_cores_for_cache</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+</div><h4 id='method.max_cores_for_cache' class='method'><code>fn <a href='#method.max_cores_for_cache' class='fnname'>max_cores_for_cache</a>(&amp;self) -&gt; usize</code></h4>
 <div class='docblock'><p>Maximum number of addressable IDs for logical processors sharing this cache</p>
-</div><h4 id='method.max_cores_for_package' class='method'><code>fn <a href='#method.max_cores_for_package' class='fnname'>max_cores_for_package</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+</div><h4 id='method.max_cores_for_package' class='method'><code>fn <a href='#method.max_cores_for_package' class='fnname'>max_cores_for_package</a>(&amp;self) -&gt; usize</code></h4>
 <div class='docblock'><p>Maximum number of addressable IDs for processor cores in the physical package</p>
-</div><h4 id='method.coherency_line_size' class='method'><code>fn <a href='#method.coherency_line_size' class='fnname'>coherency_line_size</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+</div><h4 id='method.coherency_line_size' class='method'><code>fn <a href='#method.coherency_line_size' class='fnname'>coherency_line_size</a>(&amp;self) -&gt; usize</code></h4>
 <div class='docblock'><p>System Coherency Line Size (Bits 11-00)</p>
-</div><h4 id='method.physical_line_partitions' class='method'><code>fn <a href='#method.physical_line_partitions' class='fnname'>physical_line_partitions</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+</div><h4 id='method.physical_line_partitions' class='method'><code>fn <a href='#method.physical_line_partitions' class='fnname'>physical_line_partitions</a>(&amp;self) -&gt; usize</code></h4>
 <div class='docblock'><p>Physical Line partitions (Bits 21-12)</p>
-</div><h4 id='method.associativity' class='method'><code>fn <a href='#method.associativity' class='fnname'>associativity</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+</div><h4 id='method.associativity' class='method'><code>fn <a href='#method.associativity' class='fnname'>associativity</a>(&amp;self) -&gt; usize</code></h4>
 <div class='docblock'><p>Ways of associativity (Bits 31-22)</p>
-</div><h4 id='method.sets' class='method'><code>fn <a href='#method.sets' class='fnname'>sets</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+</div><h4 id='method.sets' class='method'><code>fn <a href='#method.sets' class='fnname'>sets</a>(&amp;self) -&gt; usize</code></h4>
 <div class='docblock'><p>Number of Sets (Bits 31-00)</p>
-</div><h4 id='method.is_write_back_invalidate' class='method'><code>fn <a href='#method.is_write_back_invalidate' class='fnname'>is_write_back_invalidate</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_write_back_invalidate' class='method'><code>fn <a href='#method.is_write_back_invalidate' class='fnname'>is_write_back_invalidate</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Write-Back Invalidate/Invalidate (Bit 0)
 False: WBINVD/INVD from threads sharing this cache acts upon lower level caches for threads sharing this cache.
 True: WBINVD/INVD is not guaranteed to act upon lower level caches of non-originating threads sharing this cache.</p>
-</div><h4 id='method.is_inclusive' class='method'><code>fn <a href='#method.is_inclusive' class='fnname'>is_inclusive</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_inclusive' class='method'><code>fn <a href='#method.is_inclusive' class='fnname'>is_inclusive</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Cache Inclusiveness (Bit 1)
 False: Cache is not inclusive of lower cache levels.
 True: Cache is inclusive of lower cache levels.</p>
-</div><h4 id='method.has_complex_indexing' class='method'><code>fn <a href='#method.has_complex_indexing' class='fnname'>has_complex_indexing</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.has_complex_indexing' class='method'><code>fn <a href='#method.has_complex_indexing' class='fnname'>has_complex_indexing</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Complex Cache Indexing (Bit 2)
 False: Direct mapped cache.
 True: A complex function is used to index the cache, potentially using all address bits.</p>
@@ -88,10 +89,12 @@ True: A complex function is used to index the cache, potentially using all addre
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -108,7 +111,7 @@ True: A complex function is used to index the cache, potentially using all addre
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -128,7 +131,7 @@ True: A complex function is used to index the cache, potentially using all addre
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -140,6 +143,6 @@ True: A complex function is used to index the cache, potentially using all addre
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

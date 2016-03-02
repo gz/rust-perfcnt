@@ -9,6 +9,7 @@
 
     <title>x86::irq::InterruptDescription - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='../index.html'>x86</a>::<wbr><a href='index.html'>irq</a></p><script>window.sidebarCurrent = {name: 'InterruptDescription', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,13 +46,13 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-3434' class='srclink' href='../../src/x86/irq.rs.html#5-11' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-1123' class='srclink' href='../../src/x86/irq.rs.html#7-13' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct InterruptDescription {
-    pub vector: <a href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>,
-    pub mnemonic: &amp;'static <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>,
-    pub description: &amp;'static <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>,
-    pub irqtype: &amp;'static <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>,
-    pub source: &amp;'static <a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>,
+    pub vector: u8,
+    pub mnemonic: &amp;'static str,
+    pub description: &amp;'static str,
+    pub irqtype: &amp;'static str,
+    pub source: &amp;'static str,
 }</pre><div class='docblock'><p>x86 Exception description (see also Intel Vol. 3a Chapter 6).</p>
 </div><h2 class='fields'>Fields</h2>
 <table><tr class='stab '>
@@ -59,17 +60,19 @@
                                   <td id='structfield.mnemonic'><code>mnemonic</code></td><td></td></tr><tr class='stab '>
                                   <td id='structfield.description'><code>description</code></td><td></td></tr><tr class='stab '>
                                   <td id='structfield.irqtype'><code>irqtype</code></td><td></td></tr><tr class='stab '>
-                                  <td id='structfield.source'><code>source</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='struct' href='../../x86/irq/struct.InterruptDescription.html' title='x86::irq::InterruptDescription'>InterruptDescription</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../x86/irq/struct.InterruptDescription.html' title='x86::irq::InterruptDescription'>InterruptDescription</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+                                  <td id='structfield.source'><code>source</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='struct' href='../../x86/irq/struct.InterruptDescription.html' title='x86::irq::InterruptDescription'>InterruptDescription</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='../../core/fmt/trait.Display.html#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../x86/irq/struct.InterruptDescription.html' title='x86::irq::InterruptDescription'>InterruptDescription</a></code></h3><div class='impl-items'><h4 id='method.fmt-1' class='method'><code>fn <a href='../../core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -86,7 +89,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -106,7 +109,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -118,6 +121,6 @@
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

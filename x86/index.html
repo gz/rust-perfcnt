@@ -9,6 +9,7 @@
 
     <title>x86 - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'></p><script>window.sidebarCurrent = {name: 'x86', ty: 'mod', relpath: '../'};</script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,14 +46,15 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/x86/lib.rs.html#1-36' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/x86/lib.rs.html#1-71' title='goto source code'>[src]</a></span></h1>
 <h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                     <tr class=' module-item'>
                         <td><a class='mod' href='controlregs/index.html'
                                title='x86::controlregs'>controlregs</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Functions to read and write control registers.</p>
+
                         </td>
                     </tr>
                 
@@ -68,7 +70,8 @@
                         <td><a class='mod' href='dtables/index.html'
                                title='x86::dtables'>dtables</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Functions and data-structures to load descriptor tables.</p>
+
                         </td>
                     </tr>
                 
@@ -76,7 +79,8 @@
                         <td><a class='mod' href='io/index.html'
                                title='x86::io'>io</a></td>
                         <td class='docblock short'>
-                             
+                             <p>I/O port functionality.</p>
+
                         </td>
                     </tr>
                 
@@ -84,7 +88,8 @@
                         <td><a class='mod' href='irq/index.html'
                                title='x86::irq'>irq</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Interrupt description and set-up code.</p>
+
                         </td>
                     </tr>
                 
@@ -92,7 +97,8 @@
                         <td><a class='mod' href='msr/index.html'
                                title='x86::msr'>msr</a></td>
                         <td class='docblock short'>
-                             
+                             <p>MSR value list and function to read and write them.</p>
+
                         </td>
                     </tr>
                 
@@ -100,7 +106,17 @@
                         <td><a class='mod' href='paging/index.html'
                                title='x86::paging'>paging</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Description of the data-structures for IA-32e paging mode.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='perfcnt/index.html'
+                               title='x86::perfcnt'>perfcnt</a></td>
+                        <td class='docblock short'>
+                             <p>Information about available performance counters.</p>
+
                         </td>
                     </tr>
                 
@@ -108,7 +124,8 @@
                         <td><a class='mod' href='rflags/index.html'
                                title='x86::rflags'>rflags</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Description of RFlag values that store the results of operations and the state of the processor.</p>
+
                         </td>
                     </tr>
                 
@@ -116,7 +133,8 @@
                         <td><a class='mod' href='segmentation/index.html'
                                title='x86::segmentation'>segmentation</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Program x86 segmentation hardware.</p>
+
                         </td>
                     </tr>
                 
@@ -124,7 +142,8 @@
                         <td><a class='mod' href='syscall/index.html'
                                title='x86::syscall'>syscall</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Invokes an OS system-call handler at privilege level 0.</p>
+
                         </td>
                     </tr>
                 
@@ -132,7 +151,8 @@
                         <td><a class='mod' href='task/index.html'
                                title='x86::task'>task</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Helpers to program the task state segment.</p>
+
                         </td>
                     </tr>
                 
@@ -140,7 +160,17 @@
                         <td><a class='mod' href='time/index.html'
                                title='x86::time'>time</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Functions to read time stamp counters on x86.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='tlb/index.html'
+                               title='x86::tlb'>tlb</a></td>
+                        <td class='docblock short'>
+                             <p>Functions to flush the translation lookaside buffer (TLB).</p>
+
                         </td>
                     </tr>
                 </table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
@@ -159,8 +189,7 @@ This is a macro argument needs to be an immediate.</p>
                         <td><a class='macro' href='macro.syscall!.html'
                                title='x86::syscall!'>syscall!</a></td>
                         <td class='docblock short'>
-                             <p>SYSCALL invokes an OS system-call handler at privilege level 0.</p>
-
+                             
                         </td>
                     </tr>
                 </table></section>
@@ -168,10 +197,12 @@ This is a macro argument needs to be an immediate.</p>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -188,7 +219,7 @@ This is a macro argument needs to be an immediate.</p>
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -208,7 +239,7 @@ This is a macro argument needs to be an immediate.</p>
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -220,6 +251,6 @@ This is a macro argument needs to be an immediate.</p>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

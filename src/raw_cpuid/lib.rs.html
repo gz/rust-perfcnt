@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/gz/.cargo/registry/src/github.com-0a35038f75765ae4/raw-cpuid-1.0.1/src/lib.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/gz/.multirust/toolchains/nightly/cargo/registry/src/github.com-88ac128001ac3a9a/raw-cpuid-2.0.0/src/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -2213,6 +2214,434 @@
 <span id="2171">2171</span>
 <span id="2172">2172</span>
 <span id="2173">2173</span>
+<span id="2174">2174</span>
+<span id="2175">2175</span>
+<span id="2176">2176</span>
+<span id="2177">2177</span>
+<span id="2178">2178</span>
+<span id="2179">2179</span>
+<span id="2180">2180</span>
+<span id="2181">2181</span>
+<span id="2182">2182</span>
+<span id="2183">2183</span>
+<span id="2184">2184</span>
+<span id="2185">2185</span>
+<span id="2186">2186</span>
+<span id="2187">2187</span>
+<span id="2188">2188</span>
+<span id="2189">2189</span>
+<span id="2190">2190</span>
+<span id="2191">2191</span>
+<span id="2192">2192</span>
+<span id="2193">2193</span>
+<span id="2194">2194</span>
+<span id="2195">2195</span>
+<span id="2196">2196</span>
+<span id="2197">2197</span>
+<span id="2198">2198</span>
+<span id="2199">2199</span>
+<span id="2200">2200</span>
+<span id="2201">2201</span>
+<span id="2202">2202</span>
+<span id="2203">2203</span>
+<span id="2204">2204</span>
+<span id="2205">2205</span>
+<span id="2206">2206</span>
+<span id="2207">2207</span>
+<span id="2208">2208</span>
+<span id="2209">2209</span>
+<span id="2210">2210</span>
+<span id="2211">2211</span>
+<span id="2212">2212</span>
+<span id="2213">2213</span>
+<span id="2214">2214</span>
+<span id="2215">2215</span>
+<span id="2216">2216</span>
+<span id="2217">2217</span>
+<span id="2218">2218</span>
+<span id="2219">2219</span>
+<span id="2220">2220</span>
+<span id="2221">2221</span>
+<span id="2222">2222</span>
+<span id="2223">2223</span>
+<span id="2224">2224</span>
+<span id="2225">2225</span>
+<span id="2226">2226</span>
+<span id="2227">2227</span>
+<span id="2228">2228</span>
+<span id="2229">2229</span>
+<span id="2230">2230</span>
+<span id="2231">2231</span>
+<span id="2232">2232</span>
+<span id="2233">2233</span>
+<span id="2234">2234</span>
+<span id="2235">2235</span>
+<span id="2236">2236</span>
+<span id="2237">2237</span>
+<span id="2238">2238</span>
+<span id="2239">2239</span>
+<span id="2240">2240</span>
+<span id="2241">2241</span>
+<span id="2242">2242</span>
+<span id="2243">2243</span>
+<span id="2244">2244</span>
+<span id="2245">2245</span>
+<span id="2246">2246</span>
+<span id="2247">2247</span>
+<span id="2248">2248</span>
+<span id="2249">2249</span>
+<span id="2250">2250</span>
+<span id="2251">2251</span>
+<span id="2252">2252</span>
+<span id="2253">2253</span>
+<span id="2254">2254</span>
+<span id="2255">2255</span>
+<span id="2256">2256</span>
+<span id="2257">2257</span>
+<span id="2258">2258</span>
+<span id="2259">2259</span>
+<span id="2260">2260</span>
+<span id="2261">2261</span>
+<span id="2262">2262</span>
+<span id="2263">2263</span>
+<span id="2264">2264</span>
+<span id="2265">2265</span>
+<span id="2266">2266</span>
+<span id="2267">2267</span>
+<span id="2268">2268</span>
+<span id="2269">2269</span>
+<span id="2270">2270</span>
+<span id="2271">2271</span>
+<span id="2272">2272</span>
+<span id="2273">2273</span>
+<span id="2274">2274</span>
+<span id="2275">2275</span>
+<span id="2276">2276</span>
+<span id="2277">2277</span>
+<span id="2278">2278</span>
+<span id="2279">2279</span>
+<span id="2280">2280</span>
+<span id="2281">2281</span>
+<span id="2282">2282</span>
+<span id="2283">2283</span>
+<span id="2284">2284</span>
+<span id="2285">2285</span>
+<span id="2286">2286</span>
+<span id="2287">2287</span>
+<span id="2288">2288</span>
+<span id="2289">2289</span>
+<span id="2290">2290</span>
+<span id="2291">2291</span>
+<span id="2292">2292</span>
+<span id="2293">2293</span>
+<span id="2294">2294</span>
+<span id="2295">2295</span>
+<span id="2296">2296</span>
+<span id="2297">2297</span>
+<span id="2298">2298</span>
+<span id="2299">2299</span>
+<span id="2300">2300</span>
+<span id="2301">2301</span>
+<span id="2302">2302</span>
+<span id="2303">2303</span>
+<span id="2304">2304</span>
+<span id="2305">2305</span>
+<span id="2306">2306</span>
+<span id="2307">2307</span>
+<span id="2308">2308</span>
+<span id="2309">2309</span>
+<span id="2310">2310</span>
+<span id="2311">2311</span>
+<span id="2312">2312</span>
+<span id="2313">2313</span>
+<span id="2314">2314</span>
+<span id="2315">2315</span>
+<span id="2316">2316</span>
+<span id="2317">2317</span>
+<span id="2318">2318</span>
+<span id="2319">2319</span>
+<span id="2320">2320</span>
+<span id="2321">2321</span>
+<span id="2322">2322</span>
+<span id="2323">2323</span>
+<span id="2324">2324</span>
+<span id="2325">2325</span>
+<span id="2326">2326</span>
+<span id="2327">2327</span>
+<span id="2328">2328</span>
+<span id="2329">2329</span>
+<span id="2330">2330</span>
+<span id="2331">2331</span>
+<span id="2332">2332</span>
+<span id="2333">2333</span>
+<span id="2334">2334</span>
+<span id="2335">2335</span>
+<span id="2336">2336</span>
+<span id="2337">2337</span>
+<span id="2338">2338</span>
+<span id="2339">2339</span>
+<span id="2340">2340</span>
+<span id="2341">2341</span>
+<span id="2342">2342</span>
+<span id="2343">2343</span>
+<span id="2344">2344</span>
+<span id="2345">2345</span>
+<span id="2346">2346</span>
+<span id="2347">2347</span>
+<span id="2348">2348</span>
+<span id="2349">2349</span>
+<span id="2350">2350</span>
+<span id="2351">2351</span>
+<span id="2352">2352</span>
+<span id="2353">2353</span>
+<span id="2354">2354</span>
+<span id="2355">2355</span>
+<span id="2356">2356</span>
+<span id="2357">2357</span>
+<span id="2358">2358</span>
+<span id="2359">2359</span>
+<span id="2360">2360</span>
+<span id="2361">2361</span>
+<span id="2362">2362</span>
+<span id="2363">2363</span>
+<span id="2364">2364</span>
+<span id="2365">2365</span>
+<span id="2366">2366</span>
+<span id="2367">2367</span>
+<span id="2368">2368</span>
+<span id="2369">2369</span>
+<span id="2370">2370</span>
+<span id="2371">2371</span>
+<span id="2372">2372</span>
+<span id="2373">2373</span>
+<span id="2374">2374</span>
+<span id="2375">2375</span>
+<span id="2376">2376</span>
+<span id="2377">2377</span>
+<span id="2378">2378</span>
+<span id="2379">2379</span>
+<span id="2380">2380</span>
+<span id="2381">2381</span>
+<span id="2382">2382</span>
+<span id="2383">2383</span>
+<span id="2384">2384</span>
+<span id="2385">2385</span>
+<span id="2386">2386</span>
+<span id="2387">2387</span>
+<span id="2388">2388</span>
+<span id="2389">2389</span>
+<span id="2390">2390</span>
+<span id="2391">2391</span>
+<span id="2392">2392</span>
+<span id="2393">2393</span>
+<span id="2394">2394</span>
+<span id="2395">2395</span>
+<span id="2396">2396</span>
+<span id="2397">2397</span>
+<span id="2398">2398</span>
+<span id="2399">2399</span>
+<span id="2400">2400</span>
+<span id="2401">2401</span>
+<span id="2402">2402</span>
+<span id="2403">2403</span>
+<span id="2404">2404</span>
+<span id="2405">2405</span>
+<span id="2406">2406</span>
+<span id="2407">2407</span>
+<span id="2408">2408</span>
+<span id="2409">2409</span>
+<span id="2410">2410</span>
+<span id="2411">2411</span>
+<span id="2412">2412</span>
+<span id="2413">2413</span>
+<span id="2414">2414</span>
+<span id="2415">2415</span>
+<span id="2416">2416</span>
+<span id="2417">2417</span>
+<span id="2418">2418</span>
+<span id="2419">2419</span>
+<span id="2420">2420</span>
+<span id="2421">2421</span>
+<span id="2422">2422</span>
+<span id="2423">2423</span>
+<span id="2424">2424</span>
+<span id="2425">2425</span>
+<span id="2426">2426</span>
+<span id="2427">2427</span>
+<span id="2428">2428</span>
+<span id="2429">2429</span>
+<span id="2430">2430</span>
+<span id="2431">2431</span>
+<span id="2432">2432</span>
+<span id="2433">2433</span>
+<span id="2434">2434</span>
+<span id="2435">2435</span>
+<span id="2436">2436</span>
+<span id="2437">2437</span>
+<span id="2438">2438</span>
+<span id="2439">2439</span>
+<span id="2440">2440</span>
+<span id="2441">2441</span>
+<span id="2442">2442</span>
+<span id="2443">2443</span>
+<span id="2444">2444</span>
+<span id="2445">2445</span>
+<span id="2446">2446</span>
+<span id="2447">2447</span>
+<span id="2448">2448</span>
+<span id="2449">2449</span>
+<span id="2450">2450</span>
+<span id="2451">2451</span>
+<span id="2452">2452</span>
+<span id="2453">2453</span>
+<span id="2454">2454</span>
+<span id="2455">2455</span>
+<span id="2456">2456</span>
+<span id="2457">2457</span>
+<span id="2458">2458</span>
+<span id="2459">2459</span>
+<span id="2460">2460</span>
+<span id="2461">2461</span>
+<span id="2462">2462</span>
+<span id="2463">2463</span>
+<span id="2464">2464</span>
+<span id="2465">2465</span>
+<span id="2466">2466</span>
+<span id="2467">2467</span>
+<span id="2468">2468</span>
+<span id="2469">2469</span>
+<span id="2470">2470</span>
+<span id="2471">2471</span>
+<span id="2472">2472</span>
+<span id="2473">2473</span>
+<span id="2474">2474</span>
+<span id="2475">2475</span>
+<span id="2476">2476</span>
+<span id="2477">2477</span>
+<span id="2478">2478</span>
+<span id="2479">2479</span>
+<span id="2480">2480</span>
+<span id="2481">2481</span>
+<span id="2482">2482</span>
+<span id="2483">2483</span>
+<span id="2484">2484</span>
+<span id="2485">2485</span>
+<span id="2486">2486</span>
+<span id="2487">2487</span>
+<span id="2488">2488</span>
+<span id="2489">2489</span>
+<span id="2490">2490</span>
+<span id="2491">2491</span>
+<span id="2492">2492</span>
+<span id="2493">2493</span>
+<span id="2494">2494</span>
+<span id="2495">2495</span>
+<span id="2496">2496</span>
+<span id="2497">2497</span>
+<span id="2498">2498</span>
+<span id="2499">2499</span>
+<span id="2500">2500</span>
+<span id="2501">2501</span>
+<span id="2502">2502</span>
+<span id="2503">2503</span>
+<span id="2504">2504</span>
+<span id="2505">2505</span>
+<span id="2506">2506</span>
+<span id="2507">2507</span>
+<span id="2508">2508</span>
+<span id="2509">2509</span>
+<span id="2510">2510</span>
+<span id="2511">2511</span>
+<span id="2512">2512</span>
+<span id="2513">2513</span>
+<span id="2514">2514</span>
+<span id="2515">2515</span>
+<span id="2516">2516</span>
+<span id="2517">2517</span>
+<span id="2518">2518</span>
+<span id="2519">2519</span>
+<span id="2520">2520</span>
+<span id="2521">2521</span>
+<span id="2522">2522</span>
+<span id="2523">2523</span>
+<span id="2524">2524</span>
+<span id="2525">2525</span>
+<span id="2526">2526</span>
+<span id="2527">2527</span>
+<span id="2528">2528</span>
+<span id="2529">2529</span>
+<span id="2530">2530</span>
+<span id="2531">2531</span>
+<span id="2532">2532</span>
+<span id="2533">2533</span>
+<span id="2534">2534</span>
+<span id="2535">2535</span>
+<span id="2536">2536</span>
+<span id="2537">2537</span>
+<span id="2538">2538</span>
+<span id="2539">2539</span>
+<span id="2540">2540</span>
+<span id="2541">2541</span>
+<span id="2542">2542</span>
+<span id="2543">2543</span>
+<span id="2544">2544</span>
+<span id="2545">2545</span>
+<span id="2546">2546</span>
+<span id="2547">2547</span>
+<span id="2548">2548</span>
+<span id="2549">2549</span>
+<span id="2550">2550</span>
+<span id="2551">2551</span>
+<span id="2552">2552</span>
+<span id="2553">2553</span>
+<span id="2554">2554</span>
+<span id="2555">2555</span>
+<span id="2556">2556</span>
+<span id="2557">2557</span>
+<span id="2558">2558</span>
+<span id="2559">2559</span>
+<span id="2560">2560</span>
+<span id="2561">2561</span>
+<span id="2562">2562</span>
+<span id="2563">2563</span>
+<span id="2564">2564</span>
+<span id="2565">2565</span>
+<span id="2566">2566</span>
+<span id="2567">2567</span>
+<span id="2568">2568</span>
+<span id="2569">2569</span>
+<span id="2570">2570</span>
+<span id="2571">2571</span>
+<span id="2572">2572</span>
+<span id="2573">2573</span>
+<span id="2574">2574</span>
+<span id="2575">2575</span>
+<span id="2576">2576</span>
+<span id="2577">2577</span>
+<span id="2578">2578</span>
+<span id="2579">2579</span>
+<span id="2580">2580</span>
+<span id="2581">2581</span>
+<span id="2582">2582</span>
+<span id="2583">2583</span>
+<span id="2584">2584</span>
+<span id="2585">2585</span>
+<span id="2586">2586</span>
+<span id="2587">2587</span>
+<span id="2588">2588</span>
+<span id="2589">2589</span>
+<span id="2590">2590</span>
+<span id="2591">2591</span>
+<span id="2592">2592</span>
+<span id="2593">2593</span>
+<span id="2594">2594</span>
+<span id="2595">2595</span>
+<span id="2596">2596</span>
+<span id="2597">2597</span>
+<span id="2598">2598</span>
+<span id="2599">2599</span>
+<span id="2600">2600</span>
+<span id="2601">2601</span>
 </pre><pre class='rust '>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>no_std</span>, <span class='ident'>prelude_import</span>, <span class='ident'>asm</span>, <span class='ident'>raw</span>)]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>no_std</span>]</span>
@@ -2221,7 +2650,7 @@
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span> <span class='op'>=</span> <span class='string'>&quot;lib&quot;</span>]</span>
 
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>bitflags</span>;
+<span class='kw'>mod</span> <span class='ident'>bitflags</span>;
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
@@ -2313,6 +2742,21 @@
     )
 }
 
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>is_bit_set</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>bit</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> (
+        <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field</span> <span class='kw-2'>&amp;</span> (<span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>bit</span>) <span class='op'>&gt;</span> <span class='number'>0</span>
+    )
+}
+
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>check_bit_fn</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>doc</span>:<span class='ident'>meta</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>fun</span>:<span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field</span>:<span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>bit</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> (
+        <span class='attribute'>#[<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>doc</span>]</span>
+        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>fun</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+            <span class='macro'>is_bit_set</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>bit</span>)
+        }
+    )
+}
+
 <span class='doccomment'>/// Main type used to query for information about the CPU we&#39;re running on.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>CpuId</span> {
@@ -2345,6 +2789,10 @@
 <span class='kw'>const</span> <span class='ident'>EAX_EXTENDED_TOPOLOGY_INFO</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0xB</span>;
 <span class='kw'>const</span> <span class='ident'>EAX_EXTENDED_STATE_INFO</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0xD</span>;
 <span class='kw'>const</span> <span class='ident'>EAX_QOS_INFO</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0xF</span>;
+<span class='kw'>const</span> <span class='ident'>EAX_QOS_ENFORCEMENT_INFO</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x10</span>;
+<span class='kw'>const</span> <span class='ident'>EAX_TRACE_INFO</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x14</span>;
+<span class='kw'>const</span> <span class='ident'>EAX_TIME_STAMP_COUNTER_INFO</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x15</span>;
+<span class='kw'>const</span> <span class='ident'>EAX_FREQUENCY_INFO</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x16</span>;
 <span class='kw'>const</span> <span class='ident'>EAX_EXTENDED_FUNCTION_INFO</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x80000000</span>;
 
 <span class='kw'>impl</span> <span class='ident'>CpuId</span> {
@@ -2517,8 +2965,8 @@
         }
     }
 
-    <span class='doccomment'>/// QoS informations.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_quality_of_service_info</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>QoSInfo</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Quality of service informations.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_qos_info</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>QoSInfo</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='macro'>cpuid</span><span class='macro'>!</span>(<span class='ident'>EAX_QOS_INFO</span>, <span class='number'>0</span>);
         <span class='kw'>let</span> <span class='ident'>res1</span> <span class='op'>=</span> <span class='macro'>cpuid</span><span class='macro'>!</span>(<span class='ident'>EAX_QOS_INFO</span>, <span class='number'>1</span>);
 
@@ -2526,6 +2974,60 @@
             <span class='prelude-val'>Some</span>(<span class='ident'>QoSInfo</span> { <span class='ident'>ebx0</span>: <span class='ident'>res</span>.<span class='ident'>ebx</span>, <span class='ident'>edx0</span>: <span class='ident'>res</span>.<span class='ident'>edx</span>,
                            <span class='ident'>ebx1</span>: <span class='ident'>res1</span>.<span class='ident'>ebx</span>, <span class='ident'>ecx1</span>: <span class='ident'>res1</span>.<span class='ident'>ecx</span>,
                            <span class='ident'>edx1</span>: <span class='ident'>res1</span>.<span class='ident'>edx</span> })
+        }
+        <span class='kw'>else</span> {
+            <span class='prelude-val'>None</span>
+        }
+    }
+
+    <span class='doccomment'>/// Quality of service enforcement information.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_qos_enforcement_info</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>QoSEnforcementInfo</span><span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='macro'>cpuid</span><span class='macro'>!</span>(<span class='ident'>EAX_QOS_ENFORCEMENT_INFO</span>, <span class='number'>0</span>);
+        <span class='kw'>let</span> <span class='ident'>res1</span> <span class='op'>=</span> <span class='macro'>cpuid</span><span class='macro'>!</span>(<span class='ident'>EAX_QOS_ENFORCEMENT_INFO</span>, <span class='number'>1</span>);
+
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>leaf_is_supported</span>(<span class='ident'>EAX_QOS_ENFORCEMENT_INFO</span>) {
+            <span class='prelude-val'>Some</span>(<span class='ident'>QoSEnforcementInfo</span> { <span class='ident'>ebx0</span>: <span class='ident'>res</span>.<span class='ident'>ebx</span>, <span class='ident'>eax1</span>: <span class='ident'>res1</span>.<span class='ident'>eax</span>,
+                                      <span class='ident'>ebx1</span>: <span class='ident'>res1</span>.<span class='ident'>ebx</span>, <span class='ident'>ecx1</span>: <span class='ident'>res1</span>.<span class='ident'>ecx</span>,
+                                      <span class='ident'>edx1</span>: <span class='ident'>res1</span>.<span class='ident'>edx</span> })
+        }
+        <span class='kw'>else</span> {
+            <span class='prelude-val'>None</span>
+        }
+    }
+
+    <span class='doccomment'>/// Intel Processor Trace Enumeration Information.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_processor_trace_info</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>ProcessorTraceInfo</span><span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='macro'>cpuid</span><span class='macro'>!</span>(<span class='ident'>EAX_TRACE_INFO</span>, <span class='number'>0</span>);
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>leaf_is_supported</span>(<span class='ident'>EAX_TRACE_INFO</span>) {
+            <span class='prelude-val'>Some</span>(<span class='ident'>ProcessorTraceInfo</span> { <span class='ident'>eax</span>: <span class='ident'>res</span>.<span class='ident'>eax</span>,
+                                      <span class='ident'>ebx</span>: <span class='ident'>res</span>.<span class='ident'>ebx</span>,
+                                      <span class='ident'>ecx</span>: <span class='ident'>res</span>.<span class='ident'>ecx</span>,
+                                      <span class='ident'>edx</span>: <span class='ident'>res</span>.<span class='ident'>edx</span> })
+        }
+        <span class='kw'>else</span> {
+            <span class='prelude-val'>None</span>
+        }
+    }
+
+    <span class='doccomment'>/// Time Stamp Counter/Core Crystal Clock Information.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_tsc_info</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>TscInfo</span><span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='macro'>cpuid</span><span class='macro'>!</span>(<span class='ident'>EAX_TIME_STAMP_COUNTER_INFO</span>, <span class='number'>0</span>);
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>leaf_is_supported</span>(<span class='ident'>EAX_TIME_STAMP_COUNTER_INFO</span>) {
+            <span class='prelude-val'>Some</span>(<span class='ident'>TscInfo</span> { <span class='ident'>eax</span>: <span class='ident'>res</span>.<span class='ident'>eax</span>,
+                           <span class='ident'>ebx</span>: <span class='ident'>res</span>.<span class='ident'>ebx</span> })
+        }
+        <span class='kw'>else</span> {
+            <span class='prelude-val'>None</span>
+        }
+    }
+
+    <span class='doccomment'>/// Processor Frequency Information.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_processor_frequency_info</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>ProcessorFrequencyInfo</span><span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='macro'>cpuid</span><span class='macro'>!</span>(<span class='ident'>EAX_FREQUENCY_INFO</span>, <span class='number'>0</span>);
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>leaf_is_supported</span>(<span class='ident'>EAX_FREQUENCY_INFO</span>) {
+            <span class='prelude-val'>Some</span>(<span class='ident'>ProcessorFrequencyInfo</span> { <span class='ident'>eax</span>: <span class='ident'>res</span>.<span class='ident'>eax</span>,
+                                          <span class='ident'>ebx</span>: <span class='ident'>res</span>.<span class='ident'>ebx</span>,
+                                          <span class='ident'>ecx</span>: <span class='ident'>res</span>.<span class='ident'>ecx</span> })
         }
         <span class='kw'>else</span> {
             <span class='prelude-val'>None</span>
@@ -3029,62 +3531,91 @@
 }
 
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
     <span class='ident'>flags</span> <span class='ident'>FeatureInfoEcx</span>: <span class='ident'>u32</span> {
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Streaming SIMD Extensions 3 (SSE3). A value of 1 indicates the processor supports this technology.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_SSE3</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>0</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// PCLMULQDQ. A value of 1 indicates the processor supports the PCLMULQDQ instruction</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PCLMULQDQ</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>1</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// 64-bit DS Area. A value of 1 indicates the processor supports DS area using 64-bit layout</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_DTES64</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>2</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// MONITOR/MWAIT. A value of 1 indicates the processor supports this feature.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_MONITOR</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>3</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// CPL Qualified Debug Store. A value of 1 indicates the processor supports the extensions to the  Debug Store feature to allow for branch message storage qualified by CPL.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_DSCPL</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>4</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Virtual Machine Extensions. A value of 1 indicates that the processor supports this technology.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_VMX</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>5</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Safer Mode Extensions. A value of 1 indicates that the processor supports this technology. See Chapter 5, Safer Mode Extensions Reference.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_SMX</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>6</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Enhanced Intel SpeedStep® technology. A value of 1 indicates that the processor supports this technology.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_EIST</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>7</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Thermal Monitor 2. A value of 1 indicates whether the processor supports this technology.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_TM2</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>8</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates the presence of the Supplemental Streaming SIMD Extensions 3 (SSSE3). A value of 0 indicates the instruction extensions are not present in the processor</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_SSSE3</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>9</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// L1 Context ID. A value of 1 indicates the L1 data cache mode can be set to either adaptive mode or shared mode. A value of 0 indicates this feature is not supported. See definition of the IA32_MISC_ENABLE MSR Bit 24 (L1 Data Cache Context Mode) for details.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_CNXTID</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>10</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates the processor supports FMA extensions using YMM state.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_FMA</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>12</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// CMPXCHG16B Available. A value of 1 indicates that the feature is available. See the CMPXCHG8B/CMPXCHG16B Compare and Exchange Bytes section. 14</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_CMPXCHG16B</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>13</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Perfmon and Debug Capability: A value of 1 indicates the processor supports the performance   and debug feature indication MSR IA32_PERF_CAPABILITIES.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PDCM</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>15</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Process-context identifiers. A value of 1 indicates that the processor supports PCIDs and the software may set CR4.PCIDE to 1.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PCID</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>17</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates the processor supports the ability to prefetch data from a memory mapped device.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_DCA</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>18</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates that the processor supports SSE4.1.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_SSE41</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>19</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates that the processor supports SSE4.2.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_SSE42</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>20</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates that the processor supports x2APIC feature.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_X2APIC</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>21</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates that the processor supports MOVBE instruction.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_MOVBE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>22</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates that the processor supports the POPCNT instruction.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_POPCNT</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>23</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates that the processors local APIC timer supports one-shot operation using a TSC deadline value.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_TSC_DEADLINE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>24</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates that the processor supports the AESNI instruction extensions.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_AESNI</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>25</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates that the processor supports the XSAVE/XRSTOR processor extended states feature, the XSETBV/XGETBV instructions, and XCR0.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_XSAVE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>26</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates that the OS has enabled XSETBV/XGETBV instructions to access XCR0, and support for processor extended state management using XSAVE/XRSTOR.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_OSXSAVE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>27</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates the processor supports the AVX instruction extensions.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_AVX</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>28</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates that processor supports 16-bit floating-point conversion instructions.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_F16C</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>29</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// A value of 1 indicates that processor supports RDRAND instruction.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_RDRAND</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>30</span>,
     }
@@ -3092,65 +3623,95 @@
 
 
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
     <span class='ident'>flags</span> <span class='ident'>FeatureInfoEdx</span>: <span class='ident'>u32</span> {
         <span class='doccomment'>/// Floating Point Unit On-Chip. The processor contains an x87 FPU.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_FPU</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>0</span>,
         <span class='doccomment'>/// Virtual 8086 Mode Enhancements. Virtual 8086 mode enhancements, including CR4.VME for controlling the feature, CR4.PVI for protected mode virtual interrupts, software interrupt indirection, expansion of the TSS with the software indirection bitmap, and EFLAGS.VIF and EFLAGS.VIP flags.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_VME</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>1</span>,
         <span class='doccomment'>/// Debugging Extensions. Support for I/O breakpoints, including CR4.DE for controlling the feature, and optional trapping of accesses to DR4 and DR5.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_DE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>2</span>,
         <span class='doccomment'>/// Page Size Extension. Large pages of size 4 MByte are supported, including CR4.PSE for controlling the feature, the defined dirty bit in PDE (Page Directory Entries), optional reserved bit trapping in CR3, PDEs, and PTEs.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PSE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>3</span>,
         <span class='doccomment'>/// Time Stamp Counter. The RDTSC instruction is supported, including CR4.TSD for controlling privilege.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_TSC</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>4</span>,
         <span class='doccomment'>/// Model Specific Registers RDMSR and WRMSR Instructions. The RDMSR and WRMSR instructions are supported. Some of the MSRs are implementation dependent.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_MSR</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>5</span>,
         <span class='doccomment'>/// Physical Address Extension. Physical addresses greater than 32 bits are supported: extended page table entry formats, an extra level in the page translation tables is defined, 2-MByte pages are supported instead of 4 Mbyte pages if PAE bit is 1.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PAE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>6</span>,
         <span class='doccomment'>/// Machine Check Exception. Exception 18 is defined for Machine Checks, including CR4.MCE for controlling the feature. This feature does not define the model-specific implementations of machine-check error logging, reporting, and processor shutdowns. Machine Check exception handlers may have to depend on processor version to do model specific processing of the exception, or test for the presence of the Machine Check feature.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_MCE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>7</span>,
         <span class='doccomment'>/// CMPXCHG8B Instruction. The compare-and-exchange 8 bytes (64 bits) instruction is supported (implicitly locked and atomic).</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_CX8</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>8</span>,
         <span class='doccomment'>/// APIC On-Chip. The processor contains an Advanced Programmable Interrupt Controller (APIC), responding to memory mapped commands in the physical address range FFFE0000H to FFFE0FFFH (by default - some processors permit the APIC to be relocated).</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_APIC</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>9</span>,
         <span class='doccomment'>/// SYSENTER and SYSEXIT Instructions. The SYSENTER and SYSEXIT and associated MSRs are supported.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_SEP</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>11</span>,
         <span class='doccomment'>/// Memory Type Range Registers. MTRRs are supported. The MTRRcap MSR contains feature bits that describe what memory types are supported, how many variable MTRRs are supported, and whether fixed MTRRs are supported.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_MTRR</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>12</span>,
         <span class='doccomment'>/// Page Global Bit. The global bit is supported in paging-structure entries that map a page, indicating TLB entries that are common to different processes and need not be flushed. The CR4.PGE bit controls this feature.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PGE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>13</span>,
-        <span class='doccomment'>/// Machine Check Architecture. The Machine Check Architecture, which provides a compatible mechanism for error reporting in P6 family, Pentium 4, Intel Xeon processors, and future processors, is supported. The MCG_CAP MSR contains feature bits describing how many banks of error reporting MSRs are supported.</span>
+        <span class='doccomment'>/// Machine Check Architecture. The Machine Check exArchitecture, which provides a compatible mechanism for error reporting in P6 family, Pentium 4, Intel Xeon processors, and future processors, is supported. The MCG_CAP MSR contains feature bits describing how many banks of error reporting MSRs are supported.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_MCA</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>14</span>,
         <span class='doccomment'>/// Conditional Move Instructions. The conditional move instruction CMOV is supported. In addition, if x87 FPU is present as indicated by the CPUID.FPU feature bit, then the FCOMI and FCMOV instructions are supported</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_CMOV</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>15</span>,
         <span class='doccomment'>/// Page Attribute Table. Page Attribute Table is supported. This feature augments the Memory Type Range Registers (MTRRs), allowing an operating system to specify attributes of memory accessed through a linear address on a 4KB granularity.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PAT</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>16</span>,
         <span class='doccomment'>/// 36-Bit Page Size Extension. 4-MByte pages addressing physical memory beyond 4 GBytes are supported with 32-bit paging. This feature indicates that upper bits of the physical address of a 4-MByte page are encoded in bits 20:13 of the page-directory entry. Such physical addresses are limited by MAXPHYADDR and may be up to 40 bits in size.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PSE36</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>17</span>,
         <span class='doccomment'>/// Processor Serial Number. The processor supports the 96-bit processor identification number feature and the feature is enabled.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PSN</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>18</span>,
         <span class='doccomment'>/// CLFLUSH Instruction. CLFLUSH Instruction is supported.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_CLFSH</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>19</span>,
         <span class='doccomment'>/// Debug Store. The processor supports the ability to write debug information into a memory resident buffer. This feature is used by the branch trace store (BTS) and precise event-based sampling (PEBS) facilities (see Chapter 23, Introduction to Virtual-Machine Extensions, in the Intel® 64 and IA-32 Architectures Software Developers Manual, Volume 3C).</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_DS</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>21</span>,
         <span class='doccomment'>/// Thermal Monitor and Software Controlled Clock Facilities. The processor implements internal MSRs that allow processor temperature to be monitored and processor performance to be modulated in predefined duty cycles under software control.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_ACPI</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>22</span>,
         <span class='doccomment'>/// Intel MMX Technology. The processor supports the Intel MMX technology.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_MMX</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>23</span>,
         <span class='doccomment'>/// FXSAVE and FXRSTOR Instructions. The FXSAVE and FXRSTOR instructions are supported for fast save and restore of the floating point context. Presence of this bit also indicates that CR4.OSFXSR is available for an operating system to indicate that it supports the FXSAVE and FXRSTOR instructions.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_FXSR</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>24</span>,
         <span class='doccomment'>/// SSE. The processor supports the SSE extensions.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_SSE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>25</span>,
         <span class='doccomment'>/// SSE2. The processor supports the SSE2 extensions.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_SSE2</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>26</span>,
         <span class='doccomment'>/// Self Snoop. The processor supports the management of conflicting memory types by performing a snoop of its own cache structure for transactions issued to the bus.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_SS</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>27</span>,
         <span class='doccomment'>/// Max APIC IDs reserved field is Valid. A value of 0 for HTT indicates there is only a single logical processor in the package and software should assume only a single APIC ID is reserved.  A value of 1 for HTT indicates the value in CPUID.1.EBX[23:16] (the Maximum number of addressable IDs for logical processors in this package) is valid for the package.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_HTT</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>28</span>,
         <span class='doccomment'>/// Thermal Monitor. The processor implements the thermal monitor automatic thermal control circuitry (TCC).</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_TM</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>29</span>,
         <span class='doccomment'>/// Pending Break Enable. The processor supports the use of the FERR#/PBE# pin when the processor is in the stop-clock state (STPCLK# is asserted) to signal the processor that an interrupt is pending and that the processor should return to normal operation to handle the interrupt. Bit 10 (PBE enable) in the IA32_MISC_ENABLE MSR enables this capability.</span>
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PBE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>31</span>,
     }
 }
@@ -3387,35 +3948,39 @@
 }
 
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
     <span class='ident'>flags</span> <span class='ident'>ThermalPowerFeaturesEax</span>: <span class='ident'>u32</span> {
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Digital temperature sensor is supported if set. (Bit 00)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_DTS</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>0</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Intel Turbo Boost Technology Available (see description of IA32_MISC_ENABLE[38]). (Bit 01)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_TURBO_BOOST</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>1</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// ARAT. APIC-Timer-always-running feature is supported if set. (Bit 02)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_ARAT</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>2</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// PLN. Power limit notification controls are supported if set. (Bit 04)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PLN</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>4</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// ECMD. Clock modulation duty cycle extension is supported if set. (Bit 05)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_ECMD</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>5</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// PTM. Package thermal management is supported if set. (Bit 06)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PTM</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>6</span>,
     }
 }
 
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
     <span class='ident'>flags</span> <span class='ident'>ThermalPowerFeaturesEcx</span>: <span class='ident'>u32</span> {
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Hardware Coordination Feedback Capability (Presence of IA32_MPERF and IA32_APERF). The capability to provide a measure of delivered processor performance (since last reset of the counters), as a percentage of expected processor performance at frequency specified in CPUID Brand String Bits 02 - 01</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_HW_COORD_FEEDBACK</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>0</span>,
 
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// The processor supports performance-energy bias preference if CPUID.06H:ECX.SETBH[bit 3] is set and it also implies the presence of a new architectural MSR called IA32_ENERGY_PERF_BIAS (1B0H)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_ENERGY_BIAS_PREF</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>3</span>,
     }
@@ -3475,48 +4040,55 @@
 
     <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Deprecates FPU CS and FPU DS values if 1.&quot;</span>,
                 <span class='ident'>has_fpu_cs_ds_deprecated</span>, <span class='ident'>ebx</span>, <span class='ident'>CPU_FEATURE_DEPRECATE_FPU_CS_DS</span>);
+
+    <span class='macro'>check_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;MPX. Supports Intel Memory Protection Extensions if 1.&quot;</span>,
+                <span class='ident'>has_mpx</span>, <span class='ident'>ebx</span>, <span class='ident'>CPU_FEATURE_MPX</span>);
 }
 
 
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
     <span class='ident'>flags</span> <span class='ident'>ExtendedFeaturesEbx</span>: <span class='ident'>u32</span> {
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// FSGSBASE. Supports RDFSBASE/RDGSBASE/WRFSBASE/WRGSBASE if 1. (Bit 00)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_FSGSBASE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>0</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// IA32_TSC_ADJUST MSR is supported if 1. (Bit 01)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_ADJUST_MSR</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>1</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// BMI1 (Bit 03)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_BMI1</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>3</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// HLE (Bit 04)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_HLE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>4</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// AVX2 (Bit 05)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_AVX2</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>5</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// SMEP. Supports Supervisor-Mode Execution Prevention if 1. (Bit 07)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_SMEP</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>7</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// BMI2 (Bit 08)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_BMI2</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>8</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Supports Enhanced REP MOVSB/STOSB if 1. (Bit 09)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_REP_MOVSB_STOSB</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>9</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// INVPCID. If 1, supports INVPCID instruction for system software that manages process-context identifiers. (Bit 10)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_INVPCID</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>10</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// RTM (Bit 11)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_RTM</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>11</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Supports Quality of Service Monitoring (QM) capability if 1. (Bit 12)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_QM</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>12</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Deprecates FPU CS and FPU DS values if 1. (Bit 13)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_DEPRECATE_FPU_CS_DS</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>13</span>,
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
+        <span class='doccomment'>/// Deprecates FPU CS and FPU DS values if 1. (Bit 14)</span>
+        <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_MPX</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>14</span>,
 
     }
 }
@@ -3599,26 +4171,28 @@
 }
 
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
     <span class='ident'>flags</span> <span class='ident'>PerformanceMonitoringFeaturesEbx</span>: <span class='ident'>u32</span> {
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Core cycle event not available if 1. (Bit 0)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_CORE_CYC_EV_UNAVAILABLE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>0</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Instruction retired event not available if 1. (Bit 01)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_INST_RET_EV_UNAVAILABLE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>1</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Reference cycles event not available if 1. (Bit 02)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_REF_CYC_EV_UNAVAILABLE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>2</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Last-level cache reference event not available if 1. (Bit 03)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_CACHE_REF_EV_UNAVAILABLE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>3</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Last-level cache misses event not available if 1. (Bit 04)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_LL_CACHE_MISS_EV_UNAVAILABLE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>4</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Branch instruction retired event not available if 1. (Bit 05)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_BRANCH_INST_RET_EV_UNAVAILABLE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>5</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Branch mispredict retired event not available if 1. (Bit 06)</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_BRANCH_MISPRED_EV_UNAVAILABLE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>6</span>,
     }
@@ -3697,6 +4271,30 @@
     }
 }
 
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Debug</span>)]</span>
+<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_camel_case_types</span>)]</span>
+<span class='kw'>enum</span> <span class='ident'>ExtendedStateIdent</span> {
+    <span class='doccomment'>/// legacy x87 (Bit 00).</span>
+    <span class='ident'>Legacy87</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>0</span>,
+
+    <span class='doccomment'>/// 128-bit SSE (Bit 01).</span>
+    <span class='ident'>SSE128</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>1</span>,
+
+    <span class='doccomment'>/// 256-bit AVX (Bit 02).</span>
+    <span class='ident'>AVX256</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>2</span>,
+
+    <span class='doccomment'>/// MPX (Bits 04 - 03).</span>
+    <span class='ident'>MPX</span> <span class='op'>=</span> <span class='number'>0b11</span> <span class='op'>&lt;&lt;</span> <span class='number'>3</span>,
+
+    <span class='doccomment'>/// AVX512 (Bit 07 - 05).</span>
+    <span class='ident'>AVX512</span> <span class='op'>=</span> <span class='number'>0b111</span> <span class='op'>&lt;&lt;</span> <span class='number'>5</span>,
+
+    <span class='doccomment'>/// IA32_XSS (Bit 08).</span>
+    <span class='ident'>IA32_XSS</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>8</span>,
+
+    <span class='doccomment'>/// PKRU state (Bit 09).</span>
+    <span class='ident'>PKRU</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>9</span>,
+}
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ExtendedStateInfo</span> {
@@ -3707,19 +4305,43 @@
     <span class='ident'>eax1</span>: <span class='ident'>u32</span>,
 }
 
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>check_xcr_flag</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>doc</span>:<span class='ident'>meta</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>fun</span>:<span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>flag</span>:<span class='ident'>ident</span>) <span class='op'>=&gt;</span> (
+        <span class='attribute'>#[<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>doc</span>]</span>
+        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>fun</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+            <span class='self'>self</span>.<span class='ident'>xcr0_supported</span>() <span class='kw-2'>&amp;</span> (<span class='ident'>ExtendedStateIdent</span>::<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>flag</span> <span class='kw'>as</span> <span class='ident'>u64</span>) <span class='op'>&gt;</span> <span class='number'>0</span>
+        }
+    )
+}
+
 <span class='kw'>impl</span> <span class='ident'>ExtendedStateInfo</span> {
 
-    <span class='doccomment'>/// Reports the valid bit fields of the lower 32 bits of XCR0. If a bit is 0,</span>
+    <span class='doccomment'>/// Reports the valid bit fields of XCR0. If a bit is 0,</span>
     <span class='doccomment'>/// the corresponding bit field in XCR0 is reserved.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>xcr0</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u64</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>xcr0_supported</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u64</span> {
         (<span class='self'>self</span>.<span class='ident'>edx</span> <span class='kw'>as</span> <span class='ident'>u64</span>) <span class='op'>&lt;&lt;</span> <span class='number'>32</span> <span class='op'>|</span> <span class='self'>self</span>.<span class='ident'>eax</span> <span class='kw'>as</span> <span class='ident'>u64</span>
     }
 
-    <span class='doccomment'>/// Reports the valid bit fields of the upper 32 bits of XCR0. If a bit is 0,</span>
-    <span class='doccomment'>/// the corresponding bit field in XCR0 is reserved.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>xcr0_upper_bits</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u32</span> {
-        <span class='self'>self</span>.<span class='ident'>edx</span>
-    }
+    <span class='macro'>check_xcr_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Legacy x87.&quot;</span>,
+                <span class='ident'>has_legacy_x87</span>, <span class='ident'>Legacy87</span>);
+
+    <span class='macro'>check_xcr_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;SSE 128-bit.&quot;</span>,
+                <span class='ident'>has_sse_128</span>, <span class='ident'>SSE128</span>);
+
+    <span class='macro'>check_xcr_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;AVX 256-bit.&quot;</span>,
+                <span class='ident'>has_avx_256</span>, <span class='ident'>AVX256</span>);
+
+    <span class='macro'>check_xcr_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;MPX.&quot;</span>,
+                <span class='ident'>has_mpx</span>, <span class='ident'>MPX</span>);
+
+    <span class='macro'>check_xcr_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;AVX 512-bit.&quot;</span>,
+                <span class='ident'>has_avx_512</span>, <span class='ident'>AVX512</span>);
+
+    <span class='macro'>check_xcr_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;IA32_XSS.&quot;</span>,
+                <span class='ident'>has_ia32_xss</span>, <span class='ident'>IA32_XSS</span>);
+
+    <span class='macro'>check_xcr_flag</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;PKRU.&quot;</span>,
+                <span class='ident'>has_pkru</span>, <span class='ident'>PKRU</span>);
 
     <span class='doccomment'>/// Maximum size (bytes, from the beginning of the XSAVE/XRSTOR save area) required by</span>
     <span class='doccomment'>/// enabled features in XCR0. May be different than ECX if some features at the end of the XSAVE save area</span>
@@ -3737,22 +4359,47 @@
 
     <span class='doccomment'>/// CPU has xsaveopt feature.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>has_xsaveopt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='self'>self</span>.<span class='ident'>eax1</span> <span class='kw-2'>&amp;</span> <span class='number'>0x1</span> <span class='op'>==</span> <span class='number'>1</span>
+        <span class='self'>self</span>.<span class='ident'>eax1</span> <span class='kw-2'>&amp;</span> <span class='number'>0x1</span> <span class='op'>&gt;</span> <span class='number'>0</span>
+    }
+
+    <span class='doccomment'>/// Supports XSAVEC and the compacted form of XRSTOR if set.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>has_xsavec</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+        <span class='self'>self</span>.<span class='ident'>eax1</span> <span class='kw-2'>&amp;</span> <span class='number'>0x0b10</span> <span class='op'>&gt;</span> <span class='number'>0</span>
+    }
+
+    <span class='doccomment'>/// Supports XGETBV with ECX = 1 if set.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>has_xgetbv</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+        <span class='self'>self</span>.<span class='ident'>eax1</span> <span class='kw-2'>&amp;</span> <span class='number'>0x0b100</span> <span class='op'>&gt;</span> <span class='number'>0</span>
+    }
+
+    <span class='doccomment'>/// Supports XSAVES/XRSTORS and IA32_XSS if set.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>has_xsaves_xrstors</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+        <span class='self'>self</span>.<span class='ident'>eax1</span> <span class='kw-2'>&amp;</span> <span class='number'>0x0b1000</span> <span class='op'>&gt;</span> <span class='number'>0</span>
     }
 
     <span class='doccomment'>/// Iterator over extended state enumeration levels &gt;= 2.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>iter</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ExtendedStateIter</span> {
-        <span class='ident'>ExtendedStateIter</span> { <span class='ident'>level</span>: <span class='number'>2</span>, <span class='ident'>xcr0</span>: <span class='self'>self</span>.<span class='ident'>xcr0</span>() }
+        <span class='ident'>ExtendedStateIter</span> { <span class='ident'>level</span>: <span class='number'>1</span>, <span class='ident'>xcr0_supported</span>: <span class='self'>self</span>.<span class='ident'>xcr0_supported</span>() }
     }
 
 }
 
-
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ExtendedStateIter</span> {
     <span class='ident'>level</span>: <span class='ident'>u32</span>,
-    <span class='ident'>xcr0</span>: <span class='ident'>u64</span>,
+    <span class='ident'>xcr0_supported</span>: <span class='ident'>u64</span>,
 }
 
+<span class='doccomment'>/// When CPUID executes with EAX set to 0DH and ECX = n (n &gt; 1,</span>
+<span class='doccomment'>/// and is a valid sub-leaf index), the processor returns information</span>
+<span class='doccomment'>/// about the size and offset of each processor extended state save area</span>
+<span class='doccomment'>/// within the XSAVE/XRSTOR area. Software can use the forward-extendable</span>
+<span class='doccomment'>/// technique depicted below to query the valid sub-leaves and obtain size</span>
+<span class='doccomment'>/// and offset information for each processor extended state save area:///</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// For i = 2 to 62 // sub-leaf 1 is reserved</span>
+<span class='doccomment'>///   IF (CPUID.(EAX=0DH, ECX=0):VECTOR[i] = 1 ) // VECTOR is the 64-bit value of EDX:EAX</span>
+<span class='doccomment'>///     Execute CPUID.(EAX=0DH, ECX = i) to examine size and offset for sub-leaf i;</span>
+<span class='doccomment'>/// FI;</span>
 <span class='kw'>impl</span> <span class='ident'>Iterator</span> <span class='kw'>for</span> <span class='ident'>ExtendedStateIter</span> {
     <span class='kw'>type</span> <span class='ident'>Item</span> <span class='op'>=</span> <span class='ident'>ExtendedState</span>;
 
@@ -3760,48 +4407,28 @@
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>level</span> <span class='op'>&gt;</span> <span class='number'>62</span> {
             <span class='kw'>return</span> <span class='prelude-val'>None</span>;
         }
-
-        <span class='kw'>let</span> <span class='ident'>bit</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='self'>self</span>.<span class='ident'>level</span>;
         <span class='self'>self</span>.<span class='ident'>level</span> <span class='op'>+=</span> <span class='number'>1</span>;
 
-        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>xcr0</span> <span class='kw-2'>&amp;</span> <span class='ident'>bit</span> <span class='op'>&gt;</span> <span class='number'>0</span> {
-            <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='macro'>cpuid</span><span class='macro'>!</span>(<span class='ident'>EAX_EXTENDED_STATE_INFO</span>, <span class='ident'>bit</span>);
-            <span class='kw'>if</span> <span class='ident'>res</span>.<span class='ident'>eax</span> <span class='op'>&gt;</span> <span class='number'>0</span> {
-                <span class='kw'>let</span> <span class='ident'>ident</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>bit</span> {
-                    <span class='number'>0</span> <span class='op'>=&gt;</span> <span class='ident'>ExtendedStateIdent</span>::<span class='ident'>LegacyX87</span>,
-                    <span class='number'>1</span> <span class='op'>=&gt;</span> <span class='ident'>ExtendedStateIdent</span>::<span class='ident'>SSE128</span>,
-                    <span class='number'>2</span> <span class='op'>=&gt;</span> <span class='ident'>ExtendedStateIdent</span>::<span class='ident'>AVX256</span>,
-                    _ <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;Unknown bit, consider updating ExtendedStateIdent enum!&quot;</span>)
-                };
-
-                <span class='kw'>return</span> <span class='prelude-val'>Some</span>(<span class='ident'>ExtendedState</span> { <span class='ident'>ident</span>: <span class='ident'>ident</span>, <span class='ident'>eax</span>: <span class='ident'>res</span>.<span class='ident'>eax</span>, <span class='ident'>ebx</span>: <span class='ident'>res</span>.<span class='ident'>ebx</span> });
-            }
+        <span class='kw'>let</span> <span class='ident'>bit</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='self'>self</span>.<span class='ident'>level</span>;
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>xcr0_supported</span> <span class='kw-2'>&amp;</span> <span class='ident'>bit</span> <span class='op'>&gt;</span> <span class='number'>0</span> {
+            <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='macro'>cpuid</span><span class='macro'>!</span>(<span class='ident'>EAX_EXTENDED_STATE_INFO</span>, <span class='self'>self</span>.<span class='ident'>level</span>);
+            <span class='kw'>return</span> <span class='prelude-val'>Some</span>(<span class='ident'>ExtendedState</span> { <span class='ident'>subleaf</span>: <span class='self'>self</span>.<span class='ident'>level</span>, <span class='ident'>eax</span>: <span class='ident'>res</span>.<span class='ident'>eax</span>, <span class='ident'>ebx</span>: <span class='ident'>res</span>.<span class='ident'>ebx</span>, <span class='ident'>ecx</span>: <span class='ident'>res</span>.<span class='ident'>ecx</span> });
         }
 
         <span class='self'>self</span>.<span class='ident'>next</span>()
     }
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>ExtendedStateIdent</span> {
-    <span class='doccomment'>/// legacy x87 (Bit 00).</span>
-    <span class='ident'>LegacyX87</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>0</span>,
-
-    <span class='doccomment'>/// 128-bit SSE (Bit 01).</span>
-    <span class='ident'>SSE128</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>1</span>,
-
-    <span class='doccomment'>/// 256-bit AVX (Bit 02).</span>
-    <span class='ident'>AVX256</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>2</span>,
-}
-
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ExtendedState</span> {
-    <span class='kw'>pub</span> <span class='ident'>ident</span>: <span class='ident'>ExtendedStateIdent</span>,
+    <span class='kw'>pub</span> <span class='ident'>subleaf</span>: <span class='ident'>u32</span>,
     <span class='ident'>eax</span>: <span class='ident'>u32</span>,
     <span class='ident'>ebx</span>: <span class='ident'>u32</span>,
+    <span class='ident'>ecx</span>: <span class='ident'>u32</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>ExtendedState</span> {
+
     <span class='doccomment'>/// The size in bytes (from the offset specified in EBX) of the save area</span>
     <span class='doccomment'>/// for an extended state feature associated with a valid sub-leaf index, n.</span>
     <span class='doccomment'>/// This field reports 0 if the sub-leaf index, n, is invalid.</span>
@@ -3813,6 +4440,25 @@
     <span class='doccomment'>/// from the beginning of the XSAVE/XRSTOR area.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>offset</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u32</span> {
         <span class='self'>self</span>.<span class='ident'>ebx</span>
+    }
+
+    <span class='doccomment'>/// True if the bit n (corresponding to the sub-leaf index)</span>
+    <span class='doccomment'>/// is supported in the IA32_XSS MSR;</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_in_ia32_xss</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+        <span class='self'>self</span>.<span class='ident'>ecx</span> <span class='kw-2'>&amp;</span> <span class='number'>0b1</span> <span class='op'>&gt;</span> <span class='number'>0</span>
+    }
+
+    <span class='doccomment'>/// True if bit n is supported in XCR0.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_in_xcr0</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+        <span class='self'>self</span>.<span class='ident'>ecx</span> <span class='kw-2'>&amp;</span> <span class='number'>0b1</span> <span class='op'>==</span> <span class='number'>0</span>
+    }
+
+    <span class='doccomment'>/// Returns true when the compacted format of an XSAVE area is used,</span>
+    <span class='doccomment'>/// this extended state component located on the next 64-byte</span>
+    <span class='doccomment'>/// boundary following the preceding state component</span>
+    <span class='doccomment'>/// (otherwise, it is located immediately following the preceding state component).</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_compacted_format</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+        <span class='self'>self</span>.<span class='ident'>ecx</span> <span class='kw-2'>&amp;</span> <span class='number'>0b10</span> <span class='op'>&gt;</span> <span class='number'>0</span>
     }
 
 }
@@ -3854,6 +4500,211 @@
     }
 }
 
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>QoSEnforcementInfo</span> {
+    <span class='ident'>ebx0</span>: <span class='ident'>u32</span>,
+    <span class='ident'>eax1</span>: <span class='ident'>u32</span>,
+    <span class='ident'>ebx1</span>: <span class='ident'>u32</span>,
+    <span class='ident'>ecx1</span>: <span class='ident'>u32</span>,
+    <span class='ident'>edx1</span>: <span class='ident'>u32</span>
+}
+
+<span class='kw'>impl</span> <span class='ident'>QoSEnforcementInfo</span> {
+    <span class='macro'>check_bit_fn</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Supports L3 Cache QoS enforcement if true.&quot;</span>, <span class='ident'>has_l3_qos_enforcement</span>, <span class='ident'>ebx0</span>, <span class='number'>0</span>);
+
+    <span class='doccomment'>/// Iterator over QoS enforcements.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>iter</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>QoSEnforcementIter</span> {
+        <span class='ident'>QoSEnforcementIter</span> { <span class='ident'>current</span>: <span class='number'>0</span>, <span class='ident'>ebx0</span>: <span class='self'>self</span>.<span class='ident'>ebx0</span> }
+    }
+}
+
+<span class='doccomment'>/// Iterator over the QoSEnforcement sub-leafs.</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>QoSEnforcementIter</span> {
+    <span class='ident'>current</span>: <span class='ident'>u8</span>,
+    <span class='ident'>ebx0</span>: <span class='ident'>u32</span>,
+}
+
+<span class='kw'>impl</span> <span class='ident'>Iterator</span> <span class='kw'>for</span> <span class='ident'>QoSEnforcementIter</span> {
+    <span class='kw'>type</span> <span class='ident'>Item</span> <span class='op'>=</span> <span class='ident'>QoSEnforcement</span>;
+
+    <span class='kw'>fn</span> <span class='ident'>next</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>QoSEnforcement</span><span class='op'>&gt;</span> {
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>current</span> <span class='op'>&gt;</span> <span class='number'>31</span> {
+            <span class='kw'>return</span> <span class='prelude-val'>None</span>;
+        }
+
+        <span class='self'>self</span>.<span class='ident'>current</span> <span class='op'>+=</span> <span class='number'>1</span>;
+        <span class='kw'>if</span> <span class='macro'>is_bit_set</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>ebx0</span>, <span class='self'>self</span>.<span class='ident'>current</span>) {
+            <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='macro'>cpuid</span><span class='macro'>!</span>(<span class='ident'>EAX_QOS_ENFORCEMENT_INFO</span>, <span class='self'>self</span>.<span class='ident'>current</span>);
+            <span class='kw'>return</span> <span class='prelude-val'>Some</span>(<span class='ident'>QoSEnforcement</span> { <span class='ident'>eax</span>: <span class='ident'>res</span>.<span class='ident'>eax</span>, <span class='ident'>ebx</span>: <span class='ident'>res</span>.<span class='ident'>ebx</span>, <span class='ident'>ecx</span>: <span class='ident'>res</span>.<span class='ident'>ecx</span>, <span class='ident'>edx</span>: <span class='ident'>res</span>.<span class='ident'>edx</span> });
+        }
+
+        <span class='self'>self</span>.<span class='ident'>next</span>()
+    }
+}
+
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>QoSEnforcement</span> {
+    <span class='ident'>eax</span>: <span class='ident'>u32</span>,
+    <span class='ident'>ebx</span>: <span class='ident'>u32</span>,
+    <span class='ident'>ecx</span>: <span class='ident'>u32</span>,
+    <span class='ident'>edx</span>: <span class='ident'>u32</span>
+}
+
+<span class='kw'>impl</span> <span class='ident'>QoSEnforcement</span> {
+
+    <span class='doccomment'>/// Length of the capacity bit mask.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>capacity_mask_length</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u8</span> {
+        <span class='ident'>get_bits</span>(<span class='self'>self</span>.<span class='ident'>eax</span>, <span class='number'>0</span>, <span class='number'>4</span>) <span class='kw'>as</span> <span class='ident'>u8</span>
+    }
+
+    <span class='doccomment'>/// Bit-granular map of isolation/contention of allocation units.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>allocation_unit_isolation</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u32</span> {
+        <span class='self'>self</span>.<span class='ident'>ebx</span>
+    }
+
+    <span class='doccomment'>/// Highest COS number supported for this Leaf.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>highest_cos_number</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u16</span> {
+        <span class='ident'>get_bits</span>(<span class='self'>self</span>.<span class='ident'>edx</span>, <span class='number'>0</span>, <span class='number'>15</span>) <span class='kw'>as</span> <span class='ident'>u16</span>
+    }
+
+    <span class='macro'>check_bit_fn</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Updates of COS should be infrequent if true.&quot;</span>,
+                  <span class='ident'>has_infrequent_cos_updates</span>, <span class='ident'>ecx</span>, <span class='number'>1</span>);
+
+    <span class='macro'>check_bit_fn</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;Is Code and Data Prioritization Technology supported?&quot;</span>,
+                  <span class='ident'>has_code_data_prioritization</span>, <span class='ident'>ecx</span>, <span class='number'>2</span>);
+}
+
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ProcessorTraceInfo</span> {
+    <span class='ident'>eax</span>: <span class='ident'>u32</span>,
+    <span class='ident'>ebx</span>: <span class='ident'>u32</span>,
+    <span class='ident'>ecx</span>: <span class='ident'>u32</span>,
+    <span class='ident'>edx</span>: <span class='ident'>u32</span>
+}
+
+<span class='kw'>impl</span> <span class='ident'>ProcessorTraceInfo</span> {
+
+    <span class='comment'>// EBX features</span>
+    <span class='macro'>check_bit_fn</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If true, Indicates that IA32_RTIT_CTL.CR3Filter can be set to 1, and that IA32_RTIT_CR3_MATCH MSR can be accessed.&quot;</span>,
+                  <span class='ident'>has_rtit_cr3_match</span>, <span class='ident'>ebx</span>, <span class='number'>0</span>);
+    <span class='macro'>check_bit_fn</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If true, Indicates support of Configurable PSB and Cycle-Accurate Mode.&quot;</span>,
+                  <span class='ident'>has_configurable_psb_and_cycle_accurate_mode</span>, <span class='ident'>ebx</span>, <span class='number'>1</span>);
+    <span class='macro'>check_bit_fn</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If true, Indicates support of IP Filtering, TraceStop filtering, and preservation of Intel PT MSRs across warm reset.&quot;</span>,
+                  <span class='ident'>has_ip_tracestop_filtering</span>, <span class='ident'>ebx</span>, <span class='number'>2</span>);
+    <span class='macro'>check_bit_fn</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If true, Indicates support of MTC timing packet and suppression of COFI-based packets.&quot;</span>,
+                  <span class='ident'>has_mtc_timing_packet_coefi_suppression</span>, <span class='ident'>ebx</span>, <span class='number'>3</span>);
+
+    <span class='comment'>// ECX features</span>
+    <span class='macro'>check_bit_fn</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If true, Tracing can be enabled with IA32_RTIT_CTL.ToPA = 1, hence utilizing the ToPA output scheme; IA32_RTIT_OUTPUT_BASE and IA32_RTIT_OUTPUT_MASK_PTRS MSRs can be accessed.&quot;</span>,
+                  <span class='ident'>has_topa</span>, <span class='ident'>ecx</span>, <span class='number'>0</span>);
+    <span class='macro'>check_bit_fn</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If true, ToPA tables can hold any number of output entries, up to the maximum allowed by the MaskOrTableOffset field of IA32_RTIT_OUTPUT_MASK_PTRS.&quot;</span>,
+                  <span class='ident'>has_topa_maximum_entries</span>, <span class='ident'>ecx</span>, <span class='number'>1</span>);
+    <span class='macro'>check_bit_fn</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If true, Indicates support of Single-Range Output scheme.&quot;</span>,
+                  <span class='ident'>has_single_range_output_scheme</span>, <span class='ident'>ecx</span>, <span class='number'>2</span>);
+    <span class='macro'>check_bit_fn</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If true, Indicates support of output to Trace Transport subsystem.&quot;</span>,
+                  <span class='ident'>has_trace_transport_subsystem</span>, <span class='ident'>ecx</span>, <span class='number'>3</span>);
+    <span class='macro'>check_bit_fn</span><span class='macro'>!</span>(<span class='ident'>doc</span> <span class='op'>=</span> <span class='string'>&quot;If true, Generated packets which contain IP payloads have LIP values, which include the CS base component.&quot;</span>,
+                  <span class='ident'>has_lip_with_cs_base</span>, <span class='ident'>ecx</span>, <span class='number'>31</span>);
+
+    <span class='doccomment'>/// Iterator over processor trace info sub-leafs.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>iter</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ProcessorTraceIter</span> {
+        <span class='ident'>ProcessorTraceIter</span> { <span class='ident'>current</span>: <span class='number'>0</span>, <span class='ident'>count</span>: <span class='self'>self</span>.<span class='ident'>eax</span> }
+    }
+}
+
+<span class='doccomment'>/// Iterator over the Processor Trace sub-leafs.</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ProcessorTraceIter</span> {
+    <span class='ident'>current</span>: <span class='ident'>u32</span>,
+    <span class='ident'>count</span>: <span class='ident'>u32</span>,
+}
+
+<span class='kw'>impl</span> <span class='ident'>Iterator</span> <span class='kw'>for</span> <span class='ident'>ProcessorTraceIter</span> {
+    <span class='kw'>type</span> <span class='ident'>Item</span> <span class='op'>=</span> <span class='ident'>ProcessorTrace</span>;
+
+    <span class='kw'>fn</span> <span class='ident'>next</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>ProcessorTrace</span><span class='op'>&gt;</span> {
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>current</span> <span class='op'>&lt;=</span> <span class='self'>self</span>.<span class='ident'>count</span> {
+            <span class='self'>self</span>.<span class='ident'>current</span> <span class='op'>+=</span> <span class='number'>1</span>;
+            <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='macro'>cpuid</span><span class='macro'>!</span>(<span class='ident'>EAX_TRACE_INFO</span>, <span class='self'>self</span>.<span class='ident'>current</span>);
+            <span class='kw'>return</span> <span class='prelude-val'>Some</span>(<span class='ident'>ProcessorTrace</span> { <span class='ident'>eax</span>: <span class='ident'>res</span>.<span class='ident'>eax</span>, <span class='ident'>ebx</span>: <span class='ident'>res</span>.<span class='ident'>ebx</span> });
+        }
+
+        <span class='prelude-val'>None</span>
+    }
+}
+
+<span class='doccomment'>/// Processor Trace information sub-leaf.</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ProcessorTrace</span> {
+    <span class='ident'>eax</span>: <span class='ident'>u32</span>,
+    <span class='ident'>ebx</span>: <span class='ident'>u32</span>,
+}
+
+<span class='kw'>impl</span> <span class='ident'>ProcessorTrace</span> {
+    <span class='doccomment'>/// Number of configurable Address Ranges for filtering (Bits 2:0).</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>configurable_address_ranges</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u8</span> {
+        <span class='ident'>get_bits</span>(<span class='self'>self</span>.<span class='ident'>eax</span>, <span class='number'>0</span>, <span class='number'>2</span>) <span class='kw'>as</span> <span class='ident'>u8</span>
+    }
+
+    <span class='doccomment'>/// Bitmap of supported MTC period encodings (Bit 31:16).</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>supported_mtc_period_encodings</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u16</span> {
+        <span class='ident'>get_bits</span>(<span class='self'>self</span>.<span class='ident'>eax</span>, <span class='number'>16</span>, <span class='number'>31</span>) <span class='kw'>as</span> <span class='ident'>u16</span>
+    }
+
+    <span class='doccomment'>/// Bitmap of supported Cycle Threshold value encodings (Bits 15-0).</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>supported_cycle_threshold_value_encodings</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u16</span> {
+        <span class='ident'>get_bits</span>(<span class='self'>self</span>.<span class='ident'>ebx</span>, <span class='number'>0</span>, <span class='number'>15</span>) <span class='kw'>as</span> <span class='ident'>u16</span>
+    }
+
+    <span class='doccomment'>/// Bitmap of supported Configurable PSB frequency encodings (Bit 31:16)</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>supported_psb_frequency_encodings</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u16</span> {
+        <span class='ident'>get_bits</span>(<span class='self'>self</span>.<span class='ident'>ebx</span>, <span class='number'>16</span>, <span class='number'>31</span>) <span class='kw'>as</span> <span class='ident'>u16</span>
+    }
+}
+
+<span class='doccomment'>/// Contains time stamp counter information.</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TscInfo</span> {
+    <span class='ident'>eax</span>: <span class='ident'>u32</span>,
+    <span class='ident'>ebx</span>: <span class='ident'>u32</span>
+}
+
+<span class='kw'>impl</span> <span class='ident'>TscInfo</span> {
+    <span class='doccomment'>/// An unsigned integer which is the denominator of the TSC/”core crystal clock” ratio (Bits 31:0).</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_tsc_ratio_denominator</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u32</span> {
+        <span class='self'>self</span>.<span class='ident'>eax</span>
+    }
+
+    <span class='doccomment'>/// An unsigned integer which is the numerator of the TSC/”core crystal clock” ratio (Bits 31-0).</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_tsc_ratio_numerator</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u32</span> {
+        <span class='self'>self</span>.<span class='ident'>ebx</span>
+    }
+}
+
+<span class='doccomment'>/// Processor Frequency Information</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ProcessorFrequencyInfo</span> {
+    <span class='ident'>eax</span>: <span class='ident'>u32</span>,
+    <span class='ident'>ebx</span>: <span class='ident'>u32</span>,
+    <span class='ident'>ecx</span>: <span class='ident'>u32</span>
+}
+
+<span class='kw'>impl</span> <span class='ident'>ProcessorFrequencyInfo</span> {
+    <span class='doccomment'>/// Processor Base Frequency (in MHz).</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>processor_base_frequency</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u16</span> {
+        <span class='ident'>get_bits</span>(<span class='self'>self</span>.<span class='ident'>eax</span>, <span class='number'>0</span>, <span class='number'>15</span>) <span class='kw'>as</span> <span class='ident'>u16</span>
+    }
+
+    <span class='doccomment'>/// Maximum Frequency (in MHz).</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>processor_max_frequency</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u16</span> {
+        <span class='ident'>get_bits</span>(<span class='self'>self</span>.<span class='ident'>ebx</span>, <span class='number'>0</span>, <span class='number'>15</span>) <span class='kw'>as</span> <span class='ident'>u16</span>
+    }
+
+    <span class='doccomment'>/// Bus (Reference) Frequency (in MHz).</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>bus_frequency</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>u16</span> {
+        <span class='ident'>get_bits</span>(<span class='self'>self</span>.<span class='ident'>ecx</span>, <span class='number'>0</span>, <span class='number'>15</span>) <span class='kw'>as</span> <span class='ident'>u16</span>
+    }
+}
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ExtendedFunctionInfo</span> {
@@ -4023,35 +4874,40 @@
 
 }
 
+<span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
     <span class='ident'>flags</span> <span class='ident'>ExtendedFunctionInfoEcx</span>: <span class='ident'>u32</span> {
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// LAHF/SAHF available in 64-bit mode.</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_LAHF_SAHF</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>0</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Bit 05: LZCNT</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_LZCNT</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>5</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Bit 08: PREFETCHW</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_PREFETCHW</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>8</span>,
     }
 }
 
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
     <span class='ident'>flags</span> <span class='ident'>ExtendedFunctionInfoEdx</span>: <span class='ident'>u32</span> {
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// SYSCALL/SYSRET available in 64-bit mode (Bit 11).</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_SYSCALL_SYSRET</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>11</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Execute Disable Bit available (Bit 20).</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_EXECUTE_DISABLE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>20</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// 1-GByte pages are available if 1 (Bit 26).</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_1GIB_PAGES</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>26</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// RDTSCP and IA32_TSC_AUX are available if 1 (Bit 27).</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_RDTSCP</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>27</span>,
-
+        <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
         <span class='doccomment'>/// Intel ® 64 Architecture available if 1 (Bit 29).</span>
         <span class='kw'>const</span> <span class='ident'>CPU_FEATURE_64BIT_MODE</span> <span class='op'>=</span> <span class='number'>1</span> <span class='op'>&lt;&lt;</span> <span class='number'>29</span>,
     }
@@ -4295,7 +5151,7 @@
 <span class='kw'>fn</span> <span class='ident'>extended_state_info</span>() {
     <span class='kw'>let</span> <span class='ident'>es</span> <span class='op'>=</span> <span class='ident'>ExtendedStateInfo</span> { <span class='ident'>eax</span>: <span class='number'>7</span>, <span class='ident'>ebx</span>: <span class='number'>832</span>, <span class='ident'>ecx</span>: <span class='number'>832</span>, <span class='ident'>edx</span>: <span class='number'>0</span>, <span class='ident'>eax1</span>: <span class='number'>1</span> };
 
-    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>es</span>.<span class='ident'>xcr0</span>() <span class='op'>==</span> <span class='number'>7</span>);
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>es</span>.<span class='ident'>xcr0_supported</span>() <span class='op'>==</span> <span class='number'>7</span>);
     <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>es</span>.<span class='ident'>maximum_size_enabled_features</span>() <span class='op'>==</span> <span class='number'>832</span>);
     <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>es</span>.<span class='ident'>maximum_size_supported_features</span>() <span class='op'>==</span> <span class='number'>832</span>);
     <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>es</span>.<span class='ident'>has_xsaveopt</span>());
@@ -4303,7 +5159,7 @@
     <span class='kw'>for</span> (<span class='ident'>idx</span>, <span class='ident'>e</span>) <span class='kw'>in</span> <span class='ident'>es</span>.<span class='ident'>iter</span>().<span class='ident'>enumerate</span>() {
         <span class='kw'>match</span> <span class='ident'>idx</span> {
             <span class='number'>0</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>e</span>.<span class='ident'>ident</span> <span class='op'>==</span> <span class='ident'>ExtendedStateIdent</span>::<span class='ident'>AVX256</span>);
+                <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>e</span>.<span class='ident'>subleaf</span> <span class='op'>==</span> <span class='number'>2</span>);
                 <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>e</span>.<span class='ident'>size</span>() <span class='op'>==</span> <span class='number'>256</span>);
                 <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>e</span>.<span class='ident'>offset</span>() <span class='op'>==</span> <span class='number'>576</span>);
             }
@@ -4332,7 +5188,7 @@
             <span class='ident'>CpuIdResult</span> { <span class='ident'>eax</span>: <span class='number'>538976288</span>, <span class='ident'>ebx</span>: <span class='number'>1226842144</span>, <span class='ident'>ecx</span>: <span class='number'>1818588270</span>, <span class='ident'>edx</span>: <span class='number'>539578920</span> },
             <span class='ident'>CpuIdResult</span> { <span class='ident'>eax</span>: <span class='number'>1701998403</span>, <span class='ident'>ebx</span>: <span class='number'>692933672</span>, <span class='ident'>ecx</span>: <span class='number'>758475040</span>, <span class='ident'>edx</span>: <span class='number'>926102323</span> },
             <span class='ident'>CpuIdResult</span> { <span class='ident'>eax</span>: <span class='number'>1346576469</span>, <span class='ident'>ebx</span>: <span class='number'>541073493</span>, <span class='ident'>ecx</span>: <span class='number'>808988209</span>, <span class='ident'>edx</span>: <span class='number'>8013895</span> },
-            <span class='ident'>CpuIdResult</span> { <span class='ident'>eax</span>:<span class='number'>0</span>, <span class='ident'>ebx</span>: <span class='number'>0</span>, <span class='ident'>ecx</span>: <span class='number'>0</span>, <span class='ident'>edx</span>: <span class='number'>0</span> },
+            <span class='ident'>CpuIdResult</span> { <span class='ident'>eax</span>: <span class='number'>0</span>, <span class='ident'>ebx</span>: <span class='number'>0</span>, <span class='ident'>ecx</span>: <span class='number'>0</span>, <span class='ident'>edx</span>: <span class='number'>0</span> },
             <span class='ident'>CpuIdResult</span> { <span class='ident'>eax</span>: <span class='number'>0</span>, <span class='ident'>ebx</span>: <span class='number'>0</span>, <span class='ident'>ecx</span>: <span class='number'>16801856</span>, <span class='ident'>edx</span>: <span class='number'>0</span> },
             <span class='ident'>CpuIdResult</span> { <span class='ident'>eax</span>: <span class='number'>0</span>, <span class='ident'>ebx</span>: <span class='number'>0</span>, <span class='ident'>ecx</span>: <span class='number'>0</span>, <span class='ident'>edx</span>: <span class='number'>256</span> },
             <span class='ident'>CpuIdResult</span> { <span class='ident'>eax</span>: <span class='number'>12324</span>, <span class='ident'>ebx</span>: <span class='number'>0</span>, <span class='ident'>ecx</span>: <span class='number'>0</span>, <span class='ident'>edx</span>: <span class='number'>0</span> }
@@ -4385,17 +5241,20 @@
             }
         },
         None =&gt; println!(&quot;No cache parameter information available&quot;),
-    }*/</span>
+    }
+    */</span>
 }</pre>
 </section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -4412,7 +5271,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -4432,7 +5291,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -4444,6 +5303,6 @@
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

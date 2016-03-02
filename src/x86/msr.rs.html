@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/gz/.cargo/registry/src/github.com-0a35038f75765ae4/x86-0.3.1/src/msr.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/gz/.multirust/toolchains/nightly/cargo/registry/src/github.com-88ac128001ac3a9a/x86-0.6.0/src/msr.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>msr.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -3189,19 +3190,25 @@
 <span id="3147">3147</span>
 <span id="3148">3148</span>
 <span id="3149">3149</span>
+<span id="3150">3150</span>
+<span id="3151">3151</span>
+<span id="3152">3152</span>
 </pre><pre class='rust '>
+<span class='doccomment'>//! MSR value list and function to read and write them.</span>
+
 <span class='doccomment'>/// Write 64 bits to msr register.</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>wrmsr</span>(<span class='ident'>msr</span>: <span class='ident'>u32</span>, <span class='ident'>value</span>: <span class='ident'>u64</span>) {
     <span class='kw'>let</span> <span class='ident'>low</span> <span class='op'>=</span> <span class='ident'>value</span> <span class='kw'>as</span> <span class='ident'>u32</span>;
     <span class='kw'>let</span> <span class='ident'>high</span> <span class='op'>=</span> (<span class='ident'>value</span> <span class='op'>&gt;&gt;</span> <span class='number'>32</span>) <span class='kw'>as</span> <span class='ident'>u32</span>;
-    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;wrmsr&quot;</span> :: <span class='string'>&quot;{ecx}&quot;</span> (<span class='ident'>msr</span>), <span class='string'>&quot;{eax}&quot;</span> (<span class='ident'>low</span>), <span class='string'>&quot;{edx}&quot;</span> (<span class='ident'>high</span>) );
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;wrmsr&quot;</span> :: <span class='string'>&quot;{ecx}&quot;</span> (<span class='ident'>msr</span>), <span class='string'>&quot;{eax}&quot;</span> (<span class='ident'>low</span>), <span class='string'>&quot;{edx}&quot;</span> (<span class='ident'>high</span>) : <span class='string'>&quot;memory&quot;</span> : <span class='string'>&quot;volatile&quot;</span> );
 }
 
 <span class='doccomment'>/// Read 64 bits msr register.</span>
+<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>unused_mut</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>rdmsr</span>(<span class='ident'>msr</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='ident'>u64</span> {
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>low</span>: <span class='ident'>u32</span>;
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>high</span>: <span class='ident'>u32</span>;
-    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;rdmsr&quot;</span> : <span class='string'>&quot;={eax}&quot;</span> (<span class='ident'>low</span>), <span class='string'>&quot;={edx}&quot;</span> (<span class='ident'>high</span>) : <span class='string'>&quot;{ecx}&quot;</span> (<span class='ident'>msr</span>));
+    <span class='macro'>asm</span><span class='macro'>!</span>(<span class='string'>&quot;rdmsr&quot;</span> : <span class='string'>&quot;={eax}&quot;</span> (<span class='ident'>low</span>), <span class='string'>&quot;={edx}&quot;</span> (<span class='ident'>high</span>) : <span class='string'>&quot;{ecx}&quot;</span> (<span class='ident'>msr</span>) : <span class='string'>&quot;memory&quot;</span> : <span class='string'>&quot;volatile&quot;</span>);
 
     ((<span class='ident'>high</span> <span class='kw'>as</span> <span class='ident'>u64</span>) <span class='op'>&lt;&lt;</span> <span class='number'>32</span>) <span class='op'>|</span> (<span class='ident'>low</span> <span class='kw'>as</span> <span class='ident'>u64</span>)
 }
@@ -6345,10 +6352,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -6365,7 +6374,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -6385,7 +6394,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -6397,6 +6406,6 @@
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

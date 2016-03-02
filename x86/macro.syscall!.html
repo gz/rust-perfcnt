@@ -9,6 +9,7 @@
 
     <title>x86::syscall! - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>x86</a></p><script>window.sidebarCurrent = {name: 'syscall!', ty: 'macro', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,36 +46,19 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-11863' class='srclink' href='../src/x86/syscall.rs.html#17-41' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-2933' class='srclink' href='../src/x86/syscall.rs.html#16-40' title='goto source code'>[src]</a></span></h1>
 <pre class='rust macro'>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>syscall</span> {
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>)
-        <span class='op'>=&gt;</span> ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>syscall</span>::<span class='ident'>syscall0</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span> <span class='kw'>as</span> <span class='ident'>u64</span>) );
-
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>)
-        <span class='op'>=&gt;</span> ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>syscall</span>::<span class='ident'>syscall1</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span> <span class='kw'>as</span> <span class='ident'>u64</span>) );
-
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span>:<span class='ident'>expr</span>)
-        <span class='op'>=&gt;</span> ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>syscall</span>::<span class='ident'>syscall2</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span> <span class='kw'>as</span> <span class='ident'>u64</span>) );
-
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span>:<span class='ident'>expr</span>)
-        <span class='op'>=&gt;</span> ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>syscall</span>::<span class='ident'>syscall3</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span> <span class='kw'>as</span> <span class='ident'>u64</span>) );
-
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg4</span>:<span class='ident'>expr</span>)
-        <span class='op'>=&gt;</span> ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>syscall</span>::<span class='ident'>syscall4</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg4</span> <span class='kw'>as</span> <span class='ident'>u64</span>) );
-
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg4</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg5</span>:<span class='ident'>expr</span>)
-        <span class='op'>=&gt;</span> ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>syscall</span>::<span class='ident'>syscall5</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg4</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg5</span> <span class='kw'>as</span> <span class='ident'>u64</span>) );
-
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg4</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg5</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg6</span>:<span class='ident'>expr</span>)
-        <span class='op'>=&gt;</span> ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>syscall</span>::<span class='ident'>syscall6</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg4</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg5</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg6</span> <span class='kw'>as</span> <span class='ident'>u64</span>) );
-
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg4</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg5</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg6</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg7</span>:<span class='ident'>expr</span>)
-        <span class='op'>=&gt;</span> ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>syscall</span>::<span class='ident'>syscall7</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg4</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg5</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg6</span> <span class='kw'>as</span> <span class='ident'>u64</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg7</span> <span class='kw'>as</span> <span class='ident'>u64</span>) );
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> { ... };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> { ... };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> { ... };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> { ... };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg4</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> { ... };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg4</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg5</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> { ... };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg4</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg5</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg6</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> { ... };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg0</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg1</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg2</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg3</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg4</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg5</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg6</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>arg7</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> { ... };
 }</pre>
-<div class='docblock'><p>SYSCALL invokes an OS system-call handler at privilege level 0.</p>
-
-<p>It does so by loading RIP from the IA32_LSTAR MSR (after saving the address of the instruction following SYSCALL into RCX).</p>
+<div class='docblock'><p>It does so by loading RIP from the IA32_LSTAR MSR (after saving the address of the instruction following SYSCALL into RCX).</p>
 
 <p>&quot;A.2 AMD64 Linux Kernel Conventions&quot; of System V Application Binary Interface AMD64 Architecture Processor Supplement:</p>
 
@@ -93,10 +77,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -113,7 +99,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -133,7 +119,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -145,6 +131,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

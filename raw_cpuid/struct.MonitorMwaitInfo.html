@@ -9,6 +9,7 @@
 
     <title>raw_cpuid::MonitorMwaitInfo - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>raw_cpuid</a></p><script>window.sidebarCurrent = {name: 'MonitorMwaitInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,32 +46,32 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-5654' class='srclink' href='../src/raw_cpuid/lib.rs.html#1068-1073' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-781' class='srclink' href='../src/raw_cpuid/lib.rs.html#1200-1205' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct MonitorMwaitInfo {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.MonitorMwaitInfo.html' title='raw_cpuid::MonitorMwaitInfo'>MonitorMwaitInfo</a></code></h3><div class='impl-items'><h4 id='method.smallest_monitor_line' class='method'><code>fn <a href='#method.smallest_monitor_line' class='fnname'>smallest_monitor_line</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.MonitorMwaitInfo.html' title='raw_cpuid::MonitorMwaitInfo'>MonitorMwaitInfo</a></code></h3><div class='impl-items'><h4 id='method.smallest_monitor_line' class='method'><code>fn <a href='#method.smallest_monitor_line' class='fnname'>smallest_monitor_line</a>(&amp;self) -&gt; u16</code></h4>
 <div class='docblock'><p>Smallest monitor-line size in bytes (default is processor&#39;s monitor granularity)</p>
-</div><h4 id='method.largest_monitor_line' class='method'><code>fn <a href='#method.largest_monitor_line' class='fnname'>largest_monitor_line</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code></h4>
+</div><h4 id='method.largest_monitor_line' class='method'><code>fn <a href='#method.largest_monitor_line' class='fnname'>largest_monitor_line</a>(&amp;self) -&gt; u16</code></h4>
 <div class='docblock'><p>Largest monitor-line size in bytes (default is processor&#39;s monitor granularity</p>
-</div><h4 id='method.extensions_supported' class='method'><code>fn <a href='#method.extensions_supported' class='fnname'>extensions_supported</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.extensions_supported' class='method'><code>fn <a href='#method.extensions_supported' class='fnname'>extensions_supported</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Enumeration of Monitor-Mwait extensions (beyond EAX and EBX registers) supported</p>
-</div><h4 id='method.interrupts_as_break_event' class='method'><code>fn <a href='#method.interrupts_as_break_event' class='fnname'>interrupts_as_break_event</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.interrupts_as_break_event' class='method'><code>fn <a href='#method.interrupts_as_break_event' class='fnname'>interrupts_as_break_event</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Supports treating interrupts as break-event for MWAIT, even when interrupts disabled</p>
-</div><h4 id='method.supported_c0_states' class='method'><code>fn <a href='#method.supported_c0_states' class='fnname'>supported_c0_states</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code></h4>
+</div><h4 id='method.supported_c0_states' class='method'><code>fn <a href='#method.supported_c0_states' class='fnname'>supported_c0_states</a>(&amp;self) -&gt; u16</code></h4>
 <div class='docblock'><p>Number of C0 sub C-states supported using MWAIT (Bits 03 - 00)</p>
-</div><h4 id='method.supported_c1_states' class='method'><code>fn <a href='#method.supported_c1_states' class='fnname'>supported_c1_states</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code></h4>
+</div><h4 id='method.supported_c1_states' class='method'><code>fn <a href='#method.supported_c1_states' class='fnname'>supported_c1_states</a>(&amp;self) -&gt; u16</code></h4>
 <div class='docblock'><p>Number of C1 sub C-states supported using MWAIT (Bits 07 - 04)</p>
-</div><h4 id='method.supported_c2_states' class='method'><code>fn <a href='#method.supported_c2_states' class='fnname'>supported_c2_states</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code></h4>
+</div><h4 id='method.supported_c2_states' class='method'><code>fn <a href='#method.supported_c2_states' class='fnname'>supported_c2_states</a>(&amp;self) -&gt; u16</code></h4>
 <div class='docblock'><p>Number of C2 sub C-states supported using MWAIT (Bits 11 - 08)</p>
-</div><h4 id='method.supported_c3_states' class='method'><code>fn <a href='#method.supported_c3_states' class='fnname'>supported_c3_states</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code></h4>
+</div><h4 id='method.supported_c3_states' class='method'><code>fn <a href='#method.supported_c3_states' class='fnname'>supported_c3_states</a>(&amp;self) -&gt; u16</code></h4>
 <div class='docblock'><p>Number of C3 sub C-states supported using MWAIT (Bits 15 - 12)</p>
-</div><h4 id='method.supported_c4_states' class='method'><code>fn <a href='#method.supported_c4_states' class='fnname'>supported_c4_states</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code></h4>
+</div><h4 id='method.supported_c4_states' class='method'><code>fn <a href='#method.supported_c4_states' class='fnname'>supported_c4_states</a>(&amp;self) -&gt; u16</code></h4>
 <div class='docblock'><p>Number of C4 sub C-states supported using MWAIT (Bits 19 - 16)</p>
-</div><h4 id='method.supported_c5_states' class='method'><code>fn <a href='#method.supported_c5_states' class='fnname'>supported_c5_states</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code></h4>
+</div><h4 id='method.supported_c5_states' class='method'><code>fn <a href='#method.supported_c5_states' class='fnname'>supported_c5_states</a>(&amp;self) -&gt; u16</code></h4>
 <div class='docblock'><p>Number of C5 sub C-states supported using MWAIT (Bits 23 - 20)</p>
-</div><h4 id='method.supported_c6_states' class='method'><code>fn <a href='#method.supported_c6_states' class='fnname'>supported_c6_states</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code></h4>
+</div><h4 id='method.supported_c6_states' class='method'><code>fn <a href='#method.supported_c6_states' class='fnname'>supported_c6_states</a>(&amp;self) -&gt; u16</code></h4>
 <div class='docblock'><p>Number of C6 sub C-states supported using MWAIT (Bits 27 - 24)</p>
-</div><h4 id='method.supported_c7_states' class='method'><code>fn <a href='#method.supported_c7_states' class='fnname'>supported_c7_states</a>(&amp;self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code></h4>
+</div><h4 id='method.supported_c7_states' class='method'><code>fn <a href='#method.supported_c7_states' class='fnname'>supported_c7_states</a>(&amp;self) -&gt; u16</code></h4>
 <div class='docblock'><p>Number of C7 sub C-states supported using MWAIT (Bits 31 - 28)</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.MonitorMwaitInfo.html' title='raw_cpuid::MonitorMwaitInfo'>MonitorMwaitInfo</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
 </div></section>
@@ -78,10 +79,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -98,7 +101,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -118,7 +121,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -130,6 +133,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

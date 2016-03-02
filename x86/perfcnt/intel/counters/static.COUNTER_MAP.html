@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `COUNTER_MAP` static in crate `x86`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, COUNTER_MAP">
+
+    <title>x86::perfcnt::intel::counters::COUNTER_MAP - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../../../index.html'>x86</a>::<wbr><a href='../../index.html'>perfcnt</a>::<wbr><a href='../index.html'>intel</a>::<wbr><a href='index.html'>counters</a></p><script>window.sidebarCurrent = {name: 'COUNTER_MAP', ty: 'static', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content static">
+<h1 class='fqn'><span class='in-band'><a href='../../../index.html'>x86</a>::<wbr><a href='../../index.html'>perfcnt</a>::<wbr><a href='../index.html'>intel</a>::<wbr><a href='index.html'>counters</a>::<wbr><a class='static' href=''>COUNTER_MAP</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-2698' class='srclink' href='../../../../src/x86///home/gz/workspace/rust-perfcnt/target/debug/build/x86-0c610ed98ea8ba6b/out/counters.rs.html#1-36' title='goto source code'>[src]</a></span></h1>
+<pre class='rust static'>pub static COUNTER_MAP: <a class='struct' href='../../../../phf/map/struct.Map.html' title='phf::map::Map'>Map</a>&lt;&amp;'static str, <a class='struct' href='../../../../phf/map/struct.Map.html' title='phf::map::Map'>Map</a>&lt;&amp;'static str, <a class='struct' href='../../../../x86/perfcnt/intel/description/struct.IntelPerformanceCounterDescription.html' title='x86::perfcnt::intel::description::IntelPerformanceCounterDescription'>IntelPerformanceCounterDescription</a>&gt;&gt;<code> = </code><code>::phf::Map {
+    key: 12731061832039563115,
+    disps: &[
+        (2, 0),
+        (1, 2),
+        (5, 1),
+        (13, 18),
+        (8, 19),
+    ],
+    entries: &[
+        ("GenuineIntel-6-2A-uncore", SANDYBRIDGE_UNCORE),
+        ("GenuineIntel-6-3A-uncore", IVYBRIDGE_UNCORE),
+        ("GenuineIntel-6-3D-core", BROADWELL_CORE),
+        ("GenuineIntel-6-2D-core", JAKETOWN_CORE),
+        ("GenuineIntel-6-1E-core", NEHALEMEP_CORE),
+        ("GenuineIntel-6-3A-core", IVYBRIDGE_CORE),
+        ("GenuineIntel-6-3E-core", IVYTOWN_CORE),
+        ("GenuineIntel-6-3C-uncore", HASWELL_UNCORE),
+        ("GenuineIntel-6-56-uncore", BROADWELLDE_UNCORE),
+        ("GenuineIntel-6-2A-core", SANDYBRIDGE_CORE),
+        ("GenuineIntel-6-2F-core", WESTMEREEX_CORE),
+        ("GenuineIntel-6-4E-core", SKYLAKE_CORE),
+        ("GenuineIntel-6-3C-core", HASWELL_CORE),
+        ("GenuineIntel-6-2C-core", WESTMEREEP_DP_CORE),
+        ("GenuineIntel-6-56-core", BROADWELLDE_CORE),
+        ("GenuineIntel-6-2E-core", NEHALEMEX_CORE),
+        ("GenuineIntel-6-2D-uncore", JAKETOWN_UNCORE),
+        ("GenuineIntel-6-1C-core", BONNELL_CORE),
+        ("GenuineIntel-6-3D-uncore", BROADWELL_UNCORE),
+        ("GenuineIntel-6-3F-core", HASWELLX_CORE),
+        ("GenuineIntel-6-37-core", SILVERMONT_CORE),
+        ("GenuineIntel-6-25-core", WESTMEREEP_SP_CORE),
+        ("GenuineIntel-6-3F-uncore", HASWELLX_UNCORE),
+        ("GenuineIntel-6-3E-uncore", IVYTOWN_UNCORE),
+    ]
+}</code></pre></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "x86";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    
+    <script defer src="../../../../search-index.js"></script>
+</body>
+</html>

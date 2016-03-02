@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ProcessorTraceInfo` struct in crate `raw_cpuid`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ProcessorTraceInfo">
+
+    <title>raw_cpuid::ProcessorTraceInfo - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>raw_cpuid</a></p><script>window.sidebarCurrent = {name: 'ProcessorTraceInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>raw_cpuid</a>::<wbr><a class='struct' href=''>ProcessorTraceInfo</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-1715' class='srclink' href='../src/raw_cpuid/lib.rs.html#1933-1938' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct ProcessorTraceInfo {
+    // some fields omitted
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ProcessorTraceInfo.html' title='raw_cpuid::ProcessorTraceInfo'>ProcessorTraceInfo</a></code></h3><div class='impl-items'><h4 id='method.has_rtit_cr3_match' class='method'><code>fn <a href='#method.has_rtit_cr3_match' class='fnname'>has_rtit_cr3_match</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>If true, Indicates that IA32_RTIT_CTL.CR3Filter can be set to 1, and that IA32_RTIT_CR3_MATCH MSR can be accessed.</p>
+</div><h4 id='method.has_configurable_psb_and_cycle_accurate_mode' class='method'><code>fn <a href='#method.has_configurable_psb_and_cycle_accurate_mode' class='fnname'>has_configurable_psb_and_cycle_accurate_mode</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>If true, Indicates support of Configurable PSB and Cycle-Accurate Mode.</p>
+</div><h4 id='method.has_ip_tracestop_filtering' class='method'><code>fn <a href='#method.has_ip_tracestop_filtering' class='fnname'>has_ip_tracestop_filtering</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>If true, Indicates support of IP Filtering, TraceStop filtering, and preservation of Intel PT MSRs across warm reset.</p>
+</div><h4 id='method.has_mtc_timing_packet_coefi_suppression' class='method'><code>fn <a href='#method.has_mtc_timing_packet_coefi_suppression' class='fnname'>has_mtc_timing_packet_coefi_suppression</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>If true, Indicates support of MTC timing packet and suppression of COFI-based packets.</p>
+</div><h4 id='method.has_topa' class='method'><code>fn <a href='#method.has_topa' class='fnname'>has_topa</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>If true, Tracing can be enabled with IA32_RTIT_CTL.ToPA = 1, hence utilizing the ToPA output scheme; IA32_RTIT_OUTPUT_BASE and IA32_RTIT_OUTPUT_MASK_PTRS MSRs can be accessed.</p>
+</div><h4 id='method.has_topa_maximum_entries' class='method'><code>fn <a href='#method.has_topa_maximum_entries' class='fnname'>has_topa_maximum_entries</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>If true, ToPA tables can hold any number of output entries, up to the maximum allowed by the MaskOrTableOffset field of IA32_RTIT_OUTPUT_MASK_PTRS.</p>
+</div><h4 id='method.has_single_range_output_scheme' class='method'><code>fn <a href='#method.has_single_range_output_scheme' class='fnname'>has_single_range_output_scheme</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>If true, Indicates support of Single-Range Output scheme.</p>
+</div><h4 id='method.has_trace_transport_subsystem' class='method'><code>fn <a href='#method.has_trace_transport_subsystem' class='fnname'>has_trace_transport_subsystem</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>If true, Indicates support of output to Trace Transport subsystem.</p>
+</div><h4 id='method.has_lip_with_cs_base' class='method'><code>fn <a href='#method.has_lip_with_cs_base' class='fnname'>has_lip_with_cs_base</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>If true, Generated packets which contain IP payloads have LIP values, which include the CS base component.</p>
+</div><h4 id='method.iter' class='method'><code>fn <a href='#method.iter' class='fnname'>iter</a>(&amp;self) -&gt; <a class='struct' href='../raw_cpuid/struct.ProcessorTraceIter.html' title='raw_cpuid::ProcessorTraceIter'>ProcessorTraceIter</a></code></h4>
+<div class='docblock'><p>Iterator over processor trace info sub-leafs.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.ProcessorTraceInfo.html' title='raw_cpuid::ProcessorTraceInfo'>ProcessorTraceInfo</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "raw_cpuid";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

@@ -9,6 +9,7 @@
 
     <title>raw_cpuid::cpuid! - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='index.html'>raw_cpuid</a></p><script>window.sidebarCurrent = {name: 'cpuid!', ty: 'macro', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -45,15 +46,11 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-13263' class='srclink' href='../src/raw_cpuid/lib.rs.html#31-38' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-2153' class='srclink' href='../src/raw_cpuid/lib.rs.html#31-38' title='goto source code'>[src]</a></span></h1>
 <pre class='rust macro'>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>cpuid</span> {
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>eax</span>:<span class='ident'>expr</span>)
-        <span class='op'>=&gt;</span> ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>cpuid1</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>eax</span> <span class='kw'>as</span> <span class='ident'>u32</span>) );
-
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>eax</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>ecx</span>:<span class='ident'>expr</span>)
-        <span class='op'>=&gt;</span> ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>cpuid2</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>eax</span> <span class='kw'>as</span> <span class='ident'>u32</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>ecx</span> <span class='kw'>as</span> <span class='ident'>u32</span>) );
-
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>eax</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> { ... };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>eax</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>ecx</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> { ... };
 }</pre>
 <div class='docblock'><p>Macro to choose between <code>cpuid1</code> and <code>cpuid2</code>.
 Note: This is a low-level macro to query cpuid directly.
@@ -63,10 +60,12 @@ If in doubt use <code>CpuId</code> instead.</p>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -83,7 +82,7 @@ If in doubt use <code>CpuId</code> instead.</p>
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -103,7 +102,7 @@ If in doubt use <code>CpuId</code> instead.</p>
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -115,6 +114,6 @@ If in doubt use <code>CpuId</code> instead.</p>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>
