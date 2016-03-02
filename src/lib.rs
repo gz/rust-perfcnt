@@ -5,16 +5,13 @@ extern crate x86;
 #[macro_use]
 extern crate bitflags;
 
-use x86::perfcnt::intel::description::{IntelPerformanceCounterDescription};
+mod linux;
 
-#[cfg(target_os="linux")] #[path="linux/mod.rs"]
-mod arch;
-
-pub use arch::{PerfCounter};
+pub use linux::{PerfCounterBuilder, PerfCounterLinux};
 
 
 /// Abstract trait to control performance counters.
-trait PerfCounterControl {
+trait PerfCounter {
     fn reset(&self);
     fn start(&self);
     fn stop(&self);
@@ -25,25 +22,29 @@ trait PerfCounterControl {
 #[test]
 fn list_mine() {
     for counter in x86::perfcnt::core_counters() {
-        println!("{:?}", counter);
+        //println!("{:?}", counter);
     }
 }
 
 #[test]
 fn list_them() {
     for counter in x86::perfcnt::core_counters() {
-        println!("{:?}", counter);
+        //println!("{:?}", counter);
     }
 }
 
 #[test]
 fn basic_perfcnt() {
-    let pc = arch::PerfCounter::new();
+    let counter = x86::perfcnt::core_counters().unwrap().get("BR_INST_RETIRED.ALL_BRANCHES").unwrap();
+    let mut pb = PerfCounterBuilder::new();
+    pb.from_raw_intel_hw_counter(counter);
+    let pc: PerfCounterLinux = pb.finish();
 
     pc.reset();
     pc.start();
     println!("test");
     pc.stop();
 
+    println!("{:?}", pc.read());
     println!("{:?}", pc.read());
 }

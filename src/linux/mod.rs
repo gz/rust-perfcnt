@@ -11,7 +11,7 @@ mod hw_breakpoint;
 #[allow(dead_code, non_camel_case_types)]
 mod perf_event;
 
-use ::PerfCounterControl;
+use ::PerfCounter;
 use x86::perfcnt::intel::description::{IntelPerformanceCounterDescription, Tuple};
 
 const IOCTL: usize = 16;
@@ -43,7 +43,6 @@ fn read_counter(fd: ::libc::c_int) -> Result<u64, io::Error> {
 }
 
 pub struct PerfCounterBuilder {
-    intel_counter: Option<IntelPerformanceCounterDescription>,
     group: isize,
     pid: pid_t,
     cpu: isize,
@@ -64,7 +63,6 @@ impl Default for PerfCounterBuilder {
     }
 }
 
-#[allow(dead_code)]
 impl PerfCounterBuilder {
 
     pub fn new() -> PerfCounterBuilder {
@@ -182,9 +180,45 @@ impl PerfCounterBuilder {
         self
     }
 
-    //watermark
+    /// The counter has  a  sampling  interrupt happen when we cross the wakeup_watermark
+    /// boundary.  Otherwise interrupts happen after wakeup_events samples.
+    pub fn enable_watermark<'a>(&'a mut self, watermark_events: u32) -> &'a mut PerfCounterBuilder {
+        self.attrs.settings.insert(perf_event::EVENT_ATTR_WATERMARK);
+        self.attrs.wakeup_events_watermark = watermark_events;
+        self
+    }
 
-    pub fn from_raw_intel_hw_counter<'a>(&'a mut self, counter: IntelPerformanceCounterDescription) -> &'a mut PerfCounterBuilder {
+    /// Sampled IP counter can have arbitrary skid.
+    pub fn set_ip_sample_arbitrary_skid<'a>(&'a mut self) -> &'a mut PerfCounterBuilder {
+        self.attrs.settings.insert(perf_event::EVENT_ATTR_SAMPLE_IP_ARBITRARY_SKID);
+        self
+    }
+
+    /// Sampled IP counter requested to have constant skid.
+    pub fn set_ip_sample_constant_skid<'a>(&'a mut self) -> &'a mut PerfCounterBuilder {
+        self.attrs.settings.insert(perf_event::EVENT_ATTR_SAMPLE_IP_CONSTANT_SKID);
+        self
+    }
+
+    /// Sampled IP counter requested to have 0 skid.
+    pub fn set_ip_sample_req_zero_skid<'a>(&'a mut self) -> &'a mut PerfCounterBuilder {
+        self.attrs.settings.insert(perf_event::EVENT_ATTR_SAMPLE_IP_REQ_ZERO_SKID);
+        self
+    }
+
+    /// The counterpart of enable_mmap, but enables including data mmap events in the ring-buffer.
+    pub fn enable_mmap_data<'a>(&'a mut self) -> &'a mut PerfCounterBuilder {
+        self.attrs.settings.insert(perf_event::EVENT_ATTR_MMAP_DATA);
+        self
+    }
+
+    /// Sampled IP counter must have 0 skid.
+    pub fn set_ip_sample_zero_skid<'a>(&'a mut self) -> &'a mut PerfCounterBuilder {
+        self.attrs.settings.insert(perf_event::EVENT_ATTR_SAMPLE_IP_ZERO_SKID);
+        self
+    }
+
+    pub fn from_raw_intel_hw_counter<'a>(&'a mut self, counter: &IntelPerformanceCounterDescription) -> &'a mut PerfCounterBuilder {
         let mut config: u64 = 0;
 
         match counter.event_code {
@@ -217,11 +251,6 @@ impl PerfCounterBuilder {
         self
     }
 
-    pub fn for_current_thread<'a>(&'a mut self) -> &'a mut PerfCounterBuilder {
-        self.pid = 0;
-        self
-    }
-
     pub fn for_pid<'a>(&'a mut self, pid: i32) -> &'a mut PerfCounterBuilder {
         self.pid = pid;
         self
@@ -237,39 +266,22 @@ impl PerfCounterBuilder {
         self
     }
 
-
-    fn finish(&self) -> PerfCounter {
-        // Note that the combination of pid == -1 and cpu == -1 is not valid.
-
-        let mut hw_event: perf_event::perf_event_attr = Default::default();
-        hw_event._type = perf_event::PERF_TYPE_RAW;
-        hw_event.size = mem::size_of::<perf_event::perf_event_attr>() as u32;
-        hw_event.config = perf_event::PERF_COUNT_HW_INSTRUCTIONS as u64;
-        hw_event.settings =
-            perf_event::EVENT_ATTR_DISABLED |
-            perf_event::EVENT_ATTR_EXCLUDE_KERNEL |
-            perf_event::EVENT_ATTR_EXCLUDE_HV;
-
-        let pid = 0;
-        let cpu = -1;
-        let group_fd = -1;
+    pub fn finish(&self) -> PerfCounterLinux {
         let flags = 0;
-
-        let fd = perf_event_open(hw_event, pid, cpu, group_fd, flags) as ::libc::c_int;
+        let fd = perf_event_open(self.attrs, self.pid, self.cpu as i32, self.group as i32, flags) as ::libc::c_int;
         if fd < 0 {
             println!("Error opening leader {:?}", fd);
         }
 
-        PerfCounter { fd: fd }
+        PerfCounterLinux { fd: fd }
     }
 }
 
-
-pub struct PerfCounter {
+pub struct PerfCounterLinux {
     fd: ::libc::c_int
 }
 
-impl PerfCounterControl for PerfCounter {
+impl PerfCounter for PerfCounterLinux {
 
     fn reset(&self) {
         let ret = ioctl(self.fd, perf_event::PERF_EVENT_IOC_RESET, 0);
