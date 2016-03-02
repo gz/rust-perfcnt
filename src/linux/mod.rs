@@ -2,6 +2,7 @@ use std::fs::File;
 use std::os::unix::io::FromRawFd;
 use std::io::Read;
 use std::io;
+use std::io::{Error};
 use std::mem;
 
 use libc::{pid_t};
@@ -11,7 +12,7 @@ mod hw_breakpoint;
 #[allow(dead_code, non_camel_case_types)]
 mod perf_event;
 
-use ::PerfCounterTrait;
+use ::AbstractPerfCounter;
 use x86::perfcnt::intel::description::{IntelPerformanceCounterDescription, Tuple};
 
 const IOCTL: usize = 16;
@@ -280,28 +281,33 @@ pub struct PerfCounter {
     fd: ::libc::c_int
 }
 
-impl PerfCounterTrait for PerfCounter {
+impl AbstractPerfCounter for PerfCounter {
 
-    fn reset(&self) {
+    fn reset(&self) -> Result<(), io::Error> {
         let ret = ioctl(self.fd, perf_event::PERF_EVENT_IOC_RESET, 0);
-        assert!(ret == 0);
-    }
-
-    fn start(&self) {
-        let ret = ioctl(self.fd, perf_event::PERF_EVENT_IOC_ENABLE, 0);
-        assert!(ret == 0);
-    }
-
-    fn stop(&self) {
-        let ret = ioctl(self.fd, perf_event::PERF_EVENT_IOC_DISABLE, 0);
-        assert!(ret == 0);
-    }
-
-    fn read(&self) -> u64 {
-        let c = read_counter(self.fd);
-        match c {
-            Ok(cnt) => cnt,
-            _ => 0,
+        if ret == -1 {
+            return Err(Error::last_os_error());
         }
+        Ok(())
+    }
+
+    fn start(&self) -> Result<(), io::Error> {
+        let ret = ioctl(self.fd, perf_event::PERF_EVENT_IOC_ENABLE, 0);
+        if ret == -1 {
+            return Err(Error::last_os_error());
+        }
+        Ok(())
+    }
+
+    fn stop(&self) -> Result<(), io::Error> {
+        let ret = ioctl(self.fd, perf_event::PERF_EVENT_IOC_DISABLE, 0);
+        if ret == -1 {
+            return Err(Error::last_os_error());
+        }
+        Ok(())
+    }
+
+    fn read(&self) -> Result<u64, io::Error> {
+        read_counter(self.fd)
     }
 }
