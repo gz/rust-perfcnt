@@ -11,7 +11,7 @@ mod hw_breakpoint;
 #[allow(dead_code, non_camel_case_types)]
 mod perf_event;
 
-use ::PerfCounter;
+use ::PerfCounterTrait;
 use x86::perfcnt::intel::description::{IntelPerformanceCounterDescription, Tuple};
 
 const IOCTL: usize = 16;
@@ -53,7 +53,6 @@ pub struct PerfCounterBuilder {
 impl Default for PerfCounterBuilder {
     fn default () -> PerfCounterBuilder {
         PerfCounterBuilder {
-            intel_counter: None,
             group: -1,
             pid: 0,
             cpu: -1,
@@ -266,22 +265,22 @@ impl PerfCounterBuilder {
         self
     }
 
-    pub fn finish(&self) -> PerfCounterLinux {
+    pub fn finish(&self) -> PerfCounter {
         let flags = 0;
         let fd = perf_event_open(self.attrs, self.pid, self.cpu as i32, self.group as i32, flags) as ::libc::c_int;
         if fd < 0 {
             println!("Error opening leader {:?}", fd);
         }
 
-        PerfCounterLinux { fd: fd }
+        PerfCounter { fd: fd }
     }
 }
 
-pub struct PerfCounterLinux {
+pub struct PerfCounter {
     fd: ::libc::c_int
 }
 
-impl PerfCounter for PerfCounterLinux {
+impl PerfCounterTrait for PerfCounter {
 
     fn reset(&self) {
         let ret = ioctl(self.fd, perf_event::PERF_EVENT_IOC_RESET, 0);

@@ -7,11 +7,11 @@ extern crate bitflags;
 
 mod linux;
 
-pub use linux::{PerfCounterBuilder, PerfCounterLinux};
+pub use linux::{PerfCounterBuilder, PerfCounter};
 
 
 /// Abstract trait to control performance counters.
-trait PerfCounter {
+trait PerfCounterTrait {
     fn reset(&self);
     fn start(&self);
     fn stop(&self);
@@ -38,7 +38,7 @@ fn basic_perfcnt() {
     let counter = x86::perfcnt::core_counters().unwrap().get("BR_INST_RETIRED.ALL_BRANCHES").unwrap();
     let mut pb = PerfCounterBuilder::new();
     pb.from_raw_intel_hw_counter(counter);
-    let pc: PerfCounterLinux = pb.finish();
+    let pc: PerfCounter = pb.finish();
 
     pc.reset();
     pc.start();
