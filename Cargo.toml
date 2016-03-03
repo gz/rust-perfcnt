@@ -14,3 +14,7 @@ license = "MIT"
 bitflags = "*"
 libc = "0.1.10"
 x86 = "*"
+
+[[bin]]
+name = "perfcnt-list"
+path = "src/bin/list.rs"
