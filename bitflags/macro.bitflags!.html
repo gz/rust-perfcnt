@@ -46,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-5' class='srclink' href='../src/bitflags/lib.rs.html#147-364' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-4' class='srclink' href='../src/bitflags/lib.rs.html#125-277' title='goto source code'>[src]</a></span></h1>
 <pre class='rust macro'>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>bitflags</span> {
     ($(<span class='attribute'>#[<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>attr</span>:<span class='ident'>meta</span>]</span>)<span class='op'>*</span> <span class='ident'>flags</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>BitFlags</span>:<span class='ident'>ident</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>T</span>:<span class='ident'>ty</span> {
@@ -86,8 +86,7 @@ type errors may occur at compile time.</p>
     <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>e2</span> <span class='op'>==</span> <span class='ident'>FLAG_A</span>);           <span class='comment'>// set complement</span>
 }</pre>
 
-<p>The generated <code>struct</code>s can also be extended with type and trait
-implementations:</p>
+<p>The generated <code>struct</code>s can also be extended with type and trait implementations:</p>
 <pre class='rust rust-example-rendered'>
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>bitflags</span>;
@@ -108,7 +107,7 @@ implementations:</p>
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Display</span> <span class='kw'>for</span> <span class='ident'>Flags</span> {
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Show</span> <span class='kw'>for</span> <span class='ident'>Flags</span> {
     <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
         <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;hi!&quot;</span>)
     }
@@ -118,28 +117,19 @@ implementations:</p>
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>flags</span> <span class='op'>=</span> <span class='ident'>FLAG_A</span> <span class='op'>|</span> <span class='ident'>FLAG_B</span>;
     <span class='ident'>flags</span>.<span class='ident'>clear</span>();
     <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>flags</span>.<span class='ident'>is_empty</span>());
-    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>flags</span>), <span class='string'>&quot;hi!&quot;</span>);
-    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>FLAG_A</span> <span class='op'>|</span> <span class='ident'>FLAG_B</span>), <span class='string'>&quot;FLAG_A | FLAG_B&quot;</span>);
-    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>FLAG_B</span>), <span class='string'>&quot;FLAG_B&quot;</span>);
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>flags</span>).<span class='ident'>as_slice</span>(), <span class='string'>&quot;hi!&quot;</span>);
 }</pre>
 
 <h1 id='attributes' class='section-header'><a href='#attributes'>Attributes</a></h1>
 <p>Attributes can be attached to the generated <code>struct</code> by placing them
 before the <code>flags</code> keyword.</p>
 
-<h1 id='trait-implementations' class='section-header'><a href='#trait-implementations'>Trait implementations</a></h1>
-<p>The <code>Copy</code>, <code>Clone</code>, <code>PartialEq</code>, <code>Eq</code>, <code>PartialOrd</code>, <code>Ord</code> and <code>Hash</code>
-traits automatically derived for the <code>struct</code> using the <code>derive</code> attribute.
-Additional traits can be derived by providing an explicit <code>derive</code>
-attribute on <code>flags</code>.</p>
+<h1 id='derived-traits' class='section-header'><a href='#derived-traits'>Derived traits</a></h1>
+<p>The <code>PartialEq</code> and <code>Clone</code> traits are automatically derived for the <code>struct</code> using
+the <code>deriving</code> attribute. Additional traits can be derived by providing an
+explicit <code>deriving</code> attribute on <code>flags</code>.</p>
 
-<p>The <code>FromIterator</code> trait is implemented for the <code>struct</code>, too, calculating
-the union of the instances of the <code>struct</code> iterated over.</p>
-
-<p>The <code>Debug</code> trait is also implemented by displaying the bits value of the
-internal struct.</p>
-
-<h2 id='operators' class='section-header'><a href='#operators'>Operators</a></h2>
+<h1 id='operators' class='section-header'><a href='#operators'>Operators</a></h1>
 <p>The following operator traits are implemented for the generated <code>struct</code>:</p>
 
 <ul>

@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["PerfCounter",""],["PerfCounterBuilder",""]]});
+initSidebarItems({"struct":[["PerfCounter",""],["PerfCounterBuilderLinux",""]]});
