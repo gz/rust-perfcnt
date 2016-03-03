@@ -65,9 +65,35 @@ impl Default for PerfCounterBuilderLinux {
 
 impl PerfCounterBuilderLinux {
 
-    pub fn new() -> PerfCounterBuilderLinux {
-        Default::default()
+    pub fn from_raw_intel_counter_description(counter: &IntelPerformanceCounterDescription) -> PerfCounterBuilderLinux {
+        let mut pc: PerfCounterBuilderLinux = Default::default();
+        let mut config: u64 = 0;
+
+        match counter.event_code {
+            Tuple::One(code) =>  config |= (code as u64) << 0,
+            Tuple::Two(_, _) => unreachable!() // NYI
+        };
+        match counter.umask {
+            Tuple::One(code) =>  config |= (code as u64) << 8,
+            Tuple::Two(_, _) => unreachable!() // NYI
+        };
+        config |= (counter.counter_mask as u64) << 24;
+
+        if counter.edge_detect {
+            config |= 1 << 18;
+        }
+        if counter.any_thread {
+            config |= 1 << 21;
+        }
+        if counter.invert {
+            config |= 1 << 23;
+        }
+
+        pc.attrs._type = perf_event::PERF_TYPE_RAW;
+        pc.attrs.config = config;
+        pc
     }
+
 
     pub fn set_group<'a>(&'a mut self, group_fd: isize) -> &'a mut PerfCounterBuilderLinux {
         self.group = group_fd;
@@ -215,34 +241,6 @@ impl PerfCounterBuilderLinux {
     /// Sampled IP counter must have 0 skid.
     pub fn set_ip_sample_zero_skid<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
         self.attrs.settings.insert(perf_event::EVENT_ATTR_SAMPLE_IP_ZERO_SKID);
-        self
-    }
-
-    pub fn from_raw_intel_hw_counter<'a>(&'a mut self, counter: &IntelPerformanceCounterDescription) -> &'a mut PerfCounterBuilderLinux {
-        let mut config: u64 = 0;
-
-        match counter.event_code {
-            Tuple::One(code) =>  config |= (code as u64) << 0,
-            Tuple::Two(_, _) => unreachable!() // NYI
-        };
-        match counter.umask {
-            Tuple::One(code) =>  config |= (code as u64) << 8,
-            Tuple::Two(_, _) => unreachable!() // NYI
-        };
-        config |= (counter.counter_mask as u64) << 24;
-
-        if counter.edge_detect {
-            config |= 1 << 18;
-        }
-        if counter.any_thread {
-            config |= 1 << 21;
-        }
-        if counter.invert {
-            config |= 1 << 23;
-        }
-
-        self.attrs._type = perf_event::PERF_TYPE_RAW;
-        self.attrs.config = config;
         self
     }
 
