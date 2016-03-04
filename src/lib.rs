@@ -1,4 +1,3 @@
-#![feature(negate_unsigned)]
 extern crate libc;
 #[macro_use]
 extern crate x86;

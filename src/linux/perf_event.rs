@@ -169,7 +169,7 @@ pub const PERF_TXN_CONFLICT: ::libc::c_ulong = 32;
 pub const PERF_TXN_CAPACITY_WRITE: ::libc::c_ulong = 64;
 pub const PERF_TXN_CAPACITY_READ: ::libc::c_ulong = 128;
 pub const PERF_TXN_MAX: ::libc::c_ulong = 256;
-pub const PERF_TXN_ABORT_MASK: ::libc::c_ulong = -4294967296;
+pub const PERF_TXN_ABORT_MASK: ::libc::c_ulong = 18446744069414584320;
 pub const PERF_TXN_ABORT_SHIFT: ::libc::c_ulong = 32;
 pub type Enum_perf_event_read_format = ::libc::c_uint;
 pub const PERF_FORMAT_TOTAL_TIME_ENABLED: ::libc::c_uint = 1;
@@ -342,13 +342,14 @@ pub const PERF_RECORD_SAMPLE: ::libc::c_uint = 9;
 pub const PERF_RECORD_MMAP2: ::libc::c_uint = 10;
 pub const PERF_RECORD_MAX: ::libc::c_uint = 11;
 pub type Enum_perf_callchain_context = ::libc::c_ulong;
-pub const PERF_CONTEXT_HV: ::libc::c_ulong = -32;
-pub const PERF_CONTEXT_KERNEL: ::libc::c_ulong = -128;
-pub const PERF_CONTEXT_USER: ::libc::c_ulong = -512;
-pub const PERF_CONTEXT_GUEST: ::libc::c_ulong = -2048;
-pub const PERF_CONTEXT_GUEST_KERNEL: ::libc::c_ulong = -2176;
-pub const PERF_CONTEXT_GUEST_USER: ::libc::c_ulong = -2560;
-pub const PERF_CONTEXT_MAX: ::libc::c_ulong = -4095;
+
+pub const PERF_CONTEXT_HV: ::libc::c_ulong = 18446744073709551584;
+pub const PERF_CONTEXT_KERNEL: ::libc::c_ulong = 18446744073709551488;
+pub const PERF_CONTEXT_USER: ::libc::c_ulong = 18446744073709551104;
+pub const PERF_CONTEXT_GUEST: ::libc::c_ulong = 18446744073709549568;
+pub const PERF_CONTEXT_GUEST_KERNEL: ::libc::c_ulong = 18446744073709549440;
+pub const PERF_CONTEXT_GUEST_USER: ::libc::c_ulong = 18446744073709549056;
+pub const PERF_CONTEXT_MAX: ::libc::c_ulong = 18446744073709547521;
 #[repr(C)]
 #[derive(Copy)]
 pub struct Union_perf_mem_data_src {
