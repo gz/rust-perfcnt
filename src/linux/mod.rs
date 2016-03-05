@@ -63,8 +63,50 @@ impl Default for PerfCounterBuilderLinux {
     }
 }
 
+pub enum HardwareCounterType {
+    /// Total cycles.  Be wary of what happens during CPU frequency scaling.
+    CountHWCPUCycles = perf_event::PERF_COUNT_HW_CPU_CYCLES as isize,
+
+    /// Retired instructions.  Be careful, these can be affected by various issues, most notably hardware interrupt counts.
+    CountHWInstructions = perf_event::PERF_COUNT_HW_INSTRUCTIONS as isize,
+
+    /// Cache  accesses.  Usually this indicates Last Level Cache accesses but this may vary depending on your CPU. This may include prefetches and
+    CountHWCacheReferences = perf_event::PERF_COUNT_HW_CACHE_REFERENCES as isize,
+
+    /// Cache misses.  Usually this indicates Last Level Cache misses; this is intended to be used  in  conjunction with the
+    CountHWCacheMisses = perf_event::PERF_COUNT_HW_CACHE_MISSES as isize,
+
+    /// Retired branch instructions.  Prior to Linux 2.6.34, this used the wrong event on AMD processors.
+    CountHWBranchInstructions = perf_event::PERF_COUNT_HW_BRANCH_INSTRUCTIONS as isize,
+
+    /// Mispredicted branch instructions.
+    CountHWBranchMisses = perf_event::PERF_COUNT_HW_BRANCH_MISSES as isize,
+
+    /// Bus cycles, which can be different from total cycles.
+    CountHWBusCycles = perf_event::PERF_COUNT_HW_BUS_CYCLES as isize,
+
+    /// Stalled cycles during issue. (Since Linux 3.0)
+    CountHWStalledCyclesFrontend = perf_event::PERF_COUNT_HW_STALLED_CYCLES_FRONTEND as isize,
+
+    /// Stalled cycles during retirement. (Since Linux 3.0)
+    CountHWStalledCyclesBackend = perf_event::PERF_COUNT_HW_STALLED_CYCLES_BACKEND as isize,
+
+    /// Total cycles; not affected by CPU frequency scaling. (Since Linux 3.3)
+    CountHWRefCPUCycles = perf_event::PERF_COUNT_HW_REF_CPU_CYCLES as isize,
+}
+
 impl PerfCounterBuilderLinux {
 
+    /// Instantiate a generic hardware performance counter as defined by the Linux interface.
+    pub fn from_type_hardware_counter(counter: HardwareCounterType) -> PerfCounterBuilderLinux {
+        let mut pc: PerfCounterBuilderLinux = Default::default();
+
+        pc.attrs._type = perf_event::PERF_TYPE_HARDWARE;
+        pc.attrs.config = counter as u64;
+        pc
+    }
+
+    /// Instantiate a H/W performance counter using a counter as described in Intels SDM.
     pub fn from_raw_intel_counter_description(counter: &IntelPerformanceCounterDescription) -> PerfCounterBuilderLinux {
         let mut pc: PerfCounterBuilderLinux = Default::default();
         let mut config: u64 = 0;
