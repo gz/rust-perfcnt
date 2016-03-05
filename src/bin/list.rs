@@ -3,7 +3,7 @@ extern crate x86;
 
 use x86::perfcnt::{core_counters, uncore_counters};
 
-pub fn print_counter(id: &str, info: &x86::perfcnt::intel::description::IntelPerformanceCounterDescription) {
+fn print_counter(id: &str, info: &x86::perfcnt::intel::description::IntelPerformanceCounterDescription) {
     println!("{}:", id);
 
     let desc: &str = info.brief_description;
@@ -24,7 +24,7 @@ pub fn print_counter(id: &str, info: &x86::perfcnt::intel::description::IntelPer
 
 }
 
-pub fn main() {
+fn main() {
     println!("All supported core performance counters on this hardware:");
     println!("----------------------------------------------------------");
 

@@ -94,7 +94,7 @@ impl PerfCounterBuilderLinux {
         pc
     }
 
-
+    /// Set counter group.
     pub fn set_group<'a>(&'a mut self, group_fd: isize) -> &'a mut PerfCounterBuilderLinux {
         self.group = group_fd;
         self
@@ -120,11 +120,13 @@ impl PerfCounterBuilderLinux {
         self
     }
 
+    /// Add a sample period.
     pub fn set_sample_period<'a>(&'a mut self, period: u64) -> &'a mut PerfCounterBuilderLinux {
         self.attrs.sample_period_freq = period;
         self
     }
 
+    /// Add a sample frequency.
     pub fn set_sample_frequency<'a>(&'a mut self, frequency: u64) -> &'a mut PerfCounterBuilderLinux {
         self.attrs.sample_period_freq = frequency;
         self.attrs.settings.insert(perf_event::EVENT_ATTR_FREQ);
@@ -244,26 +246,31 @@ impl PerfCounterBuilderLinux {
         self
     }
 
+    /// Measure for all PIDs on the core.
     pub fn for_all_pids<'a>(&'a mut self) ->  &'a mut PerfCounterBuilderLinux {
         self.pid = -1;
         self
     }
 
+    /// Measure for a specific PID.
     pub fn for_pid<'a>(&'a mut self, pid: i32) -> &'a mut PerfCounterBuilderLinux {
         self.pid = pid;
         self
     }
 
+    /// Pin counter to CPU.
     pub fn on_cpu<'a>(&'a mut self, cpu: isize) -> &'a mut PerfCounterBuilderLinux {
         self.cpu = cpu;
         self
     }
 
+    /// Measure on all CPUs.
     pub fn on_all_cpus<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
         self.cpu = -1;
         self
     }
 
+    /// Instantiate the performance counter.
     pub fn finish(&self) -> Result<PerfCounter, io::Error> {
         let flags = 0;
         let fd = perf_event_open(self.attrs, self.pid, self.cpu as i32, self.group as i32, flags) as ::libc::c_int;
