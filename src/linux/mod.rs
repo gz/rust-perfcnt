@@ -63,51 +63,156 @@ impl Default for PerfCounterBuilderLinux {
     }
 }
 
-pub enum HardwareCounterType {
+pub enum HardwareEventType {
     /// Total cycles.  Be wary of what happens during CPU frequency scaling.
-    CountHWCPUCycles = perf_event::PERF_COUNT_HW_CPU_CYCLES as isize,
+    CPUCycles = perf_event::PERF_COUNT_HW_CPU_CYCLES as isize,
 
     /// Retired instructions.  Be careful, these can be affected by various issues, most notably hardware interrupt counts.
-    CountHWInstructions = perf_event::PERF_COUNT_HW_INSTRUCTIONS as isize,
+    Instructions = perf_event::PERF_COUNT_HW_INSTRUCTIONS as isize,
 
     /// Cache  accesses.  Usually this indicates Last Level Cache accesses but this may vary depending on your CPU. This may include prefetches and
-    CountHWCacheReferences = perf_event::PERF_COUNT_HW_CACHE_REFERENCES as isize,
+    CacheReferences = perf_event::PERF_COUNT_HW_CACHE_REFERENCES as isize,
 
     /// Cache misses.  Usually this indicates Last Level Cache misses; this is intended to be used  in  conjunction with the
-    CountHWCacheMisses = perf_event::PERF_COUNT_HW_CACHE_MISSES as isize,
+    CacheMisses = perf_event::PERF_COUNT_HW_CACHE_MISSES as isize,
 
     /// Retired branch instructions.  Prior to Linux 2.6.34, this used the wrong event on AMD processors.
-    CountHWBranchInstructions = perf_event::PERF_COUNT_HW_BRANCH_INSTRUCTIONS as isize,
+    BranchInstructions = perf_event::PERF_COUNT_HW_BRANCH_INSTRUCTIONS as isize,
 
     /// Mispredicted branch instructions.
-    CountHWBranchMisses = perf_event::PERF_COUNT_HW_BRANCH_MISSES as isize,
+    BranchMisses = perf_event::PERF_COUNT_HW_BRANCH_MISSES as isize,
 
     /// Bus cycles, which can be different from total cycles.
-    CountHWBusCycles = perf_event::PERF_COUNT_HW_BUS_CYCLES as isize,
+    BusCycles = perf_event::PERF_COUNT_HW_BUS_CYCLES as isize,
 
     /// Stalled cycles during issue. (Since Linux 3.0)
-    CountHWStalledCyclesFrontend = perf_event::PERF_COUNT_HW_STALLED_CYCLES_FRONTEND as isize,
+    StalledCyclesFrontend = perf_event::PERF_COUNT_HW_STALLED_CYCLES_FRONTEND as isize,
 
     /// Stalled cycles during retirement. (Since Linux 3.0)
-    CountHWStalledCyclesBackend = perf_event::PERF_COUNT_HW_STALLED_CYCLES_BACKEND as isize,
+    StalledCyclesBackend = perf_event::PERF_COUNT_HW_STALLED_CYCLES_BACKEND as isize,
 
     /// Total cycles; not affected by CPU frequency scaling. (Since Linux 3.3)
-    CountHWRefCPUCycles = perf_event::PERF_COUNT_HW_REF_CPU_CYCLES as isize,
+    RefCPUCycles = perf_event::PERF_COUNT_HW_REF_CPU_CYCLES as isize,
 }
+
+pub enum SoftwareEventType {
+
+    /// This reports the CPU clock, a high-resolution per-CPU timer.
+    CpuClock = perf_event::PERF_COUNT_SW_CPU_CLOCK as isize,
+
+    /// This reports a clock count specific to the task that is running.
+    TaskClock = perf_event::PERF_COUNT_SW_TASK_CLOCK as isize,
+
+    /// This reports the number of page faults.
+    PageFaults = perf_event::PERF_COUNT_SW_PAGE_FAULTS as isize,
+
+    /// This counts context switches.
+    ///
+    /// Until Linux 2.6.34, these were all reported as user-space events, after that
+    /// they are reported as happening in the kernel.
+    ContextSwitches = perf_event::PERF_COUNT_SW_CONTEXT_SWITCHES as isize,
+
+    /// This reports the number of times the process has migrated to a new CPU.
+    CpuMigrations = perf_event::PERF_COUNT_SW_CPU_MIGRATIONS as isize,
+
+    /// This counts the number of minor page faults.  These did not require disk I/O to handle.
+    PageFaultsMin = perf_event::PERF_COUNT_SW_PAGE_FAULTS_MIN as isize,
+
+    /// This counts the number of major page faults.  These required disk I/O to handle.
+    PageFaultsMaj = perf_event::PERF_COUNT_SW_PAGE_FAULTS_MAJ as isize,
+
+    /// This counts the number of alignment faults.
+    ///
+    /// These happen when unaligned memory accesses happen; the kernel
+    /// can handle these but it reduces performance. This happens only on some architectures (never on x86).
+    ///
+    /// (Since Linux 2.6.33)
+    AlignmentFaults = perf_event::PERF_COUNT_SW_ALIGNMENT_FAULTS as isize,
+
+    /// This counts the number of emulation faults.  The kernel sometimes traps on unimplemented  instructions  and
+    /// emulates them for user space.  This can negatively impact performance.
+    ///
+    /// (Since Linux 2.6.33)
+    EmulationFaults = perf_event::PERF_COUNT_SW_EMULATION_FAULTS as isize,
+
+}
+
+pub enum CacheId {
+    /// For measuring Level 1 Data Cache
+    L1D = perf_event::PERF_COUNT_HW_CACHE_L1D as isize,
+
+    /// For measuring Level 1 Instruction Cache
+    L1I = perf_event::PERF_COUNT_HW_CACHE_L1I as isize,
+
+    /// For measuring Last-Level Cache
+    LL = perf_event::PERF_COUNT_HW_CACHE_LL as isize,
+
+    /// For measuring the Data TLB
+    DTLB = perf_event::PERF_COUNT_HW_CACHE_DTLB as isize,
+
+    /// For measuring the Instruction TLB
+    ITLB = perf_event::PERF_COUNT_HW_CACHE_ITLB as isize,
+
+    /// For measuring the branch prediction unit
+    BPU = perf_event::PERF_COUNT_HW_CACHE_BPU as isize,
+
+    /// For measuring local memory accesses
+    ///
+    /// (Since Linux 3.0)
+    NODE = perf_event::PERF_COUNT_HW_CACHE_NODE as isize,
+}
+
+pub enum CacheOpId {
+    /// For read accesses
+    Read = perf_event::PERF_COUNT_HW_CACHE_OP_READ as isize,
+
+    /// For write accesses
+    Write = perf_event::PERF_COUNT_HW_CACHE_OP_WRITE as isize,
+
+    /// For prefetch accesses
+    Prefetch = perf_event::PERF_COUNT_HW_CACHE_OP_PREFETCH as isize,
+}
+
+pub enum CacheOpResultId {
+    /// To measure accesses.
+    Access = perf_event::PERF_COUNT_HW_CACHE_RESULT_ACCESS as isize,
+
+    /// To measure misses.
+    Miss = perf_event::PERF_COUNT_HW_CACHE_RESULT_MISS as isize,
+}
+
 
 impl PerfCounterBuilderLinux {
 
-    /// Instantiate a generic hardware performance counter as defined by the Linux interface.
-    pub fn from_type_hardware_counter(counter: HardwareCounterType) -> PerfCounterBuilderLinux {
+    /// Instantiate a generic performance counter for hardware events as defined by the Linux interface.
+    pub fn from_hardware_event(event: HardwareEventType) -> PerfCounterBuilderLinux {
         let mut pc: PerfCounterBuilderLinux = Default::default();
 
         pc.attrs._type = perf_event::PERF_TYPE_HARDWARE;
-        pc.attrs.config = counter as u64;
+        pc.attrs.config = event as u64;
         pc
     }
 
-    /// Instantiate a H/W performance counter using a counter as described in Intels SDM.
-    pub fn from_raw_intel_counter_description(counter: &IntelPerformanceCounterDescription) -> PerfCounterBuilderLinux {
+    /// Instantiate a generic performance counter for software events as defined by the Linux interface.
+    pub fn from_software_event(event: SoftwareEventType) -> PerfCounterBuilderLinux {
+        let mut pc: PerfCounterBuilderLinux = Default::default();
+
+        pc.attrs._type = perf_event::PERF_TYPE_SOFTWARE;
+        pc.attrs.config = event as u64;
+        pc
+    }
+
+    /// Instantiate a generic performance counter for software events as defined by the Linux interface.
+    pub fn from_cache_event(cache_id: CacheId, cache_op_id: CacheOpId, cache_op_result_id: CacheOpResultId) -> PerfCounterBuilderLinux {
+        let mut pc: PerfCounterBuilderLinux = Default::default();
+
+        pc.attrs._type = perf_event::PERF_TYPE_HW_CACHE;
+        pc.attrs.config = (cache_id as u64) | ((cache_op_id as u64) << 8) | ((cache_op_result_id as u64) << 16) as u64;
+        pc
+    }
+
+    /// Instantiate a H/W performance counter using a hardware event as described in Intels SDM.
+    pub fn from_intel_event_description(counter: &IntelPerformanceCounterDescription) -> PerfCounterBuilderLinux {
         let mut pc: PerfCounterBuilderLinux = Default::default();
         let mut config: u64 = 0;
 
