@@ -5,7 +5,7 @@ use perfcnt::{PerfCounter, PerfCounterBuilderLinux, AbstractPerfCounter};
 
 pub fn main() {
     let counter_description = x86::perfcnt::core_counters().unwrap().get("BR_INST_RETIRED.ALL_BRANCHES").unwrap();
-    let pc: PerfCounter = PerfCounterBuilderLinux::from_raw_intel_counter_description(counter_description)
+    let pc: PerfCounter = PerfCounterBuilderLinux::from_intel_event_description(counter_description)
         .exclude_idle()
         .exclude_kernel()
         .finish()
