@@ -21,5 +21,5 @@ pub trait AbstractPerfCounter {
     fn stop(&self) -> Result<(), io::Error>;
 
     /// Read the counter value.
-    fn read(&self) -> Result<u64, io::Error>;
+    fn read(&mut self) -> Result<u64, io::Error>;
 }

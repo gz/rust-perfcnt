@@ -253,8 +253,8 @@ pub struct perf_event_attr {
     pub wakeup_events_watermark: __u32,
     pub bp_type: __u32,
 
-    pub bp_addr_config1: __u64,
-    pub bp_len_config2: __u64,
+    pub config1_or_bp_addr: __u64,
+    pub config2_or_bp_len: __u64,
 
     pub branch_sample_type: __u64,
     pub sample_regs_user: __u64,

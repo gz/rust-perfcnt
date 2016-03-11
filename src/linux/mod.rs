@@ -1,8 +1,10 @@
+//! Basically a wrapper around perf_event open (http://lxr.free-electrons.com/source/tools/perf/design.txt)
+
+use std::slice;
 use std::fs::File;
 use std::os::unix::io::FromRawFd;
-use std::io::Read;
 use std::io;
-use std::io::{Error};
+use std::io::{Read, Error};
 use std::mem;
 
 use libc::{pid_t};
@@ -31,15 +33,6 @@ fn perf_event_open(hw_event: perf_event::perf_event_attr,
 fn ioctl(fd: ::libc::c_int, request: u64, value: ::libc::c_int) -> isize {
     unsafe {
         syscall!(IOCTL, fd, request, value) as isize
-    }
-}
-
-fn read_counter(fd: ::libc::c_int) -> Result<u64, io::Error> {
-    unsafe {
-        let mut f = File::from_raw_fd(fd);
-        let mut value: [u8; 8] = Default::default();
-        try!(f.read(&mut value));
-        Ok(mem::transmute::<[u8; 8], u64>(value))
     }
 }
 
@@ -181,6 +174,22 @@ pub enum CacheOpResultId {
     Miss = perf_event::PERF_COUNT_HW_CACHE_RESULT_MISS as isize,
 }
 
+pub enum ReadFormat {
+    /// Adds the 64-bit time_enabled field.  This can be used to calculate estimated totals if the PMU is overcommitted
+    /// and multiplexing is happening.
+    TotalTimeEnabled = perf_event::PERF_FORMAT_TOTAL_TIME_ENABLED as isize,
+
+    /// Adds the 64-bit time_running field.  This can be used to calculate estimated totals if the PMU is  overcommitted
+    /// and  multiplexing is happening.
+    TotalTimeRunning = perf_event::PERF_FORMAT_TOTAL_TIME_RUNNING as isize,
+
+    /// Adds a 64-bit unique value that corresponds to the event group.
+    FormatId = perf_event::PERF_FORMAT_ID as isize,
+
+    /// Allows all counter values in an event group to be read with one read.
+    FormatGroup = perf_event::PERF_FORMAT_GROUP as isize
+}
+
 
 impl PerfCounterBuilderLinux {
 
@@ -210,6 +219,10 @@ impl PerfCounterBuilderLinux {
         pc.attrs.config = (cache_id as u64) | ((cache_op_id as u64) << 8) | ((cache_op_result_id as u64) << 16) as u64;
         pc
     }
+
+    //pub fn from_breakpoint_event() -> PerfCounterBuilderLinux {
+    // NYI
+    //}
 
     /// Instantiate a H/W performance counter using a hardware event as described in Intels SDM.
     pub fn from_intel_event_description(counter: &IntelPerformanceCounterDescription) -> PerfCounterBuilderLinux {
@@ -393,6 +406,11 @@ impl PerfCounterBuilderLinux {
         self
     }
 
+    pub fn add_read_format<'a>(&'a mut self, flag: ReadFormat) -> &'a mut PerfCounterBuilderLinux {
+        self.attrs.read_format |= flag as u64;
+        self
+    }
+
     /// Measure for all PIDs on the core.
     pub fn for_all_pids<'a>(&'a mut self) ->  &'a mut PerfCounterBuilderLinux {
         self.pid = -1;
@@ -426,15 +444,44 @@ impl PerfCounterBuilderLinux {
             return Err(Error::last_os_error());
         }
 
-        Ok(PerfCounter { fd: fd })
+        Ok(PerfCounter { fd: fd, file: unsafe { File::from_raw_fd(fd) } })
     }
 }
 
-pub struct PerfCounter {
-    fd: ::libc::c_int
+#[repr(C)]
+#[derive(Default, Debug)]
+pub struct FileReadFormat {
+    /// The value of the event
+    pub value: u64,
+    /// if PERF_FORMAT_TOTAL_TIME_ENABLED
+    pub time_enabled: u64,
+    /// if PERF_FORMAT_TOTAL_TIME_RUNNING
+    pub time_running: u64,
+    /// if PERF_FORMAT_ID
+    pub id: u64,
 }
 
-impl AbstractPerfCounter for PerfCounter {
+
+pub struct PerfCounter {
+    fd: ::libc::c_int,
+    file: File,
+}
+
+impl PerfCounter {
+
+    /// Read the file descriptor and parse the return format.
+    pub fn read_fd(&mut self) -> Result<FileReadFormat, io::Error> {
+        unsafe {
+            let mut value: FileReadFormat = Default::default();
+            let ptr = mem::transmute::<&mut FileReadFormat, &mut u8>(&mut value);
+            let slice = slice::from_raw_parts_mut::<u8>(ptr, mem::size_of::<FileReadFormat>());
+            try!(self.file.read_exact(slice));
+            Ok(value)
+        }
+    }
+}
+
+impl<'a> AbstractPerfCounter for PerfCounter {
 
     fn reset(&self) -> Result<(), io::Error> {
         let ret = ioctl(self.fd, perf_event::PERF_EVENT_IOC_RESET, 0);
@@ -460,7 +507,8 @@ impl AbstractPerfCounter for PerfCounter {
         Ok(())
     }
 
-    fn read(&self) -> Result<u64, io::Error> {
-        read_counter(self.fd)
+    fn read(&mut self) -> Result<u64, io::Error> {
+        let value: FileReadFormat = try!(self.read_fd());
+        return Ok(value.value)
     }
 }
