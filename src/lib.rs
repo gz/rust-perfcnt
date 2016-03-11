@@ -4,9 +4,9 @@ extern crate x86;
 #[macro_use]
 extern crate bitflags;
 
-mod linux;
+pub mod linux;
+pub use linux::{PerfCounter};
 
-pub use linux::{PerfCounterBuilderLinux, PerfCounter};
 use std::io;
 
 /// Abstract trait to control performance counters.

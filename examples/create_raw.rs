@@ -1,7 +1,8 @@
 extern crate perfcnt;
 extern crate x86;
 
-use perfcnt::{PerfCounter, PerfCounterBuilderLinux, AbstractPerfCounter};
+use perfcnt::{PerfCounter, AbstractPerfCounter};
+use perfcnt::linux::{PerfCounterBuilderLinux};
 
 pub fn main() {
     let counter_description = x86::perfcnt::core_counters().unwrap().get("BR_INST_RETIRED.ALL_BRANCHES").unwrap();
