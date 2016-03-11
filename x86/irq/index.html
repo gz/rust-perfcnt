@@ -57,7 +57,6 @@
                              <p>A struct describing an interrupt gate.  See the Intel manual mentioned
 above for details, specifically, the section &quot;6.14.1 64-Bit Mode IDT&quot;
 and &quot;Table 3-2. System-Segment and Gate-Descriptor Types&quot;.</p>
-
                         </td>
                     </tr>
                 
@@ -66,7 +65,6 @@ and &quot;Table 3-2. System-Segment and Gate-Descriptor Types&quot;.</p>
                                title='x86::irq::InterruptDescription'>InterruptDescription</a></td>
                         <td class='docblock short'>
                              <p>x86 Exception description (see also Intel Vol. 3a Chapter 6).</p>
-
                         </td>
                     </tr>
                 
@@ -85,7 +83,6 @@ and &quot;Table 3-2. System-Segment and Gate-Descriptor Types&quot;.</p>
                         <td class='docblock short'>
                              <p>0: The fault was not caused by an instruction fetch.
 1: The fault was caused by an instruction fetch.</p>
-
                         </td>
                     </tr>
                 
@@ -95,7 +92,6 @@ and &quot;Table 3-2. System-Segment and Gate-Descriptor Types&quot;.</p>
                         <td class='docblock short'>
                              <p>0: The fault was caused by a non-present page.
 1: The fault was caused by a page-level protection violation</p>
-
                         </td>
                     </tr>
                 
@@ -105,7 +101,6 @@ and &quot;Table 3-2. System-Segment and Gate-Descriptor Types&quot;.</p>
                         <td class='docblock short'>
                              <p>0: The fault was not by protection keys.
 1: There was a protection key violation.</p>
-
                         </td>
                     </tr>
                 
@@ -115,7 +110,6 @@ and &quot;Table 3-2. System-Segment and Gate-Descriptor Types&quot;.</p>
                         <td class='docblock short'>
                              <p>0: The fault was not caused by reserved bit violation.
 1: The fault was caused by reserved bits set to 1 in a page directory.</p>
-
                         </td>
                     </tr>
                 
@@ -127,7 +121,6 @@ and &quot;Table 3-2. System-Segment and Gate-Descriptor Types&quot;.</p>
 was executing in supervisor mode.
 1: The access causing the fault originated when the processor
 was executing in user mode.</p>
-
                         </td>
                     </tr>
                 
@@ -137,7 +130,6 @@ was executing in user mode.</p>
                         <td class='docblock short'>
                              <p>0: The access causing the fault was a read.
 1: The access causing the fault was a write.</p>
-
                         </td>
                     </tr>
                 </table><h2 id='statics' class='section-header'><a href="#statics">Statics</a></h2>
@@ -147,7 +139,6 @@ was executing in user mode.</p>
                                title='x86::irq::EXCEPTIONS'>EXCEPTIONS</a></td>
                         <td class='docblock short'>
                              <p>x86 External Interrupts (1-16).</p>
-
                         </td>
                     </tr>
                 </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
@@ -157,7 +148,6 @@ was executing in user mode.</p>
                                title='x86::irq::disable'>disable</a></td>
                         <td class='docblock short'>
                              <p>Disable Interrupts.</p>
-
                         </td>
                     </tr>
                 
@@ -166,7 +156,6 @@ was executing in user mode.</p>
                                title='x86::irq::enable'>enable</a></td>
                         <td class='docblock short'>
                              <p>Enable Interrupts.</p>
-
                         </td>
                     </tr>
                 </table></section>
@@ -212,7 +201,7 @@ was executing in user mode.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

@@ -54,7 +54,6 @@
                                title='x86::controlregs'>controlregs</a></td>
                         <td class='docblock short'>
                              <p>Functions to read and write control registers.</p>
-
                         </td>
                     </tr>
                 
@@ -71,7 +70,6 @@
                                title='x86::dtables'>dtables</a></td>
                         <td class='docblock short'>
                              <p>Functions and data-structures to load descriptor tables.</p>
-
                         </td>
                     </tr>
                 
@@ -80,7 +78,6 @@
                                title='x86::io'>io</a></td>
                         <td class='docblock short'>
                              <p>I/O port functionality.</p>
-
                         </td>
                     </tr>
                 
@@ -89,7 +86,6 @@
                                title='x86::irq'>irq</a></td>
                         <td class='docblock short'>
                              <p>Interrupt description and set-up code.</p>
-
                         </td>
                     </tr>
                 
@@ -98,7 +94,6 @@
                                title='x86::msr'>msr</a></td>
                         <td class='docblock short'>
                              <p>MSR value list and function to read and write them.</p>
-
                         </td>
                     </tr>
                 
@@ -107,7 +102,6 @@
                                title='x86::paging'>paging</a></td>
                         <td class='docblock short'>
                              <p>Description of the data-structures for IA-32e paging mode.</p>
-
                         </td>
                     </tr>
                 
@@ -116,7 +110,6 @@
                                title='x86::perfcnt'>perfcnt</a></td>
                         <td class='docblock short'>
                              <p>Information about available performance counters.</p>
-
                         </td>
                     </tr>
                 
@@ -125,7 +118,6 @@
                                title='x86::rflags'>rflags</a></td>
                         <td class='docblock short'>
                              <p>Description of RFlag values that store the results of operations and the state of the processor.</p>
-
                         </td>
                     </tr>
                 
@@ -134,7 +126,6 @@
                                title='x86::segmentation'>segmentation</a></td>
                         <td class='docblock short'>
                              <p>Program x86 segmentation hardware.</p>
-
                         </td>
                     </tr>
                 
@@ -143,7 +134,6 @@
                                title='x86::syscall'>syscall</a></td>
                         <td class='docblock short'>
                              <p>Invokes an OS system-call handler at privilege level 0.</p>
-
                         </td>
                     </tr>
                 
@@ -152,7 +142,6 @@
                                title='x86::task'>task</a></td>
                         <td class='docblock short'>
                              <p>Helpers to program the task state segment.</p>
-
                         </td>
                     </tr>
                 
@@ -161,7 +150,6 @@
                                title='x86::time'>time</a></td>
                         <td class='docblock short'>
                              <p>Functions to read time stamp counters on x86.</p>
-
                         </td>
                     </tr>
                 
@@ -170,7 +158,6 @@
                                title='x86::tlb'>tlb</a></td>
                         <td class='docblock short'>
                              <p>Functions to flush the translation lookaside buffer (TLB).</p>
-
                         </td>
                     </tr>
                 </table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
@@ -181,7 +168,6 @@
                         <td class='docblock short'>
                              <p>Generate a software interrupt.
 This is a macro argument needs to be an immediate.</p>
-
                         </td>
                     </tr>
                 
@@ -189,7 +175,7 @@ This is a macro argument needs to be an immediate.</p>
                         <td><a class='macro' href='macro.syscall!.html'
                                title='x86::syscall!'>syscall!</a></td>
                         <td class='docblock short'>
-                             
+                             <p>It does so by loading RIP from the IA32_LSTAR MSR (after saving the address of the instruction following SYSCALL into RCX).</p>
                         </td>
                     </tr>
                 </table></section>
@@ -235,7 +221,7 @@ This is a macro argument needs to be an immediate.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

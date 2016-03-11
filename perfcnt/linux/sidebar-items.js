@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["PerfCounter",""],["PerfCounterBuilderLinux",""]]});
+initSidebarItems({"enum":[["CacheId",""],["CacheOpId",""],["CacheOpResultId",""],["HardwareEventType",""],["SoftwareEventType",""]],"struct":[["PerfCounter",""],["PerfCounterBuilderLinux",""]]});

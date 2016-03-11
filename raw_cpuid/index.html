@@ -56,7 +56,6 @@
                              <p>Macro to choose between <code>cpuid1</code> and <code>cpuid2</code>.
 Note: This is a low-level macro to query cpuid directly.
 If in doubt use <code>CpuId</code> instead.</p>
-
                         </td>
                     </tr>
                 </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
@@ -66,7 +65,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                                title='raw_cpuid::CacheInfo'>CacheInfo</a></td>
                         <td class='docblock short'>
                              <p>Describes any kind of cache (TLB, Data and Instruction caches plus prefetchers).</p>
-
                         </td>
                     </tr>
                 
@@ -75,7 +73,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                                title='raw_cpuid::CacheInfoIter'>CacheInfoIter</a></td>
                         <td class='docblock short'>
                              <p>Used to iterate over cache information contained in cpuid instruction.</p>
-
                         </td>
                     </tr>
                 
@@ -100,7 +97,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                                title='raw_cpuid::CpuId'>CpuId</a></td>
                         <td class='docblock short'>
                              <p>Main type used to query for information about the CPU we&#39;re running on.</p>
-
                         </td>
                     </tr>
                 
@@ -109,7 +105,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                                title='raw_cpuid::CpuIdResult'>CpuIdResult</a></td>
                         <td class='docblock short'>
                              <p>Low-level data-structure to store result of cpuid instruction.</p>
-
                         </td>
                     </tr>
                 
@@ -206,7 +201,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                                title='raw_cpuid::ProcessorFrequencyInfo'>ProcessorFrequencyInfo</a></td>
                         <td class='docblock short'>
                              <p>Processor Frequency Information</p>
-
                         </td>
                     </tr>
                 
@@ -223,7 +217,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                                title='raw_cpuid::ProcessorTrace'>ProcessorTrace</a></td>
                         <td class='docblock short'>
                              <p>Processor Trace information sub-leaf.</p>
-
                         </td>
                     </tr>
                 
@@ -240,7 +233,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                                title='raw_cpuid::ProcessorTraceIter'>ProcessorTraceIter</a></td>
                         <td class='docblock short'>
                              <p>Iterator over the Processor Trace sub-leafs.</p>
-
                         </td>
                     </tr>
                 
@@ -265,7 +257,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                                title='raw_cpuid::QoSEnforcementIter'>QoSEnforcementIter</a></td>
                         <td class='docblock short'>
                              <p>Iterator over the QoSEnforcement sub-leafs.</p>
-
                         </td>
                     </tr>
                 
@@ -290,7 +281,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                                title='raw_cpuid::TscInfo'>TscInfo</a></td>
                         <td class='docblock short'>
                              <p>Contains time stamp counter information.</p>
-
                         </td>
                     </tr>
                 
@@ -341,7 +331,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                                title='raw_cpuid::CACHE_INFO_TABLE'>CACHE_INFO_TABLE</a></td>
                         <td class='docblock short'>
                              <p>This table is taken from Intel manual (Section CPUID instruction).</p>
-
                         </td>
                     </tr>
                 </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
@@ -353,7 +342,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                              <p>Execute CPUID instruction with eax register set.
 Note: This is a low-level function to query cpuid directly.
 If in doubt use <code>CpuId</code> instead.</p>
-
                         </td>
                     </tr>
                 
@@ -364,7 +352,6 @@ If in doubt use <code>CpuId</code> instead.</p>
                              <p>Execute CPUID instruction with eax and ecx register set.
 Note: This is a low-level function to query cpuid directly.
 If in doubt use <code>CpuId</code> instead.</p>
-
                         </td>
                     </tr>
                 </table></section>
@@ -410,7 +397,7 @@ If in doubt use <code>CpuId</code> instead.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

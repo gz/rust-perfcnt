@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["PerfCounter",""],["PerfCounterBuilderLinux",""]],"trait":[["AbstractPerfCounter","Abstract trait to control performance counters."]]});
+initSidebarItems({"mod":[["linux",""]],"trait":[["AbstractPerfCounter","Abstract trait to control performance counters."]]});
