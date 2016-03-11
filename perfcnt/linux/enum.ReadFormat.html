@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `CacheOpId` enum in crate `perfcnt`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, CacheOpId">
+    <meta name="description" content="API documentation for the Rust `ReadFormat` enum in crate `perfcnt`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ReadFormat">
 
-    <title>perfcnt::linux::CacheOpId - Rust</title>
+    <title>perfcnt::linux::ReadFormat - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
@@ -27,7 +27,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>perfcnt</a>::<wbr><a href='index.html'>linux</a></p><script>window.sidebarCurrent = {name: 'CacheOpId', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>perfcnt</a>::<wbr><a href='index.html'>linux</a></p><script>window.sidebarCurrent = {name: 'ReadFormat', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,19 +42,23 @@
     </nav>
 
     <section id='main' class="content enum">
-<h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>perfcnt</a>::<wbr><a href='index.html'>linux</a>::<wbr><a class='enum' href=''>CacheOpId</a></span><span class='out-of-band'><span id='render-detail'>
+<h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>perfcnt</a>::<wbr><a href='index.html'>linux</a>::<wbr><a class='enum' href=''>ReadFormat</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-509' class='srclink' href='../../src/perfcnt/src/linux/mod.rs.html#158-167' title='goto source code'>[src]</a></span></h1>
-<pre class='rust enum'>pub enum CacheOpId {
-    Read,
-    Write,
-    Prefetch,
+        </span><a id='src-516' class='srclink' href='../../src/perfcnt/src/linux/mod.rs.html#177-191' title='goto source code'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum ReadFormat {
+    TotalTimeEnabled,
+    TotalTimeRunning,
+    FormatId,
+    FormatGroup,
 }</pre><h2 class='variants'>Variants</h2>
-<table class='variants_table'><tr><td id='variant.Read'><code>Read</code></td><td><div class='docblock'><p>For read accesses</p>
-</div></td><td></td></tr><tr><td id='variant.Write'><code>Write</code></td><td><div class='docblock'><p>For write accesses</p>
-</div></td><td></td></tr><tr><td id='variant.Prefetch'><code>Prefetch</code></td><td><div class='docblock'><p>For prefetch accesses</p>
+<table class='variants_table'><tr><td id='variant.TotalTimeEnabled'><code>TotalTimeEnabled</code></td><td><div class='docblock'><p>Adds the 64-bit time_enabled field.  This can be used to calculate estimated totals if the PMU is overcommitted
+and multiplexing is happening.</p>
+</div></td><td></td></tr><tr><td id='variant.TotalTimeRunning'><code>TotalTimeRunning</code></td><td><div class='docblock'><p>Adds the 64-bit time_running field.  This can be used to calculate estimated totals if the PMU is  overcommitted
+and  multiplexing is happening.</p>
+</div></td><td></td></tr><tr><td id='variant.FormatId'><code>FormatId</code></td><td><div class='docblock'><p>Adds a 64-bit unique value that corresponds to the event group.</p>
+</div></td><td></td></tr><tr><td id='variant.FormatGroup'><code>FormatGroup</code></td><td><div class='docblock'><p>Allows all counter values in an event group to be read with one read.</p>
 </div></td><td></td></tr></table></section>
     <section id='search' class="content hidden"></section>
 

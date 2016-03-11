@@ -507,12 +507,62 @@
 <span id="464">464</span>
 <span id="465">465</span>
 <span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
 </pre><pre class='rust '>
+<span class='doccomment'>//! Basically a wrapper around perf_event open (http://lxr.free-electrons.com/source/tools/perf/design.txt)</span>
+
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fs</span>::<span class='ident'>File</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>os</span>::<span class='ident'>unix</span>::<span class='ident'>io</span>::<span class='ident'>FromRawFd</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::<span class='ident'>Read</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::{<span class='ident'>Error</span>};
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::{<span class='ident'>Read</span>, <span class='ident'>Error</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 
 <span class='kw'>use</span> <span class='ident'>libc</span>::{<span class='ident'>pid_t</span>};
@@ -541,15 +591,6 @@
 <span class='kw'>fn</span> <span class='ident'>ioctl</span>(<span class='ident'>fd</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>, <span class='ident'>request</span>: <span class='ident'>u64</span>, <span class='ident'>value</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='ident'>isize</span> {
     <span class='kw'>unsafe</span> {
         <span class='macro'>syscall</span><span class='macro'>!</span>(<span class='ident'>IOCTL</span>, <span class='ident'>fd</span>, <span class='ident'>request</span>, <span class='ident'>value</span>) <span class='kw'>as</span> <span class='ident'>isize</span>
-    }
-}
-
-<span class='kw'>fn</span> <span class='ident'>read_counter</span>(<span class='ident'>fd</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>u64</span>, <span class='ident'>io</span>::<span class='ident'>Error</span><span class='op'>&gt;</span> {
-    <span class='kw'>unsafe</span> {
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>f</span> <span class='op'>=</span> <span class='ident'>File</span>::<span class='ident'>from_raw_fd</span>(<span class='ident'>fd</span>);
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>value</span>: [<span class='ident'>u8</span>; <span class='number'>8</span>] <span class='op'>=</span> <span class='ident'>Default</span>::<span class='ident'>default</span>();
-        <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>f</span>.<span class='ident'>read</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>value</span>));
-        <span class='prelude-val'>Ok</span>(<span class='ident'>mem</span>::<span class='ident'>transmute</span>::<span class='op'>&lt;</span>[<span class='ident'>u8</span>; <span class='number'>8</span>], <span class='ident'>u64</span><span class='op'>&gt;</span>(<span class='ident'>value</span>))
     }
 }
 
@@ -691,6 +732,22 @@
     <span class='ident'>Miss</span> <span class='op'>=</span> <span class='ident'>perf_event</span>::<span class='ident'>PERF_COUNT_HW_CACHE_RESULT_MISS</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
 }
 
+<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>ReadFormat</span> {
+    <span class='doccomment'>/// Adds the 64-bit time_enabled field.  This can be used to calculate estimated totals if the PMU is overcommitted</span>
+    <span class='doccomment'>/// and multiplexing is happening.</span>
+    <span class='ident'>TotalTimeEnabled</span> <span class='op'>=</span> <span class='ident'>perf_event</span>::<span class='ident'>PERF_FORMAT_TOTAL_TIME_ENABLED</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
+
+    <span class='doccomment'>/// Adds the 64-bit time_running field.  This can be used to calculate estimated totals if the PMU is  overcommitted</span>
+    <span class='doccomment'>/// and  multiplexing is happening.</span>
+    <span class='ident'>TotalTimeRunning</span> <span class='op'>=</span> <span class='ident'>perf_event</span>::<span class='ident'>PERF_FORMAT_TOTAL_TIME_RUNNING</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
+
+    <span class='doccomment'>/// Adds a 64-bit unique value that corresponds to the event group.</span>
+    <span class='ident'>FormatId</span> <span class='op'>=</span> <span class='ident'>perf_event</span>::<span class='ident'>PERF_FORMAT_ID</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
+
+    <span class='doccomment'>/// Allows all counter values in an event group to be read with one read.</span>
+    <span class='ident'>FormatGroup</span> <span class='op'>=</span> <span class='ident'>perf_event</span>::<span class='ident'>PERF_FORMAT_GROUP</span> <span class='kw'>as</span> <span class='ident'>isize</span>
+}
+
 
 <span class='kw'>impl</span> <span class='ident'>PerfCounterBuilderLinux</span> {
 
@@ -720,6 +777,10 @@
         <span class='ident'>pc</span>.<span class='ident'>attrs</span>.<span class='ident'>config</span> <span class='op'>=</span> (<span class='ident'>cache_id</span> <span class='kw'>as</span> <span class='ident'>u64</span>) <span class='op'>|</span> ((<span class='ident'>cache_op_id</span> <span class='kw'>as</span> <span class='ident'>u64</span>) <span class='op'>&lt;&lt;</span> <span class='number'>8</span>) <span class='op'>|</span> ((<span class='ident'>cache_op_result_id</span> <span class='kw'>as</span> <span class='ident'>u64</span>) <span class='op'>&lt;&lt;</span> <span class='number'>16</span>) <span class='kw'>as</span> <span class='ident'>u64</span>;
         <span class='ident'>pc</span>
     }
+
+    <span class='comment'>//pub fn from_breakpoint_event() -&gt; PerfCounterBuilderLinux {</span>
+    <span class='comment'>// NYI</span>
+    <span class='comment'>//}</span>
 
     <span class='doccomment'>/// Instantiate a H/W performance counter using a hardware event as described in Intels SDM.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_intel_event_description</span>(<span class='ident'>counter</span>: <span class='kw-2'>&amp;</span><span class='ident'>IntelPerformanceCounterDescription</span>) <span class='op'>-&gt;</span> <span class='ident'>PerfCounterBuilderLinux</span> {
@@ -903,6 +964,11 @@
         <span class='self'>self</span>
     }
 
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_read_format</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>flag</span>: <span class='ident'>ReadFormat</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>PerfCounterBuilderLinux</span> {
+        <span class='self'>self</span>.<span class='ident'>attrs</span>.<span class='ident'>read_format</span> <span class='op'>|=</span> <span class='ident'>flag</span> <span class='kw'>as</span> <span class='ident'>u64</span>;
+        <span class='self'>self</span>
+    }
+
     <span class='doccomment'>/// Measure for all PIDs on the core.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>for_all_pids</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span>  <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>PerfCounterBuilderLinux</span> {
         <span class='self'>self</span>.<span class='ident'>pid</span> <span class='op'>=</span> <span class='op'>-</span><span class='number'>1</span>;
@@ -936,15 +1002,44 @@
             <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>last_os_error</span>());
         }
 
-        <span class='prelude-val'>Ok</span>(<span class='ident'>PerfCounter</span> { <span class='ident'>fd</span>: <span class='ident'>fd</span> })
+        <span class='prelude-val'>Ok</span>(<span class='ident'>PerfCounter</span> { <span class='ident'>fd</span>: <span class='ident'>fd</span>, <span class='ident'>file</span>: <span class='kw'>unsafe</span> { <span class='ident'>File</span>::<span class='ident'>from_raw_fd</span>(<span class='ident'>fd</span>) } })
     }
 }
 
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PerfCounter</span> {
-    <span class='ident'>fd</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Default</span>, <span class='ident'>Debug</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>FileReadFormat</span> {
+    <span class='doccomment'>/// The value of the event</span>
+    <span class='kw'>pub</span> <span class='ident'>value</span>: <span class='ident'>u64</span>,
+    <span class='doccomment'>/// if PERF_FORMAT_TOTAL_TIME_ENABLED</span>
+    <span class='kw'>pub</span> <span class='ident'>time_enabled</span>: <span class='ident'>u64</span>,
+    <span class='doccomment'>/// if PERF_FORMAT_TOTAL_TIME_RUNNING</span>
+    <span class='kw'>pub</span> <span class='ident'>time_running</span>: <span class='ident'>u64</span>,
+    <span class='doccomment'>/// if PERF_FORMAT_ID</span>
+    <span class='kw'>pub</span> <span class='ident'>id</span>: <span class='ident'>u64</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>AbstractPerfCounter</span> <span class='kw'>for</span> <span class='ident'>PerfCounter</span> {
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PerfCounter</span> {
+    <span class='ident'>fd</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>,
+    <span class='ident'>file</span>: <span class='ident'>File</span>,
+}
+
+<span class='kw'>impl</span> <span class='ident'>PerfCounter</span> {
+
+    <span class='doccomment'>/// Read the file descriptor and parse the return format.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>read_fd</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>FileReadFormat</span>, <span class='ident'>io</span>::<span class='ident'>Error</span><span class='op'>&gt;</span> {
+        <span class='kw'>unsafe</span> {
+            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>value</span>: <span class='ident'>FileReadFormat</span> <span class='op'>=</span> <span class='ident'>Default</span>::<span class='ident'>default</span>();
+            <span class='kw'>let</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>transmute</span>::<span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>FileReadFormat</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>u8</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>value</span>);
+            <span class='kw'>let</span> <span class='ident'>slice</span> <span class='op'>=</span> <span class='ident'>slice</span>::<span class='ident'>from_raw_parts_mut</span>::<span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span>(<span class='ident'>ptr</span>, <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>FileReadFormat</span><span class='op'>&gt;</span>());
+            <span class='macro'>try</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>file</span>.<span class='ident'>read_exact</span>(<span class='ident'>slice</span>));
+            <span class='prelude-val'>Ok</span>(<span class='ident'>value</span>)
+        }
+    }
+}
+
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='ident'>AbstractPerfCounter</span> <span class='kw'>for</span> <span class='ident'>PerfCounter</span> {
 
     <span class='kw'>fn</span> <span class='ident'>reset</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>io</span>::<span class='ident'>Error</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='ident'>ioctl</span>(<span class='self'>self</span>.<span class='ident'>fd</span>, <span class='ident'>perf_event</span>::<span class='ident'>PERF_EVENT_IOC_RESET</span>, <span class='number'>0</span>);
@@ -970,8 +1065,9 @@
         <span class='prelude-val'>Ok</span>(())
     }
 
-    <span class='kw'>fn</span> <span class='ident'>read</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>u64</span>, <span class='ident'>io</span>::<span class='ident'>Error</span><span class='op'>&gt;</span> {
-        <span class='ident'>read_counter</span>(<span class='self'>self</span>.<span class='ident'>fd</span>)
+    <span class='kw'>fn</span> <span class='ident'>read</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>u64</span>, <span class='ident'>io</span>::<span class='ident'>Error</span><span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>value</span>: <span class='ident'>FileReadFormat</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>read_fd</span>());
+        <span class='kw'>return</span> <span class='prelude-val'>Ok</span>(<span class='ident'>value</span>.<span class='ident'>value</span>)
     }
 }
 </pre>
