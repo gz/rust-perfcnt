@@ -4,11 +4,41 @@ extern crate perfcnt;
 extern crate alloc;
 
 use perfcnt::{PerfCounter, AbstractPerfCounter};
-use perfcnt::linux::{SoftwareEventType, PerfCounterBuilderLinux, ReadFormat};
+use perfcnt::linux::{SoftwareEventType, PerfCounterBuilderLinux, ReadFormat, CacheId, CacheOpId, CacheOpResultId, HardwareEventType};
 use alloc::heap::{allocate};
 
 #[test]
-pub fn test_page_faults() {
+pub fn test_cache_events() {
+    let mut pc: PerfCounter = PerfCounterBuilderLinux
+        ::from_cache_event(CacheId::L1D, CacheOpId::Read, CacheOpResultId::Miss)
+        .finish()
+        .expect("Could not create counter");
+
+        pc.start().expect("Can not start the counter");
+        pc.stop().expect("Can not start the counter");
+        let res = pc.read().expect("Can not read the counter");
+        assert!(res > 0);
+}
+
+#[test]
+pub fn test_hardware_counter() {
+    let mut pc: PerfCounter = PerfCounterBuilderLinux::from_hardware_event(HardwareEventType::CacheMisses)
+        .exclude_kernel()
+        .exclude_idle()
+        .finish()
+        .expect("Could not create counter");
+
+        pc.reset().expect("Can not reset");
+        pc.start().expect("Can not start the counter");
+        pc.stop().expect("Can not start the counter");
+
+        let res = pc.read().expect("Can not read the counter");
+        assert!(res < 100);
+}
+
+
+#[test]
+pub fn test_software_events() {
     let mut pc: PerfCounter = PerfCounterBuilderLinux::from_software_event(SoftwareEventType::PageFaults)
         .exclude_idle()
         .exclude_kernel()
@@ -17,8 +47,6 @@ pub fn test_page_faults() {
         .add_read_format(ReadFormat::FormatId)
         .finish()
         .expect("Could not create counter");
-
-    //.add_read_format(ReadFormat::FormatGroup)
 
     let size = 1024*1024*16;
     let page_size = 4096;
@@ -40,6 +68,4 @@ pub fn test_page_faults() {
     // Should be ~= 2
     let res = pc.read_fd().expect("Can not read the counter");
     assert_eq!(res.value, 2);
-    println!("{:?}", res);
-    //assert!(res.value <= 4);
 }

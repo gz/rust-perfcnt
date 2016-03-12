@@ -1,4 +1,4 @@
-//! Basically a wrapper around perf_event open (http://lxr.free-electrons.com/source/tools/perf/design.txt)
+//! A wrapper around perf_event open (http://lxr.free-electrons.com/source/tools/perf/design.txt)
 
 use std::slice;
 use std::fs::File;
@@ -216,7 +216,7 @@ impl PerfCounterBuilderLinux {
         let mut pc: PerfCounterBuilderLinux = Default::default();
 
         pc.attrs._type = perf_event::PERF_TYPE_HW_CACHE;
-        pc.attrs.config = (cache_id as u64) | ((cache_op_id as u64) << 8) | ((cache_op_result_id as u64) << 16) as u64;
+        pc.attrs.config = (cache_id as u64) | (cache_op_id as u64) << 8 | (cache_op_result_id as u64) << 16;
         pc
     }
 
@@ -440,8 +440,7 @@ impl PerfCounterBuilderLinux {
         let flags = 0;
         let fd = perf_event_open(self.attrs, self.pid, self.cpu as i32, self.group as i32, flags) as ::libc::c_int;
         if fd < 0 {
-            // TODO: Our syscall invocation probably does not set errno?
-            return Err(Error::last_os_error());
+            return Err(Error::from_raw_os_error(-fd));
         }
 
         Ok(PerfCounter { fd: fd, file: unsafe { File::from_raw_fd(fd) } })
