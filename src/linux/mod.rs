@@ -6,8 +6,10 @@ use std::os::unix::io::FromRawFd;
 use std::io;
 use std::io::{Read, Error};
 use std::mem;
+use std::fmt;
 
-use libc::{pid_t};
+use libc::{pid_t, MAP_SHARED};
+use mmap;
 
 #[allow(dead_code, non_camel_case_types)]
 mod hw_breakpoint;
@@ -435,6 +437,16 @@ impl PerfCounterBuilderLinux {
         self
     }
 
+    pub fn finish_sampling_counter(&self) -> Result<PerfCounter, io::Error> {
+        let flags = 0;
+        let fd = perf_event_open(self.attrs, self.pid, self.cpu as i32, self.group as i32, flags) as ::libc::c_int;
+        if fd < 0 {
+            return Err(Error::from_raw_os_error(-fd));
+        }
+
+        Ok(PerfCounter { fd: fd, file: unsafe { File::from_raw_fd(fd) } })
+    }
+
     /// Instantiate the performance counter.
     pub fn finish(&self) -> Result<PerfCounter, io::Error> {
         let flags = 0;
@@ -487,6 +499,16 @@ pub struct MMAPPage {
     data_head: u64,
     /// user-space written tail
     data_tail: u64,
+}
+
+impl fmt::Debug for MMAPPage {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "MMAPPage {{ version: {} compat_version: {} lock: {} index: {} offset: {} time_enabled: {} time_running: {} capabilities: {} pmc_width: {} time_shift: {} time_mult: {}  time_offset: {} data_head: {} data_tail: {} }}",
+            self.version, self.compat_version, self.lock,
+            self.index, self.offset, self.time_enabled, self.time_running,
+            self.capabilities, self.pmc_width, self.time_shift, self.time_mult,
+            self.time_offset, self.data_head, self.data_tail)
+    }
 }
 
 #[repr(C)]
@@ -545,5 +567,29 @@ impl<'a> AbstractPerfCounter for PerfCounter {
     fn read(&mut self) -> Result<u64, io::Error> {
         let value: FileReadFormat = try!(self.read_fd());
         return Ok(value.value)
+    }
+}
+
+pub struct SamplingPerfCounter {
+    pc: PerfCounter,
+    map: mmap::MemoryMap
+}
+
+impl SamplingPerfCounter {
+
+    pub fn new(pc: PerfCounter) -> SamplingPerfCounter {
+        let size = 2*4096;
+        let res: mmap::MemoryMap = mmap::MemoryMap::new(size,
+            &[ mmap::MapOption::MapFd(pc.fd),
+               mmap::MapOption::MapOffset(0),
+               mmap::MapOption::MapNonStandardFlags(MAP_SHARED),
+               mmap::MapOption::MapReadable ]).unwrap();
+
+        SamplingPerfCounter{ pc: pc, map: res }
+    }
+
+    pub fn print(&self) {
+        let page = unsafe { mem::transmute::<*mut u8, &MMAPPage>(self.map.data()) };
+        println!("{:?}", page);
     }
 }

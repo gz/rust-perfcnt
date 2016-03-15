@@ -4,7 +4,7 @@ extern crate perfcnt;
 extern crate alloc;
 
 use perfcnt::{PerfCounter, AbstractPerfCounter};
-use perfcnt::linux::{SoftwareEventType, PerfCounterBuilderLinux, ReadFormat, CacheId, CacheOpId, CacheOpResultId, HardwareEventType};
+use perfcnt::linux::{SoftwareEventType, PerfCounterBuilderLinux, ReadFormat, CacheId, CacheOpId, CacheOpResultId, HardwareEventType, SamplingPerfCounter};
 use alloc::heap::{allocate};
 
 #[test]
@@ -12,18 +12,15 @@ pub fn sample_event() {
     let mut pc: PerfCounter = PerfCounterBuilderLinux::from_cache_event(CacheId::L1D, CacheOpId::Read, CacheOpResultId::Miss)
         .set_sample_frequency(10000)
         .enable_mmap()
+        .enable_mmap_data()
         .finish()
         .expect("Could not create counter");
 
-        pc.start().expect("Can not start the counter");
-        pc.stop().expect("Can not stop the counter");
-        let res = pc.read().expect("Can not read the counter");
-
-        println!("{:?}", res);
-        assert!(res > 0);
+        let spc = SamplingPerfCounter::new(pc);
+        spc.print();
 }
 
-#[test]
+//#[test]
 pub fn test_cache_events() {
     let mut pc: PerfCounter = PerfCounterBuilderLinux::from_cache_event(CacheId::L1D, CacheOpId::Read, CacheOpResultId::Miss)
         .finish()
@@ -35,7 +32,7 @@ pub fn test_cache_events() {
         assert!(res > 0);
 }
 
-#[test]
+//#[test]
 pub fn test_hardware_counter() {
     let mut pc: PerfCounter = PerfCounterBuilderLinux::from_hardware_event(HardwareEventType::CacheMisses)
         .exclude_kernel()

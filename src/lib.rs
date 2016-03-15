@@ -4,6 +4,9 @@ extern crate x86;
 #[macro_use]
 extern crate bitflags;
 
+#[cfg(target_os = "linux")]
+extern crate mmap;
+
 pub mod linux;
 pub use linux::{PerfCounter};
 

@@ -14,6 +14,7 @@ license = "MIT"
 bitflags = "0.1.1"
 libc = "0.1.10"
 x86 = "0.6.0"
+mmap = "0.1.*"
 
 [[bin]]
 name = "perfcnt-list"
