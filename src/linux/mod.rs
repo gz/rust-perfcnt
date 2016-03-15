@@ -460,6 +460,42 @@ pub struct FileReadFormat {
     pub id: u64,
 }
 
+#[repr(C)]
+pub struct MMAPPage {
+    /// version number of this structure
+    version: u32,
+    /// lowest version this is compat with
+    compat_version: u32,
+    /// seqlock for synchronization
+    lock: u32,
+    /// hardware counter identifier
+    index: u32,
+    /// add to hardware counter value
+    offset: i64,
+    /// time event active
+    time_enabled: u64,
+    /// time event on CPU
+    time_running: u64,
+    capabilities: u64,
+    pmc_width: u16,
+    time_shift: u16,
+    time_mult: u32,
+    time_offset: u64,
+    /// Pad to 1k
+    reserved: [u64; 120],
+    /// head in the data section
+    data_head: u64,
+    /// user-space written tail
+    data_tail: u64,
+}
+
+#[repr(C)]
+#[derive(Default, Debug)]
+struct EventHeader {
+    event_type: u32,
+    misc: u16,
+    size: u16,
+}
 
 pub struct PerfCounter {
     fd: ::libc::c_int,

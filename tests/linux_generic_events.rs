@@ -8,14 +8,29 @@ use perfcnt::linux::{SoftwareEventType, PerfCounterBuilderLinux, ReadFormat, Cac
 use alloc::heap::{allocate};
 
 #[test]
-pub fn test_cache_events() {
-    let mut pc: PerfCounter = PerfCounterBuilderLinux
-        ::from_cache_event(CacheId::L1D, CacheOpId::Read, CacheOpResultId::Miss)
+pub fn sample_event() {
+    let mut pc: PerfCounter = PerfCounterBuilderLinux::from_cache_event(CacheId::L1D, CacheOpId::Read, CacheOpResultId::Miss)
+        .set_sample_frequency(10000)
+        .enable_mmap()
         .finish()
         .expect("Could not create counter");
 
         pc.start().expect("Can not start the counter");
-        pc.stop().expect("Can not start the counter");
+        pc.stop().expect("Can not stop the counter");
+        let res = pc.read().expect("Can not read the counter");
+
+        println!("{:?}", res);
+        assert!(res > 0);
+}
+
+#[test]
+pub fn test_cache_events() {
+    let mut pc: PerfCounter = PerfCounterBuilderLinux::from_cache_event(CacheId::L1D, CacheOpId::Read, CacheOpResultId::Miss)
+        .finish()
+        .expect("Could not create counter");
+
+        pc.start().expect("Can not start the counter");
+        pc.stop().expect("Can not stop the counter");
         let res = pc.read().expect("Can not read the counter");
         assert!(res > 0);
 }
@@ -29,7 +44,7 @@ pub fn test_hardware_counter() {
         .expect("Could not create counter");
 
         pc.reset().expect("Can not reset");
-        pc.start().expect("Can not start the counter");
+        pc.start().expect("Can not stop the counter");
         pc.stop().expect("Can not start the counter");
 
         let res = pc.read().expect("Can not read the counter");
@@ -63,7 +78,7 @@ pub fn test_software_events() {
         std::ptr::write(p, 0x1);
         std::ptr::write(p.offset(((size/page_size/2)*page_size) as isize), 0x01);
     }
-    pc.stop().expect("Can not start the counter");
+    pc.stop().expect("Can not stop the counter");
 
     // Should be ~= 2
     let res = pc.read_fd().expect("Can not read the counter");
