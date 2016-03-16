@@ -7,8 +7,9 @@ use std::io;
 use std::io::{Read, Error};
 use std::mem;
 use std::fmt;
+use std::str;
 
-use libc::{pid_t, MAP_SHARED};
+use libc::{pid_t, MAP_SHARED, strlen};
 use mmap;
 
 #[allow(dead_code, non_camel_case_types)]
@@ -511,14 +512,6 @@ impl fmt::Debug for MMAPPage {
     }
 }
 
-#[repr(C)]
-#[derive(Default, Debug)]
-struct EventHeader {
-    event_type: u32,
-    misc: u16,
-    size: u16,
-}
-
 pub struct PerfCounter {
     fd: ::libc::c_int,
     file: File,
@@ -570,26 +563,140 @@ impl<'a> AbstractPerfCounter for PerfCounter {
     }
 }
 
-pub struct SamplingPerfCounter {
+pub struct SamplingPerfCounter<'a> {
     pc: PerfCounter,
-    map: mmap::MemoryMap
+    map: mmap::MemoryMap,
+    header: &'a MMAPPage,
+    events: *const u8,
+    events_size: usize
 }
 
-impl SamplingPerfCounter {
+#[repr(C)]
+#[derive(Default, Debug)]
+struct EventHeader {
+    event_type: u32,
+    misc: u16,
+    size: u16,
+}
 
-    pub fn new(pc: PerfCounter) -> SamplingPerfCounter {
-        let size = 2*4096;
+/*
+enum EventHeaderMisc {
+
+    /// Unknown CPU mode.
+    CPUMODE_UNKNOWN
+
+    /// Sample happened in the kernel.
+    KERNEL
+
+    /// Sample happened in user code.
+    USER
+
+    /// Sample happened in the hypervisor.
+    HYPERVISOR
+
+    /// Sample happened in the guest kernel.
+    GUEST_KERNEL
+
+    /// Sample happened in guest user code.
+    GUEST_USER
+
+
+    In addition, one of the following bits can be set:
+    MMAP_DATA
+           This is set when the mapping is not executable; otherwise the mapping is executable.
+
+    EXACT_IP
+           This indicates that the content of PERF_SAMPLE_IP points to the actual instruction  that  triggered  the  event.
+           See also perf_event_attr.precise_ip.
+
+    EXT_RESERVED
+           This indicates there is extended data available (currently not used).
+
+}*/
+
+
+#[repr(C)]
+#[derive(Debug)]
+pub struct MMAPRecord {
+    header: EventHeader,
+    pid: u32,
+    tid: u32,
+    addr: u64,
+    len: u64,
+    pgoff: u64,
+    filename: u8
+}
+
+
+impl MMAPRecord {
+    pub fn filename(&self) -> Result<&str, str::Utf8Error> {
+        unsafe {
+            let strlen_ptr = mem::transmute::<&u8, &i8>(&self.filename);
+            let length = strlen(strlen_ptr) as usize;
+
+            let slice = slice::from_raw_parts(&self.filename, length);
+            str::from_utf8(slice)
+        }
+    }
+}
+
+#[derive(Debug)]
+pub enum Event<'a> {
+    MMAPRecord(&'a MMAPRecord),
+}
+
+impl<'a> Iterator for SamplingPerfCounter<'a> {
+    type Item = Event<'a>;
+
+    fn next(&mut self) -> Option<Event<'a>> {
+        if self.header.data_tail < self.header.data_head {
+            let event: &EventHeader = unsafe { mem::transmute::<*const u8, &EventHeader>(self.events) };
+            match event.event_type {
+                perf_event::PERF_RECORD_MMAP => {
+                    let mr: &MMAPRecord = unsafe { mem::transmute::<*const u8, &MMAPRecord>(self.events) };
+                    Some(Event::MMAPRecord(mr))
+                },
+                perf_event::PERF_RECORD_LOST => { unreachable!(); },
+                perf_event::PERF_RECORD_COMM => { unreachable!(); },
+                perf_event::PERF_RECORD_EXIT => { unreachable!(); },
+                perf_event::PERF_RECORD_THROTTLE => { unreachable!(); },
+                perf_event::PERF_RECORD_UNTHROTTLE => { unreachable!(); },
+                perf_event::PERF_RECORD_FORK => { unreachable!(); },
+                perf_event::PERF_RECORD_READ => { unreachable!(); },
+                perf_event::PERF_RECORD_SAMPLE => { unreachable!(); },
+                perf_event::PERF_RECORD_MMAP2 => { unreachable!(); },
+                _ => { panic!("Unknown type"); }
+            }
+        }
+        else {
+            None
+        }
+    }
+}
+
+impl<'a> SamplingPerfCounter<'a> {
+
+    pub fn new(pc: PerfCounter) -> SamplingPerfCounter<'a> {
+        let size = (1+16)*4096;
         let res: mmap::MemoryMap = mmap::MemoryMap::new(size,
             &[ mmap::MapOption::MapFd(pc.fd),
                mmap::MapOption::MapOffset(0),
                mmap::MapOption::MapNonStandardFlags(MAP_SHARED),
                mmap::MapOption::MapReadable ]).unwrap();
 
-        SamplingPerfCounter{ pc: pc, map: res }
+        let header = unsafe { mem::transmute::<*mut u8, &MMAPPage>(res.data()) };
+        //mem::size_of::<MMAPPage>() as isize))
+        let events = unsafe { mem::transmute::<*mut u8, *const u8>(res.data().offset(4096)) };
+
+        SamplingPerfCounter{ pc: pc, map: res, header: header, events: events, events_size: 16*4096 }
     }
 
-    pub fn print(&self) {
-        let page = unsafe { mem::transmute::<*mut u8, &MMAPPage>(self.map.data()) };
-        println!("{:?}", page);
+    pub fn print(&mut self) {
+        let event: Event = self.next().unwrap();
+        println!("{:?}", event);
+        match event {
+            Event::MMAPRecord(a) => println!("{:?}", a.filename()),
+        }
+
     }
 }

@@ -7,16 +7,24 @@ use perfcnt::{PerfCounter, AbstractPerfCounter};
 use perfcnt::linux::{SoftwareEventType, PerfCounterBuilderLinux, ReadFormat, CacheId, CacheOpId, CacheOpResultId, HardwareEventType, SamplingPerfCounter};
 use alloc::heap::{allocate};
 
-#[test]
+//#[test]
 pub fn sample_event() {
-    let mut pc: PerfCounter = PerfCounterBuilderLinux::from_cache_event(CacheId::L1D, CacheOpId::Read, CacheOpResultId::Miss)
+    let mut pc: PerfCounter = PerfCounterBuilderLinux::from_software_event(SoftwareEventType::CpuClock)
         .set_sample_frequency(10000)
+        .set_ip_sample_zero_skid()
         .enable_mmap()
         .enable_mmap_data()
         .finish()
         .expect("Could not create counter");
 
-        let spc = SamplingPerfCounter::new(pc);
+        pc.start().expect("Can not start the counter");
+        println!("asdf");
+        println!("asdf");
+        println!("asdf");
+        println!("asdf");
+        println!("asdf");
+
+        let mut spc = SamplingPerfCounter::new(pc);
         spc.print();
 }
 
