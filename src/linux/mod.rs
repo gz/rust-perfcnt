@@ -615,6 +615,7 @@ enum EventHeaderMisc {
 }*/
 
 
+/// The MMAP events record the PROT_EXEC mappings so that we can correlate user-space IPs to code.
 #[repr(C)]
 #[derive(Debug)]
 pub struct MMAPRecord {
@@ -626,7 +627,6 @@ pub struct MMAPRecord {
     pgoff: u64,
     filename: u8
 }
-
 
 impl MMAPRecord {
     pub fn filename(&self) -> Result<&str, str::Utf8Error> {
@@ -640,9 +640,117 @@ impl MMAPRecord {
     }
 }
 
+/// This record indicates when events are lost.
+#[repr(C)]
+#[derive(Debug)]
+pub struct LostRecord {
+    header: EventHeader,
+    /// Unique event ID of the samples that were lost.
+    id: u64,
+    /// The number of events that were lost.
+    lost: u64,
+}
+
+/// This record indicates a change in the process name.
+#[repr(C)]
+#[derive(Debug)]
+pub struct CommRecord {
+    header: EventHeader,
+    pid: u32,
+    tid: u32,
+    /// Really a char[] in C
+    comm: u8
+}
+
+/// This record indicates a process exit event.
+#[repr(C)]
+#[derive(Debug)]
+pub struct ExitRecord {
+    header: EventHeader,
+    pid: u32,
+    ppid: u32,
+    tid: u32,
+    ptid: u32,
+    time: u64
+}
+
+/// This record indicates a throttle/unthrottle event.
+#[repr(C)]
+#[derive(Debug)]
+pub struct ThrottleRecord {
+    header: EventHeader,
+    time: u64,
+    id: u64,
+    stream_id: u64,
+}
+
+/// This record indicates a fork event.
+#[repr(C)]
+#[derive(Debug)]
+pub struct ForkRecord {
+    header: EventHeader,
+    pid: u32,
+    ppid: u32,
+    tid: u32,
+    ptid: u32,
+    time: u64,
+}
+
+/// This record indicates a read event.
+#[repr(C)]
+#[derive(Debug)]
+pub struct ReadRecord {
+    header: EventHeader,
+    pid: u32,
+    tid: u32,
+    // TOOD: struct read_format values,
+}
+
+/// This record indicates a sample.
+
+#[repr(C)]
+#[derive(Debug)]
+pub struct SampleRecord {
+    header: EventHeader,
+
+//u64   ip;         /* if PERF_SAMPLE_IP */
+//u32   pid, tid;   /* if PERF_SAMPLE_TID */
+//u64   time;       /* if PERF_SAMPLE_TIME */
+//u64   addr;       /* if PERF_SAMPLE_ADDR */
+//u64   id;         /* if PERF_SAMPLE_ID */
+//u64   stream_id;  /* if PERF_SAMPLE_STREAM_ID */
+//u32   cpu, res;   /* if PERF_SAMPLE_CPU */
+//u64   period;     /* if PERF_SAMPLE_PERIOD */
+//struct read_format v; /* if PERF_SAMPLE_READ */
+//u64   nr;         /* if PERF_SAMPLE_CALLCHAIN */
+//u64   ips[nr];    /* if PERF_SAMPLE_CALLCHAIN */
+//u32   size;       /* if PERF_SAMPLE_RAW */
+//char  data[size]; /* if PERF_SAMPLE_RAW */
+//u64   bnr;        /* if PERF_SAMPLE_BRANCH_STACK */
+//struct perf_branch_entry lbr[bnr];
+//              /* if PERF_SAMPLE_BRANCH_STACK */
+//u64   abi;        /* if PERF_SAMPLE_REGS_USER */
+//u64   regs[weight(mask)];
+//                  /* if PERF_SAMPLE_REGS_USER */
+//u64   size;       /* if PERF_SAMPLE_STACK_USER */
+//char  data[size]; /* if PERF_SAMPLE_STACK_USER */
+//u64   dyn_size;   /* if PERF_SAMPLE_STACK_USER */
+//u64   weight;     /* if PERF_SAMPLE_WEIGHT */
+//u64   data_src;   /* if PERF_SAMPLE_DATA_SRC */
+}
+
+
 #[derive(Debug)]
 pub enum Event<'a> {
-    MMAPRecord(&'a MMAPRecord),
+    MMAP(&'a MMAPRecord),
+    Lost(&'a LostRecord),
+    Comm(&'a CommRecord),
+    Exit(&'a ExitRecord),
+    Throttle(&'a ThrottleRecord),
+    Unthrottle(&'a ThrottleRecord),
+    Fork(&'a ForkRecord),
+    Read(&'a ReadRecord),
+    Sample(&'a SampleRecord),
 }
 
 impl<'a> Iterator for SamplingPerfCounter<'a> {
@@ -654,16 +762,40 @@ impl<'a> Iterator for SamplingPerfCounter<'a> {
             match event.event_type {
                 perf_event::PERF_RECORD_MMAP => {
                     let mr: &MMAPRecord = unsafe { mem::transmute::<*const u8, &MMAPRecord>(self.events) };
-                    Some(Event::MMAPRecord(mr))
+                    Some(Event::MMAP(mr))
                 },
-                perf_event::PERF_RECORD_LOST => { unreachable!(); },
-                perf_event::PERF_RECORD_COMM => { unreachable!(); },
-                perf_event::PERF_RECORD_EXIT => { unreachable!(); },
-                perf_event::PERF_RECORD_THROTTLE => { unreachable!(); },
-                perf_event::PERF_RECORD_UNTHROTTLE => { unreachable!(); },
-                perf_event::PERF_RECORD_FORK => { unreachable!(); },
-                perf_event::PERF_RECORD_READ => { unreachable!(); },
-                perf_event::PERF_RECORD_SAMPLE => { unreachable!(); },
+                perf_event::PERF_RECORD_LOST => {
+                    let record: &LostRecord = unsafe { mem::transmute::<*const u8, &LostRecord>(self.events) };
+                    Some(Event::Lost(record))
+                },
+                perf_event::PERF_RECORD_COMM => {
+                    let record: &CommRecord = unsafe { mem::transmute::<*const u8, &CommRecord>(self.events) };
+                    Some(Event::Comm(record))
+                },
+                perf_event::PERF_RECORD_EXIT => {
+                    let record: &ExitRecord = unsafe { mem::transmute::<*const u8, &ExitRecord>(self.events) };
+                    Some(Event::Exit(record))
+                },
+                perf_event::PERF_RECORD_THROTTLE => {
+                    let record: &ThrottleRecord = unsafe { mem::transmute::<*const u8, &ThrottleRecord>(self.events) };
+                    Some(Event::Throttle(record))
+                },
+                perf_event::PERF_RECORD_UNTHROTTLE => {
+                    let record: &ThrottleRecord = unsafe { mem::transmute::<*const u8, &ThrottleRecord>(self.events) };
+                    Some(Event::Unthrottle(record))
+                },
+                perf_event::PERF_RECORD_FORK => {
+                    let record: &ForkRecord = unsafe { mem::transmute::<*const u8, &ForkRecord>(self.events) };
+                    Some(Event::Fork(record))
+                },
+                perf_event::PERF_RECORD_READ => {
+                    let record: &ReadRecord = unsafe { mem::transmute::<*const u8, &ReadRecord>(self.events) };
+                    Some(Event::Read(record))
+                },
+                perf_event::PERF_RECORD_SAMPLE => {
+                    let record: &SampleRecord = unsafe { mem::transmute::<*const u8, &SampleRecord>(self.events) };
+                    Some(Event::Sample(record))
+                },
                 perf_event::PERF_RECORD_MMAP2 => { unreachable!(); },
                 _ => { panic!("Unknown type"); }
             }
