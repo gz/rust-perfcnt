@@ -769,9 +769,7 @@ impl<'a> Iterator for SamplingPerfCounter<'a> {
     /// to guarantee that our references would not go away...
     fn next(&mut self) -> Option<Event> {
         if self.header.data_tail < self.header.data_head {
-
             let offset: isize = (self.header.data_tail as usize % self.events_size) as isize;
-            println!("offset is: {:?}", offset);
             let event_ptr = unsafe { self.events.offset(offset) };
             let event: &EventHeader = unsafe { mem::transmute::<*const u8, &EventHeader>(event_ptr) };
 
@@ -821,7 +819,9 @@ impl<'a> Iterator for SamplingPerfCounter<'a> {
                     let record: SampleRecord = unsafe { mem::transmute_copy::<&EventHeader, SampleRecord>(&event) };
                     Some(Event::Sample(record))
                 },
-                perf_event::PERF_RECORD_MMAP2 => { unreachable!(); },
+                perf_event::PERF_RECORD_MMAP2 => {
+                    unreachable!();
+                },
                 _ => { panic!("Unknown type"); }
             }
         }
