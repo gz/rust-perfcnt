@@ -567,7 +567,9 @@ pub struct SamplingPerfCounter<'a> {
     pc: PerfCounter,
     map: mmap::MemoryMap,
     header: &'a MMAPPage,
+    /// Points to the base of the events circular buffer.
     events: *const u8,
+    /// Total size of the events record buffer.
     events_size: usize
 }
 
@@ -577,6 +579,12 @@ struct EventHeader {
     event_type: u32,
     misc: u16,
     size: u16,
+}
+
+impl EventHeader {
+    pub fn size(&self) -> usize {
+        self.size as usize
+    }
 }
 
 /*
@@ -625,6 +633,7 @@ pub struct MMAPRecord {
     addr: u64,
     len: u64,
     pgoff: u64,
+    /// Really a char[] in C
     filename: u8
 }
 
@@ -741,59 +750,75 @@ pub struct SampleRecord {
 
 
 #[derive(Debug)]
-pub enum Event<'a> {
-    MMAP(&'a MMAPRecord),
-    Lost(&'a LostRecord),
-    Comm(&'a CommRecord),
-    Exit(&'a ExitRecord),
-    Throttle(&'a ThrottleRecord),
-    Unthrottle(&'a ThrottleRecord),
-    Fork(&'a ForkRecord),
-    Read(&'a ReadRecord),
-    Sample(&'a SampleRecord),
+pub enum Event {
+    MMAP(MMAPRecord),
+    Lost(LostRecord),
+    Comm(CommRecord),
+    Exit(ExitRecord),
+    Throttle(ThrottleRecord),
+    Unthrottle(ThrottleRecord),
+    Fork(ForkRecord),
+    Read(ReadRecord),
+    Sample(SampleRecord),
 }
 
 impl<'a> Iterator for SamplingPerfCounter<'a> {
-    type Item = Event<'a>;
+    type Item = Event;
 
-    fn next(&mut self) -> Option<Event<'a>> {
+    /// We copy the events here and pass this back over the stack as the current perf-event setup is too hard
+    /// to guarantee that our references would not go away...
+    fn next(&mut self) -> Option<Event> {
         if self.header.data_tail < self.header.data_head {
-            let event: &EventHeader = unsafe { mem::transmute::<*const u8, &EventHeader>(self.events) };
+
+            let offset: isize = (self.header.data_tail as usize % self.events_size) as isize;
+            println!("offset is: {:?}", offset);
+            let event_ptr = unsafe { self.events.offset(offset) };
+            let event: &EventHeader = unsafe { mem::transmute::<*const u8, &EventHeader>(event_ptr) };
+
             match event.event_type {
                 perf_event::PERF_RECORD_MMAP => {
-                    let mr: &MMAPRecord = unsafe { mem::transmute::<*const u8, &MMAPRecord>(self.events) };
-                    Some(Event::MMAP(mr))
+                    assert!(event.size() >= mem::size_of::<MMAPRecord>());
+                    let record: MMAPRecord = unsafe { mem::transmute_copy::<&EventHeader, MMAPRecord>(&event) };
+                    Some(Event::MMAP(record))
                 },
                 perf_event::PERF_RECORD_LOST => {
-                    let record: &LostRecord = unsafe { mem::transmute::<*const u8, &LostRecord>(self.events) };
+                    assert!(event.size() >= mem::size_of::<LostRecord>());
+                    let record: LostRecord = unsafe { mem::transmute_copy::<&EventHeader, LostRecord>(&event) };
                     Some(Event::Lost(record))
                 },
                 perf_event::PERF_RECORD_COMM => {
-                    let record: &CommRecord = unsafe { mem::transmute::<*const u8, &CommRecord>(self.events) };
+                    assert!(event.size() >= mem::size_of::<CommRecord>());
+                    let record: CommRecord = unsafe { mem::transmute_copy::<&EventHeader, CommRecord>(&event) };
                     Some(Event::Comm(record))
                 },
                 perf_event::PERF_RECORD_EXIT => {
-                    let record: &ExitRecord = unsafe { mem::transmute::<*const u8, &ExitRecord>(self.events) };
+                    assert!(event.size() >= mem::size_of::<ExitRecord>());
+                    let record: ExitRecord = unsafe { mem::transmute_copy::<&EventHeader, ExitRecord>(&event) };
                     Some(Event::Exit(record))
                 },
                 perf_event::PERF_RECORD_THROTTLE => {
-                    let record: &ThrottleRecord = unsafe { mem::transmute::<*const u8, &ThrottleRecord>(self.events) };
+                    assert!(event.size() >= mem::size_of::<ThrottleRecord>());
+                    let record: ThrottleRecord = unsafe { mem::transmute_copy::<&EventHeader, ThrottleRecord>(&event) };
                     Some(Event::Throttle(record))
                 },
                 perf_event::PERF_RECORD_UNTHROTTLE => {
-                    let record: &ThrottleRecord = unsafe { mem::transmute::<*const u8, &ThrottleRecord>(self.events) };
+                    assert!(event.size() >= mem::size_of::<ThrottleRecord>());
+                    let record: ThrottleRecord = unsafe { mem::transmute_copy::<&EventHeader, ThrottleRecord>(&event) };
                     Some(Event::Unthrottle(record))
                 },
                 perf_event::PERF_RECORD_FORK => {
-                    let record: &ForkRecord = unsafe { mem::transmute::<*const u8, &ForkRecord>(self.events) };
+                    assert!(event.size() >= mem::size_of::<ForkRecord>());
+                    let record: ForkRecord = unsafe { mem::transmute_copy::<&EventHeader, ForkRecord>(&event) };
                     Some(Event::Fork(record))
                 },
                 perf_event::PERF_RECORD_READ => {
-                    let record: &ReadRecord = unsafe { mem::transmute::<*const u8, &ReadRecord>(self.events) };
+                    assert!(event.size() >= mem::size_of::<ReadRecord>());
+                    let record: ReadRecord = unsafe { mem::transmute_copy::<&EventHeader, ReadRecord>(&event) };
                     Some(Event::Read(record))
                 },
                 perf_event::PERF_RECORD_SAMPLE => {
-                    let record: &SampleRecord = unsafe { mem::transmute::<*const u8, &SampleRecord>(self.events) };
+                    assert!(event.size() >= mem::size_of::<SampleRecord>());
+                    let record: SampleRecord = unsafe { mem::transmute_copy::<&EventHeader, SampleRecord>(&event) };
                     Some(Event::Sample(record))
                 },
                 perf_event::PERF_RECORD_MMAP2 => { unreachable!(); },
@@ -818,7 +843,7 @@ impl<'a> SamplingPerfCounter<'a> {
 
         let header = unsafe { mem::transmute::<*mut u8, &MMAPPage>(res.data()) };
         //mem::size_of::<MMAPPage>() as isize))
-        let events = unsafe { mem::transmute::<*mut u8, *const u8>(res.data().offset(4096)) };
+        let events = unsafe { res.data().offset(4096) };
 
         SamplingPerfCounter{ pc: pc, map: res, header: header, events: events, events_size: 16*4096 }
     }
@@ -827,7 +852,15 @@ impl<'a> SamplingPerfCounter<'a> {
         let event: Event = self.next().unwrap();
         println!("{:?}", event);
         match event {
-            Event::MMAPRecord(a) => println!("{:?}", a.filename()),
+            Event::MMAP(a) => println!("{:?}", a.filename()),
+            Event::Lost(a) => println!("{:?}", a),
+            Event::Comm(a) => println!("{:?}", a),
+            Event::Exit(a) => println!("{:?}", a),
+            Event::Throttle(a) => println!("{:?}", a),
+            Event::Unthrottle(a) => println!("{:?}", a),
+            Event::Fork(a) => println!("{:?}", a),
+            Event::Read(a) => println!("{:?}", a),
+            Event::Sample(a) => println!("{:?}", a),
         }
 
     }

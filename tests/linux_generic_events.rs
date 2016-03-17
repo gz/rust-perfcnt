@@ -7,7 +7,7 @@ use perfcnt::{PerfCounter, AbstractPerfCounter};
 use perfcnt::linux::{SoftwareEventType, PerfCounterBuilderLinux, ReadFormat, CacheId, CacheOpId, CacheOpResultId, HardwareEventType, SamplingPerfCounter};
 use alloc::heap::{allocate};
 
-//#[test]
+#[test]
 pub fn sample_event() {
     let mut pc: PerfCounter = PerfCounterBuilderLinux::from_software_event(SoftwareEventType::CpuClock)
         .set_sample_frequency(10000)
