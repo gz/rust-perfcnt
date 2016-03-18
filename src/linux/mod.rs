@@ -8,6 +8,8 @@ use std::io::{Read, Error};
 use std::mem;
 use std::fmt;
 use std::str;
+use std::string;
+use std::ptr;
 
 use libc::{pid_t, MAP_SHARED, strlen};
 use mmap;
@@ -573,18 +575,9 @@ pub struct SamplingPerfCounter<'a> {
     events_size: usize
 }
 
-#[repr(C)]
-#[derive(Default, Debug)]
-struct EventHeader {
-    event_type: u32,
-    misc: u16,
-    size: u16,
-}
-
-impl EventHeader {
-    pub fn size(&self) -> usize {
-        self.size as usize
-    }
+unsafe fn read<U : Copy>(ptr: *const u8, offset: isize) -> U {
+    let newptr = mem::transmute::<*const u8, *const U>(ptr.offset(offset));
+    ptr::read(newptr)
 }
 
 /*
@@ -623,6 +616,26 @@ enum EventHeaderMisc {
 }*/
 
 
+#[derive(Default, Debug)]
+struct EventHeader {
+    event_type: u32,
+    misc: u16,
+    size: u16,
+}
+
+impl EventHeader {
+    unsafe fn copy_from_slice(ptr: *const u8) -> EventHeader {
+        let event_type: u32 = read(ptr, 0);
+        let misc: u16 = read(ptr, 4);
+        let size: u16 = read(ptr, 6);
+        EventHeader { event_type: event_type, misc: misc, size: size }
+    }
+
+    pub fn size(&self) -> usize {
+        self.size as usize
+    }
+}
+
 /// The MMAP events record the PROT_EXEC mappings so that we can correlate user-space IPs to code.
 #[repr(C)]
 #[derive(Debug)]
@@ -633,24 +646,30 @@ pub struct MMAPRecord {
     addr: u64,
     len: u64,
     pgoff: u64,
-    /// Really a char[] in C
-    filename: u8
+    filename: String
 }
 
 impl MMAPRecord {
-    pub fn filename(&self) -> Result<&str, str::Utf8Error> {
-        unsafe {
-            let strlen_ptr = mem::transmute::<&u8, &i8>(&self.filename);
+    unsafe fn copy_from_slice(ptr: *const u8) -> MMAPRecord {
+        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+        let pid: u32 = read(ptr, 8);
+        let tid: u32 = read(ptr, 12);
+        let addr: u64  = read(ptr, 16);
+        let len: u64 = read(ptr, 24);
+        let pgoff: u64 = read(ptr, 32);
+        let filename = {
+            let str_start = ptr.offset(40);
+            let strlen_ptr = mem::transmute::<*const u8, &i8>(str_start);
             let length = strlen(strlen_ptr) as usize;
+            let slice = slice::from_raw_parts(str_start, length);
+            String::from(str::from_utf8(slice).unwrap())
+        };
 
-            let slice = slice::from_raw_parts(&self.filename, length);
-            str::from_utf8(slice)
-        }
+        MMAPRecord { header: header, pid: pid, tid: tid, addr: addr, len: len, pgoff: pgoff, filename: filename}
     }
 }
 
 /// This record indicates when events are lost.
-#[repr(C)]
 #[derive(Debug)]
 pub struct LostRecord {
     header: EventHeader,
@@ -660,19 +679,45 @@ pub struct LostRecord {
     lost: u64,
 }
 
+impl LostRecord {
+    unsafe fn copy_from_slice(ptr: *const u8) -> LostRecord {
+        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+        let id: u64 = read(ptr, 8);
+        let lost: u64 = read(ptr, 16);
+
+        LostRecord { header: header, id: id, lost: lost }
+    }
+}
+
+
 /// This record indicates a change in the process name.
-#[repr(C)]
 #[derive(Debug)]
 pub struct CommRecord {
     header: EventHeader,
     pid: u32,
     tid: u32,
-    /// Really a char[] in C
-    comm: u8
+    comm: String
 }
 
+impl CommRecord {
+    unsafe fn copy_from_slice(ptr: *const u8) -> CommRecord {
+        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+        let pid: u32 = read(ptr, 8);
+        let tid: u32 = read(ptr, 12);
+
+        let comm = {
+            let str_start = ptr.offset(16);
+            let strlen_ptr = mem::transmute::<*const u8, &i8>(str_start);
+            let length = strlen(strlen_ptr) as usize;
+            let slice = slice::from_raw_parts(str_start, length);
+            String::from(str::from_utf8(slice).unwrap())
+        };
+        CommRecord { header: header, pid: pid, tid: tid, comm: comm  }
+    }
+}
+
+
 /// This record indicates a process exit event.
-#[repr(C)]
 #[derive(Debug)]
 pub struct ExitRecord {
     header: EventHeader,
@@ -682,6 +727,21 @@ pub struct ExitRecord {
     ptid: u32,
     time: u64
 }
+
+
+impl ExitRecord {
+    unsafe fn copy_from_slice(ptr: *const u8) -> ExitRecord {
+        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+        let pid: u32 = read(ptr, 8);
+        let ppid: u32 = read(ptr, 12);
+        let tid: u32 = read(ptr, 16);
+        let ptid: u32 = read(ptr, 20);
+        let time: u64 = read(ptr, 24);
+
+        ExitRecord { header: header, pid: pid, ppid: ppid, tid: tid, ptid: ptid, time: time }
+    }
+}
+
 
 /// This record indicates a throttle/unthrottle event.
 #[repr(C)]
@@ -693,8 +753,18 @@ pub struct ThrottleRecord {
     stream_id: u64,
 }
 
+impl ThrottleRecord {
+    unsafe fn copy_from_slice(ptr: *const u8) -> ThrottleRecord {
+        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+        let time: u64 = read(ptr, 8);
+        let id: u64 = read(ptr, 16);
+        let stream_id: u64 = read(ptr, 24);
+
+        ThrottleRecord { header: header, time: time, id: id, stream_id: stream_id }
+    }
+}
+
 /// This record indicates a fork event.
-#[repr(C)]
 #[derive(Debug)]
 pub struct ForkRecord {
     header: EventHeader,
@@ -705,6 +775,20 @@ pub struct ForkRecord {
     time: u64,
 }
 
+impl ForkRecord {
+    unsafe fn copy_from_slice(ptr: *const u8) -> ForkRecord {
+        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+        let pid: u32 = read(ptr, 8);
+        let ppid: u32 = read(ptr, 12);
+        let tid: u32 = read(ptr, 16);
+        let ptid: u32 = read(ptr, 20);
+        let time: u64 = read(ptr, 24);
+
+        ForkRecord { header: header, pid: pid, ppid: ppid, tid: tid, ptid: ptid, time: time }
+    }
+}
+
+
 /// This record indicates a read event.
 #[repr(C)]
 #[derive(Debug)]
@@ -714,6 +798,17 @@ pub struct ReadRecord {
     tid: u32,
     // TOOD: struct read_format values,
 }
+
+impl ReadRecord {
+    unsafe fn copy_from_slice(ptr: *const u8) -> ReadRecord {
+        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+        let pid: u32 = read(ptr, 8);
+        let tid: u32 = read(ptr, 12);
+
+        ReadRecord { header: header, pid: pid, tid: tid }
+    }
+}
+
 
 /// This record indicates a sample.
 
@@ -748,6 +843,15 @@ pub struct SampleRecord {
 //u64   data_src;   /* if PERF_SAMPLE_DATA_SRC */
 }
 
+impl SampleRecord {
+    unsafe fn copy_from_slice(ptr: *const u8) -> SampleRecord {
+        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+
+        SampleRecord { header: header }
+    }
+}
+
+
 
 #[derive(Debug)]
 pub enum Event {
@@ -770,53 +874,45 @@ impl<'a> Iterator for SamplingPerfCounter<'a> {
     fn next(&mut self) -> Option<Event> {
         if self.header.data_tail < self.header.data_head {
             let offset: isize = (self.header.data_tail as usize % self.events_size) as isize;
+
             let event_ptr = unsafe { self.events.offset(offset) };
-            let event: &EventHeader = unsafe { mem::transmute::<*const u8, &EventHeader>(event_ptr) };
+            let event: EventHeader = unsafe { EventHeader::copy_from_slice(event_ptr) };
 
             match event.event_type {
                 perf_event::PERF_RECORD_MMAP => {
-                    assert!(event.size() >= mem::size_of::<MMAPRecord>());
-                    let record: MMAPRecord = unsafe { mem::transmute_copy::<&EventHeader, MMAPRecord>(&event) };
+                    let record: MMAPRecord = unsafe { MMAPRecord::copy_from_slice(event_ptr) };
                     Some(Event::MMAP(record))
                 },
                 perf_event::PERF_RECORD_LOST => {
-                    assert!(event.size() >= mem::size_of::<LostRecord>());
-                    let record: LostRecord = unsafe { mem::transmute_copy::<&EventHeader, LostRecord>(&event) };
+                    let record: LostRecord = unsafe { LostRecord::copy_from_slice(event_ptr) };
                     Some(Event::Lost(record))
                 },
                 perf_event::PERF_RECORD_COMM => {
-                    assert!(event.size() >= mem::size_of::<CommRecord>());
-                    let record: CommRecord = unsafe { mem::transmute_copy::<&EventHeader, CommRecord>(&event) };
+                    let record: CommRecord = unsafe { CommRecord::copy_from_slice(event_ptr) };
                     Some(Event::Comm(record))
                 },
                 perf_event::PERF_RECORD_EXIT => {
-                    assert!(event.size() >= mem::size_of::<ExitRecord>());
-                    let record: ExitRecord = unsafe { mem::transmute_copy::<&EventHeader, ExitRecord>(&event) };
+                    let record: ExitRecord = unsafe { ExitRecord::copy_from_slice(event_ptr) };
                     Some(Event::Exit(record))
                 },
                 perf_event::PERF_RECORD_THROTTLE => {
-                    assert!(event.size() >= mem::size_of::<ThrottleRecord>());
-                    let record: ThrottleRecord = unsafe { mem::transmute_copy::<&EventHeader, ThrottleRecord>(&event) };
+                    let record: ThrottleRecord = unsafe { ThrottleRecord::copy_from_slice(event_ptr) };
                     Some(Event::Throttle(record))
                 },
                 perf_event::PERF_RECORD_UNTHROTTLE => {
-                    assert!(event.size() >= mem::size_of::<ThrottleRecord>());
-                    let record: ThrottleRecord = unsafe { mem::transmute_copy::<&EventHeader, ThrottleRecord>(&event) };
+                    let record: ThrottleRecord = unsafe { ThrottleRecord::copy_from_slice(event_ptr) };
                     Some(Event::Unthrottle(record))
                 },
                 perf_event::PERF_RECORD_FORK => {
-                    assert!(event.size() >= mem::size_of::<ForkRecord>());
-                    let record: ForkRecord = unsafe { mem::transmute_copy::<&EventHeader, ForkRecord>(&event) };
+                    let record: ForkRecord = unsafe { ForkRecord::copy_from_slice(event_ptr) };
                     Some(Event::Fork(record))
                 },
                 perf_event::PERF_RECORD_READ => {
-                    assert!(event.size() >= mem::size_of::<ReadRecord>());
-                    let record: ReadRecord = unsafe { mem::transmute_copy::<&EventHeader, ReadRecord>(&event) };
+                    let record: ReadRecord = unsafe { ReadRecord::copy_from_slice(event_ptr) };
                     Some(Event::Read(record))
                 },
                 perf_event::PERF_RECORD_SAMPLE => {
-                    assert!(event.size() >= mem::size_of::<SampleRecord>());
-                    let record: SampleRecord = unsafe { mem::transmute_copy::<&EventHeader, SampleRecord>(&event) };
+                    let record: SampleRecord = unsafe { SampleRecord::copy_from_slice(event_ptr) };
                     Some(Event::Sample(record))
                 },
                 perf_event::PERF_RECORD_MMAP2 => {
@@ -852,7 +948,7 @@ impl<'a> SamplingPerfCounter<'a> {
         let event: Event = self.next().unwrap();
         println!("{:?}", event);
         match event {
-            Event::MMAP(a) => println!("{:?}", a.filename()),
+            Event::MMAP(a) => println!("{:?}", a.filename),
             Event::Lost(a) => println!("{:?}", a),
             Event::Comm(a) => println!("{:?}", a),
             Event::Exit(a) => println!("{:?}", a),
