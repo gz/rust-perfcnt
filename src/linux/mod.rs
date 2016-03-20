@@ -475,6 +475,18 @@ pub struct FileReadFormat {
     pub id: u64,
 }
 
+impl FileReadFormat {
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> FileReadFormat {
+        let value: u64 = read(ptr, 0);
+        let time_enabled: u64 = read(ptr, 8);
+        let time_running: u64 = read(ptr, 16);
+        let id: u64 = read(ptr, 24);
+
+        FileReadFormat { value: value, time_enabled: time_enabled, time_running: time_running, id: id }
+    }
+}
+
+
 #[repr(C)]
 pub struct MMAPPage {
     /// version number of this structure
@@ -624,7 +636,7 @@ struct EventHeader {
 }
 
 impl EventHeader {
-    unsafe fn copy_from_slice(ptr: *const u8) -> EventHeader {
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> EventHeader {
         let event_type: u32 = read(ptr, 0);
         let misc: u16 = read(ptr, 4);
         let size: u16 = read(ptr, 6);
@@ -650,8 +662,8 @@ pub struct MMAPRecord {
 }
 
 impl MMAPRecord {
-    unsafe fn copy_from_slice(ptr: *const u8) -> MMAPRecord {
-        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> MMAPRecord {
+        let header: EventHeader = EventHeader::copy_from_raw_ptr(ptr);
         let pid: u32 = read(ptr, 8);
         let tid: u32 = read(ptr, 12);
         let addr: u64  = read(ptr, 16);
@@ -680,8 +692,8 @@ pub struct LostRecord {
 }
 
 impl LostRecord {
-    unsafe fn copy_from_slice(ptr: *const u8) -> LostRecord {
-        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> LostRecord {
+        let header: EventHeader = EventHeader::copy_from_raw_ptr(ptr);
         let id: u64 = read(ptr, 8);
         let lost: u64 = read(ptr, 16);
 
@@ -700,8 +712,8 @@ pub struct CommRecord {
 }
 
 impl CommRecord {
-    unsafe fn copy_from_slice(ptr: *const u8) -> CommRecord {
-        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> CommRecord {
+        let header: EventHeader = EventHeader::copy_from_raw_ptr(ptr);
         let pid: u32 = read(ptr, 8);
         let tid: u32 = read(ptr, 12);
 
@@ -730,8 +742,8 @@ pub struct ExitRecord {
 
 
 impl ExitRecord {
-    unsafe fn copy_from_slice(ptr: *const u8) -> ExitRecord {
-        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> ExitRecord {
+        let header: EventHeader = EventHeader::copy_from_raw_ptr(ptr);
         let pid: u32 = read(ptr, 8);
         let ppid: u32 = read(ptr, 12);
         let tid: u32 = read(ptr, 16);
@@ -754,8 +766,8 @@ pub struct ThrottleRecord {
 }
 
 impl ThrottleRecord {
-    unsafe fn copy_from_slice(ptr: *const u8) -> ThrottleRecord {
-        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> ThrottleRecord {
+        let header: EventHeader = EventHeader::copy_from_raw_ptr(ptr);
         let time: u64 = read(ptr, 8);
         let id: u64 = read(ptr, 16);
         let stream_id: u64 = read(ptr, 24);
@@ -776,8 +788,8 @@ pub struct ForkRecord {
 }
 
 impl ForkRecord {
-    unsafe fn copy_from_slice(ptr: *const u8) -> ForkRecord {
-        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> ForkRecord {
+        let header: EventHeader = EventHeader::copy_from_raw_ptr(ptr);
         let pid: u32 = read(ptr, 8);
         let ppid: u32 = read(ptr, 12);
         let tid: u32 = read(ptr, 16);
@@ -796,58 +808,137 @@ pub struct ReadRecord {
     header: EventHeader,
     pid: u32,
     tid: u32,
-    // TOOD: struct read_format values,
+    value: FileReadFormat, // TODO with PERF_FORMAT_GROUP: values: Vec<FileReadFormat>
 }
 
 impl ReadRecord {
-    unsafe fn copy_from_slice(ptr: *const u8) -> ReadRecord {
-        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> ReadRecord {
+        let header: EventHeader = EventHeader::copy_from_raw_ptr(ptr);
         let pid: u32 = read(ptr, 8);
         let tid: u32 = read(ptr, 12);
+        let frf: FileReadFormat = FileReadFormat::copy_from_raw_ptr(ptr.offset(16));
 
-        ReadRecord { header: header, pid: pid, tid: tid }
+        ReadRecord { header: header, pid: pid, tid: tid, value: frf }
     }
 }
 
+#[derive(Debug)]
+struct BranchEntry {
+    pub from: u64,
+    pub to: u64,
+    flags: u64,
+}
 
 /// This record indicates a sample.
-
-#[repr(C)]
 #[derive(Debug)]
 pub struct SampleRecord {
     header: EventHeader,
+    /// if PERF_SAMPLE_IP
+    ip: u64,
+    /// if PERF_SAMPLE_TID
+    pid: u32,
+    /// if PERF_SAMPLE_TID
+    tid: u32,
+    /// if PERF_SAMPLE_TIME
+    time: u64,
+    /// if PERF_SAMPLE_ADDR
+    addr: u64,
+    /// if PERF_SAMPLE_ID
+    id: u64,
+    /// if PERF_SAMPLE_STREAM_ID
+    stream_id: u64,
+    /// if PERF_SAMPLE_CPU
+    cpu: u32,
+    /// if PERF_SAMPLE_CPU
+    res: u32,
+    /// if PERF_SAMPLE_PERIOD
+    period: u64,
 
-//u64   ip;         /* if PERF_SAMPLE_IP */
-//u32   pid, tid;   /* if PERF_SAMPLE_TID */
-//u64   time;       /* if PERF_SAMPLE_TIME */
-//u64   addr;       /* if PERF_SAMPLE_ADDR */
-//u64   id;         /* if PERF_SAMPLE_ID */
-//u64   stream_id;  /* if PERF_SAMPLE_STREAM_ID */
-//u32   cpu, res;   /* if PERF_SAMPLE_CPU */
-//u64   period;     /* if PERF_SAMPLE_PERIOD */
-//struct read_format v; /* if PERF_SAMPLE_READ */
-//u64   nr;         /* if PERF_SAMPLE_CALLCHAIN */
-//u64   ips[nr];    /* if PERF_SAMPLE_CALLCHAIN */
-//u32   size;       /* if PERF_SAMPLE_RAW */
-//char  data[size]; /* if PERF_SAMPLE_RAW */
-//u64   bnr;        /* if PERF_SAMPLE_BRANCH_STACK */
-//struct perf_branch_entry lbr[bnr];
-//              /* if PERF_SAMPLE_BRANCH_STACK */
-//u64   abi;        /* if PERF_SAMPLE_REGS_USER */
-//u64   regs[weight(mask)];
-//                  /* if PERF_SAMPLE_REGS_USER */
-//u64   size;       /* if PERF_SAMPLE_STACK_USER */
-//char  data[size]; /* if PERF_SAMPLE_STACK_USER */
-//u64   dyn_size;   /* if PERF_SAMPLE_STACK_USER */
-//u64   weight;     /* if PERF_SAMPLE_WEIGHT */
-//u64   data_src;   /* if PERF_SAMPLE_DATA_SRC */
+    /// if PERF_SAMPLE_READ
+    /// # TODO
+    /// FILE GROUP FORMAT is different...
+    v: FileReadFormat,
+
+    //u64   nr;         /* if PERF_SAMPLE_CALLCHAIN */
+    //u64   ips[nr];    /* if PERF_SAMPLE_CALLCHAIN */
+    ips: Vec<u64>,
+
+    /// u32   size;       /* if PERF_SAMPLE_RAW */
+    /// char  data[size]; /* if PERF_SAMPLE_RAW */
+    raw_sample: Vec<u8>,
+
+    /// u64   bnr;        /* if PERF_SAMPLE_BRANCH_STACK */
+    /// struct perf_branch_entry lbr[bnr];
+    lbr: Vec<BranchEntry>,
+
+    /// u64   abi;        /* if PERF_SAMPLE_REGS_USER */
+    abi: u64,
+
+    ///  u64   regs[weight(mask)];
+    /// if PERF_SAMPLE_REGS_USER
+    regs: Vec<u64>,
+
+    /// u64   size;       /* if PERF_SAMPLE_STACK_USER */
+    /// char  data[size]; /* if PERF_SAMPLE_STACK_USER */
+    user_stack: Vec<u8>,
+
+    /// u64   dyn_size;   /* if PERF_SAMPLE_STACK_USER */
+    dyn_size: u64,
+    /// u64   weight;     /* if PERF_SAMPLE_WEIGHT */
+    weight: u64,
+    /// u64   data_src;   /* if PERF_SAMPLE_DATA_SRC */
+    data_str: u64,
 }
 
 impl SampleRecord {
-    unsafe fn copy_from_slice(ptr: *const u8) -> SampleRecord {
-        let header: EventHeader = EventHeader::copy_from_slice(ptr);
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> SampleRecord {
+        let header: EventHeader = EventHeader::copy_from_raw_ptr(ptr);
+        let ip: u64 = read(ptr, 8);
+        let pid: u32 = read(ptr, 16);
+        let tid: u32 = read(ptr, 20);
+        let time: u64 = read(ptr, 24);
+        let addr: u64 = read(ptr, 32);
+        let id: u64 = read(ptr, 40);
+        let stream_id: u64 = read(ptr, 48);
+        let cpu: u32 = read(ptr, 52);
+        let res: u32 = read(ptr, 56);
+        let period: u64 = read(ptr, 64);
 
-        SampleRecord { header: header }
+        // TODO:
+        let v: FileReadFormat = FileReadFormat::copy_from_raw_ptr(ptr.offset(72));
+        let ips: Vec<u64> = Vec::new();
+        let raw_sample: Vec<u8> = Vec::new();
+        let lbr: Vec<BranchEntry> = Vec::new();
+        let abi: u64 = 0;
+        let regs: Vec<u64> = Vec::new();
+        let user_stack: Vec<u8> = Vec::new();
+        let dyn_size: u64 = 0;
+        let weight: u64 = 0;
+        let data_str: u64 = 0;
+
+        SampleRecord {
+            header: header,
+            ip: ip,
+            pid: pid,
+            tid: tid,
+            time: time,
+            addr: addr,
+            id: id,
+            stream_id: stream_id,
+            cpu: cpu,
+            res: res,
+            period: period,
+            v: v,
+            ips: ips,
+            raw_sample: raw_sample,
+            lbr: lbr,
+            abi: abi,
+            regs: regs,
+            user_stack: user_stack,
+            dyn_size: dyn_size,
+            weight: weight,
+            data_str: data_str,
+        }
     }
 }
 
@@ -869,56 +960,60 @@ pub enum Event {
 impl<'a> Iterator for SamplingPerfCounter<'a> {
     type Item = Event;
 
-    /// We copy the events here and pass this back over the stack as the current perf-event setup is too hard
-    /// to guarantee that our references would not go away...
+    /// Iterate over the event buffer.
+    ///
+    /// We copy and transform the events for two reasons:
+    ///  * The exposed C struct layout would be difficult to read with request.
+    ///  * We need to advance the tail pointer to make space for new events.
     fn next(&mut self) -> Option<Event> {
         if self.header.data_tail < self.header.data_head {
             let offset: isize = (self.header.data_tail as usize % self.events_size) as isize;
 
             let event_ptr = unsafe { self.events.offset(offset) };
-            let event: EventHeader = unsafe { EventHeader::copy_from_slice(event_ptr) };
+            let event: EventHeader = unsafe { EventHeader::copy_from_raw_ptr(event_ptr) };
 
             match event.event_type {
                 perf_event::PERF_RECORD_MMAP => {
-                    let record: MMAPRecord = unsafe { MMAPRecord::copy_from_slice(event_ptr) };
+                    let record: MMAPRecord = unsafe { MMAPRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::MMAP(record))
                 },
                 perf_event::PERF_RECORD_LOST => {
-                    let record: LostRecord = unsafe { LostRecord::copy_from_slice(event_ptr) };
+                    let record: LostRecord = unsafe { LostRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Lost(record))
                 },
                 perf_event::PERF_RECORD_COMM => {
-                    let record: CommRecord = unsafe { CommRecord::copy_from_slice(event_ptr) };
+                    let record: CommRecord = unsafe { CommRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Comm(record))
                 },
                 perf_event::PERF_RECORD_EXIT => {
-                    let record: ExitRecord = unsafe { ExitRecord::copy_from_slice(event_ptr) };
+                    let record: ExitRecord = unsafe { ExitRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Exit(record))
                 },
                 perf_event::PERF_RECORD_THROTTLE => {
-                    let record: ThrottleRecord = unsafe { ThrottleRecord::copy_from_slice(event_ptr) };
+                    let record: ThrottleRecord = unsafe { ThrottleRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Throttle(record))
                 },
                 perf_event::PERF_RECORD_UNTHROTTLE => {
-                    let record: ThrottleRecord = unsafe { ThrottleRecord::copy_from_slice(event_ptr) };
+                    let record: ThrottleRecord = unsafe { ThrottleRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Unthrottle(record))
                 },
                 perf_event::PERF_RECORD_FORK => {
-                    let record: ForkRecord = unsafe { ForkRecord::copy_from_slice(event_ptr) };
+                    let record: ForkRecord = unsafe { ForkRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Fork(record))
                 },
                 perf_event::PERF_RECORD_READ => {
-                    let record: ReadRecord = unsafe { ReadRecord::copy_from_slice(event_ptr) };
+                    let record: ReadRecord = unsafe { ReadRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Read(record))
                 },
                 perf_event::PERF_RECORD_SAMPLE => {
-                    let record: SampleRecord = unsafe { SampleRecord::copy_from_slice(event_ptr) };
+                    let record: SampleRecord = unsafe { SampleRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Sample(record))
                 },
                 perf_event::PERF_RECORD_MMAP2 => {
+                    // XXX: Not described in the man page?
                     unreachable!();
                 },
-                _ => { panic!("Unknown type"); }
+                _ => { panic!("Unknown type!"); }
             }
         }
         else {
