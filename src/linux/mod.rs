@@ -179,22 +179,64 @@ pub enum CacheOpResultId {
     Miss = perf_event::PERF_COUNT_HW_CACHE_RESULT_MISS as isize,
 }
 
-pub enum ReadFormat {
-    /// Adds the 64-bit time_enabled field.  This can be used to calculate estimated totals if the PMU is overcommitted
-    /// and multiplexing is happening.
-    TotalTimeEnabled = perf_event::PERF_FORMAT_TOTAL_TIME_ENABLED as isize,
-
-    /// Adds the 64-bit time_running field.  This can be used to calculate estimated totals if the PMU is  overcommitted
-    /// and  multiplexing is happening.
-    TotalTimeRunning = perf_event::PERF_FORMAT_TOTAL_TIME_RUNNING as isize,
-
-    /// Adds a 64-bit unique value that corresponds to the event group.
-    FormatId = perf_event::PERF_FORMAT_ID as isize,
-
-    /// Allows all counter values in an event group to be read with one read.
-    FormatGroup = perf_event::PERF_FORMAT_GROUP as isize
+bitflags!{
+    flags ReadFormatFlags: u64 {
+        /// Adds the 64-bit time_enabled field.  This can be used to calculate estimated totals if the PMU is overcommitted
+        /// and multiplexing is happening.
+        const FORMAT_TOTAL_TIME_ENABLED = 1,
+        /// Adds the 64-bit time_running field.  This can be used to calculate estimated totals if the PMU is  overcommitted
+        /// and  multiplexing is happening.
+        const FORMAT_TOTAL_TIME_RUNNING = 2,
+        /// Adds a 64-bit unique value that corresponds to the event group.
+        const FORMAT_ID = 4,
+        /// Allows all counter values in an event group to be read with one read.
+        const FORMAT_GROUP = 8,
+    }
 }
 
+bitflags!{
+    flags SampleFormatFlags: u64 {
+        /// Records instruction pointer.
+        const PERF_SAMPLE_IP = 1,
+        /// Records the process and thread IDs.
+        const PERF_SAMPLE_TID = 2,
+        /// Records a timestamp.
+        const PERF_SAMPLE_TIME = 4,
+        /// Records an address, if applicable.
+        const PERF_SAMPLE_ADDR = 8,
+        /// Record counter values for all events in a group, not just the group leader.
+        const PERF_SAMPLE_READ = 16,
+        /// Records the callchain (stack backtrace).
+        const PERF_SAMPLE_CALLCHAIN = 32,
+        /// Records a unique ID for the opened event's group leader.
+        const PERF_SAMPLE_ID = 64,
+        /// Records CPU number.
+        const PERF_SAMPLE_CPU = 128,
+        /// Records the current sampling period.
+        const PERF_SAMPLE_PERIOD = 256,
+        /// Records  a  unique  ID  for  the  opened  event.  Unlike PERF_SAMPLE_ID the actual ID is returned, not the group
+        /// leader.  This ID is the same as the one returned by PERF_FORMAT_ID.
+        const PERF_SAMPLE_STREAM_ID = 512,
+        /// Records additional data, if applicable.  Usually returned by tracepoint events.
+        const PERF_SAMPLE_RAW = 1024,
+        /// This provides a record of recent branches, as provided by CPU branch  sampling  hardware  (such  as  Intel  Last
+        /// Branch Record).  Not all hardware supports this feature.
+        /// See the branch_sample_type field for how to filter which branches are reported.
+        const PERF_SAMPLE_BRANCH_STACK = 2048,
+        /// Records the current user-level CPU register state (the values in the process before the kernel was called).
+        const PERF_SAMPLE_REGS_USER = 4096,
+        /// Records the user level stack, allowing stack unwinding.
+        const PERF_SAMPLE_STACK_USER = 8192,
+        /// Records a hardware provided weight value that expresses how costly the sampled event was.
+        /// This allows the hardware to highlight expensive events in a profile.
+        const PERF_SAMPLE_WEIGHT = 16384,
+        /// Records the data source: where in the memory hierarchy the data associated with the sampled instruction came from.
+        /// This is only available if the underlying hardware supports this feature.
+        const PERF_SAMPLE_DATA_SRC = 32768,
+        const PERF_SAMPLE_IDENTIFIER = 65536,
+        const PERF_SAMPLE_TRANSACTION = 131072,
+    }
+}
 
 impl PerfCounterBuilderLinux {
 
@@ -411,9 +453,30 @@ impl PerfCounterBuilderLinux {
         self
     }
 
-    pub fn add_read_format<'a>(&'a mut self, flag: ReadFormat) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.read_format |= flag as u64;
-        self
+    /// Adds the 64-bit time_enabled field.  This can be used to calculate estimated totals if the PMU is overcommitted
+    /// and multiplexing is happening.
+    pub fn enable_read_format_time_enabled<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
+         self.attrs.read_format |= FORMAT_TOTAL_TIME_ENABLED.bits();
+         self
+    }
+
+    /// Adds the 64-bit time_running field.  This can be used to calculate estimated totals if the PMU is  overcommitted
+    /// and  multiplexing is happening.
+    pub fn enable_read_format_time_running<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
+         self.attrs.read_format |= FORMAT_TOTAL_TIME_RUNNING.bits();
+         self
+    }
+
+    /// Adds a 64-bit unique value that corresponds to the event group.
+    pub fn enable_read_format_id<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
+         self.attrs.read_format |= FORMAT_ID.bits();
+         self
+    }
+
+    /// Allows all counter values in an event group to be read with one read.
+    pub fn enable_read_format_group<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
+         self.attrs.read_format |= FORMAT_GROUP.bits();
+         self
     }
 
     /// Measure for all PIDs on the core.
