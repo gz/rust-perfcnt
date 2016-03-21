@@ -123,26 +123,6 @@ pub const PERF_COUNT_SW_ALIGNMENT_FAULTS: ::libc::c_uint = 7;
 pub const PERF_COUNT_SW_EMULATION_FAULTS: ::libc::c_uint = 8;
 pub const PERF_COUNT_SW_DUMMY: ::libc::c_uint = 9;
 pub const PERF_COUNT_SW_MAX: ::libc::c_uint = 10;
-pub type Enum_perf_event_sample_format = ::libc::c_uint;
-pub const PERF_SAMPLE_IP: ::libc::c_uint = 1;
-pub const PERF_SAMPLE_TID: ::libc::c_uint = 2;
-pub const PERF_SAMPLE_TIME: ::libc::c_uint = 4;
-pub const PERF_SAMPLE_ADDR: ::libc::c_uint = 8;
-pub const PERF_SAMPLE_READ: ::libc::c_uint = 16;
-pub const PERF_SAMPLE_CALLCHAIN: ::libc::c_uint = 32;
-pub const PERF_SAMPLE_ID: ::libc::c_uint = 64;
-pub const PERF_SAMPLE_CPU: ::libc::c_uint = 128;
-pub const PERF_SAMPLE_PERIOD: ::libc::c_uint = 256;
-pub const PERF_SAMPLE_STREAM_ID: ::libc::c_uint = 512;
-pub const PERF_SAMPLE_RAW: ::libc::c_uint = 1024;
-pub const PERF_SAMPLE_BRANCH_STACK: ::libc::c_uint = 2048;
-pub const PERF_SAMPLE_REGS_USER: ::libc::c_uint = 4096;
-pub const PERF_SAMPLE_STACK_USER: ::libc::c_uint = 8192;
-pub const PERF_SAMPLE_WEIGHT: ::libc::c_uint = 16384;
-pub const PERF_SAMPLE_DATA_SRC: ::libc::c_uint = 32768;
-pub const PERF_SAMPLE_IDENTIFIER: ::libc::c_uint = 65536;
-pub const PERF_SAMPLE_TRANSACTION: ::libc::c_uint = 131072;
-pub const PERF_SAMPLE_MAX: ::libc::c_uint = 262144;
 pub type Enum_perf_branch_sample_type = ::libc::c_uint;
 pub const PERF_SAMPLE_BRANCH_USER: ::libc::c_uint = 1;
 pub const PERF_SAMPLE_BRANCH_KERNEL: ::libc::c_uint = 2;
@@ -171,16 +151,69 @@ pub const PERF_TXN_CAPACITY_READ: ::libc::c_ulong = 128;
 pub const PERF_TXN_MAX: ::libc::c_ulong = 256;
 pub const PERF_TXN_ABORT_MASK: ::libc::c_ulong = 18446744069414584320;
 pub const PERF_TXN_ABORT_SHIFT: ::libc::c_ulong = 32;
-pub type Enum_perf_event_read_format = ::libc::c_uint;
-pub const PERF_FORMAT_TOTAL_TIME_ENABLED: ::libc::c_uint = 1;
-pub const PERF_FORMAT_TOTAL_TIME_RUNNING: ::libc::c_uint = 2;
-pub const PERF_FORMAT_ID: ::libc::c_uint = 4;
-pub const PERF_FORMAT_GROUP: ::libc::c_uint = 8;
-pub const PERF_FORMAT_MAX: ::libc::c_uint = 16;
 
+
+bitflags!{
+    flags SampleFormatFlags: u64 {
+        /// Records instruction pointer.
+        const PERF_SAMPLE_IP = 1,
+        /// Records the process and thread IDs.
+        const PERF_SAMPLE_TID = 2,
+        /// Records a timestamp.
+        const PERF_SAMPLE_TIME = 4,
+        /// Records an address, if applicable.
+        const PERF_SAMPLE_ADDR = 8,
+        /// Record counter values for all events in a group, not just the group leader.
+        const PERF_SAMPLE_READ = 16,
+        /// Records the callchain (stack backtrace).
+        const PERF_SAMPLE_CALLCHAIN = 32,
+        /// Records a unique ID for the opened event's group leader.
+        const PERF_SAMPLE_ID = 64,
+        /// Records CPU number.
+        const PERF_SAMPLE_CPU = 128,
+        /// Records the current sampling period.
+        const PERF_SAMPLE_PERIOD = 256,
+        /// Records  a  unique  ID  for  the  opened  event.  Unlike PERF_SAMPLE_ID the actual ID is returned, not the group
+        /// leader.  This ID is the same as the one returned by PERF_FORMAT_ID.
+        const PERF_SAMPLE_STREAM_ID = 512,
+        /// Records additional data, if applicable.  Usually returned by tracepoint events.
+        const PERF_SAMPLE_RAW = 1024,
+        /// This provides a record of recent branches, as provided by CPU branch  sampling  hardware  (such  as  Intel  Last
+        /// Branch Record).  Not all hardware supports this feature.
+        /// See the branch_sample_type field for how to filter which branches are reported.
+        const PERF_SAMPLE_BRANCH_STACK = 2048,
+        /// Records the current user-level CPU register state (the values in the process before the kernel was called).
+        const PERF_SAMPLE_REGS_USER = 4096,
+        /// Records the user level stack, allowing stack unwinding.
+        const PERF_SAMPLE_STACK_USER = 8192,
+        /// Records a hardware provided weight value that expresses how costly the sampled event was.
+        /// This allows the hardware to highlight expensive events in a profile.
+        const PERF_SAMPLE_WEIGHT = 16384,
+        /// Records the data source: where in the memory hierarchy the data associated with the sampled instruction came from.
+        /// This is only available if the underlying hardware supports this feature.
+        const PERF_SAMPLE_DATA_SRC = 32768,
+        const PERF_SAMPLE_IDENTIFIER = 65536,
+        const PERF_SAMPLE_TRANSACTION = 131072,
+    }
+}
+
+bitflags!{
+    flags ReadFormatFlags: u64 {
+        /// Adds the 64-bit time_enabled field.  This can be used to calculate estimated totals if the PMU is overcommitted
+        /// and multiplexing is happening.
+        const FORMAT_TOTAL_TIME_ENABLED = 1,
+        /// Adds the 64-bit time_running field.  This can be used to calculate estimated totals if the PMU is  overcommitted
+        /// and  multiplexing is happening.
+        const FORMAT_TOTAL_TIME_RUNNING = 2,
+        /// Adds a 64-bit unique value that corresponds to the event group.
+        const FORMAT_ID = 4,
+        /// Allows all counter values in an event group to be read with one read.
+        const FORMAT_GROUP = 8,
+    }
+}
 
 bitflags! {
-    flags EventAttrSettings: u64 {
+    flags EventAttrFlags: u64 {
                     /// off by default
                     const EVENT_ATTR_DISABLED       =  1 << 0,
                     /// children inherit it
@@ -239,37 +272,6 @@ bitflags! {
 }
 
 
-#[repr(C)]
-#[derive(Copy)]
-pub struct perf_event_attr {
-    pub _type: __u32,
-    pub size: __u32,
-    pub config: __u64,
-    pub sample_period_freq: __u64,
-    pub sample_type: __u64,
-    pub read_format: __u64,
-    pub settings: EventAttrSettings,
-
-    pub wakeup_events_watermark: __u32,
-    pub bp_type: __u32,
-
-    pub config1_or_bp_addr: __u64,
-    pub config2_or_bp_len: __u64,
-
-    pub branch_sample_type: __u64,
-    pub sample_regs_user: __u64,
-    pub sample_stack_user: __u32,
-    pub __reserved_2: __u32,
-}
-
-impl ::std::clone::Clone for perf_event_attr {
-    fn clone(&self) -> Self { *self }
-}
-
-impl ::std::default::Default for perf_event_attr {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-
 pub type Enum_perf_event_ioc_flags = ::libc::c_uint;
 
 pub const PERF_IOC_FLAG_GROUP: ::libc::c_uint = 1;
@@ -283,52 +285,6 @@ pub const PERF_EVENT_IOC_SET_OUTPUT: u64 = 9221;
 pub const PERF_EVENT_IOC_SET_FILTER: u64 = 1074275334;
 pub const PERF_EVENT_IOC_ID: u64 = 2148017159;
 
-#[repr(C)]
-#[derive(Copy)]
-pub struct perf_event_mmap_page {
-    pub version: __u32,
-    pub compat_version: __u32,
-    pub lock: __u32,
-    pub index: __u32,
-    pub offset: __s64,
-    pub time_enabled: __u64,
-    pub time_running: __u64,
-    pub _bindgen_data_1_: [u64; 1usize],
-    pub pmc_width: __u16,
-    pub time_shift: __u16,
-    pub time_mult: __u32,
-    pub time_offset: __u64,
-    pub time_zero: __u64,
-    pub size: __u32,
-    pub __reserved: [__u8; 948usize],
-    pub data_head: __u64,
-    pub data_tail: __u64,
-}
-impl perf_event_mmap_page {
-    pub unsafe fn capabilities(&mut self) -> *mut __u64 {
-        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_1_);
-        ::std::mem::transmute(raw.offset(0))
-    }
-}
-impl ::std::clone::Clone for perf_event_mmap_page {
-    fn clone(&self) -> Self { *self }
-}
-impl ::std::default::Default for perf_event_mmap_page {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy)]
-pub struct Struct_perf_event_header {
-    pub _type: __u32,
-    pub misc: __u16,
-    pub size: __u16,
-}
-impl ::std::clone::Clone for Struct_perf_event_header {
-    fn clone(&self) -> Self { *self }
-}
-impl ::std::default::Default for Struct_perf_event_header {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
 pub type Enum_perf_event_type = ::libc::c_uint;
 pub const PERF_RECORD_MMAP: ::libc::c_uint = 1;
 pub const PERF_RECORD_LOST: ::libc::c_uint = 2;
@@ -350,37 +306,3 @@ pub const PERF_CONTEXT_GUEST: ::libc::c_ulong = 18446744073709549568;
 pub const PERF_CONTEXT_GUEST_KERNEL: ::libc::c_ulong = 18446744073709549440;
 pub const PERF_CONTEXT_GUEST_USER: ::libc::c_ulong = 18446744073709549056;
 pub const PERF_CONTEXT_MAX: ::libc::c_ulong = 18446744073709547521;
-#[repr(C)]
-#[derive(Copy)]
-pub struct Union_perf_mem_data_src {
-    pub _bindgen_data_: [u64; 1usize],
-}
-impl Union_perf_mem_data_src {
-    pub unsafe fn val(&mut self) -> *mut __u64 {
-        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
-        ::std::mem::transmute(raw.offset(0))
-    }
-}
-impl ::std::clone::Clone for Union_perf_mem_data_src {
-    fn clone(&self) -> Self { *self }
-}
-impl ::std::default::Default for Union_perf_mem_data_src {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy)]
-pub struct Struct_perf_branch_entry {
-    pub from: __u64,
-    pub to: __u64,
-    pub _bindgen_bitfield_1_: __u64,
-    pub _bindgen_bitfield_2_: __u64,
-    pub _bindgen_bitfield_3_: __u64,
-    pub _bindgen_bitfield_4_: __u64,
-    pub _bindgen_bitfield_5_: __u64,
-}
-impl ::std::clone::Clone for Struct_perf_branch_entry {
-    fn clone(&self) -> Self { *self }
-}
-impl ::std::default::Default for Struct_perf_branch_entry {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
