@@ -675,7 +675,7 @@ pub struct FileReadFormat {
 }
 
 impl FileReadFormat {
-    unsafe fn copy_from_raw_ptr(attrs: &EventAttr, ptr: *const u8) -> FileReadFormat {
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> FileReadFormat {
         let value: u64 = read(ptr, 0);
         let time_enabled: u64 = read(ptr, 8);
         let time_running: u64 = read(ptr, 16);
@@ -777,14 +777,15 @@ impl<'a> AbstractPerfCounter for PerfCounter {
     }
 }
 
-pub struct SamplingPerfCounter<'a> {
+pub struct SamplingPerfCounter {
     pc: PerfCounter,
     map: mmap::MemoryMap,
-    header: &'a MMAPPage,
-    /// Points to the base of the events circular buffer.
-    events: *const u8,
-    /// Total size of the events record buffer.
     events_size: usize
+}
+
+struct MemRead {
+    ptr: *const u8,
+    bytes_read: usize
 }
 
 unsafe fn read<U : Copy>(ptr: *const u8, offset: isize) -> U {
@@ -1012,11 +1013,11 @@ pub struct ReadRecord {
 }
 
 impl ReadRecord {
-    unsafe fn copy_from_raw_ptr(attrs: &EventAttr, ptr: *const u8) -> ReadRecord {
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> ReadRecord {
         let header: EventHeader = EventHeader::copy_from_raw_ptr(ptr);
         let pid: u32 = read(ptr, 8);
         let tid: u32 = read(ptr, 12);
-        let frf: FileReadFormat = FileReadFormat::copy_from_raw_ptr(attrs, ptr.offset(16));
+        let frf: FileReadFormat = FileReadFormat::copy_from_raw_ptr(ptr.offset(16));
 
         ReadRecord { header: header, pid: pid, tid: tid, value: frf }
     }
@@ -1091,7 +1092,7 @@ pub struct SampleRecord {
 }
 
 impl SampleRecord {
-    unsafe fn copy_from_raw_ptr(attrs: &EventAttr, ptr: *const u8) -> SampleRecord {
+    unsafe fn copy_from_raw_ptr(ptr: *const u8) -> SampleRecord {
         let header: EventHeader = EventHeader::copy_from_raw_ptr(ptr);
         let ip: u64 = read(ptr, 8);
         let pid: u32 = read(ptr, 16);
@@ -1105,7 +1106,7 @@ impl SampleRecord {
         let period: u64 = read(ptr, 64);
 
         // TODO:
-        let v: FileReadFormat = FileReadFormat::copy_from_raw_ptr(attrs, ptr.offset(72));
+        let v: FileReadFormat = FileReadFormat::copy_from_raw_ptr(ptr.offset(72));
         let ips: Vec<u64> = Vec::new();
         let raw_sample: Vec<u8> = Vec::new();
         let lbr: Vec<BranchEntry> = Vec::new();
@@ -1157,7 +1158,7 @@ pub enum Event {
     Sample(SampleRecord),
 }
 
-impl<'a> Iterator for SamplingPerfCounter<'a> {
+impl Iterator for SamplingPerfCounter {
     type Item = Event;
 
     /// Iterate over the event buffer.
@@ -1166,13 +1167,15 @@ impl<'a> Iterator for SamplingPerfCounter<'a> {
     ///  * The exposed C struct layout would be difficult to read with request.
     ///  * We need to advance the tail pointer to make space for new events.
     fn next(&mut self) -> Option<Event> {
-        if self.header.data_tail < self.header.data_head {
-            let offset: isize = (self.header.data_tail as usize % self.events_size) as isize;
+        if self.header().data_tail < self.header().data_head {
+            let offset: isize = (self.header().data_tail as usize % self.events_size) as isize;
 
-            let event_ptr = unsafe { self.events.offset(offset) };
+            let mut bytes_read = 0;
+            let event_ptr = unsafe { self.events().offset(offset) };
             let event: EventHeader = unsafe { EventHeader::copy_from_raw_ptr(event_ptr) };
+            bytes_read += mem::size_of::<EventHeader>() as u64;
 
-            match event.event_type {
+            let record = match event.event_type {
                 perf_event::PERF_RECORD_MMAP => {
                     let record: MMAPRecord = unsafe { MMAPRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::MMAP(record))
@@ -1202,11 +1205,11 @@ impl<'a> Iterator for SamplingPerfCounter<'a> {
                     Some(Event::Fork(record))
                 },
                 perf_event::PERF_RECORD_READ => {
-                    let record: ReadRecord = unsafe { ReadRecord::copy_from_raw_ptr(&self.pc.attributes, event_ptr) };
+                    let record: ReadRecord = unsafe { ReadRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Read(record))
                 },
                 perf_event::PERF_RECORD_SAMPLE => {
-                    let record: SampleRecord = unsafe { SampleRecord::copy_from_raw_ptr(&self.pc.attributes, event_ptr) };
+                    let record: SampleRecord = unsafe { SampleRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Sample(record))
                 },
                 perf_event::PERF_RECORD_MMAP2 => {
@@ -1214,7 +1217,14 @@ impl<'a> Iterator for SamplingPerfCounter<'a> {
                     unreachable!();
                 },
                 _ => { panic!("Unknown type!"); }
-            }
+            };
+
+            //bytes_read += size;
+
+            let header = self.mut_header();
+            header.data_tail = bytes_read;
+
+            record
         }
         else {
             None
@@ -1222,9 +1232,9 @@ impl<'a> Iterator for SamplingPerfCounter<'a> {
     }
 }
 
-impl<'a> SamplingPerfCounter<'a> {
+impl SamplingPerfCounter {
 
-    pub fn new(pc: PerfCounter) -> SamplingPerfCounter<'a> {
+    pub fn new(pc: PerfCounter) -> SamplingPerfCounter {
         let size = (1+16)*4096;
         let res: mmap::MemoryMap = mmap::MemoryMap::new(size,
             &[ mmap::MapOption::MapFd(pc.fd),
@@ -1232,12 +1242,21 @@ impl<'a> SamplingPerfCounter<'a> {
                mmap::MapOption::MapNonStandardFlags(MAP_SHARED),
                mmap::MapOption::MapReadable ]).unwrap();
 
-        let header = unsafe { mem::transmute::<*mut u8, &MMAPPage>(res.data()) };
-        //mem::size_of::<MMAPPage>() as isize))
-        let events = unsafe { res.data().offset(4096) };
-
-        SamplingPerfCounter{ pc: pc, map: res, header: header, events: events, events_size: 16*4096 }
+        SamplingPerfCounter{ pc: pc, map: res, events_size: 16*4096 }
     }
+
+    fn header(&self) -> &MMAPPage {
+        unsafe { mem::transmute::<*mut u8, &MMAPPage>(self.map.data()) }
+    }
+
+    fn mut_header(&mut self) -> &mut MMAPPage {
+        unsafe { mem::transmute::<*mut u8, &mut MMAPPage>(self.map.data()) }
+    }
+
+    fn events(&self) -> *const u8 {
+        unsafe { self.map.data().offset(4096) }
+    }
+
 
     pub fn print(&mut self) {
         let event: Event = self.next().unwrap();
@@ -1253,6 +1272,5 @@ impl<'a> SamplingPerfCounter<'a> {
             Event::Read(a) => println!("{:?}", a),
             Event::Sample(a) => println!("{:?}", a),
         }
-
     }
 }

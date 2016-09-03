@@ -4,10 +4,10 @@ extern crate perfcnt;
 extern crate alloc;
 
 use perfcnt::{PerfCounter, AbstractPerfCounter};
-use perfcnt::linux::{SoftwareEventType, PerfCounterBuilderLinux, ReadFormat, CacheId, CacheOpId, CacheOpResultId, HardwareEventType, SamplingPerfCounter};
+use perfcnt::linux::{SoftwareEventType, PerfCounterBuilderLinux, CacheId, CacheOpId, CacheOpResultId, HardwareEventType, SamplingPerfCounter};
 use alloc::heap::{allocate};
 
-#[test]
+//#[test]
 pub fn sample_event() {
     let mut pc: PerfCounter = PerfCounterBuilderLinux::from_software_event(SoftwareEventType::CpuClock)
         .set_sample_frequency(10000)
@@ -25,10 +25,61 @@ pub fn sample_event() {
         println!("asdf");
 
         let mut spc = SamplingPerfCounter::new(pc);
-        spc.print();
+
+        for e in spc {
+            println!("{:?}", e);
+        }
 }
 
-//#[test]
+
+extern crate libc;
+extern crate mmap;
+extern crate byteorder;
+use std::io;
+use std::io::{Read, Cursor, Result};
+use byteorder::{BigEndian, ReadBytesExt};
+
+struct ReadableMemoryMap {
+    map: mmap::MemoryMap
+}
+
+impl ReadableMemoryMap {
+    pub fn new(mmap: mmap::MemoryMap) -> ReadableMemoryMap {
+        ReadableMemoryMap { map: mmap }
+    }
+
+    pub fn slice<'a>(&'a self) -> &'a [u8] {
+        unsafe {
+            std::slice::from_raw_parts(self.map.data(), self.map.len())
+        }
+    }
+}
+
+impl Read for ReadableMemoryMap {
+
+    fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+        Ok(1)
+    }
+}
+
+#[test]
+pub fn readbytes() {
+    use libc::{pid_t, MAP_ANONYMOUS, MAP_PRIVATE, strlen};
+    use mmap;
+    let size = 4096;
+    let res: mmap::MemoryMap = mmap::MemoryMap::new(size,
+        &[ mmap::MapOption::MapNonStandardFlags(MAP_ANONYMOUS | MAP_PRIVATE),
+           mmap::MapOption::MapReadable ]).unwrap();
+
+    let rmm = ReadableMemoryMap::new(res);
+    let mut c = Cursor::new(rmm.slice());
+    assert_eq!(0, c.read_u16::<BigEndian>().unwrap());
+    assert_eq!(0, c.read_u16::<BigEndian>().unwrap());
+}
+
+
+
+#[test]
 pub fn test_cache_events() {
     let mut pc: PerfCounter = PerfCounterBuilderLinux::from_cache_event(CacheId::L1D, CacheOpId::Read, CacheOpResultId::Miss)
         .finish()
@@ -40,7 +91,7 @@ pub fn test_cache_events() {
         assert!(res > 0);
 }
 
-//#[test]
+#[test]
 pub fn test_hardware_counter() {
     let mut pc: PerfCounter = PerfCounterBuilderLinux::from_hardware_event(HardwareEventType::CacheMisses)
         .exclude_kernel()
@@ -55,7 +106,7 @@ pub fn test_hardware_counter() {
         let res = pc.read().expect("Can not read the counter");
         assert!(res < 100);
 }
-
+/*
 
 #[test]
 pub fn test_software_events() {
@@ -88,4 +139,4 @@ pub fn test_software_events() {
     // Should be ~= 2
     let res = pc.read_fd().expect("Can not read the counter");
     assert_eq!(res.value, 2);
-}
+}*/

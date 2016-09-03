@@ -15,7 +15,14 @@ bitflags = "0.1.1"
 libc = "0.1.10"
 x86 = "0.6.0"
 mmap = "0.1.*"
+byteorder = "0.5"
+nom = "^1.2.4"
 
 [[bin]]
 name = "perfcnt-list"
 path = "src/bin/list.rs"
+
+
+[[bin]]
+name = "perfcnt-parse"
+path = "src/bin/parse.rs"
