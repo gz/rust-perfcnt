@@ -3,8 +3,9 @@ extern crate perfcnt;
 use std::io::prelude::*;
 use std::fs::File;
 use std::env;
+use std::path::Path;
 
-use perfcnt::parser;
+use perfcnt::parser::{PerfFile};
 
 fn main() {
     for argument in env::args().skip(1) {
@@ -16,8 +17,10 @@ fn main() {
         match file.read_to_end(&mut buf) {
             Ok(len) => {
                 println!("File read: {:?} bytes", len);
-                let r = perfcnt::parser::parse_perf_data(buf.as_slice());
-                println!("{:?}", r);
+                let pf = PerfFile::new(buf);
+                println!("{:?}", pf.header);
+                println!("{:?}", pf.sections());
+                println!("{:?}", pf.data());
             }
             Err(e) => {
                 panic!("Can't read {:?}: {}", file, e);
