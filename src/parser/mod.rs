@@ -21,11 +21,13 @@ struct Throttle {
     // sample id?
 }
 
+#[derive(Debug)]
 struct ThreadId {
     pid: i32,
     tid: i32
 }
 
+#[derive(Debug)]
 struct Cpu {
     cpu: u32,
     res: u32
@@ -35,56 +37,206 @@ struct Callchain {
 
 }
 
-struct Event {
-    identifier: u64,
-    ip: u64,
-    tid: ThreadId,
-    time: u64,
-    add: u64,
-    id: u64,
-    stream_id: u64,
-    cpu: Cpu,
-    period: u64,
-    read: u8, // XXX
-    caller: Vec<u64>,
 
-}
-
+#[derive(Debug, Eq, PartialEq)]
 enum EventType {
     Mmap,
     Lost,
     Comm,
+    Exit,
     Throttle,
     Unthrottle,
     Fork,
     Read,
     Sample,
-    Mmap2,
-    TracingData,
-    FinishedRound,
-    IdIndex,
-    AuxtraceInfo,
-    Auxtrace,
-    AuxtraceError
+    Mmap2
+}
+
+impl EventType {
+    fn new(event_type: u32) -> EventType {
+        match event_type {
+            1 => EventType::Mmap,
+            2 => EventType::Lost,
+            3 => EventType::Comm,
+            4 => EventType::Exit,
+            5 => EventType::Throttle,
+            6 => EventType::Unthrottle,
+            7 => EventType::Fork,
+            8 => EventType::Read,
+            9 => EventType::Sample,
+            10 => EventType::Mmap2,
+            _ => panic!("Unknown event type ({}) encountered, update the enum?", event_type)
+        }
+    }
 }
 
 #[derive(Debug)]
 struct EventHeader {
-    event_type: u32,
-    flags: u16,
+    event_type: EventType,
+    misc: u16,
     size: u16,
+}
 
+impl EventHeader {
+    pub fn size(&self) -> usize {
+        self.size as usize
+    }
 }
 
 /// Parse a file section
 named!(parse_event_header<&[u8], EventHeader>,
     chain!(
         event_type: le_u32 ~
-        flags: le_u16 ~
+        misc: le_u16 ~
         size: le_u16,
-        || EventHeader { event_type: event_type, flags: flags, size: size }
+        || EventHeader { event_type: EventType::new(event_type), misc: misc, size: size }
     )
 );
+
+/// The MMAP events record the PROT_EXEC mappings so that we can correlate user-space IPs to code.
+#[derive(Debug)]
+pub struct MMAPRecord {
+    pid: i32,
+    tid: u32,
+    addr: u64,
+    len: u64,
+    pgoff: u64,
+    filename: String
+}
+
+#[derive(Default, Debug)]
+pub struct FileReadFormat {
+    /// The value of the event
+    pub value: u64,
+    /// if PERF_FORMAT_TOTAL_TIME_ENABLED
+    pub time_enabled: u64,
+    /// if PERF_FORMAT_TOTAL_TIME_RUNNING
+    pub time_running: u64,
+    /// if PERF_FORMAT_ID
+    pub id: u64,
+}
+
+#[derive(Debug)]
+pub struct ReadRecord {
+    pid: u32,
+    tid: u32,
+    value: FileReadFormat, // TODO with PERF_FORMAT_GROUP: values: Vec<FileReadFormat>
+}
+
+#[derive(Debug)]
+struct BranchEntry {
+    pub from: u64,
+    pub to: u64,
+    flags: u64,
+}
+
+/// This record indicates a sample.
+#[derive(Debug)]
+pub struct SampleRecord {
+    /// if PERF_SAMPLE_IP
+    ip: Option<u64>,
+    /// if PERF_SAMPLE_TID
+    pid_tid: Option<ThreadId>,
+    /// if PERF_SAMPLE_TIME
+    time: Option<u64>,
+    /// if PERF_SAMPLE_ADDR
+    addr: Option<u64>,
+    /// if PERF_SAMPLE_ID
+    id: Option<u64>,
+    /// if PERF_SAMPLE_STREAM_ID
+    stream_id: Option<u64>,
+    /// if PERF_SAMPLE_CPU
+    cpu_res: Option<Cpu>,
+    /// if PERF_SAMPLE_PERIOD
+    period: Option<u64>,
+    /// if PERF_SAMPLE_READ
+    v: FileReadFormat, // # TODO FILE GROUP FORMAT is different...
+    /// if PERF_SAMPLE_CALLCHAIN
+    ips: Option<Vec<u64>>,
+    /// if PERF_SAMPLE_RAW
+    raw_sample: Option<Vec<u8>>,
+    /// if PERF_SAMPLE_REGS_USER & PERF_SAMPLE_BRANCH_STACK
+    lbr: Option<Vec<BranchEntry>>,
+    /// PERF_SAMPLE_STACK_USER
+    abi_user: Option<u64>,
+    /// PERF_SAMPLE_STACK_USER
+    regs_user: Option<Vec<u64>>,
+    /// PERF_SAMPLE_STACK_USER
+    user_stack: Option<Vec<u8>>,
+    /// PERF_SAMPLE_STACK_USER
+    dyn_size: Option<u64>,
+    /// if PERF_SAMPLE_WEIGHT
+    weight: Option<u64>,
+    /// if PERF_SAMPLE_DATA_SRC
+    data_src: Option<u64>,
+    /// if PERF_SAMPLE_TRANSACTION
+    transaction: Option<u64>,
+    /// if PERF_SAMPLE_REGS_INTR
+    abi_intr: Option<u64>,
+    /// if PERF_SAMPLE_REGS_INTR
+    regs_intr: Option<Vec<u64>>
+}
+
+#[derive(Debug)]
+pub struct LostRecord {
+
+}
+
+#[derive(Debug)]
+struct Event {
+    header: EventHeader,
+    data: EventData,
+}
+
+#[derive(Debug)]
+pub enum EventData {
+    MMAP(MMAPRecord),
+    Lost(LostRecord),
+    //Comm(CommRecord),
+    //Exit(ExitRecord),
+    //Throttle(ThrottleRecord),
+    //Unthrottle(ThrottleRecord),
+    //Fork(ForkRecord),
+    //Read(ReadRecord),
+    //Sample(SampleRecord),
+}
+
+fn is_nul_byte(c: &u8) -> bool {
+    *c == 0x0
+}
+
+named!(parse_c_string, take_till!(is_nul_byte));
+
+named!(parse_mmap_event<&[u8], EventData>,
+    chain!(
+        pid: le_i32 ~
+        tid: le_u32 ~
+        addr: le_u64 ~
+        len: le_u64 ~
+        pgoff: le_u64 ~
+        filename: parse_c_string,
+        || EventData::MMAP(MMAPRecord {
+                pid: pid,
+                tid: tid,
+                addr: addr,
+                len: len,
+                pgoff: pgoff,
+                filename: unsafe { String::from_utf8_unchecked(filename.to_vec()) }
+        })
+    )
+);
+
+/// Parse a file section
+named!(parse_event<&[u8], Event>,
+    chain!(
+        header: parse_event_header ~
+        event: alt!(
+            cond_reduce!(header.event_type == EventType::Mmap, parse_mmap_event) |
+            cond_reduce!(header.event_type == EventType::Lost, parse_mmap_event)
+        ),
+        || Event { header: header, data: event })
+);
+
 
 
 /*
@@ -132,6 +284,16 @@ def perf_event_header():
 pub struct PerfFileSection {
     offset: u64,
     size: u64
+}
+
+impl PerfFileSection {
+    fn start(&self) -> usize {
+        self.offset as usize
+    }
+
+    fn end(&self) -> usize {
+        (self.offset + self.size) as usize
+    }
 }
 
 /// Parse a file section
@@ -333,9 +495,21 @@ impl PerfFile {
     }
 
     pub fn data(&self) {
-        let data_start = self.header.data.offset as usize;
-        let slice: &[u8] = &self.bytes[data_start..];
-        println!("{:?}", parse_event_header(slice));
+        let mut slice: &[u8] = &self.bytes[self.header.data.start()..self.header.data.end()];
+
+        while slice.len() > 0 {
+            let r = parse_event(slice);
+            match r {
+                IResult::Done(rest, ev) => {
+                    println!("{:?}", ev);
+                    println!("Parsed bytes: {:?}", slice.len() - rest.len());
+                    println!("Event size: {:?}", ev.header.size());
+                    println!("Padding: {:?}", ev.header.size() - (slice.len() - rest.len()) );
+                    slice = rest.split_at( ev.header.size() - (slice.len() - rest.len()) ).1;
+                },
+                _ => break
+            }
+        }
     }
 
     pub fn sections(&self) -> Vec<(HeaderFlag, PerfFileSection)> {
