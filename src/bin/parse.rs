@@ -20,6 +20,7 @@ fn main() {
                 let pf = PerfFile::new(buf);
                 println!("{:?}", pf.header);
                 println!("{:?}", pf.sections());
+                println!("{:?}", pf.attrs);
                 println!("{:?}", pf.data());
             }
             Err(e) => {
