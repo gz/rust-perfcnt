@@ -783,11 +783,6 @@ pub struct SamplingPerfCounter {
     events_size: usize
 }
 
-struct MemRead {
-    ptr: *const u8,
-    bytes_read: usize
-}
-
 unsafe fn read<U : Copy>(ptr: *const u8, offset: isize) -> U {
     let newptr = mem::transmute::<*const u8, *const U>(ptr.offset(offset));
     ptr::read(newptr)
@@ -842,10 +837,6 @@ impl EventHeader {
         let misc: u16 = read(ptr, 4);
         let size: u16 = read(ptr, 6);
         EventHeader { event_type: event_type, misc: misc, size: size }
-    }
-
-    pub fn size(&self) -> usize {
-        self.size as usize
     }
 }
 
