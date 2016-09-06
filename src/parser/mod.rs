@@ -1,5 +1,15 @@
 use nom::*;
 
+macro_rules! stderr {
+    ($($arg:tt)*) => (
+        use std::io::Write;
+        match writeln!(&mut ::std::io::stderr(), $($arg)* ) {
+            Ok(_) => {},
+            Err(x) => panic!("Unable to write to stderr (file handle closed?): {}", x),
+        }
+    )
+}
+
 #[derive(Debug)]
 struct ThreadId {
     pid: i32,
@@ -533,16 +543,13 @@ pub fn parse_comm_event(input: &[u8]) -> IResult<&[u8], EventData> {
     )
 }
 
-
-
-
 #[derive(Debug)]
 pub struct LostRecord {
 
 }
 
 #[derive(Debug)]
-struct Event {
+pub struct Event {
     header: EventHeader,
     data: EventData,
 }
@@ -640,6 +647,120 @@ named!(parse_file_section<&[u8], PerfFileSection>,
         || PerfFileSection { offset: offset, size: size }
     )
 );
+
+
+/*
+struct perf_header_string {
+       uint32_t len;
+       char string[len]; /* zero terminated */
+};
+
+Some headers consist of a sequence of strings, which start with a
+
+struct perf_header_string_list {
+     uint32_t nr;
+     struct perf_header_string strings[nr]; /* variable length records */
+};*/
+
+named!(parse_perf_string<&[u8], String>,
+    chain!(
+        length: le_u32 ~
+        bytes: take!(length as usize),
+        || unsafe { String::from_utf8_unchecked(bytes.to_vec()) }
+    )
+);
+
+named!(parse_perf_string_list<&[u8], Vec<String> >,
+    chain!(
+        nr: le_u32 ~
+        strings: count!(parse_perf_string, nr as usize),
+        || strings
+    )
+);
+
+struct NrCpus {
+    /// How many CPUs are online
+    online: u32,
+    /// CPUs not yet online
+    available: u32
+}
+
+named!(parse_nrcpus<&[u8], NrCpus>,
+    chain!(
+        nr_online: le_u32 ~
+        nr_available: le_u32,
+        || NrCpus { online: nr_online, available: nr_available }
+    )
+);
+
+#[derive(Debug)]
+struct EventDesc {
+    attr: EventAttr,
+    event_string: String,
+    ids: Vec<u64>
+}
+
+fn parse_event_desc(input: &[u8]) -> IResult<&[u8], Vec<EventDesc>> {
+    chain!(input,
+        nr: le_u32 ~
+        attr_size: le_u32 ~
+        descs: count!(
+            chain!(
+                attr: flat_map!(take!(attr_size as usize), parse_event_attr) ~
+                nr_ids: le_u32 ~
+                event_string: parse_perf_string ~
+                ids: call!(parse_vec_u64_variable, nr_ids as usize),
+                || EventDesc {
+                    attr: attr,
+                    event_string: event_string,
+                    ids: ids
+                }
+            ), nr as usize),
+        || descs
+    )
+}
+
+#[derive(Debug)]
+struct CpuTopology {
+    cores: Vec<String>,
+    threads: Vec<String>
+}
+
+#[derive(Debug)]
+struct NumaTopology {
+
+}
+
+#[derive(Debug)]
+struct PmuMappings {
+
+}
+
+#[derive(Debug)]
+struct GroupDesc {
+
+}
+
+#[derive(Debug)]
+struct BuildId {
+	pid: i32,
+	build_id: Vec<u8>,
+    filename: String,
+}
+
+fn parse_build_id<'a>(input: &'a [u8], header: &'a EventHeader) -> IResult<&'a [u8], BuildId> {
+    chain!(input,
+        pid: le_i32 ~
+        build_id: take!(24),
+        //TODO: filename: filename[header.size - offsetof(struct build_id_event, filename)];
+        || BuildId {
+            pid: pid,
+            build_id: build_id.to_owned(),
+            filename: String::new()
+        }
+    )
+}
+
 
 #[derive(Debug, Clone, Copy)]
 pub enum HeaderFlag {
@@ -1123,16 +1244,50 @@ named!(parse_event_attr<&[u8], EventAttr>,
 ));
 
 
+
 #[derive(Debug)]
 pub struct PerfFile {
-    bytes: Vec<u8>,
     pub header: PerfFileHeader,
-    pub attrs: Vec<EventAttr>
+    pub attrs: Vec<EventAttr>,
+    bytes: Vec<u8>,
     //sections: Vec<PerfFileSection>,
 }
 
-impl PerfFile {
+pub struct PerfFileEventDataIter<'a> {
+    attrs: &'a Vec<EventAttr>,
+    data: &'a [u8],
+    offset: usize
+}
 
+impl<'a> Iterator for PerfFileEventDataIter<'a> {
+    type Item = Event;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let slice = &self.data[self.offset..];
+        if slice.len() > 8 {
+            let r = parse_event(slice, self.attrs);
+            match r {
+                IResult::Done(_, ev) => {
+                    self.offset += ev.header.size();
+                    Some(ev)
+                },
+                IResult::Error(_) => {
+                    stderr!("Error parsing data section");
+                    None
+                },
+                IResult::Incomplete(n) => {
+                    stderr!("Got incomplete data ({:?}) when parsing data section", n);
+                    None
+                }
+            }
+        }
+        else {
+            None
+        }
+    }
+}
+
+impl PerfFile {
 
     pub fn new(bytes: Vec<u8>) -> PerfFile {
         let header = match parse_header(bytes.as_slice()) {
@@ -1140,6 +1295,7 @@ impl PerfFile {
             IResult::Error(e) => panic!("{:?}", e),
             IResult::Incomplete(_) => panic!("Incomplete data?"),
         };
+
         let attrs = {
             let attr_size = header.attr_size as usize;
             let slice: &[u8] = &bytes[header.attrs.start()..header.attrs.end()];
@@ -1149,24 +1305,9 @@ impl PerfFile {
         PerfFile { bytes: bytes, header: header, attrs: attrs }
     }
 
-    pub fn data(&self) {
-        let mut slice: &[u8] = &self.bytes[self.header.data.start()..self.header.data.end()];
-
-        while slice.len() > 8 {
-            let r = parse_event(slice, &self.attrs);
-            match r {
-                IResult::Done(rest, ev) => {
-                    println!("{:?}", ev);
-                    println!("Parsed bytes: {:?}", slice.len() - rest.len());
-                    println!("Event size: {:?}", ev.header.size());
-                    println!("Padding: {:?}", ev.header.size() - (slice.len() - rest.len()) );
-                    slice = rest.split_at( ev.header.size() - (slice.len() - rest.len()) ).1;
-                    println!("Remaining slice: {:?}", slice.len());
-                },
-                IResult::Error(_) => { panic!("Got error"); },
-                IResult::Incomplete(_) => { panic!("Got incomplete:"); }
-            }
-        }
+    pub fn data(&self) -> PerfFileEventDataIter {
+        let slice: &[u8] = &self.bytes[self.header.data.start()..self.header.data.end()];
+        PerfFileEventDataIter { attrs: &self.attrs, data: slice, offset: 0 }
     }
 
     pub fn sections(&self) -> Vec<(HeaderFlag, PerfFileSection)> {

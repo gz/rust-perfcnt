@@ -21,7 +21,10 @@ fn main() {
                 println!("{:?}", pf.header);
                 println!("{:?}", pf.sections());
                 println!("{:?}", pf.attrs);
-                println!("{:?}", pf.data());
+
+                for e in pf.data() {
+                    println!("{:?}", e);
+                }
             }
             Err(e) => {
                 panic!("Can't read {:?}: {}", file, e);
