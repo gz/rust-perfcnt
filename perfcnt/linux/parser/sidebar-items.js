@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["parse_comm_record",""],["parse_sample_record",""]],"struct":[["PerfFile",""],["PerfFileEventDataIter",""]]});
+initSidebarItems({"fn":[["parse_comm_record",""],["parse_sample_id",""],["parse_sample_record",""]],"struct":[["PerfFile",""],["PerfFileEventDataIter",""]]});
