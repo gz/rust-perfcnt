@@ -1,15 +1,12 @@
-#![feature(alloc, heap_api)]
-
 extern crate perfcnt;
-extern crate alloc;
 
+use std::io::Result;
 use perfcnt::{PerfCounter, AbstractPerfCounter};
 use perfcnt::linux::{SoftwareEventType, PerfCounterBuilderLinux, CacheId, CacheOpId, CacheOpResultId, HardwareEventType, SamplingPerfCounter};
-use alloc::heap::{allocate};
 
 //#[test]
 pub fn sample_event() {
-    let mut pc: PerfCounter = PerfCounterBuilderLinux::from_software_event(SoftwareEventType::CpuClock)
+    let pc: PerfCounter = PerfCounterBuilderLinux::from_software_event(SoftwareEventType::CpuClock)
         .set_sample_frequency(10000)
         .set_ip_sample_zero_skid()
         .enable_mmap()
@@ -17,94 +14,53 @@ pub fn sample_event() {
         .finish()
         .expect("Could not create counter");
 
-        pc.start().expect("Can not start the counter");
-        println!("asdf");
-        println!("asdf");
-        println!("asdf");
-        println!("asdf");
-        println!("asdf");
+    pc.start().expect("Can not start the counter");
+    println!("asdf");
+    println!("asdf");
+    println!("asdf");
+    println!("asdf");
+    println!("asdf");
 
-        let mut spc = SamplingPerfCounter::new(pc);
+    let spc = SamplingPerfCounter::new(pc);
 
-        for e in spc {
-            println!("{:?}", e);
-        }
-}
-
-
-extern crate libc;
-extern crate mmap;
-extern crate byteorder;
-use std::io;
-use std::io::{Read, Cursor, Result};
-use byteorder::{BigEndian, ReadBytesExt};
-
-struct ReadableMemoryMap {
-    map: mmap::MemoryMap
-}
-
-impl ReadableMemoryMap {
-    pub fn new(mmap: mmap::MemoryMap) -> ReadableMemoryMap {
-        ReadableMemoryMap { map: mmap }
-    }
-
-    pub fn slice<'a>(&'a self) -> &'a [u8] {
-        unsafe {
-            std::slice::from_raw_parts(self.map.data(), self.map.len())
-        }
+    for e in spc {
+        println!("{:?}", e);
     }
 }
-
-impl Read for ReadableMemoryMap {
-
-    fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
-        Ok(1)
-    }
-}
-
-#[test]
-pub fn readbytes() {
-    use libc::{pid_t, MAP_ANONYMOUS, MAP_PRIVATE, strlen};
-    use mmap;
-    let size = 4096;
-    let res: mmap::MemoryMap = mmap::MemoryMap::new(size,
-        &[ mmap::MapOption::MapNonStandardFlags(MAP_ANONYMOUS | MAP_PRIVATE),
-           mmap::MapOption::MapReadable ]).unwrap();
-
-    let rmm = ReadableMemoryMap::new(res);
-    let mut c = Cursor::new(rmm.slice());
-    assert_eq!(0, c.read_u16::<BigEndian>().unwrap());
-    assert_eq!(0, c.read_u16::<BigEndian>().unwrap());
-}
-
-
 
 #[test]
 pub fn test_cache_events() {
-    let mut pc: PerfCounter = PerfCounterBuilderLinux::from_cache_event(CacheId::L1D, CacheOpId::Read, CacheOpResultId::Miss)
-        .finish()
-        .expect("Could not create counter");
+    let ret: Result<PerfCounter> = PerfCounterBuilderLinux::from_cache_event(CacheId::L1D, CacheOpId::Read, CacheOpResultId::Miss)
+                 .finish();
 
-        pc.start().expect("Can not start the counter");
-        pc.stop().expect("Can not stop the counter");
-        let res = pc.read().expect("Can not read the counter");
-        assert!(res > 0);
+    match ret {
+        Ok(mut pc) => {
+            pc.start().expect("Can not start the counter");
+            pc.stop().expect("Can not stop the counter");
+            let res = pc.read().expect("Can not read the counter");
+            assert!(res > 0);
+        }
+        Err(e) => assert!(e.raw_os_error().unwrap() == 2)
+    }
 }
 
 #[test]
 pub fn test_hardware_counter() {
-    let mut pc: PerfCounter = PerfCounterBuilderLinux::from_hardware_event(HardwareEventType::CacheMisses)
+    let ret: Result<PerfCounter> = PerfCounterBuilderLinux::from_hardware_event(HardwareEventType::CacheMisses)
         .exclude_kernel()
         .exclude_idle()
-        .finish()
-        .expect("Could not create counter");
+        .finish();
 
-        pc.reset().expect("Can not reset");
-        pc.start().expect("Can not stop the counter");
-        pc.stop().expect("Can not start the counter");
-
-        let res = pc.read().expect("Can not read the counter");
-        assert!(res < 100);
+    match ret {
+        Ok(mut pc) => {
+            pc.reset().expect("Can not reset");
+            pc.start().expect("Can not stop the counter");
+            pc.stop().expect("Can not start the counter");
+            let res = pc.read().expect("Can not read the counter");
+            assert!(res < 100);
+        }
+        Err(e) => assert!(e.raw_os_error().unwrap() == 2)
+    }
 }
 /*
 
