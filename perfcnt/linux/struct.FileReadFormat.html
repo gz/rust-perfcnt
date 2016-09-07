@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,27 +44,38 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>perfcnt</a>::<wbr><a href='index.html'>linux</a>::<wbr><a class='struct' href=''>FileReadFormat</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-646' class='srclink' href='../../src/perfcnt/src/linux/mod.rs.html#467-476' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3710' class='srclink' href='../../src/perfcnt/linux/mod.rs.html#670-679' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct FileReadFormat {
     pub value: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
     pub time_enabled: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
     pub time_running: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
     pub id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
-}</pre><h2 class='fields'>Fields</h2>
-<table><tr class='stab '>
-                                  <td id='structfield.value'><code>value</code></td><td><div class='docblock'><p>The value of the event</p>
-</div></td></tr><tr class='stab '>
-                                  <td id='structfield.time_enabled'><code>time_enabled</code></td><td><div class='docblock'><p>if PERF_FORMAT_TOTAL_TIME_ENABLED</p>
-</div></td></tr><tr class='stab '>
-                                  <td id='structfield.time_running'><code>time_running</code></td><td><div class='docblock'><p>if PERF_FORMAT_TOTAL_TIME_RUNNING</p>
-</div></td></tr><tr class='stab '>
-                                  <td id='structfield.id'><code>id</code></td><td><div class='docblock'><p>if PERF_FORMAT_ID</p>
-</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../perfcnt/linux/struct.FileReadFormat.html' title='perfcnt::linux::FileReadFormat'>FileReadFormat</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../../perfcnt/linux/struct.FileReadFormat.html' title='perfcnt::linux::FileReadFormat'>FileReadFormat</a></code></h3><div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#method.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../../perfcnt/linux/struct.FileReadFormat.html' title='perfcnt::linux::FileReadFormat'>FileReadFormat</a></code></h4>
-</div></section>
+}</pre><h2 class='fields'>Fields</h2><span id='structfield.value' class='structfield'>
+                           <span id='value.v' class='invisible'>
+                           <code>value: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The value of the event</p>
+</div><span id='structfield.time_enabled' class='structfield'>
+                           <span id='time_enabled.v' class='invisible'>
+                           <code>time_enabled: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>if PERF_FORMAT_TOTAL_TIME_ENABLED</p>
+</div><span id='structfield.time_running' class='structfield'>
+                           <span id='time_running.v' class='invisible'>
+                           <code>time_running: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>if PERF_FORMAT_TOTAL_TIME_RUNNING</p>
+</div><span id='structfield.id' class='structfield'>
+                           <span id='id.v' class='invisible'>
+                           <code>id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>if PERF_FORMAT_ID</p>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../perfcnt/linux/struct.FileReadFormat.html' title='perfcnt::linux::FileReadFormat'>FileReadFormat</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3699' class='srclink' href='../../src/perfcnt/linux/mod.rs.html#669' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../../perfcnt/linux/struct.FileReadFormat.html' title='perfcnt::linux::FileReadFormat'>FileReadFormat</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3708' class='srclink' href='../../src/perfcnt/linux/mod.rs.html#669' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class='method'><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../../perfcnt/linux/struct.FileReadFormat.html' title='perfcnt::linux::FileReadFormat'>FileReadFormat</a></code></span></h4>
+<div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -86,6 +98,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

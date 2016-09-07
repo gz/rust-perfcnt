@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,174 +44,170 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>perfcnt</a>::<wbr><a class='mod' href=''>linux</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-8' class='srclink' href='../../src/perfcnt/src/linux/mod.rs.html#1-1058' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-9' class='srclink' href='../../src/perfcnt/linux/mod.rs.html#1-1271' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>A wrapper around perf_event open (<a href="http://lxr.free-electrons.com/source/tools/perf/design.txt">http://lxr.free-electrons.com/source/tools/perf/design.txt</a>)</p>
-</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.CommRecord.html'
-                               title='perfcnt::linux::CommRecord'>CommRecord</a></td>
-                        <td class='docblock short'>
-                             <p>This record indicates a change in the process name.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ExitRecord.html'
-                               title='perfcnt::linux::ExitRecord'>ExitRecord</a></td>
-                        <td class='docblock short'>
-                             <p>This record indicates a process exit event.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.FileReadFormat.html'
-                               title='perfcnt::linux::FileReadFormat'>FileReadFormat</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ForkRecord.html'
-                               title='perfcnt::linux::ForkRecord'>ForkRecord</a></td>
-                        <td class='docblock short'>
-                             <p>This record indicates a fork event.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.LostRecord.html'
-                               title='perfcnt::linux::LostRecord'>LostRecord</a></td>
-                        <td class='docblock short'>
-                             <p>This record indicates when events are lost.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.MMAPPage.html'
-                               title='perfcnt::linux::MMAPPage'>MMAPPage</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.MMAPRecord.html'
-                               title='perfcnt::linux::MMAPRecord'>MMAPRecord</a></td>
-                        <td class='docblock short'>
-                             <p>The MMAP events record the PROT_EXEC mappings so that we can correlate user-space IPs to code.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.PerfCounter.html'
-                               title='perfcnt::linux::PerfCounter'>PerfCounter</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.PerfCounterBuilderLinux.html'
-                               title='perfcnt::linux::PerfCounterBuilderLinux'>PerfCounterBuilderLinux</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ReadRecord.html'
-                               title='perfcnt::linux::ReadRecord'>ReadRecord</a></td>
-                        <td class='docblock short'>
-                             <p>This record indicates a read event.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.SampleRecord.html'
-                               title='perfcnt::linux::SampleRecord'>SampleRecord</a></td>
-                        <td class='docblock short'>
-                             <p>This record indicates a sample.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.SamplingPerfCounter.html'
-                               title='perfcnt::linux::SamplingPerfCounter'>SamplingPerfCounter</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ThrottleRecord.html'
-                               title='perfcnt::linux::ThrottleRecord'>ThrottleRecord</a></td>
-                        <td class='docblock short'>
-                             <p>This record indicates a throttle/unthrottle event.</p>
-                        </td>
-                    </tr>
-                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='parser/index.html'
+                                  title='perfcnt::linux::parser'>parser</a></td>
+                           <td class='docblock short'>
+                                <p>Uses the <code>nom</code> library to parse the in memory format of perf data structures and
+transforms them into more rust-like data-strutures.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='perf_format/index.html'
+                                  title='perfcnt::linux::perf_format'>perf_format</a></td>
+                           <td class='docblock short'>
+                                <p>Contains the various data format structures as used by perf</p>
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.CacheId.html'
-                               title='perfcnt::linux::CacheId'>CacheId</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.CacheOpId.html'
-                               title='perfcnt::linux::CacheOpId'>CacheOpId</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.CacheOpResultId.html'
-                               title='perfcnt::linux::CacheOpResultId'>CacheOpResultId</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.Event.html'
-                               title='perfcnt::linux::Event'>Event</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.HardwareEventType.html'
-                               title='perfcnt::linux::HardwareEventType'>HardwareEventType</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.ReadFormat.html'
-                               title='perfcnt::linux::ReadFormat'>ReadFormat</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.SoftwareEventType.html'
-                               title='perfcnt::linux::SoftwareEventType'>SoftwareEventType</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.CommRecord.html'
+                                  title='perfcnt::linux::CommRecord'>CommRecord</a></td>
+                           <td class='docblock short'>
+                                <p>This record indicates a change in the process name.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.EventAttr.html'
+                                  title='perfcnt::linux::EventAttr'>EventAttr</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.ExitRecord.html'
+                                  title='perfcnt::linux::ExitRecord'>ExitRecord</a></td>
+                           <td class='docblock short'>
+                                <p>This record indicates a process exit event.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.FileReadFormat.html'
+                                  title='perfcnt::linux::FileReadFormat'>FileReadFormat</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.ForkRecord.html'
+                                  title='perfcnt::linux::ForkRecord'>ForkRecord</a></td>
+                           <td class='docblock short'>
+                                <p>This record indicates a fork event.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.LostRecord.html'
+                                  title='perfcnt::linux::LostRecord'>LostRecord</a></td>
+                           <td class='docblock short'>
+                                <p>This record indicates when events are lost.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.MMAPPage.html'
+                                  title='perfcnt::linux::MMAPPage'>MMAPPage</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.MMAPRecord.html'
+                                  title='perfcnt::linux::MMAPRecord'>MMAPRecord</a></td>
+                           <td class='docblock short'>
+                                <p>The MMAP events record the PROT_EXEC mappings so that we can correlate user-space IPs to code.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.PerfCounter.html'
+                                  title='perfcnt::linux::PerfCounter'>PerfCounter</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.PerfCounterBuilderLinux.html'
+                                  title='perfcnt::linux::PerfCounterBuilderLinux'>PerfCounterBuilderLinux</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.ReadRecord.html'
+                                  title='perfcnt::linux::ReadRecord'>ReadRecord</a></td>
+                           <td class='docblock short'>
+                                <p>This record indicates a read event.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.SampleRecord.html'
+                                  title='perfcnt::linux::SampleRecord'>SampleRecord</a></td>
+                           <td class='docblock short'>
+                                <p>This record indicates a sample.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.SamplingPerfCounter.html'
+                                  title='perfcnt::linux::SamplingPerfCounter'>SamplingPerfCounter</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.ThrottleRecord.html'
+                                  title='perfcnt::linux::ThrottleRecord'>ThrottleRecord</a></td>
+                           <td class='docblock short'>
+                                <p>This record indicates a throttle/unthrottle event.</p>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.CacheId.html'
+                                  title='perfcnt::linux::CacheId'>CacheId</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.CacheOpId.html'
+                                  title='perfcnt::linux::CacheOpId'>CacheOpId</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.CacheOpResultId.html'
+                                  title='perfcnt::linux::CacheOpResultId'>CacheOpResultId</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.Event.html'
+                                  title='perfcnt::linux::Event'>Event</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.HardwareEventType.html'
+                                  title='perfcnt::linux::HardwareEventType'>HardwareEventType</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.SoftwareEventType.html'
+                                  title='perfcnt::linux::SoftwareEventType'>SoftwareEventType</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -233,6 +230,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

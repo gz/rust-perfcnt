@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content enum">
 <h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>perfcnt</a>::<wbr><a href='index.html'>linux</a>::<wbr><a class='enum' href=''>SoftwareEventType</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-497' class='srclink' href='../../src/perfcnt/src/linux/mod.rs.html#96-136' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3472' class='srclink' href='../../src/perfcnt/linux/mod.rs.html#205-245' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum SoftwareEventType {
     CpuClock,
     TaskClock,
@@ -58,27 +59,27 @@
     AlignmentFaults,
     EmulationFaults,
 }</pre><h2 class='variants'>Variants</h2>
-<table class='variants_table'><tr><td id='variant.CpuClock'><code>CpuClock</code></td><td><div class='docblock'><p>This reports the CPU clock, a high-resolution per-CPU timer.</p>
-</div></td><td></td></tr><tr><td id='variant.TaskClock'><code>TaskClock</code></td><td><div class='docblock'><p>This reports a clock count specific to the task that is running.</p>
-</div></td><td></td></tr><tr><td id='variant.PageFaults'><code>PageFaults</code></td><td><div class='docblock'><p>This reports the number of page faults.</p>
-</div></td><td></td></tr><tr><td id='variant.ContextSwitches'><code>ContextSwitches</code></td><td><div class='docblock'><p>This counts context switches.</p>
+<span id='variant.CpuClock' class='variant'><span id='CpuClock.v' class='invisible'><code>CpuClock</code></span></span><div class='docblock'><p>This reports the CPU clock, a high-resolution per-CPU timer.</p>
+</div><span id='variant.TaskClock' class='variant'><span id='TaskClock.v' class='invisible'><code>TaskClock</code></span></span><div class='docblock'><p>This reports a clock count specific to the task that is running.</p>
+</div><span id='variant.PageFaults' class='variant'><span id='PageFaults.v' class='invisible'><code>PageFaults</code></span></span><div class='docblock'><p>This reports the number of page faults.</p>
+</div><span id='variant.ContextSwitches' class='variant'><span id='ContextSwitches.v' class='invisible'><code>ContextSwitches</code></span></span><div class='docblock'><p>This counts context switches.</p>
 
 <p>Until Linux 2.6.34, these were all reported as user-space events, after that
 they are reported as happening in the kernel.</p>
-</div></td><td></td></tr><tr><td id='variant.CpuMigrations'><code>CpuMigrations</code></td><td><div class='docblock'><p>This reports the number of times the process has migrated to a new CPU.</p>
-</div></td><td></td></tr><tr><td id='variant.PageFaultsMin'><code>PageFaultsMin</code></td><td><div class='docblock'><p>This counts the number of minor page faults.  These did not require disk I/O to handle.</p>
-</div></td><td></td></tr><tr><td id='variant.PageFaultsMaj'><code>PageFaultsMaj</code></td><td><div class='docblock'><p>This counts the number of major page faults.  These required disk I/O to handle.</p>
-</div></td><td></td></tr><tr><td id='variant.AlignmentFaults'><code>AlignmentFaults</code></td><td><div class='docblock'><p>This counts the number of alignment faults.</p>
+</div><span id='variant.CpuMigrations' class='variant'><span id='CpuMigrations.v' class='invisible'><code>CpuMigrations</code></span></span><div class='docblock'><p>This reports the number of times the process has migrated to a new CPU.</p>
+</div><span id='variant.PageFaultsMin' class='variant'><span id='PageFaultsMin.v' class='invisible'><code>PageFaultsMin</code></span></span><div class='docblock'><p>This counts the number of minor page faults.  These did not require disk I/O to handle.</p>
+</div><span id='variant.PageFaultsMaj' class='variant'><span id='PageFaultsMaj.v' class='invisible'><code>PageFaultsMaj</code></span></span><div class='docblock'><p>This counts the number of major page faults.  These required disk I/O to handle.</p>
+</div><span id='variant.AlignmentFaults' class='variant'><span id='AlignmentFaults.v' class='invisible'><code>AlignmentFaults</code></span></span><div class='docblock'><p>This counts the number of alignment faults.</p>
 
 <p>These happen when unaligned memory accesses happen; the kernel
 can handle these but it reduces performance. This happens only on some architectures (never on x86).</p>
 
 <p>(Since Linux 2.6.33)</p>
-</div></td><td></td></tr><tr><td id='variant.EmulationFaults'><code>EmulationFaults</code></td><td><div class='docblock'><p>This counts the number of emulation faults.  The kernel sometimes traps on unimplemented  instructions  and
+</div><span id='variant.EmulationFaults' class='variant'><span id='EmulationFaults.v' class='invisible'><code>EmulationFaults</code></span></span><div class='docblock'><p>This counts the number of emulation faults.  The kernel sometimes traps on unimplemented  instructions  and
 emulates them for user space.  This can negatively impact performance.</p>
 
 <p>(Since Linux 2.6.33)</p>
-</div></td><td></td></tr></table></section>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -101,6 +102,8 @@ emulates them for user space.  This can negatively impact performance.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

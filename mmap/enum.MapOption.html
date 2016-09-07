@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content enum">
 <h1 class='fqn'><span class='in-band'>Enum <a href='index.html'>mmap</a>::<wbr><a class='enum' href=''>MapOption</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-29' class='srclink' href='../src/mmap/lib.rs.html#71-95' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-37' class='srclink' href='../src/mmap/lib.rs.html#71-95' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum MapOption {
     MapReadable,
     MapWritable,
@@ -57,21 +58,25 @@
     MapNonStandardFlags(<a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>),
 }</pre><div class='docblock'><p>Options the memory map is created with</p>
 </div><h2 class='variants'>Variants</h2>
-<table class='variants_table'><tr><td id='variant.MapReadable'><code>MapReadable</code></td><td><div class='docblock'><p>The memory should be readable</p>
-</div></td><td></td></tr><tr><td id='variant.MapWritable'><code>MapWritable</code></td><td><div class='docblock'><p>The memory should be writable</p>
-</div></td><td></td></tr><tr><td id='variant.MapExecutable'><code>MapExecutable</code></td><td><div class='docblock'><p>The memory should be executable</p>
-</div></td><td></td></tr><tr><td id='variant.MapAddr'><code>MapAddr</code></td><td><div class='docblock'><p>Create a map for a specific address range. Corresponds to <code>MAP_FIXED</code> on
+<span id='variant.MapReadable' class='variant'><span id='MapReadable.v' class='invisible'><code>MapReadable</code></span></span><div class='docblock'><p>The memory should be readable</p>
+</div><span id='variant.MapWritable' class='variant'><span id='MapWritable.v' class='invisible'><code>MapWritable</code></span></span><div class='docblock'><p>The memory should be writable</p>
+</div><span id='variant.MapExecutable' class='variant'><span id='MapExecutable.v' class='invisible'><code>MapExecutable</code></span></span><div class='docblock'><p>The memory should be executable</p>
+</div><span id='variant.MapAddr' class='variant'><span id='MapAddr.v' class='invisible'><code>MapAddr(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const </a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>)</code></span></span><div class='docblock'><p>Create a map for a specific address range. Corresponds to <code>MAP_FIXED</code> on
 POSIX.</p>
-</div></td><td></td></tr><tr><td id='variant.MapFd'><code>MapFd</code></td><td><div class='docblock'><p>Create a memory mapping for a file with a given fd.</p>
-</div></td><td></td></tr><tr><td id='variant.MapOffset'><code>MapOffset</code></td><td><div class='docblock'><p>When using <code>MapFd</code>, the start of the map is <code>usize</code> bytes from the start
+</div><span id='variant.MapFd' class='variant'><span id='MapFd.v' class='invisible'><code>MapFd(<a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>)</code></span></span><div class='docblock'><p>Create a memory mapping for a file with a given fd.</p>
+</div><span id='variant.MapOffset' class='variant'><span id='MapOffset.v' class='invisible'><code>MapOffset(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></span></span><div class='docblock'><p>When using <code>MapFd</code>, the start of the map is <code>usize</code> bytes from the start
 of the file.</p>
-</div></td><td></td></tr><tr><td id='variant.MapNonStandardFlags'><code>MapNonStandardFlags</code></td><td><div class='docblock'><p>On POSIX, this can be used to specify the default flags passed to
+</div><span id='variant.MapNonStandardFlags' class='variant'><span id='MapNonStandardFlags.v' class='invisible'><code>MapNonStandardFlags(<a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>)</code></span></span><div class='docblock'><p>On POSIX, this can be used to specify the default flags passed to
 <code>mmap</code>. By default it uses <code>MAP_PRIVATE</code> and, if not using <code>MapFd</code>,
 <code>MAP_ANON</code>. This will override both of those. This is platform-specific
 (the exact values used) and ignored on Windows.</p>
-</div></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../mmap/enum.MapOption.html' title='mmap::MapOption'>MapOption</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../mmap/enum.MapOption.html' title='mmap::MapOption'>MapOption</a></code></h4>
-<h4 id='method.clone_from' class='method'><span class="since">1.0.0</span><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../mmap/enum.MapOption.html' title='mmap::MapOption'>MapOption</a></code></h3><div class='impl-items'></div></section>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../mmap/enum.MapOption.html' title='mmap::MapOption'>MapOption</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-29' class='srclink' href='../src/mmap/lib.rs.html#70' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../mmap/enum.MapOption.html' title='mmap::MapOption'>MapOption</a></code></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../mmap/enum.MapOption.html' title='mmap::MapOption'>MapOption</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-36' class='srclink' href='../src/mmap/lib.rs.html#70' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -94,6 +99,8 @@ of the file.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

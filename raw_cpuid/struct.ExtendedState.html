@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,34 +44,38 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>raw_cpuid</a>::<wbr><a class='struct' href=''>ExtendedState</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1609' class='srclink' href='../src/raw_cpuid/lib.rs.html#1778-1783' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1608' class='srclink' href='../src/raw_cpuid/lib.rs.html#1777-1782' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ExtendedState {
     pub subleaf: u32,
     // some fields omitted
-}</pre><h2 class='fields'>Fields</h2>
-<table><tr class='stab '>
-                                  <td id='structfield.subleaf'><code>subleaf</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ExtendedState.html' title='raw_cpuid::ExtendedState'>ExtendedState</a></code></h3><div class='impl-items'><h4 id='method.size' class='method'><code>fn <a href='#method.size' class='fnname'>size</a>(&amp;self) -&gt; u32</code></h4>
+}</pre><h2 class='fields'>Fields</h2><span id='structfield.subleaf' class='structfield'>
+                           <span id='subleaf.v' class='invisible'>
+                           <code>subleaf: u32</code>
+                           </span></span><span class='stab '></span><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../raw_cpuid/struct.ExtendedState.html' title='raw_cpuid::ExtendedState'>ExtendedState</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1613' class='srclink' href='../src/raw_cpuid/lib.rs.html#1784-1818' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.size' class='method'><span id='size.v' class='invisible'><code>fn <a href='#method.size' class='fnname'>size</a>(&amp;self) -&gt; u32</code></span></h4>
 <div class='docblock'><p>The size in bytes (from the offset specified in EBX) of the save area
 for an extended state feature associated with a valid sub-leaf index, n.
 This field reports 0 if the sub-leaf index, n, is invalid.</p>
-</div><h4 id='method.offset' class='method'><code>fn <a href='#method.offset' class='fnname'>offset</a>(&amp;self) -&gt; u32</code></h4>
+</div><h4 id='method.offset' class='method'><span id='offset.v' class='invisible'><code>fn <a href='#method.offset' class='fnname'>offset</a>(&amp;self) -&gt; u32</code></span></h4>
 <div class='docblock'><p>The offset in bytes of this extended state components save area
 from the beginning of the XSAVE/XRSTOR area.</p>
-</div><h4 id='method.is_in_ia32_xss' class='method'><code>fn <a href='#method.is_in_ia32_xss' class='fnname'>is_in_ia32_xss</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.is_in_ia32_xss' class='method'><span id='is_in_ia32_xss.v' class='invisible'><code>fn <a href='#method.is_in_ia32_xss' class='fnname'>is_in_ia32_xss</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>True if the bit n (corresponding to the sub-leaf index)
 is supported in the IA32_XSS MSR;</p>
-</div><h4 id='method.is_in_xcr0' class='method'><code>fn <a href='#method.is_in_xcr0' class='fnname'>is_in_xcr0</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.is_in_xcr0' class='method'><span id='is_in_xcr0.v' class='invisible'><code>fn <a href='#method.is_in_xcr0' class='fnname'>is_in_xcr0</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>True if bit n is supported in XCR0.</p>
-</div><h4 id='method.is_compacted_format' class='method'><code>fn <a href='#method.is_compacted_format' class='fnname'>is_compacted_format</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.is_compacted_format' class='method'><span id='is_compacted_format.v' class='invisible'><code>fn <a href='#method.is_compacted_format' class='fnname'>is_compacted_format</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>Returns true when the compacted format of an XSAVE area is used,
 this extended state component located on the next 64-byte
 boundary following the preceding state component
 (otherwise, it is located immediately following the preceding state component).</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.ExtendedState.html' title='raw_cpuid::ExtendedState'>ExtendedState</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.ExtendedState.html' title='raw_cpuid::ExtendedState'>ExtendedState</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1599' class='srclink' href='../src/raw_cpuid/lib.rs.html#1776' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -93,6 +98,8 @@ boundary following the preceding state component
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

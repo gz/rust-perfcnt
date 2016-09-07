@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,32 +44,36 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>raw_cpuid</a>::<wbr><a class='struct' href=''>ThermalPowerInfo</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-820' class='srclink' href='../src/raw_cpuid/lib.rs.html#1271-1276' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-819' class='srclink' href='../src/raw_cpuid/lib.rs.html#1270-1275' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ThermalPowerInfo {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ThermalPowerInfo.html' title='raw_cpuid::ThermalPowerInfo'>ThermalPowerInfo</a></code></h3><div class='impl-items'><h4 id='method.has_dts' class='method'><code>fn <a href='#method.has_dts' class='fnname'>has_dts</a>(&amp;self) -&gt; bool</code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../raw_cpuid/struct.ThermalPowerInfo.html' title='raw_cpuid::ThermalPowerInfo'>ThermalPowerInfo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-824' class='srclink' href='../src/raw_cpuid/lib.rs.html#1277-1302' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.has_dts' class='method'><span id='has_dts.v' class='invisible'><code>fn <a href='#method.has_dts' class='fnname'>has_dts</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>Digital temperature sensor is supported if set.</p>
-</div><h4 id='method.has_turbo_boost' class='method'><code>fn <a href='#method.has_turbo_boost' class='fnname'>has_turbo_boost</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_turbo_boost' class='method'><span id='has_turbo_boost.v' class='invisible'><code>fn <a href='#method.has_turbo_boost' class='fnname'>has_turbo_boost</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>Intel Turbo Boost Technology Available (see description of IA32_MISC_ENABLE[38]).</p>
-</div><h4 id='method.has_arat' class='method'><code>fn <a href='#method.has_arat' class='fnname'>has_arat</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_arat' class='method'><span id='has_arat.v' class='invisible'><code>fn <a href='#method.has_arat' class='fnname'>has_arat</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>ARAT. APIC-Timer-always-running feature is supported if set.</p>
-</div><h4 id='method.has_pln' class='method'><code>fn <a href='#method.has_pln' class='fnname'>has_pln</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_pln' class='method'><span id='has_pln.v' class='invisible'><code>fn <a href='#method.has_pln' class='fnname'>has_pln</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>PLN. Power limit notification controls are supported if set.</p>
-</div><h4 id='method.has_ecmd' class='method'><code>fn <a href='#method.has_ecmd' class='fnname'>has_ecmd</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_ecmd' class='method'><span id='has_ecmd.v' class='invisible'><code>fn <a href='#method.has_ecmd' class='fnname'>has_ecmd</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>ECMD. Clock modulation duty cycle extension is supported if set.</p>
-</div><h4 id='method.has_ptm' class='method'><code>fn <a href='#method.has_ptm' class='fnname'>has_ptm</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_ptm' class='method'><span id='has_ptm.v' class='invisible'><code>fn <a href='#method.has_ptm' class='fnname'>has_ptm</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>PTM. Package thermal management is supported if set.</p>
-</div><h4 id='method.has_hw_coord_feedback' class='method'><code>fn <a href='#method.has_hw_coord_feedback' class='fnname'>has_hw_coord_feedback</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_hw_coord_feedback' class='method'><span id='has_hw_coord_feedback.v' class='invisible'><code>fn <a href='#method.has_hw_coord_feedback' class='fnname'>has_hw_coord_feedback</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>Hardware Coordination Feedback Capability (Presence of IA32_MPERF and IA32_APERF). The capability to provide a measure of delivered processor performance (since last reset of the counters), as a percentage of expected processor performance at frequency specified in CPUID Brand String Bits 02 - 01</p>
-</div><h4 id='method.has_energy_bias_pref' class='method'><code>fn <a href='#method.has_energy_bias_pref' class='fnname'>has_energy_bias_pref</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_energy_bias_pref' class='method'><span id='has_energy_bias_pref.v' class='invisible'><code>fn <a href='#method.has_energy_bias_pref' class='fnname'>has_energy_bias_pref</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>The processor supports performance-energy bias preference if CPUID.06H:ECX.SETBH[bit 3] is set and it also implies the presence of a new architectural MSR called IA32_ENERGY_PERF_BIAS (1B0H)</p>
-</div></div><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ThermalPowerInfo.html' title='raw_cpuid::ThermalPowerInfo'>ThermalPowerInfo</a></code></h3><div class='impl-items'><h4 id='method.dts_irq_threshold' class='method'><code>fn <a href='#method.dts_irq_threshold' class='fnname'>dts_irq_threshold</a>(&amp;self) -&gt; u8</code></h4>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../raw_cpuid/struct.ThermalPowerInfo.html' title='raw_cpuid::ThermalPowerInfo'>ThermalPowerInfo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1089' class='srclink' href='../src/raw_cpuid/lib.rs.html#1343-1350' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.dts_irq_threshold' class='method'><span id='dts_irq_threshold.v' class='invisible'><code>fn <a href='#method.dts_irq_threshold' class='fnname'>dts_irq_threshold</a>(&amp;self) -&gt; u8</code></span></h4>
 <div class='docblock'><p>Number of Interrupt Thresholds in Digital Thermal Sensor</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.ThermalPowerInfo.html' title='raw_cpuid::ThermalPowerInfo'>ThermalPowerInfo</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.ThermalPowerInfo.html' title='raw_cpuid::ThermalPowerInfo'>ThermalPowerInfo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-810' class='srclink' href='../src/raw_cpuid/lib.rs.html#1269' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -91,6 +96,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

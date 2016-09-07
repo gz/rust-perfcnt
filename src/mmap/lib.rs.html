@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/gz/.multirust/toolchains/nightly/cargo/registry/src/github.com-88ac128001ac3a9a/mmap-0.1.1/src/lib.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/zgerd/.cargo/registry/src/github.com-1ecc6299db9ec823/mmap-0.1.1/src/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -750,7 +751,7 @@
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>flags</span> <span class='op'>=</span> <span class='ident'>libc</span>::<span class='ident'>MAP_PRIVATE</span>;
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>fd</span> <span class='op'>=</span> <span class='op'>-</span><span class='number'>1</span>;
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>offset</span> <span class='op'>=</span> <span class='number'>0</span>;
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>custom_flags</span> <span class='op'>=</span> <span class='boolval'>false</span>;
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>custom_flags</span> <span class='op'>=</span> <span class='bool-val'>false</span>;
         <span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='ident'>round_up</span>(<span class='ident'>min_len</span>, <span class='ident'>page_size</span>());
 
         <span class='kw'>for</span> <span class='kw-2'>&amp;</span><span class='ident'>o</span> <span class='kw'>in</span> <span class='ident'>options</span> {
@@ -767,7 +768,7 @@
                     <span class='ident'>fd</span> <span class='op'>=</span> <span class='ident'>fd_</span>;
                 },
                 <span class='ident'>MapOffset</span>(<span class='ident'>offset_</span>) <span class='op'>=&gt;</span> { <span class='ident'>offset</span> <span class='op'>=</span> <span class='ident'>offset_</span> <span class='kw'>as</span> <span class='ident'>off_t</span>; },
-                <span class='ident'>MapNonStandardFlags</span>(<span class='ident'>f</span>) <span class='op'>=&gt;</span> { <span class='ident'>custom_flags</span> <span class='op'>=</span> <span class='boolval'>true</span>; <span class='ident'>flags</span> <span class='op'>=</span> <span class='ident'>f</span> },
+                <span class='ident'>MapNonStandardFlags</span>(<span class='ident'>f</span>) <span class='op'>=&gt;</span> { <span class='ident'>custom_flags</span> <span class='op'>=</span> <span class='bool-val'>true</span>; <span class='ident'>flags</span> <span class='op'>=</span> <span class='ident'>f</span> },
             }
         }
         <span class='kw'>if</span> <span class='ident'>fd</span> <span class='op'>==</span> <span class='op'>-</span><span class='number'>1</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ident'>custom_flags</span> { <span class='ident'>flags</span> <span class='op'>|=</span> <span class='ident'>libc</span>::<span class='ident'>MAP_ANON</span>; }
@@ -825,18 +826,18 @@
         <span class='kw'>use</span> <span class='ident'>libc</span>::<span class='ident'>types</span>::<span class='ident'>os</span>::<span class='ident'>arch</span>::<span class='ident'>extra</span>::{<span class='ident'>LPVOID</span>, <span class='ident'>DWORD</span>, <span class='ident'>SIZE_T</span>, <span class='ident'>HANDLE</span>};
 
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>lpAddress</span>: <span class='ident'>LPVOID</span> <span class='op'>=</span> <span class='ident'>ptr</span>::<span class='ident'>null_mut</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>readable</span> <span class='op'>=</span> <span class='boolval'>false</span>;
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>writable</span> <span class='op'>=</span> <span class='boolval'>false</span>;
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>executable</span> <span class='op'>=</span> <span class='boolval'>false</span>;
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>readable</span> <span class='op'>=</span> <span class='bool-val'>false</span>;
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>writable</span> <span class='op'>=</span> <span class='bool-val'>false</span>;
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>executable</span> <span class='op'>=</span> <span class='bool-val'>false</span>;
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>handle</span>: <span class='ident'>HANDLE</span> <span class='op'>=</span> <span class='ident'>libc</span>::<span class='ident'>INVALID_HANDLE_VALUE</span>;
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>offset</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>0</span>;
         <span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='ident'>round_up</span>(<span class='ident'>min_len</span>, <span class='ident'>page_size</span>());
 
         <span class='kw'>for</span> <span class='kw-2'>&amp;</span><span class='ident'>o</span> <span class='kw'>in</span> <span class='ident'>options</span> {
             <span class='kw'>match</span> <span class='ident'>o</span> {
-                <span class='ident'>MapReadable</span> <span class='op'>=&gt;</span> { <span class='ident'>readable</span> <span class='op'>=</span> <span class='boolval'>true</span>; },
-                <span class='ident'>MapWritable</span> <span class='op'>=&gt;</span> { <span class='ident'>writable</span> <span class='op'>=</span> <span class='boolval'>true</span>; },
-                <span class='ident'>MapExecutable</span> <span class='op'>=&gt;</span> { <span class='ident'>executable</span> <span class='op'>=</span> <span class='boolval'>true</span>; }
+                <span class='ident'>MapReadable</span> <span class='op'>=&gt;</span> { <span class='ident'>readable</span> <span class='op'>=</span> <span class='bool-val'>true</span>; },
+                <span class='ident'>MapWritable</span> <span class='op'>=&gt;</span> { <span class='ident'>writable</span> <span class='op'>=</span> <span class='bool-val'>true</span>; },
+                <span class='ident'>MapExecutable</span> <span class='op'>=&gt;</span> { <span class='ident'>executable</span> <span class='op'>=</span> <span class='bool-val'>true</span>; }
                 <span class='ident'>MapAddr</span>(<span class='ident'>addr_</span>) <span class='op'>=&gt;</span> { <span class='ident'>lpAddress</span> <span class='op'>=</span> <span class='ident'>addr_</span> <span class='kw'>as</span> <span class='ident'>LPVOID</span>; },
                 <span class='ident'>MapFd</span>(<span class='ident'>handle_</span>) <span class='op'>=&gt;</span> { <span class='ident'>handle</span> <span class='op'>=</span> <span class='ident'>handle_</span>; },
                 <span class='ident'>MapOffset</span>(<span class='ident'>offset_</span>) <span class='op'>=&gt;</span> { <span class='ident'>offset</span> <span class='op'>=</span> <span class='ident'>offset_</span>; },
@@ -845,12 +846,12 @@
         }
 
         <span class='kw'>let</span> <span class='ident'>flProtect</span> <span class='op'>=</span> <span class='kw'>match</span> (<span class='ident'>executable</span>, <span class='ident'>readable</span>, <span class='ident'>writable</span>) {
-            (<span class='boolval'>false</span>, <span class='boolval'>false</span>, <span class='boolval'>false</span>) <span class='kw'>if</span> <span class='ident'>handle</span> <span class='op'>==</span> <span class='ident'>libc</span>::<span class='ident'>INVALID_HANDLE_VALUE</span> <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>PAGE_NOACCESS</span>,
-            (<span class='boolval'>false</span>, <span class='boolval'>true</span>, <span class='boolval'>false</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>PAGE_READONLY</span>,
-            (<span class='boolval'>false</span>, <span class='boolval'>true</span>, <span class='boolval'>true</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>PAGE_READWRITE</span>,
-            (<span class='boolval'>true</span>, <span class='boolval'>false</span>, <span class='boolval'>false</span>) <span class='kw'>if</span> <span class='ident'>handle</span> <span class='op'>==</span> <span class='ident'>libc</span>::<span class='ident'>INVALID_HANDLE_VALUE</span> <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>PAGE_EXECUTE</span>,
-            (<span class='boolval'>true</span>, <span class='boolval'>true</span>, <span class='boolval'>false</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>PAGE_EXECUTE_READ</span>,
-            (<span class='boolval'>true</span>, <span class='boolval'>true</span>, <span class='boolval'>true</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>PAGE_EXECUTE_READWRITE</span>,
+            (<span class='bool-val'>false</span>, <span class='bool-val'>false</span>, <span class='bool-val'>false</span>) <span class='kw'>if</span> <span class='ident'>handle</span> <span class='op'>==</span> <span class='ident'>libc</span>::<span class='ident'>INVALID_HANDLE_VALUE</span> <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>PAGE_NOACCESS</span>,
+            (<span class='bool-val'>false</span>, <span class='bool-val'>true</span>, <span class='bool-val'>false</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>PAGE_READONLY</span>,
+            (<span class='bool-val'>false</span>, <span class='bool-val'>true</span>, <span class='bool-val'>true</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>PAGE_READWRITE</span>,
+            (<span class='bool-val'>true</span>, <span class='bool-val'>false</span>, <span class='bool-val'>false</span>) <span class='kw'>if</span> <span class='ident'>handle</span> <span class='op'>==</span> <span class='ident'>libc</span>::<span class='ident'>INVALID_HANDLE_VALUE</span> <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>PAGE_EXECUTE</span>,
+            (<span class='bool-val'>true</span>, <span class='bool-val'>true</span>, <span class='bool-val'>false</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>PAGE_EXECUTE_READ</span>,
+            (<span class='bool-val'>true</span>, <span class='bool-val'>true</span>, <span class='bool-val'>true</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>PAGE_EXECUTE_READWRITE</span>,
             _ <span class='op'>=&gt;</span> <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>ErrUnsupProt</span>)
         };
 
@@ -874,10 +875,10 @@
             }
         } <span class='kw'>else</span> {
             <span class='kw'>let</span> <span class='ident'>dwDesiredAccess</span> <span class='op'>=</span> <span class='kw'>match</span> (<span class='ident'>executable</span>, <span class='ident'>readable</span>, <span class='ident'>writable</span>) {
-                (<span class='boolval'>false</span>, <span class='boolval'>true</span>, <span class='boolval'>false</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>FILE_MAP_READ</span>,
-                (<span class='boolval'>false</span>, <span class='boolval'>true</span>, <span class='boolval'>true</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>FILE_MAP_WRITE</span>,
-                (<span class='boolval'>true</span>, <span class='boolval'>true</span>, <span class='boolval'>false</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>FILE_MAP_READ</span> <span class='op'>|</span> <span class='ident'>libc</span>::<span class='ident'>FILE_MAP_EXECUTE</span>,
-                (<span class='boolval'>true</span>, <span class='boolval'>true</span>, <span class='boolval'>true</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>FILE_MAP_WRITE</span> <span class='op'>|</span> <span class='ident'>libc</span>::<span class='ident'>FILE_MAP_EXECUTE</span>,
+                (<span class='bool-val'>false</span>, <span class='bool-val'>true</span>, <span class='bool-val'>false</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>FILE_MAP_READ</span>,
+                (<span class='bool-val'>false</span>, <span class='bool-val'>true</span>, <span class='bool-val'>true</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>FILE_MAP_WRITE</span>,
+                (<span class='bool-val'>true</span>, <span class='bool-val'>true</span>, <span class='bool-val'>false</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>FILE_MAP_READ</span> <span class='op'>|</span> <span class='ident'>libc</span>::<span class='ident'>FILE_MAP_EXECUTE</span>,
+                (<span class='bool-val'>true</span>, <span class='bool-val'>true</span>, <span class='bool-val'>true</span>) <span class='op'>=&gt;</span> <span class='ident'>libc</span>::<span class='ident'>FILE_MAP_WRITE</span> <span class='op'>|</span> <span class='ident'>libc</span>::<span class='ident'>FILE_MAP_EXECUTE</span>,
                 _ <span class='op'>=&gt;</span> <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>ErrUnsupProt</span>) <span class='comment'>// Actually, because of the check above,</span>
                                               <span class='comment'>// we should never get here.</span>
             };
@@ -973,7 +974,7 @@
     <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
     <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>tempdir</span>;
 
-    <span class='kw'>use</span> <span class='ident'>super</span>::{<span class='ident'>MemoryMap</span>, <span class='ident'>MapOption</span>};
+    <span class='kw'>use</span> <span class='kw'>super</span>::{<span class='ident'>MemoryMap</span>, <span class='ident'>MapOption</span>};
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>memory_map_rw</span>() {
@@ -1016,9 +1017,9 @@
         <span class='kw'>let</span> <span class='ident'>size</span> <span class='op'>=</span> <span class='ident'>MemoryMap</span>::<span class='ident'>granularity</span>() <span class='op'>*</span> <span class='number'>2</span>;
 
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>file</span> <span class='op'>=</span> <span class='ident'>fs</span>::<span class='ident'>OpenOptions</span>::<span class='ident'>new</span>()
-                        .<span class='ident'>create</span>(<span class='boolval'>true</span>)
-                        .<span class='ident'>read</span>(<span class='boolval'>true</span>)
-                        .<span class='ident'>write</span>(<span class='boolval'>true</span>)
+                        .<span class='ident'>create</span>(<span class='bool-val'>true</span>)
+                        .<span class='ident'>read</span>(<span class='bool-val'>true</span>)
+                        .<span class='ident'>write</span>(<span class='bool-val'>true</span>)
                         .<span class='ident'>open</span>(<span class='kw-2'>&amp;</span><span class='ident'>path</span>)
                         .<span class='ident'>unwrap</span>();
         <span class='ident'>file</span>.<span class='ident'>seek</span>(<span class='ident'>SeekFrom</span>::<span class='ident'>Start</span>(<span class='ident'>size</span> <span class='kw'>as</span> <span class='ident'>u64</span>)).<span class='ident'>unwrap</span>();
@@ -1066,6 +1067,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

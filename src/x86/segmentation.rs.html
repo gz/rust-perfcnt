@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/gz/.multirust/toolchains/nightly/cargo/registry/src/github.com-88ac128001ac3a9a/x86-0.6.0/src/segmentation.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/zgerd/.cargo/registry/src/github.com-1ecc6299db9ec823/x86-0.6.1/src/segmentation.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>segmentation.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -289,24 +290,24 @@
 <span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Debug</span> <span class='kw'>for</span> <span class='ident'>SegmentSelector</span> {
     <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
         <span class='kw'>let</span> <span class='ident'>r0</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>RPL_0</span>) {
-            <span class='boolval'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;&quot;</span>,
-            <span class='boolval'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Ring 0 segment selector.&quot;</span>,
+            <span class='bool-val'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;&quot;</span>,
+            <span class='bool-val'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Ring 0 segment selector.&quot;</span>,
         };
         <span class='kw'>let</span> <span class='ident'>r1</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>RPL_1</span>) {
-            <span class='boolval'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;&quot;</span>,
-            <span class='boolval'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Ring 1 segment selector.&quot;</span>,
+            <span class='bool-val'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;&quot;</span>,
+            <span class='bool-val'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Ring 1 segment selector.&quot;</span>,
         };
         <span class='kw'>let</span> <span class='ident'>r2</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>RPL_2</span>) {
-            <span class='boolval'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;&quot;</span>,
-            <span class='boolval'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Ring 2 segment selector.&quot;</span>,
+            <span class='bool-val'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;&quot;</span>,
+            <span class='bool-val'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Ring 2 segment selector.&quot;</span>,
         };
         <span class='kw'>let</span> <span class='ident'>r3</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>RPL_3</span>) {
-            <span class='boolval'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;&quot;</span>,
-            <span class='boolval'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Ring 3 segment selector.&quot;</span>,
+            <span class='bool-val'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;&quot;</span>,
+            <span class='bool-val'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Ring 3 segment selector.&quot;</span>,
         };
         <span class='kw'>let</span> <span class='ident'>tbl</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>TI_LDT</span>) {
-            <span class='boolval'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;GDT Table&quot;</span>,
-            <span class='boolval'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;LDT Table&quot;</span>,
+            <span class='bool-val'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;GDT Table&quot;</span>,
+            <span class='bool-val'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;LDT Table&quot;</span>,
         };
 
         <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>,
@@ -454,7 +455,7 @@
          lea 1f(%rip), %rax
          pushq %rax
          lretq
-         1:&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>sel</span>.<span class='ident'>bits</span>() <span class='kw'>as</span> <span class='ident'>u64</span>) : <span class='string'>&quot;{rax}&quot;</span> <span class='string'>&quot;memory&quot;</span>);
+         1:&quot;</span> :: <span class='string'>&quot;r&quot;</span> (<span class='ident'>sel</span>.<span class='ident'>bits</span>() <span class='kw'>as</span> <span class='ident'>u64</span>) : <span class='string'>&quot;rax&quot;</span> <span class='string'>&quot;memory&quot;</span>);
 }
 </pre>
 </section>
@@ -480,6 +481,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

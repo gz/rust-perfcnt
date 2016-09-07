@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,27 +44,40 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>raw_cpuid</a>::<wbr><a class='struct' href=''>CacheInfo</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-216' class='srclink' href='../src/raw_cpuid/lib.rs.html#503-510' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-224' class='srclink' href='../src/raw_cpuid/lib.rs.html#502-509' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct CacheInfo {
     pub num: u8,
     pub typ: <a class='enum' href='../raw_cpuid/enum.CacheInfoType.html' title='raw_cpuid::CacheInfoType'>CacheInfoType</a>,
     pub desc: &amp;'static str,
 }</pre><div class='docblock'><p>Describes any kind of cache (TLB, Data and Instruction caches plus prefetchers).</p>
-</div><h2 class='fields'>Fields</h2>
-<table><tr class='stab '>
-                                  <td id='structfield.num'><code>num</code></td><td><div class='docblock'><p>Number as retrieved from cpuid</p>
-</div></td></tr><tr class='stab '>
-                                  <td id='structfield.typ'><code>typ</code></td><td><div class='docblock'><p>Cache type</p>
-</div></td></tr><tr class='stab '>
-                                  <td id='structfield.desc'><code>desc</code></td><td><div class='docblock'><p>Description of the cache (from Intel Manual)</p>
-</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a></code></h3><div class='impl-items'><h4 id='method.fmt-1' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a></code></h4>
-<h4 id='method.clone_from' class='method'><span class="since">1.0.0</span><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a></code></h3><div class='impl-items'></div></section>
+</div><h2 class='fields'>Fields</h2><span id='structfield.num' class='structfield'>
+                           <span id='num.v' class='invisible'>
+                           <code>num: u8</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Number as retrieved from cpuid</p>
+</div><span id='structfield.typ' class='structfield'>
+                           <span id='typ.v' class='invisible'>
+                           <code>typ: <a class='enum' href='../raw_cpuid/enum.CacheInfoType.html' title='raw_cpuid::CacheInfoType'>CacheInfoType</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Cache type</p>
+</div><span id='structfield.desc' class='structfield'>
+                           <span id='desc.v' class='invisible'>
+                           <code>desc: &amp;'static str</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Description of the cache (from Intel Manual)</p>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-209' class='srclink' href='../src/raw_cpuid/lib.rs.html#501' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-217' class='srclink' href='../src/raw_cpuid/lib.rs.html#501' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a></code></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-223' class='srclink' href='../src/raw_cpuid/lib.rs.html#501' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-228' class='srclink' href='../src/raw_cpuid/lib.rs.html#511-524' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt-1' class='method'><span id='fmt.v-1' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -86,6 +100,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

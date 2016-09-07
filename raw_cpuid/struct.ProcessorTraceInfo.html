@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,34 +44,37 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>raw_cpuid</a>::<wbr><a class='struct' href=''>ProcessorTraceInfo</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1715' class='srclink' href='../src/raw_cpuid/lib.rs.html#1933-1938' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1714' class='srclink' href='../src/raw_cpuid/lib.rs.html#1932-1937' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ProcessorTraceInfo {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ProcessorTraceInfo.html' title='raw_cpuid::ProcessorTraceInfo'>ProcessorTraceInfo</a></code></h3><div class='impl-items'><h4 id='method.has_rtit_cr3_match' class='method'><code>fn <a href='#method.has_rtit_cr3_match' class='fnname'>has_rtit_cr3_match</a>(&amp;self) -&gt; bool</code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../raw_cpuid/struct.ProcessorTraceInfo.html' title='raw_cpuid::ProcessorTraceInfo'>ProcessorTraceInfo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1719' class='srclink' href='../src/raw_cpuid/lib.rs.html#1939-1967' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.has_rtit_cr3_match' class='method'><span id='has_rtit_cr3_match.v' class='invisible'><code>fn <a href='#method.has_rtit_cr3_match' class='fnname'>has_rtit_cr3_match</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>If true, Indicates that IA32_RTIT_CTL.CR3Filter can be set to 1, and that IA32_RTIT_CR3_MATCH MSR can be accessed.</p>
-</div><h4 id='method.has_configurable_psb_and_cycle_accurate_mode' class='method'><code>fn <a href='#method.has_configurable_psb_and_cycle_accurate_mode' class='fnname'>has_configurable_psb_and_cycle_accurate_mode</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_configurable_psb_and_cycle_accurate_mode' class='method'><span id='has_configurable_psb_and_cycle_accurate_mode.v' class='invisible'><code>fn <a href='#method.has_configurable_psb_and_cycle_accurate_mode' class='fnname'>has_configurable_psb_and_cycle_accurate_mode</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>If true, Indicates support of Configurable PSB and Cycle-Accurate Mode.</p>
-</div><h4 id='method.has_ip_tracestop_filtering' class='method'><code>fn <a href='#method.has_ip_tracestop_filtering' class='fnname'>has_ip_tracestop_filtering</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_ip_tracestop_filtering' class='method'><span id='has_ip_tracestop_filtering.v' class='invisible'><code>fn <a href='#method.has_ip_tracestop_filtering' class='fnname'>has_ip_tracestop_filtering</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>If true, Indicates support of IP Filtering, TraceStop filtering, and preservation of Intel PT MSRs across warm reset.</p>
-</div><h4 id='method.has_mtc_timing_packet_coefi_suppression' class='method'><code>fn <a href='#method.has_mtc_timing_packet_coefi_suppression' class='fnname'>has_mtc_timing_packet_coefi_suppression</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_mtc_timing_packet_coefi_suppression' class='method'><span id='has_mtc_timing_packet_coefi_suppression.v' class='invisible'><code>fn <a href='#method.has_mtc_timing_packet_coefi_suppression' class='fnname'>has_mtc_timing_packet_coefi_suppression</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>If true, Indicates support of MTC timing packet and suppression of COFI-based packets.</p>
-</div><h4 id='method.has_topa' class='method'><code>fn <a href='#method.has_topa' class='fnname'>has_topa</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_topa' class='method'><span id='has_topa.v' class='invisible'><code>fn <a href='#method.has_topa' class='fnname'>has_topa</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>If true, Tracing can be enabled with IA32_RTIT_CTL.ToPA = 1, hence utilizing the ToPA output scheme; IA32_RTIT_OUTPUT_BASE and IA32_RTIT_OUTPUT_MASK_PTRS MSRs can be accessed.</p>
-</div><h4 id='method.has_topa_maximum_entries' class='method'><code>fn <a href='#method.has_topa_maximum_entries' class='fnname'>has_topa_maximum_entries</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_topa_maximum_entries' class='method'><span id='has_topa_maximum_entries.v' class='invisible'><code>fn <a href='#method.has_topa_maximum_entries' class='fnname'>has_topa_maximum_entries</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>If true, ToPA tables can hold any number of output entries, up to the maximum allowed by the MaskOrTableOffset field of IA32_RTIT_OUTPUT_MASK_PTRS.</p>
-</div><h4 id='method.has_single_range_output_scheme' class='method'><code>fn <a href='#method.has_single_range_output_scheme' class='fnname'>has_single_range_output_scheme</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_single_range_output_scheme' class='method'><span id='has_single_range_output_scheme.v' class='invisible'><code>fn <a href='#method.has_single_range_output_scheme' class='fnname'>has_single_range_output_scheme</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>If true, Indicates support of Single-Range Output scheme.</p>
-</div><h4 id='method.has_trace_transport_subsystem' class='method'><code>fn <a href='#method.has_trace_transport_subsystem' class='fnname'>has_trace_transport_subsystem</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_trace_transport_subsystem' class='method'><span id='has_trace_transport_subsystem.v' class='invisible'><code>fn <a href='#method.has_trace_transport_subsystem' class='fnname'>has_trace_transport_subsystem</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>If true, Indicates support of output to Trace Transport subsystem.</p>
-</div><h4 id='method.has_lip_with_cs_base' class='method'><code>fn <a href='#method.has_lip_with_cs_base' class='fnname'>has_lip_with_cs_base</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_lip_with_cs_base' class='method'><span id='has_lip_with_cs_base.v' class='invisible'><code>fn <a href='#method.has_lip_with_cs_base' class='fnname'>has_lip_with_cs_base</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>If true, Generated packets which contain IP payloads have LIP values, which include the CS base component.</p>
-</div><h4 id='method.iter' class='method'><code>fn <a href='#method.iter' class='fnname'>iter</a>(&amp;self) -&gt; <a class='struct' href='../raw_cpuid/struct.ProcessorTraceIter.html' title='raw_cpuid::ProcessorTraceIter'>ProcessorTraceIter</a></code></h4>
+</div><h4 id='method.iter' class='method'><span id='iter.v' class='invisible'><code>fn <a href='#method.iter' class='fnname'>iter</a>(&amp;self) -&gt; <a class='struct' href='../raw_cpuid/struct.ProcessorTraceIter.html' title='raw_cpuid::ProcessorTraceIter'>ProcessorTraceIter</a></code></span></h4>
 <div class='docblock'><p>Iterator over processor trace info sub-leafs.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.ProcessorTraceInfo.html' title='raw_cpuid::ProcessorTraceInfo'>ProcessorTraceInfo</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.ProcessorTraceInfo.html' title='raw_cpuid::ProcessorTraceInfo'>ProcessorTraceInfo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1705' class='srclink' href='../src/raw_cpuid/lib.rs.html#1931' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -93,6 +97,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

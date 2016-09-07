@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>x86</a>::<wbr><a href='index.html'>task</a>::<wbr><a class='struct' href=''>TaskStateSegment</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2596' class='srclink' href='../../src/x86/task.rs.html#14-25' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2602' class='srclink' href='../../src/x86/task.rs.html#14-25' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct TaskStateSegment {
     pub reserved: u32,
     pub rsp: [u64; 3],
@@ -59,20 +60,36 @@
 directly related to the task-switch mechanism,
 but is used for finding kernel level stack
 if interrupts arrive while in kernel mode.</p>
-</div><h2 class='fields'>Fields</h2>
-<table><tr class='stab '>
-                                  <td id='structfield.reserved'><code>reserved</code></td><td></td></tr><tr class='stab '>
-                                  <td id='structfield.rsp'><code>rsp</code></td><td><div class='docblock'><p>The full 64-bit canonical forms of the stack pointers (RSP) for privilege levels 0-2.</p>
-</div></td></tr><tr class='stab '>
-                                  <td id='structfield.reserved2'><code>reserved2</code></td><td></td></tr><tr class='stab '>
-                                  <td id='structfield.ist'><code>ist</code></td><td><div class='docblock'><p>The full 64-bit canonical forms of the interrupt stack table (IST) pointers.</p>
-</div></td></tr><tr class='stab '>
-                                  <td id='structfield.reserved3'><code>reserved3</code></td><td></td></tr><tr class='stab '>
-                                  <td id='structfield.reserved4'><code>reserved4</code></td><td></td></tr><tr class='stab '>
-                                  <td id='structfield.iomap_base'><code>iomap_base</code></td><td><div class='docblock'><p>The 16-bit offset to the I/O permission bit map from the 64-bit TSS base.</p>
-</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../x86/task/struct.TaskStateSegment.html' title='x86::task::TaskStateSegment'>TaskStateSegment</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../x86/task/struct.TaskStateSegment.html' title='x86::task::TaskStateSegment'>TaskStateSegment</a></code></h4>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../x86/task/struct.TaskStateSegment.html' title='x86::task::TaskStateSegment'>TaskStateSegment</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='../../core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div></section>
+</div><h2 class='fields'>Fields</h2><span id='structfield.reserved' class='structfield'>
+                           <span id='reserved.v' class='invisible'>
+                           <code>reserved: u32</code>
+                           </span></span><span class='stab '></span><span id='structfield.rsp' class='structfield'>
+                           <span id='rsp.v' class='invisible'>
+                           <code>rsp: [u64; 3]</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The full 64-bit canonical forms of the stack pointers (RSP) for privilege levels 0-2.</p>
+</div><span id='structfield.reserved2' class='structfield'>
+                           <span id='reserved2.v' class='invisible'>
+                           <code>reserved2: u64</code>
+                           </span></span><span class='stab '></span><span id='structfield.ist' class='structfield'>
+                           <span id='ist.v' class='invisible'>
+                           <code>ist: [u64; 7]</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The full 64-bit canonical forms of the interrupt stack table (IST) pointers.</p>
+</div><span id='structfield.reserved3' class='structfield'>
+                           <span id='reserved3.v' class='invisible'>
+                           <code>reserved3: u64</code>
+                           </span></span><span class='stab '></span><span id='structfield.reserved4' class='structfield'>
+                           <span id='reserved4.v' class='invisible'>
+                           <code>reserved4: u16</code>
+                           </span></span><span class='stab '></span><span id='structfield.iomap_base' class='structfield'>
+                           <span id='iomap_base.v' class='invisible'>
+                           <code>iomap_base: u16</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The 16-bit offset to the I/O permission bit map from the 64-bit TSS base.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../x86/task/struct.TaskStateSegment.html' title='x86::task::TaskStateSegment'>TaskStateSegment</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2612' class='srclink' href='../../src/x86/task.rs.html#27-39' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../x86/task/struct.TaskStateSegment.html' title='x86::task::TaskStateSegment'>TaskStateSegment</a></code></span></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../x86/task/struct.TaskStateSegment.html' title='x86::task::TaskStateSegment'>TaskStateSegment</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2590' class='srclink' href='../../src/x86/task.rs.html#12' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -95,6 +112,8 @@ if interrupts arrive while in kernel mode.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,124 +44,89 @@
 
     <section id='main' class="content static">
 <h1 class='fqn'><span class='in-band'><a href='../index.html'>x86</a>::<wbr><a href='index.html'>irq</a>::<wbr><a class='static' href=''>EXCEPTIONS</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1148' class='srclink' href='../../src/x86/irq.rs.html#28-141' title='goto source code'>[src]</a></span></h1>
-<pre class='rust static'>pub static EXCEPTIONS: [<a class='struct' href='../../x86/irq/struct.InterruptDescription.html' title='x86::irq::InterruptDescription'>InterruptDescription</a>; 15]<code> = </code><code>[InterruptDescription {
-                                                         vector: 0,
-                                                         mnemonic: "#DE",
-                                                         description: "Divide Error",
-                                                         irqtype: "Fault",
-                                                         source: "DIV and IDIV instructions.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 1,
-                                                         mnemonic: "#DB",
-                                                         description: "RESERVED",
-                                                         irqtype: "Fault/ Trap",
-                                                         source: "For Intel use only.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 2,
-                                                         mnemonic: "NMI",
-                                                         description: "Interrupt",
-                                                         irqtype: "Interrupt",
-                                                         source: "Nonmaskable external interrupt.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 3,
-                                                         mnemonic: "#BP",
-                                                         description: "Breakpoint",
-                                                         irqtype: "Trap",
-                                                         source: "INT 3 instruction.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 4,
-                                                         mnemonic: "#OF",
-                                                         description: "Overflow",
-                                                         irqtype: "Trap",
-                                                         source: "INTO instruction.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 5,
-                                                         mnemonic: "#BR",
-                                                         description: "BOUND Range Exceeded",
-                                                         irqtype: "Fault",
-                                                         source: "BOUND instruction.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 6,
-                                                         mnemonic: "#UD",
-                                                         description: "Invalid Opcode (Undefined \
-                                                                       Opcode)",
-                                                         irqtype: "Fault",
-                                                         source: "UD2 instruction or reserved \
-                                                                  opcode.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 7,
-                                                         mnemonic: "#NM",
-                                                         description: "Device Not Available (No \
-                                                                       Math Coprocessor)",
-                                                         irqtype: "Fault",
-                                                         source: "Floating-point or WAIT/FWAIT \
-                                                                  instruction.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 8,
-                                                         mnemonic: "#DF",
-                                                         description: "Double Fault",
-                                                         irqtype: "Abort",
-                                                         source: "Any instruction that can \
-                                                                  generate an exception, an NMI, \
-                                                                  or an INTR.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 9,
-                                                         mnemonic: "",
-                                                         description: "Coprocessor Segment Overrun",
-                                                         irqtype: "Fault",
-                                                         source: "Floating-point instruction.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 10,
-                                                         mnemonic: "#TS",
-                                                         description: "Invalid TSS",
-                                                         irqtype: "Fault",
-                                                         source: "Task switch or TSS access.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 11,
-                                                         mnemonic: "#NP",
-                                                         description: "Segment Not Present",
-                                                         irqtype: "Fault",
-                                                         source: "Loading segment registers or \
-                                                                  accessing system segments.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 12,
-                                                         mnemonic: "#SS",
-                                                         description: "Stack-Segment Fault",
-                                                         irqtype: "Fault",
-                                                         source: "Stack operations and SS register \
-                                                                  loads.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 13,
-                                                         mnemonic: "#GP",
-                                                         description: "General Protection",
-                                                         irqtype: "Fault",
-                                                         source: "Any memory reference and other \
-                                                                  protection checks.",
-                                                     },
-                                                     InterruptDescription {
-                                                         vector: 14,
-                                                         mnemonic: "#PF",
-                                                         description: "Page Fault",
-                                                         irqtype: "Fault",
-                                                         source: "Any memory reference.",
-                                                     }]</code></pre><div class='docblock'><p>x86 External Interrupts (1-16).</p>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1141' class='srclink' href='../../src/x86/irq.rs.html#28-141' title='goto source code'>[src]</a></span></h1>
+<pre class='rust static'>pub static EXCEPTIONS: [<a class='struct' href='../../x86/irq/struct.InterruptDescription.html' title='x86::irq::InterruptDescription'>InterruptDescription</a>; 15]<code> = </code><code>[InterruptDescription{vector: 0,
+                      mnemonic: &quot;#DE&quot;,
+                      description: &quot;Divide Error&quot;,
+                      irqtype: &quot;Fault&quot;,
+                      source: &quot;DIV and IDIV instructions.&quot;,},
+ InterruptDescription{vector: 1,
+                      mnemonic: &quot;#DB&quot;,
+                      description: &quot;RESERVED&quot;,
+                      irqtype: &quot;Fault/ Trap&quot;,
+                      source: &quot;For Intel use only.&quot;,},
+ InterruptDescription{vector: 2,
+                      mnemonic: &quot;NMI&quot;,
+                      description: &quot;Interrupt&quot;,
+                      irqtype: &quot;Interrupt&quot;,
+                      source: &quot;Nonmaskable external interrupt.&quot;,},
+ InterruptDescription{vector: 3,
+                      mnemonic: &quot;#BP&quot;,
+                      description: &quot;Breakpoint&quot;,
+                      irqtype: &quot;Trap&quot;,
+                      source: &quot;INT 3 instruction.&quot;,},
+ InterruptDescription{vector: 4,
+                      mnemonic: &quot;#OF&quot;,
+                      description: &quot;Overflow&quot;,
+                      irqtype: &quot;Trap&quot;,
+                      source: &quot;INTO instruction.&quot;,},
+ InterruptDescription{vector: 5,
+                      mnemonic: &quot;#BR&quot;,
+                      description: &quot;BOUND Range Exceeded&quot;,
+                      irqtype: &quot;Fault&quot;,
+                      source: &quot;BOUND instruction.&quot;,},
+ InterruptDescription{vector: 6,
+                      mnemonic: &quot;#UD&quot;,
+                      description: &quot;Invalid Opcode (Undefined Opcode)&quot;,
+                      irqtype: &quot;Fault&quot;,
+                      source: &quot;UD2 instruction or reserved opcode.&quot;,},
+ InterruptDescription{vector: 7,
+                      mnemonic: &quot;#NM&quot;,
+                      description:
+                          &quot;Device Not Available (No Math Coprocessor)&quot;,
+                      irqtype: &quot;Fault&quot;,
+                      source: &quot;Floating-point or WAIT/FWAIT instruction.&quot;,},
+ InterruptDescription{vector: 8,
+                      mnemonic: &quot;#DF&quot;,
+                      description: &quot;Double Fault&quot;,
+                      irqtype: &quot;Abort&quot;,
+                      source:
+                          &quot;Any instruction that can generate an exception, an NMI, or an INTR.&quot;,},
+ InterruptDescription{vector: 9,
+                      mnemonic: &quot;&quot;,
+                      description: &quot;Coprocessor Segment Overrun&quot;,
+                      irqtype: &quot;Fault&quot;,
+                      source: &quot;Floating-point instruction.&quot;,},
+ InterruptDescription{vector: 10,
+                      mnemonic: &quot;#TS&quot;,
+                      description: &quot;Invalid TSS&quot;,
+                      irqtype: &quot;Fault&quot;,
+                      source: &quot;Task switch or TSS access.&quot;,},
+ InterruptDescription{vector: 11,
+                      mnemonic: &quot;#NP&quot;,
+                      description: &quot;Segment Not Present&quot;,
+                      irqtype: &quot;Fault&quot;,
+                      source:
+                          &quot;Loading segment registers or accessing system segments.&quot;,},
+ InterruptDescription{vector: 12,
+                      mnemonic: &quot;#SS&quot;,
+                      description: &quot;Stack-Segment Fault&quot;,
+                      irqtype: &quot;Fault&quot;,
+                      source: &quot;Stack operations and SS register loads.&quot;,},
+ InterruptDescription{vector: 13,
+                      mnemonic: &quot;#GP&quot;,
+                      description: &quot;General Protection&quot;,
+                      irqtype: &quot;Fault&quot;,
+                      source:
+                          &quot;Any memory reference and other protection checks.&quot;,},
+ InterruptDescription{vector: 14,
+                      mnemonic: &quot;#PF&quot;,
+                      description: &quot;Page Fault&quot;,
+                      irqtype: &quot;Fault&quot;,
+                      source: &quot;Any memory reference.&quot;,}]</code></pre><div class='docblock'><p>x86 External Interrupts (1-16).</p>
 </div></section>
     <section id='search' class="content hidden"></section>
 
@@ -184,6 +150,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

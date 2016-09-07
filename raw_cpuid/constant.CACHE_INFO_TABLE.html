@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,115 +44,408 @@
 
     <section id='main' class="content constant">
 <h1 class='fqn'><span class='in-band'><a href='index.html'>raw_cpuid</a>::<wbr><a class='constant' href=''>CACHE_INFO_TABLE</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-244' class='srclink' href='../src/raw_cpuid/lib.rs.html#528-632' title='goto source code'>[src]</a></span></h1>
-<pre class='rust const'>pub const CACHE_INFO_TABLE: [<a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a>; 103]<code> = </code><code>[
-    CacheInfo{num: 0x00, typ: CacheInfoType::GENERAL, desc: "Null descriptor, this byte contains no information"},
-    CacheInfo{num: 0x01, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4 KByte pages, 4-way set associative, 32 entries"},
-    CacheInfo{num: 0x02, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4 MByte pages, fully associative, 2 entries"},
-    CacheInfo{num: 0x03, typ: CacheInfoType::TLB, desc: "Data TLB: 4 KByte pages, 4-way set associative, 64 entries"},
-    CacheInfo{num: 0x04, typ: CacheInfoType::TLB, desc: "Data TLB: 4 MByte pages, 4-way set associative, 8 entries"},
-    CacheInfo{num: 0x05, typ: CacheInfoType::TLB, desc: "Data TLB1: 4 MByte pages, 4-way set associative, 32 entries"},
-    CacheInfo{num: 0x06, typ: CacheInfoType::CACHE, desc: "1st-level instruction cache: 8 KBytes, 4-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x08, typ: CacheInfoType::CACHE, desc: "1st-level instruction cache: 16 KBytes, 4-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x09, typ: CacheInfoType::CACHE, desc: "1st-level instruction cache: 32KBytes, 4-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x0A, typ: CacheInfoType::CACHE, desc: "1st-level data cache: 8 KBytes, 2-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x0B, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4 MByte pages, 4-way set associative, 4 entries"},
-    CacheInfo{num: 0x0C, typ: CacheInfoType::CACHE, desc: "1st-level data cache: 16 KBytes, 4-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x0D, typ: CacheInfoType::CACHE, desc: "1st-level data cache: 16 KBytes, 4-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x0E, typ: CacheInfoType::CACHE, desc: "1st-level data cache: 24 KBytes, 6-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x21, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 256 KBytes, 8-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x22, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 512 KBytes, 4-way set associative, 64 byte line size, 2 lines per sector"},
-    CacheInfo{num: 0x23, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 1 MBytes, 8-way set associative, 64 byte line size, 2 lines per sector"},
-    CacheInfo{num: 0x24, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 1 MBytes, 16-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x25, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 2 MBytes, 8-way set associative, 64 byte line size, 2 lines per sector"},
-    CacheInfo{num: 0x29, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 4 MBytes, 8-way set associative, 64 byte line size, 2 lines per sector"},
-    CacheInfo{num: 0x2C, typ: CacheInfoType::CACHE, desc: "1st-level data cache: 32 KBytes, 8-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x30, typ: CacheInfoType::CACHE, desc: "1st-level instruction cache: 32 KBytes, 8-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x40, typ: CacheInfoType::CACHE, desc: "No 2nd-level cache or, if processor contains a valid 2nd-level cache, no 3rd-level cache"},
-    CacheInfo{num: 0x41, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 128 KBytes, 4-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x42, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 256 KBytes, 4-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x43, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 512 KBytes, 4-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x44, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 1 MByte, 4-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x45, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 2 MByte, 4-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x46, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 4 MByte, 4-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x47, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 8 MByte, 8-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x48, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 3MByte, 12-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x49, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 4MB, 16-way set associative, 64-byte line size (Intel Xeon processor MP, Family 0FH, Model 06H); 2nd-level cache: 4 MByte, 16-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x4A, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 6MByte, 12-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x4B, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 8MByte, 16-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x4C, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 12MByte, 12-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x4D, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 16MByte, 16-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x4E, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 6MByte, 24-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x4F, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4 KByte pages, 32 entries"},
-    CacheInfo{num: 0x50, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4 KByte and 2-MByte or 4-MByte pages, 64 entries"},
-    CacheInfo{num: 0x51, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4 KByte and 2-MByte or 4-MByte pages, 128 entries"},
-    CacheInfo{num: 0x52, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4 KByte and 2-MByte or 4-MByte pages, 256 entries"},
-    CacheInfo{num: 0x55, typ: CacheInfoType::TLB, desc: "Instruction TLB: 2-MByte or 4-MByte pages, fully associative, 7 entries"},
-    CacheInfo{num: 0x56, typ: CacheInfoType::TLB, desc: "Data TLB0: 4 MByte pages, 4-way set associative, 16 entries"},
-    CacheInfo{num: 0x57, typ: CacheInfoType::TLB, desc: "Data TLB0: 4 KByte pages, 4-way associative, 16 entries"},
-    CacheInfo{num: 0x59, typ: CacheInfoType::TLB, desc: "Data TLB0: 4 KByte pages, fully associative, 16 entries"},
-    CacheInfo{num: 0x5A, typ: CacheInfoType::TLB, desc: "Data TLB0: 2-MByte or 4 MByte pages, 4-way set associative, 32 entries"},
-    CacheInfo{num: 0x5B, typ: CacheInfoType::TLB, desc: "Data TLB: 4 KByte and 4 MByte pages, 64 entries"},
-    CacheInfo{num: 0x5C, typ: CacheInfoType::TLB, desc: "Data TLB: 4 KByte and 4 MByte pages,128 entries"},
-    CacheInfo{num: 0x5D, typ: CacheInfoType::TLB, desc: "Data TLB: 4 KByte and 4 MByte pages,256 entries"},
-    CacheInfo{num: 0x60, typ: CacheInfoType::CACHE, desc: "1st-level data cache: 16 KByte, 8-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x61, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4 KByte pages, fully associative, 48 entries"},
-    CacheInfo{num: 0x63, typ: CacheInfoType::TLB, desc: "Data TLB: 1 GByte pages, 4-way set associative, 4 entries"},
-    CacheInfo{num: 0x66, typ: CacheInfoType::CACHE, desc: "1st-level data cache: 8 KByte, 4-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x67, typ: CacheInfoType::CACHE, desc: "1st-level data cache: 16 KByte, 4-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x68, typ: CacheInfoType::CACHE, desc: "1st-level data cache: 32 KByte, 4-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x70, typ: CacheInfoType::CACHE, desc: "Trace cache: 12 K-μop, 8-way set associative"},
-    CacheInfo{num: 0x71, typ: CacheInfoType::CACHE, desc: "Trace cache: 16 K-μop, 8-way set associative"},
-    CacheInfo{num: 0x72, typ: CacheInfoType::CACHE, desc: "Trace cache: 32 K-μop, 8-way set associative"},
-    CacheInfo{num: 0x76, typ: CacheInfoType::TLB, desc: "Instruction TLB: 2M/4M pages, fully associative, 8 entries"},
-    CacheInfo{num: 0x78, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 1 MByte, 4-way set associative, 64byte line size"},
-    CacheInfo{num: 0x79, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 128 KByte, 8-way set associative, 64 byte line size, 2 lines per sector"},
-    CacheInfo{num: 0x7A, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 256 KByte, 8-way set associative, 64 byte line size, 2 lines per sector"},
-    CacheInfo{num: 0x7B, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 512 KByte, 8-way set associative, 64 byte line size, 2 lines per sector"},
-    CacheInfo{num: 0x7C, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 1 MByte, 8-way set associative, 64 byte line size, 2 lines per sector"},
-    CacheInfo{num: 0x7D, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 2 MByte, 8-way set associative, 64byte line size"},
-    CacheInfo{num: 0x7F, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 512 KByte, 2-way set associative, 64-byte line size"},
-    CacheInfo{num: 0x80, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 512 KByte, 8-way set associative, 64-byte line size"},
-    CacheInfo{num: 0x82, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 256 KByte, 8-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x83, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 512 KByte, 8-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x84, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 1 MByte, 8-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x85, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 2 MByte, 8-way set associative, 32 byte line size"},
-    CacheInfo{num: 0x86, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 512 KByte, 4-way set associative, 64 byte line size"},
-    CacheInfo{num: 0x87, typ: CacheInfoType::CACHE, desc: "2nd-level cache: 1 MByte, 8-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xB0, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4 KByte pages, 4-way set associative, 128 entries"},
-    CacheInfo{num: 0xB1, typ: CacheInfoType::TLB, desc: "Instruction TLB: 2M pages, 4-way, 8 entries or 4M pages, 4-way, 4 entries"},
-    CacheInfo{num: 0xB2, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4KByte pages, 4-way set associative, 64 entries"},
-    CacheInfo{num: 0xB3, typ: CacheInfoType::TLB, desc: "Data TLB: 4 KByte pages, 4-way set associative, 128 entries"},
-    CacheInfo{num: 0xB4, typ: CacheInfoType::TLB, desc: "Data TLB1: 4 KByte pages, 4-way associative, 256 entries"},
-    CacheInfo{num: 0xB5, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4KByte pages, 8-way set associative, 64 entries"},
-    CacheInfo{num: 0xB6, typ: CacheInfoType::TLB, desc: "Instruction TLB: 4KByte pages, 8-way set associative, 128 entries"},
-    CacheInfo{num: 0xBA, typ: CacheInfoType::TLB, desc: "Data TLB1: 4 KByte pages, 4-way associative, 64 entries"},
-    CacheInfo{num: 0xC0, typ: CacheInfoType::TLB, desc: "Data TLB: 4 KByte and 4 MByte pages, 4-way associative, 8 entries"},
-    CacheInfo{num: 0xC1, typ: CacheInfoType::STLB, desc: "Shared 2nd-Level TLB: 4 KByte/2MByte pages, 8-way associative, 1024 entries"},
-    CacheInfo{num: 0xC2, typ: CacheInfoType::DTLB, desc: "DTLB: 2 MByte/$MByte pages, 4-way associative, 16 entries"},
-    CacheInfo{num: 0xCA, typ: CacheInfoType::STLB, desc: "Shared 2nd-Level TLB: 4 KByte pages, 4-way associative, 512 entries"},
-    CacheInfo{num: 0xD0, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 512 KByte, 4-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xD1, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 1 MByte, 4-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xD2, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 2 MByte, 4-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xD6, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 1 MByte, 8-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xD7, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 2 MByte, 8-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xD8, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 4 MByte, 8-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xDC, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 1.5 MByte, 12-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xDD, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 3 MByte, 12-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xDE, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 6 MByte, 12-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xE2, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 2 MByte, 16-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xE3, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 4 MByte, 16-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xE4, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 8 MByte, 16-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xEA, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 12MByte, 24-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xEB, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 18MByte, 24-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xEC, typ: CacheInfoType::CACHE, desc: "3rd-level cache: 24MByte, 24-way set associative, 64 byte line size"},
-    CacheInfo{num: 0xF0, typ: CacheInfoType::PREFETCH, desc: "64-Byte prefetching"},
-    CacheInfo{num: 0xF1, typ: CacheInfoType::PREFETCH, desc: "128-Byte prefetching"},
-    CacheInfo{num: 0xFF, typ: CacheInfoType::GENERAL, desc: "CPUID leaf 2 does not report cache descriptor information, use CPUID leaf 4 to query cache parameters"},
-]</code></pre><div class='docblock'><p>This table is taken from Intel manual (Section CPUID instruction).</p>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-237' class='srclink' href='../src/raw_cpuid/lib.rs.html#527-631' title='goto source code'>[src]</a></span></h1>
+<pre class='rust const'>pub const CACHE_INFO_TABLE: [<a class='struct' href='../raw_cpuid/struct.CacheInfo.html' title='raw_cpuid::CacheInfo'>CacheInfo</a>; 103]<code> = </code><code>[CacheInfo{num: 0,
+           typ: CacheInfoType::GENERAL,
+           desc: &quot;Null descriptor, this byte contains no information&quot;,},
+ CacheInfo{num: 1,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 4 KByte pages, 4-way set associative, 32 entries&quot;,},
+ CacheInfo{num: 2,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 4 MByte pages, fully associative, 2 entries&quot;,},
+ CacheInfo{num: 3,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Data TLB: 4 KByte pages, 4-way set associative, 64 entries&quot;,},
+ CacheInfo{num: 4,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Data TLB: 4 MByte pages, 4-way set associative, 8 entries&quot;,},
+ CacheInfo{num: 5,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Data TLB1: 4 MByte pages, 4-way set associative, 32 entries&quot;,},
+ CacheInfo{num: 6,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level instruction cache: 8 KBytes, 4-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 8,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level instruction cache: 16 KBytes, 4-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 9,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level instruction cache: 32KBytes, 4-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 10,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level data cache: 8 KBytes, 2-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 11,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 4 MByte pages, 4-way set associative, 4 entries&quot;,},
+ CacheInfo{num: 12,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level data cache: 16 KBytes, 4-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 13,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level data cache: 16 KBytes, 4-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 14,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level data cache: 24 KBytes, 6-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 33,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 256 KBytes, 8-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 34,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 512 KBytes, 4-way set associative, 64 byte line size, 2 lines per sector&quot;,},
+ CacheInfo{num: 35,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 1 MBytes, 8-way set associative, 64 byte line size, 2 lines per sector&quot;,},
+ CacheInfo{num: 36,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 1 MBytes, 16-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 37,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 2 MBytes, 8-way set associative, 64 byte line size, 2 lines per sector&quot;,},
+ CacheInfo{num: 41,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 4 MBytes, 8-way set associative, 64 byte line size, 2 lines per sector&quot;,},
+ CacheInfo{num: 44,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level data cache: 32 KBytes, 8-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 48,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level instruction cache: 32 KBytes, 8-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 64,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;No 2nd-level cache or, if processor contains a valid 2nd-level cache, no 3rd-level cache&quot;,},
+ CacheInfo{num: 65,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 128 KBytes, 4-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 66,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 256 KBytes, 4-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 67,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 512 KBytes, 4-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 68,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 1 MByte, 4-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 69,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 2 MByte, 4-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 70,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 4 MByte, 4-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 71,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 8 MByte, 8-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 72,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 3MByte, 12-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 73,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 4MB, 16-way set associative, 64-byte line size (Intel Xeon processor MP, Family 0FH, Model 06H); 2nd-level cache: 4 MByte, 16-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 74,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 6MByte, 12-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 75,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 8MByte, 16-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 76,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 12MByte, 12-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 77,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 16MByte, 16-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 78,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 6MByte, 24-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 79,
+           typ: CacheInfoType::TLB,
+           desc: &quot;Instruction TLB: 4 KByte pages, 32 entries&quot;,},
+ CacheInfo{num: 80,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 4 KByte and 2-MByte or 4-MByte pages, 64 entries&quot;,},
+ CacheInfo{num: 81,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 4 KByte and 2-MByte or 4-MByte pages, 128 entries&quot;,},
+ CacheInfo{num: 82,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 4 KByte and 2-MByte or 4-MByte pages, 256 entries&quot;,},
+ CacheInfo{num: 85,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 2-MByte or 4-MByte pages, fully associative, 7 entries&quot;,},
+ CacheInfo{num: 86,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Data TLB0: 4 MByte pages, 4-way set associative, 16 entries&quot;,},
+ CacheInfo{num: 87,
+           typ: CacheInfoType::TLB,
+           desc: &quot;Data TLB0: 4 KByte pages, 4-way associative, 16 entries&quot;,},
+ CacheInfo{num: 89,
+           typ: CacheInfoType::TLB,
+           desc: &quot;Data TLB0: 4 KByte pages, fully associative, 16 entries&quot;,},
+ CacheInfo{num: 90,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Data TLB0: 2-MByte or 4 MByte pages, 4-way set associative, 32 entries&quot;,},
+ CacheInfo{num: 91,
+           typ: CacheInfoType::TLB,
+           desc: &quot;Data TLB: 4 KByte and 4 MByte pages, 64 entries&quot;,},
+ CacheInfo{num: 92,
+           typ: CacheInfoType::TLB,
+           desc: &quot;Data TLB: 4 KByte and 4 MByte pages,128 entries&quot;,},
+ CacheInfo{num: 93,
+           typ: CacheInfoType::TLB,
+           desc: &quot;Data TLB: 4 KByte and 4 MByte pages,256 entries&quot;,},
+ CacheInfo{num: 96,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level data cache: 16 KByte, 8-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 97,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 4 KByte pages, fully associative, 48 entries&quot;,},
+ CacheInfo{num: 99,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Data TLB: 1 GByte pages, 4-way set associative, 4 entries&quot;,},
+ CacheInfo{num: 102,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level data cache: 8 KByte, 4-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 103,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level data cache: 16 KByte, 4-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 104,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;1st-level data cache: 32 KByte, 4-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 112,
+           typ: CacheInfoType::CACHE,
+           desc: &quot;Trace cache: 12 K-\u{3bc}op, 8-way set associative&quot;,},
+ CacheInfo{num: 113,
+           typ: CacheInfoType::CACHE,
+           desc: &quot;Trace cache: 16 K-\u{3bc}op, 8-way set associative&quot;,},
+ CacheInfo{num: 114,
+           typ: CacheInfoType::CACHE,
+           desc: &quot;Trace cache: 32 K-\u{3bc}op, 8-way set associative&quot;,},
+ CacheInfo{num: 118,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 2M/4M pages, fully associative, 8 entries&quot;,},
+ CacheInfo{num: 120,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 1 MByte, 4-way set associative, 64byte line size&quot;,},
+ CacheInfo{num: 121,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 128 KByte, 8-way set associative, 64 byte line size, 2 lines per sector&quot;,},
+ CacheInfo{num: 122,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 256 KByte, 8-way set associative, 64 byte line size, 2 lines per sector&quot;,},
+ CacheInfo{num: 123,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 512 KByte, 8-way set associative, 64 byte line size, 2 lines per sector&quot;,},
+ CacheInfo{num: 124,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 1 MByte, 8-way set associative, 64 byte line size, 2 lines per sector&quot;,},
+ CacheInfo{num: 125,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 2 MByte, 8-way set associative, 64byte line size&quot;,},
+ CacheInfo{num: 127,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 512 KByte, 2-way set associative, 64-byte line size&quot;,},
+ CacheInfo{num: 128,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 512 KByte, 8-way set associative, 64-byte line size&quot;,},
+ CacheInfo{num: 130,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 256 KByte, 8-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 131,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 512 KByte, 8-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 132,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 1 MByte, 8-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 133,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 2 MByte, 8-way set associative, 32 byte line size&quot;,},
+ CacheInfo{num: 134,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 512 KByte, 4-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 135,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;2nd-level cache: 1 MByte, 8-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 176,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 4 KByte pages, 4-way set associative, 128 entries&quot;,},
+ CacheInfo{num: 177,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 2M pages, 4-way, 8 entries or 4M pages, 4-way, 4 entries&quot;,},
+ CacheInfo{num: 178,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 4KByte pages, 4-way set associative, 64 entries&quot;,},
+ CacheInfo{num: 179,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Data TLB: 4 KByte pages, 4-way set associative, 128 entries&quot;,},
+ CacheInfo{num: 180,
+           typ: CacheInfoType::TLB,
+           desc: &quot;Data TLB1: 4 KByte pages, 4-way associative, 256 entries&quot;,},
+ CacheInfo{num: 181,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 4KByte pages, 8-way set associative, 64 entries&quot;,},
+ CacheInfo{num: 182,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Instruction TLB: 4KByte pages, 8-way set associative, 128 entries&quot;,},
+ CacheInfo{num: 186,
+           typ: CacheInfoType::TLB,
+           desc: &quot;Data TLB1: 4 KByte pages, 4-way associative, 64 entries&quot;,},
+ CacheInfo{num: 192,
+           typ: CacheInfoType::TLB,
+           desc:
+               &quot;Data TLB: 4 KByte and 4 MByte pages, 4-way associative, 8 entries&quot;,},
+ CacheInfo{num: 193,
+           typ: CacheInfoType::STLB,
+           desc:
+               &quot;Shared 2nd-Level TLB: 4 KByte/2MByte pages, 8-way associative, 1024 entries&quot;,},
+ CacheInfo{num: 194,
+           typ: CacheInfoType::DTLB,
+           desc:
+               &quot;DTLB: 2 MByte/$MByte pages, 4-way associative, 16 entries&quot;,},
+ CacheInfo{num: 202,
+           typ: CacheInfoType::STLB,
+           desc:
+               &quot;Shared 2nd-Level TLB: 4 KByte pages, 4-way associative, 512 entries&quot;,},
+ CacheInfo{num: 208,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 512 KByte, 4-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 209,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 1 MByte, 4-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 210,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 2 MByte, 4-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 214,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 1 MByte, 8-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 215,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 2 MByte, 8-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 216,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 4 MByte, 8-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 220,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 1.5 MByte, 12-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 221,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 3 MByte, 12-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 222,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 6 MByte, 12-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 226,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 2 MByte, 16-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 227,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 4 MByte, 16-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 228,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 8 MByte, 16-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 234,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 12MByte, 24-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 235,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 18MByte, 24-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 236,
+           typ: CacheInfoType::CACHE,
+           desc:
+               &quot;3rd-level cache: 24MByte, 24-way set associative, 64 byte line size&quot;,},
+ CacheInfo{num: 240,
+           typ: CacheInfoType::PREFETCH,
+           desc: &quot;64-Byte prefetching&quot;,},
+ CacheInfo{num: 241,
+           typ: CacheInfoType::PREFETCH,
+           desc: &quot;128-Byte prefetching&quot;,},
+ CacheInfo{num: 255,
+           typ: CacheInfoType::GENERAL,
+           desc:
+               &quot;CPUID leaf 2 does not report cache descriptor information, use CPUID leaf 4 to query cache parameters&quot;,}]</code></pre><div class='docblock'><p>This table is taken from Intel manual (Section CPUID instruction).</p>
 </div></section>
     <section id='search' class="content hidden"></section>
 
@@ -175,6 +469,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

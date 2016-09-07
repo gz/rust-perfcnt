@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,40 +44,43 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>raw_cpuid</a>::<wbr><a class='struct' href=''>ExtendedFeatures</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1102' class='srclink' href='../src/raw_cpuid/lib.rs.html#1354-1359' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1101' class='srclink' href='../src/raw_cpuid/lib.rs.html#1353-1358' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ExtendedFeatures {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.ExtendedFeatures.html' title='raw_cpuid::ExtendedFeatures'>ExtendedFeatures</a></code></h3><div class='impl-items'><h4 id='method.has_fsgsbase' class='method'><code>fn <a href='#method.has_fsgsbase' class='fnname'>has_fsgsbase</a>(&amp;self) -&gt; bool</code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../raw_cpuid/struct.ExtendedFeatures.html' title='raw_cpuid::ExtendedFeatures'>ExtendedFeatures</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1106' class='srclink' href='../src/raw_cpuid/lib.rs.html#1360-1400' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.has_fsgsbase' class='method'><span id='has_fsgsbase.v' class='invisible'><code>fn <a href='#method.has_fsgsbase' class='fnname'>has_fsgsbase</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>FSGSBASE. Supports RDFSBASE/RDGSBASE/WRFSBASE/WRGSBASE if 1.</p>
-</div><h4 id='method.has_tsc_adjust_msr' class='method'><code>fn <a href='#method.has_tsc_adjust_msr' class='fnname'>has_tsc_adjust_msr</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_tsc_adjust_msr' class='method'><span id='has_tsc_adjust_msr.v' class='invisible'><code>fn <a href='#method.has_tsc_adjust_msr' class='fnname'>has_tsc_adjust_msr</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>IA32_TSC_ADJUST MSR is supported if 1.</p>
-</div><h4 id='method.has_bmi1' class='method'><code>fn <a href='#method.has_bmi1' class='fnname'>has_bmi1</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_bmi1' class='method'><span id='has_bmi1.v' class='invisible'><code>fn <a href='#method.has_bmi1' class='fnname'>has_bmi1</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>BMI1</p>
-</div><h4 id='method.has_hle' class='method'><code>fn <a href='#method.has_hle' class='fnname'>has_hle</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_hle' class='method'><span id='has_hle.v' class='invisible'><code>fn <a href='#method.has_hle' class='fnname'>has_hle</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>HLE</p>
-</div><h4 id='method.has_avx2' class='method'><code>fn <a href='#method.has_avx2' class='fnname'>has_avx2</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_avx2' class='method'><span id='has_avx2.v' class='invisible'><code>fn <a href='#method.has_avx2' class='fnname'>has_avx2</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>AVX2</p>
-</div><h4 id='method.has_smep' class='method'><code>fn <a href='#method.has_smep' class='fnname'>has_smep</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_smep' class='method'><span id='has_smep.v' class='invisible'><code>fn <a href='#method.has_smep' class='fnname'>has_smep</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>SMEP. Supports Supervisor-Mode Execution Prevention if 1.</p>
-</div><h4 id='method.has_bmi2' class='method'><code>fn <a href='#method.has_bmi2' class='fnname'>has_bmi2</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_bmi2' class='method'><span id='has_bmi2.v' class='invisible'><code>fn <a href='#method.has_bmi2' class='fnname'>has_bmi2</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>BMI2</p>
-</div><h4 id='method.has_rep_movsb_stosb' class='method'><code>fn <a href='#method.has_rep_movsb_stosb' class='fnname'>has_rep_movsb_stosb</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_rep_movsb_stosb' class='method'><span id='has_rep_movsb_stosb.v' class='invisible'><code>fn <a href='#method.has_rep_movsb_stosb' class='fnname'>has_rep_movsb_stosb</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>Supports Enhanced REP MOVSB/STOSB if 1.</p>
-</div><h4 id='method.has_invpcid' class='method'><code>fn <a href='#method.has_invpcid' class='fnname'>has_invpcid</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_invpcid' class='method'><span id='has_invpcid.v' class='invisible'><code>fn <a href='#method.has_invpcid' class='fnname'>has_invpcid</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>INVPCID. If 1, supports INVPCID instruction for system software that manages process-context identifiers.</p>
-</div><h4 id='method.has_rtm' class='method'><code>fn <a href='#method.has_rtm' class='fnname'>has_rtm</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_rtm' class='method'><span id='has_rtm.v' class='invisible'><code>fn <a href='#method.has_rtm' class='fnname'>has_rtm</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>RTM</p>
-</div><h4 id='method.has_qm' class='method'><code>fn <a href='#method.has_qm' class='fnname'>has_qm</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_qm' class='method'><span id='has_qm.v' class='invisible'><code>fn <a href='#method.has_qm' class='fnname'>has_qm</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>Supports Quality of Service Monitoring (QM) capability if 1.</p>
-</div><h4 id='method.has_fpu_cs_ds_deprecated' class='method'><code>fn <a href='#method.has_fpu_cs_ds_deprecated' class='fnname'>has_fpu_cs_ds_deprecated</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_fpu_cs_ds_deprecated' class='method'><span id='has_fpu_cs_ds_deprecated.v' class='invisible'><code>fn <a href='#method.has_fpu_cs_ds_deprecated' class='fnname'>has_fpu_cs_ds_deprecated</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>Deprecates FPU CS and FPU DS values if 1.</p>
-</div><h4 id='method.has_mpx' class='method'><code>fn <a href='#method.has_mpx' class='fnname'>has_mpx</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.has_mpx' class='method'><span id='has_mpx.v' class='invisible'><code>fn <a href='#method.has_mpx' class='fnname'>has_mpx</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>MPX. Supports Intel Memory Protection Extensions if 1.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.ExtendedFeatures.html' title='raw_cpuid::ExtendedFeatures'>ExtendedFeatures</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.ExtendedFeatures.html' title='raw_cpuid::ExtendedFeatures'>ExtendedFeatures</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1092' class='srclink' href='../src/raw_cpuid/lib.rs.html#1352' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -99,6 +103,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

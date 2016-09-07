@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,122 +44,110 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>x86</a>::<wbr><a class='mod' href=''>irq</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1120' class='srclink' href='../../src/x86/irq.rs.html#1-297' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1114' class='srclink' href='../../src/x86/irq.rs.html#1-297' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Interrupt description and set-up code.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.IdtEntry.html'
-                               title='x86::irq::IdtEntry'>IdtEntry</a></td>
-                        <td class='docblock short'>
-                             <p>A struct describing an interrupt gate.  See the Intel manual mentioned
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.IdtEntry.html'
+                                  title='x86::irq::IdtEntry'>IdtEntry</a></td>
+                           <td class='docblock short'>
+                                <p>A struct describing an interrupt gate.  See the Intel manual mentioned
 above for details, specifically, the section &quot;6.14.1 64-Bit Mode IDT&quot;
 and &quot;Table 3-2. System-Segment and Gate-Descriptor Types&quot;.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.InterruptDescription.html'
-                               title='x86::irq::InterruptDescription'>InterruptDescription</a></td>
-                        <td class='docblock short'>
-                             <p>x86 Exception description (see also Intel Vol. 3a Chapter 6).</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.PageFaultError.html'
-                               title='x86::irq::PageFaultError'>PageFaultError</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.InterruptDescription.html'
+                                  title='x86::irq::InterruptDescription'>InterruptDescription</a></td>
+                           <td class='docblock short'>
+                                <p>x86 Exception description (see also Intel Vol. 3a Chapter 6).</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.PageFaultError.html'
+                                  title='x86::irq::PageFaultError'>PageFaultError</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.PFAULT_ERROR_ID.html'
-                               title='x86::irq::PFAULT_ERROR_ID'>PFAULT_ERROR_ID</a></td>
-                        <td class='docblock short'>
-                             <p>0: The fault was not caused by an instruction fetch.
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.PFAULT_ERROR_ID.html'
+                                  title='x86::irq::PFAULT_ERROR_ID'>PFAULT_ERROR_ID</a></td>
+                           <td class='docblock short'>
+                                <p>0: The fault was not caused by an instruction fetch.
 1: The fault was caused by an instruction fetch.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.PFAULT_ERROR_P.html'
-                               title='x86::irq::PFAULT_ERROR_P'>PFAULT_ERROR_P</a></td>
-                        <td class='docblock short'>
-                             <p>0: The fault was caused by a non-present page.
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.PFAULT_ERROR_P.html'
+                                  title='x86::irq::PFAULT_ERROR_P'>PFAULT_ERROR_P</a></td>
+                           <td class='docblock short'>
+                                <p>0: The fault was caused by a non-present page.
 1: The fault was caused by a page-level protection violation</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.PFAULT_ERROR_PK.html'
-                               title='x86::irq::PFAULT_ERROR_PK'>PFAULT_ERROR_PK</a></td>
-                        <td class='docblock short'>
-                             <p>0: The fault was not by protection keys.
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.PFAULT_ERROR_PK.html'
+                                  title='x86::irq::PFAULT_ERROR_PK'>PFAULT_ERROR_PK</a></td>
+                           <td class='docblock short'>
+                                <p>0: The fault was not by protection keys.
 1: There was a protection key violation.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.PFAULT_ERROR_RSVD.html'
-                               title='x86::irq::PFAULT_ERROR_RSVD'>PFAULT_ERROR_RSVD</a></td>
-                        <td class='docblock short'>
-                             <p>0: The fault was not caused by reserved bit violation.
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.PFAULT_ERROR_RSVD.html'
+                                  title='x86::irq::PFAULT_ERROR_RSVD'>PFAULT_ERROR_RSVD</a></td>
+                           <td class='docblock short'>
+                                <p>0: The fault was not caused by reserved bit violation.
 1: The fault was caused by reserved bits set to 1 in a page directory.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.PFAULT_ERROR_US.html'
-                               title='x86::irq::PFAULT_ERROR_US'>PFAULT_ERROR_US</a></td>
-                        <td class='docblock short'>
-                             <p>0: The access causing the fault originated when the processor
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.PFAULT_ERROR_US.html'
+                                  title='x86::irq::PFAULT_ERROR_US'>PFAULT_ERROR_US</a></td>
+                           <td class='docblock short'>
+                                <p>0: The access causing the fault originated when the processor
 was executing in supervisor mode.
 1: The access causing the fault originated when the processor
 was executing in user mode.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.PFAULT_ERROR_WR.html'
-                               title='x86::irq::PFAULT_ERROR_WR'>PFAULT_ERROR_WR</a></td>
-                        <td class='docblock short'>
-                             <p>0: The access causing the fault was a read.
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.PFAULT_ERROR_WR.html'
+                                  title='x86::irq::PFAULT_ERROR_WR'>PFAULT_ERROR_WR</a></td>
+                           <td class='docblock short'>
+                                <p>0: The access causing the fault was a read.
 1: The access causing the fault was a write.</p>
-                        </td>
-                    </tr>
-                </table><h2 id='statics' class='section-header'><a href="#statics">Statics</a></h2>
+                           </td>
+                       </tr></table><h2 id='statics' class='section-header'><a href="#statics">Statics</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='static' href='static.EXCEPTIONS.html'
-                               title='x86::irq::EXCEPTIONS'>EXCEPTIONS</a></td>
-                        <td class='docblock short'>
-                             <p>x86 External Interrupts (1-16).</p>
-                        </td>
-                    </tr>
-                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='static' href='static.EXCEPTIONS.html'
+                                  title='x86::irq::EXCEPTIONS'>EXCEPTIONS</a></td>
+                           <td class='docblock short'>
+                                <p>x86 External Interrupts (1-16).</p>
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.disable.html'
-                               title='x86::irq::disable'>disable</a></td>
-                        <td class='docblock short'>
-                             <p>Disable Interrupts.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.enable.html'
-                               title='x86::irq::enable'>enable</a></td>
-                        <td class='docblock short'>
-                             <p>Enable Interrupts.</p>
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.disable.html'
+                                  title='x86::irq::disable'>disable</a></td>
+                           <td class='docblock short'>
+                                <p>Disable Interrupts.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.enable.html'
+                                  title='x86::irq::enable'>enable</a></td>
+                           <td class='docblock short'>
+                                <p>Enable Interrupts.</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -181,6 +170,8 @@ was executing in user mode.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

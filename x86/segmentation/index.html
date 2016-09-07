@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,387 +44,341 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>x86</a>::<wbr><a class='mod' href=''>segmentation</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2275' class='srclink' href='../../src/x86/segmentation.rs.html#1-207' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2271' class='srclink' href='../../src/x86/segmentation.rs.html#1-207' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Program x86 segmentation hardware.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.SegmentDescriptor.html'
-                               title='x86::segmentation::SegmentDescriptor'>SegmentDescriptor</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.SegmentSelector.html'
-                               title='x86::segmentation::SegmentSelector'>SegmentSelector</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.SegmentDescriptor.html'
+                                  title='x86::segmentation::SegmentDescriptor'>SegmentDescriptor</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.SegmentSelector.html'
+                                  title='x86::segmentation::SegmentSelector'>SegmentSelector</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.DESC_AVL.html'
-                               title='x86::segmentation::DESC_AVL'>DESC_AVL</a></td>
-                        <td class='docblock short'>
-                             <p>Available for use by system software.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.DESC_DB.html'
-                               title='x86::segmentation::DESC_DB'>DESC_DB</a></td>
-                        <td class='docblock short'>
-                             <p>Default operation size (0 = 16-bit segment, 1 = 32-bit segment)</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.DESC_DPL0.html'
-                               title='x86::segmentation::DESC_DPL0'>DESC_DPL0</a></td>
-                        <td class='docblock short'>
-                             <p>Descriptor privilege level 0.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.DESC_DPL1.html'
-                               title='x86::segmentation::DESC_DPL1'>DESC_DPL1</a></td>
-                        <td class='docblock short'>
-                             <p>Descriptor privilege level 1.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.DESC_DPL2.html'
-                               title='x86::segmentation::DESC_DPL2'>DESC_DPL2</a></td>
-                        <td class='docblock short'>
-                             <p>Descriptor privilege level 2.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.DESC_DPL3.html'
-                               title='x86::segmentation::DESC_DPL3'>DESC_DPL3</a></td>
-                        <td class='docblock short'>
-                             <p>Descriptor privilege level 3.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.DESC_G.html'
-                               title='x86::segmentation::DESC_G'>DESC_G</a></td>
-                        <td class='docblock short'>
-                             <p>Granularity.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.DESC_L.html'
-                               title='x86::segmentation::DESC_L'>DESC_L</a></td>
-                        <td class='docblock short'>
-                             <p>64-bit code segment (IA-32e mode only).</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.DESC_P.html'
-                               title='x86::segmentation::DESC_P'>DESC_P</a></td>
-                        <td class='docblock short'>
-                             <p>Descriptor is Present.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.DESC_S.html'
-                               title='x86::segmentation::DESC_S'>DESC_S</a></td>
-                        <td class='docblock short'>
-                             <p>Descriptor type (0 = system; 1 = code or data).</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.RPL_0.html'
-                               title='x86::segmentation::RPL_0'>RPL_0</a></td>
-                        <td class='docblock short'>
-                             <p>Requestor Privilege Level</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.RPL_1.html'
-                               title='x86::segmentation::RPL_1'>RPL_1</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.RPL_2.html'
-                               title='x86::segmentation::RPL_2'>RPL_2</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.RPL_3.html'
-                               title='x86::segmentation::RPL_3'>RPL_3</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TI_GDT.html'
-                               title='x86::segmentation::TI_GDT'>TI_GDT</a></td>
-                        <td class='docblock short'>
-                             <p>Table Indicator (TI) 0 means GDT is used.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TI_LDT.html'
-                               title='x86::segmentation::TI_LDT'>TI_LDT</a></td>
-                        <td class='docblock short'>
-                             <p>Table Indicator (TI) 1 means LDT is used.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_C_EO.html'
-                               title='x86::segmentation::TYPE_C_EO'>TYPE_C_EO</a></td>
-                        <td class='docblock short'>
-                             <p>Code Execute-Only</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_C_EOA.html'
-                               title='x86::segmentation::TYPE_C_EOA'>TYPE_C_EOA</a></td>
-                        <td class='docblock short'>
-                             <p>Code Execute-Only, accessed</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_C_EOC.html'
-                               title='x86::segmentation::TYPE_C_EOC'>TYPE_C_EOC</a></td>
-                        <td class='docblock short'>
-                             <p>Code Execute-Only, conforming</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_C_EOCA.html'
-                               title='x86::segmentation::TYPE_C_EOCA'>TYPE_C_EOCA</a></td>
-                        <td class='docblock short'>
-                             <p>Code Execute-Only, conforming, accessed</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_C_ER.html'
-                               title='x86::segmentation::TYPE_C_ER'>TYPE_C_ER</a></td>
-                        <td class='docblock short'>
-                             <p>Code Execute/Read</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_C_ERA.html'
-                               title='x86::segmentation::TYPE_C_ERA'>TYPE_C_ERA</a></td>
-                        <td class='docblock short'>
-                             <p>Code Execute/Read, accessed</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_C_ERC.html'
-                               title='x86::segmentation::TYPE_C_ERC'>TYPE_C_ERC</a></td>
-                        <td class='docblock short'>
-                             <p>Code Execute/Read, conforming</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_C_ERCA.html'
-                               title='x86::segmentation::TYPE_C_ERCA'>TYPE_C_ERCA</a></td>
-                        <td class='docblock short'>
-                             <p>Code Execute/Read, conforming, accessed</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_D_RO.html'
-                               title='x86::segmentation::TYPE_D_RO'>TYPE_D_RO</a></td>
-                        <td class='docblock short'>
-                             <p>Data Read-Only</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_D_ROA.html'
-                               title='x86::segmentation::TYPE_D_ROA'>TYPE_D_ROA</a></td>
-                        <td class='docblock short'>
-                             <p>Data Read-Only, accessed</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_D_ROEXD.html'
-                               title='x86::segmentation::TYPE_D_ROEXD'>TYPE_D_ROEXD</a></td>
-                        <td class='docblock short'>
-                             <p>Data Read-Only, expand-down</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_D_ROEXDA.html'
-                               title='x86::segmentation::TYPE_D_ROEXDA'>TYPE_D_ROEXDA</a></td>
-                        <td class='docblock short'>
-                             <p>Data Read-Only, expand-down, accessed</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_D_RW.html'
-                               title='x86::segmentation::TYPE_D_RW'>TYPE_D_RW</a></td>
-                        <td class='docblock short'>
-                             <p>Data Read/Write</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_D_RWA.html'
-                               title='x86::segmentation::TYPE_D_RWA'>TYPE_D_RWA</a></td>
-                        <td class='docblock short'>
-                             <p>Data Read/Write, accessed</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_D_RWEXD.html'
-                               title='x86::segmentation::TYPE_D_RWEXD'>TYPE_D_RWEXD</a></td>
-                        <td class='docblock short'>
-                             <p>Data Read/Write, expand-down</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_D_RWEXDA.html'
-                               title='x86::segmentation::TYPE_D_RWEXDA'>TYPE_D_RWEXDA</a></td>
-                        <td class='docblock short'>
-                             <p>Data Read/Write, expand-down, accessed</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_SYS_CALL_GATE.html'
-                               title='x86::segmentation::TYPE_SYS_CALL_GATE'>TYPE_SYS_CALL_GATE</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_SYS_INTERRUPT_GATE.html'
-                               title='x86::segmentation::TYPE_SYS_INTERRUPT_GATE'>TYPE_SYS_INTERRUPT_GATE</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_SYS_LDT.html'
-                               title='x86::segmentation::TYPE_SYS_LDT'>TYPE_SYS_LDT</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_SYS_TRAP_GATE.html'
-                               title='x86::segmentation::TYPE_SYS_TRAP_GATE'>TYPE_SYS_TRAP_GATE</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_SYS_TSS_AVAILABLE.html'
-                               title='x86::segmentation::TYPE_SYS_TSS_AVAILABLE'>TYPE_SYS_TSS_AVAILABLE</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TYPE_SYS_TSS_BUSY.html'
-                               title='x86::segmentation::TYPE_SYS_TSS_BUSY'>TYPE_SYS_TSS_BUSY</a></td>
-                        <td class='docblock short'>
-                             
-                        </td>
-                    </tr>
-                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.DESC_AVL.html'
+                                  title='x86::segmentation::DESC_AVL'>DESC_AVL</a></td>
+                           <td class='docblock short'>
+                                <p>Available for use by system software.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.DESC_DB.html'
+                                  title='x86::segmentation::DESC_DB'>DESC_DB</a></td>
+                           <td class='docblock short'>
+                                <p>Default operation size (0 = 16-bit segment, 1 = 32-bit segment)</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.DESC_DPL0.html'
+                                  title='x86::segmentation::DESC_DPL0'>DESC_DPL0</a></td>
+                           <td class='docblock short'>
+                                <p>Descriptor privilege level 0.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.DESC_DPL1.html'
+                                  title='x86::segmentation::DESC_DPL1'>DESC_DPL1</a></td>
+                           <td class='docblock short'>
+                                <p>Descriptor privilege level 1.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.DESC_DPL2.html'
+                                  title='x86::segmentation::DESC_DPL2'>DESC_DPL2</a></td>
+                           <td class='docblock short'>
+                                <p>Descriptor privilege level 2.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.DESC_DPL3.html'
+                                  title='x86::segmentation::DESC_DPL3'>DESC_DPL3</a></td>
+                           <td class='docblock short'>
+                                <p>Descriptor privilege level 3.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.DESC_G.html'
+                                  title='x86::segmentation::DESC_G'>DESC_G</a></td>
+                           <td class='docblock short'>
+                                <p>Granularity.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.DESC_L.html'
+                                  title='x86::segmentation::DESC_L'>DESC_L</a></td>
+                           <td class='docblock short'>
+                                <p>64-bit code segment (IA-32e mode only).</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.DESC_P.html'
+                                  title='x86::segmentation::DESC_P'>DESC_P</a></td>
+                           <td class='docblock short'>
+                                <p>Descriptor is Present.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.DESC_S.html'
+                                  title='x86::segmentation::DESC_S'>DESC_S</a></td>
+                           <td class='docblock short'>
+                                <p>Descriptor type (0 = system; 1 = code or data).</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.RPL_0.html'
+                                  title='x86::segmentation::RPL_0'>RPL_0</a></td>
+                           <td class='docblock short'>
+                                <p>Requestor Privilege Level</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.RPL_1.html'
+                                  title='x86::segmentation::RPL_1'>RPL_1</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.RPL_2.html'
+                                  title='x86::segmentation::RPL_2'>RPL_2</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.RPL_3.html'
+                                  title='x86::segmentation::RPL_3'>RPL_3</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TI_GDT.html'
+                                  title='x86::segmentation::TI_GDT'>TI_GDT</a></td>
+                           <td class='docblock short'>
+                                <p>Table Indicator (TI) 0 means GDT is used.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TI_LDT.html'
+                                  title='x86::segmentation::TI_LDT'>TI_LDT</a></td>
+                           <td class='docblock short'>
+                                <p>Table Indicator (TI) 1 means LDT is used.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_C_EO.html'
+                                  title='x86::segmentation::TYPE_C_EO'>TYPE_C_EO</a></td>
+                           <td class='docblock short'>
+                                <p>Code Execute-Only</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_C_EOA.html'
+                                  title='x86::segmentation::TYPE_C_EOA'>TYPE_C_EOA</a></td>
+                           <td class='docblock short'>
+                                <p>Code Execute-Only, accessed</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_C_EOC.html'
+                                  title='x86::segmentation::TYPE_C_EOC'>TYPE_C_EOC</a></td>
+                           <td class='docblock short'>
+                                <p>Code Execute-Only, conforming</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_C_EOCA.html'
+                                  title='x86::segmentation::TYPE_C_EOCA'>TYPE_C_EOCA</a></td>
+                           <td class='docblock short'>
+                                <p>Code Execute-Only, conforming, accessed</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_C_ER.html'
+                                  title='x86::segmentation::TYPE_C_ER'>TYPE_C_ER</a></td>
+                           <td class='docblock short'>
+                                <p>Code Execute/Read</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_C_ERA.html'
+                                  title='x86::segmentation::TYPE_C_ERA'>TYPE_C_ERA</a></td>
+                           <td class='docblock short'>
+                                <p>Code Execute/Read, accessed</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_C_ERC.html'
+                                  title='x86::segmentation::TYPE_C_ERC'>TYPE_C_ERC</a></td>
+                           <td class='docblock short'>
+                                <p>Code Execute/Read, conforming</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_C_ERCA.html'
+                                  title='x86::segmentation::TYPE_C_ERCA'>TYPE_C_ERCA</a></td>
+                           <td class='docblock short'>
+                                <p>Code Execute/Read, conforming, accessed</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_D_RO.html'
+                                  title='x86::segmentation::TYPE_D_RO'>TYPE_D_RO</a></td>
+                           <td class='docblock short'>
+                                <p>Data Read-Only</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_D_ROA.html'
+                                  title='x86::segmentation::TYPE_D_ROA'>TYPE_D_ROA</a></td>
+                           <td class='docblock short'>
+                                <p>Data Read-Only, accessed</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_D_ROEXD.html'
+                                  title='x86::segmentation::TYPE_D_ROEXD'>TYPE_D_ROEXD</a></td>
+                           <td class='docblock short'>
+                                <p>Data Read-Only, expand-down</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_D_ROEXDA.html'
+                                  title='x86::segmentation::TYPE_D_ROEXDA'>TYPE_D_ROEXDA</a></td>
+                           <td class='docblock short'>
+                                <p>Data Read-Only, expand-down, accessed</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_D_RW.html'
+                                  title='x86::segmentation::TYPE_D_RW'>TYPE_D_RW</a></td>
+                           <td class='docblock short'>
+                                <p>Data Read/Write</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_D_RWA.html'
+                                  title='x86::segmentation::TYPE_D_RWA'>TYPE_D_RWA</a></td>
+                           <td class='docblock short'>
+                                <p>Data Read/Write, accessed</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_D_RWEXD.html'
+                                  title='x86::segmentation::TYPE_D_RWEXD'>TYPE_D_RWEXD</a></td>
+                           <td class='docblock short'>
+                                <p>Data Read/Write, expand-down</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_D_RWEXDA.html'
+                                  title='x86::segmentation::TYPE_D_RWEXDA'>TYPE_D_RWEXDA</a></td>
+                           <td class='docblock short'>
+                                <p>Data Read/Write, expand-down, accessed</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_SYS_CALL_GATE.html'
+                                  title='x86::segmentation::TYPE_SYS_CALL_GATE'>TYPE_SYS_CALL_GATE</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_SYS_INTERRUPT_GATE.html'
+                                  title='x86::segmentation::TYPE_SYS_INTERRUPT_GATE'>TYPE_SYS_INTERRUPT_GATE</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_SYS_LDT.html'
+                                  title='x86::segmentation::TYPE_SYS_LDT'>TYPE_SYS_LDT</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_SYS_TRAP_GATE.html'
+                                  title='x86::segmentation::TYPE_SYS_TRAP_GATE'>TYPE_SYS_TRAP_GATE</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_SYS_TSS_AVAILABLE.html'
+                                  title='x86::segmentation::TYPE_SYS_TSS_AVAILABLE'>TYPE_SYS_TSS_AVAILABLE</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TYPE_SYS_TSS_BUSY.html'
+                                  title='x86::segmentation::TYPE_SYS_TSS_BUSY'>TYPE_SYS_TSS_BUSY</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.load_cs.html'
-                               title='x86::segmentation::load_cs'>load_cs</a></td>
-                        <td class='docblock short'>
-                             <p>Reload code segment register.
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.load_cs.html'
+                                  title='x86::segmentation::load_cs'>load_cs</a></td>
+                           <td class='docblock short'>
+                                <p>Reload code segment register.
 Note this is special since we can not directly move
 to %cs. Instead we push the new segment selector
 and return value on the stack and use lretq
 to reload cs and continue at 1:.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.load_ds.html'
-                               title='x86::segmentation::load_ds'>load_ds</a></td>
-                        <td class='docblock short'>
-                             <p>Reload data segment register.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.load_es.html'
-                               title='x86::segmentation::load_es'>load_es</a></td>
-                        <td class='docblock short'>
-                             <p>Reload fs segment register.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.load_fs.html'
-                               title='x86::segmentation::load_fs'>load_fs</a></td>
-                        <td class='docblock short'>
-                             <p>Reload fs segment register.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.load_gs.html'
-                               title='x86::segmentation::load_gs'>load_gs</a></td>
-                        <td class='docblock short'>
-                             <p>Reload gs segment register.</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.load_ss.html'
-                               title='x86::segmentation::load_ss'>load_ss</a></td>
-                        <td class='docblock short'>
-                             <p>Reload stack segment register.</p>
-                        </td>
-                    </tr>
-                </table></section>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.load_ds.html'
+                                  title='x86::segmentation::load_ds'>load_ds</a></td>
+                           <td class='docblock short'>
+                                <p>Reload data segment register.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.load_es.html'
+                                  title='x86::segmentation::load_es'>load_es</a></td>
+                           <td class='docblock short'>
+                                <p>Reload fs segment register.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.load_fs.html'
+                                  title='x86::segmentation::load_fs'>load_fs</a></td>
+                           <td class='docblock short'>
+                                <p>Reload fs segment register.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.load_gs.html'
+                                  title='x86::segmentation::load_gs'>load_gs</a></td>
+                           <td class='docblock short'>
+                                <p>Reload gs segment register.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.load_ss.html'
+                                  title='x86::segmentation::load_ss'>load_ss</a></td>
+                           <td class='docblock short'>
+                                <p>Reload stack segment register.</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -446,6 +401,8 @@ to reload cs and continue at 1:.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

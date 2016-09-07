@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors['libc'] = [];implementors['raw_cpuid'] = [];
+implementors["raw_cpuid"] = [];implementors["libc"] = [];implementors["x86"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

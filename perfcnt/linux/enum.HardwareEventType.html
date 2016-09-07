@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content enum">
 <h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>perfcnt</a>::<wbr><a href='index.html'>linux</a>::<wbr><a class='enum' href=''>HardwareEventType</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-486' class='srclink' href='../../src/perfcnt/src/linux/mod.rs.html#64-94' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3451' class='srclink' href='../../src/perfcnt/linux/mod.rs.html#173-203' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum HardwareEventType {
     CPUCycles,
     Instructions,
@@ -59,17 +60,17 @@
     StalledCyclesBackend,
     RefCPUCycles,
 }</pre><h2 class='variants'>Variants</h2>
-<table class='variants_table'><tr><td id='variant.CPUCycles'><code>CPUCycles</code></td><td><div class='docblock'><p>Total cycles.  Be wary of what happens during CPU frequency scaling.</p>
-</div></td><td></td></tr><tr><td id='variant.Instructions'><code>Instructions</code></td><td><div class='docblock'><p>Retired instructions.  Be careful, these can be affected by various issues, most notably hardware interrupt counts.</p>
-</div></td><td></td></tr><tr><td id='variant.CacheReferences'><code>CacheReferences</code></td><td><div class='docblock'><p>Cache  accesses.  Usually this indicates Last Level Cache accesses but this may vary depending on your CPU. This may include prefetches and</p>
-</div></td><td></td></tr><tr><td id='variant.CacheMisses'><code>CacheMisses</code></td><td><div class='docblock'><p>Cache misses.  Usually this indicates Last Level Cache misses; this is intended to be used  in  conjunction with the</p>
-</div></td><td></td></tr><tr><td id='variant.BranchInstructions'><code>BranchInstructions</code></td><td><div class='docblock'><p>Retired branch instructions.  Prior to Linux 2.6.34, this used the wrong event on AMD processors.</p>
-</div></td><td></td></tr><tr><td id='variant.BranchMisses'><code>BranchMisses</code></td><td><div class='docblock'><p>Mispredicted branch instructions.</p>
-</div></td><td></td></tr><tr><td id='variant.BusCycles'><code>BusCycles</code></td><td><div class='docblock'><p>Bus cycles, which can be different from total cycles.</p>
-</div></td><td></td></tr><tr><td id='variant.StalledCyclesFrontend'><code>StalledCyclesFrontend</code></td><td><div class='docblock'><p>Stalled cycles during issue. (Since Linux 3.0)</p>
-</div></td><td></td></tr><tr><td id='variant.StalledCyclesBackend'><code>StalledCyclesBackend</code></td><td><div class='docblock'><p>Stalled cycles during retirement. (Since Linux 3.0)</p>
-</div></td><td></td></tr><tr><td id='variant.RefCPUCycles'><code>RefCPUCycles</code></td><td><div class='docblock'><p>Total cycles; not affected by CPU frequency scaling. (Since Linux 3.3)</p>
-</div></td><td></td></tr></table></section>
+<span id='variant.CPUCycles' class='variant'><span id='CPUCycles.v' class='invisible'><code>CPUCycles</code></span></span><div class='docblock'><p>Total cycles.  Be wary of what happens during CPU frequency scaling.</p>
+</div><span id='variant.Instructions' class='variant'><span id='Instructions.v' class='invisible'><code>Instructions</code></span></span><div class='docblock'><p>Retired instructions.  Be careful, these can be affected by various issues, most notably hardware interrupt counts.</p>
+</div><span id='variant.CacheReferences' class='variant'><span id='CacheReferences.v' class='invisible'><code>CacheReferences</code></span></span><div class='docblock'><p>Cache  accesses.  Usually this indicates Last Level Cache accesses but this may vary depending on your CPU. This may include prefetches and</p>
+</div><span id='variant.CacheMisses' class='variant'><span id='CacheMisses.v' class='invisible'><code>CacheMisses</code></span></span><div class='docblock'><p>Cache misses.  Usually this indicates Last Level Cache misses; this is intended to be used  in  conjunction with the</p>
+</div><span id='variant.BranchInstructions' class='variant'><span id='BranchInstructions.v' class='invisible'><code>BranchInstructions</code></span></span><div class='docblock'><p>Retired branch instructions.  Prior to Linux 2.6.34, this used the wrong event on AMD processors.</p>
+</div><span id='variant.BranchMisses' class='variant'><span id='BranchMisses.v' class='invisible'><code>BranchMisses</code></span></span><div class='docblock'><p>Mispredicted branch instructions.</p>
+</div><span id='variant.BusCycles' class='variant'><span id='BusCycles.v' class='invisible'><code>BusCycles</code></span></span><div class='docblock'><p>Bus cycles, which can be different from total cycles.</p>
+</div><span id='variant.StalledCyclesFrontend' class='variant'><span id='StalledCyclesFrontend.v' class='invisible'><code>StalledCyclesFrontend</code></span></span><div class='docblock'><p>Stalled cycles during issue. (Since Linux 3.0)</p>
+</div><span id='variant.StalledCyclesBackend' class='variant'><span id='StalledCyclesBackend.v' class='invisible'><code>StalledCyclesBackend</code></span></span><div class='docblock'><p>Stalled cycles during retirement. (Since Linux 3.0)</p>
+</div><span id='variant.RefCPUCycles' class='variant'><span id='RefCPUCycles.v' class='invisible'><code>RefCPUCycles</code></span></span><div class='docblock'><p>Total cycles; not affected by CPU frequency scaling. (Since Linux 3.3)</p>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -92,6 +93,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `EventAttr` struct in crate `perfcnt`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, EventAttr">
+
+    <title>perfcnt::linux::perf_format::EventAttr - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>perfcnt</a>::<wbr><a href='../index.html'>linux</a>::<wbr><a href='index.html'>perf_format</a></p><script>window.sidebarCurrent = {name: 'EventAttr', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>perfcnt</a>::<wbr><a href='../index.html'>linux</a>::<wbr><a href='index.html'>perf_format</a>::<wbr><a class='struct' href=''>EventAttr</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1123' class='srclink' href='../../../src/perfcnt/linux/perf_format.rs.html#402-423' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct EventAttr {
+    pub attr_type: <a class='enum' href='../../../perfcnt/linux/perf_format/enum.EventAttrType.html' title='perfcnt::linux::perf_format::EventAttrType'>EventAttrType</a>,
+    pub size: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>,
+    pub config: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub sample_period_freq: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub sample_type: <a class='struct' href='../../../perfcnt/linux/perf_format/struct.SampleFormatFlags.html' title='perfcnt::linux::perf_format::SampleFormatFlags'>SampleFormatFlags</a>,
+    pub read_format: <a class='struct' href='../../../perfcnt/linux/perf_format/struct.ReadFormatFlags.html' title='perfcnt::linux::perf_format::ReadFormatFlags'>ReadFormatFlags</a>,
+    pub settings: <a class='struct' href='../../../perfcnt/linux/perf_format/struct.EventAttrFlags.html' title='perfcnt::linux::perf_format::EventAttrFlags'>EventAttrFlags</a>,
+    pub wakeup_events_watermark: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>,
+    pub bp_type: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>,
+    pub config1_or_bp_addr: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub config2_or_bp_len: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub branch_sample_type: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub sample_regs_user: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub sample_stack_user: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>,
+    pub clock_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>,
+    pub sample_regs_intr: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub aux_watermark: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>,
+}</pre><h2 class='fields'>Fields</h2><span id='structfield.attr_type' class='structfield'>
+                           <span id='attr_type.v' class='invisible'>
+                           <code>attr_type: <a class='enum' href='../../../perfcnt/linux/perf_format/enum.EventAttrType.html' title='perfcnt::linux::perf_format::EventAttrType'>EventAttrType</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.size' class='structfield'>
+                           <span id='size.v' class='invisible'>
+                           <code>size: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.config' class='structfield'>
+                           <span id='config.v' class='invisible'>
+                           <code>config: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.sample_period_freq' class='structfield'>
+                           <span id='sample_period_freq.v' class='invisible'>
+                           <code>sample_period_freq: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.sample_type' class='structfield'>
+                           <span id='sample_type.v' class='invisible'>
+                           <code>sample_type: <a class='struct' href='../../../perfcnt/linux/perf_format/struct.SampleFormatFlags.html' title='perfcnt::linux::perf_format::SampleFormatFlags'>SampleFormatFlags</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.read_format' class='structfield'>
+                           <span id='read_format.v' class='invisible'>
+                           <code>read_format: <a class='struct' href='../../../perfcnt/linux/perf_format/struct.ReadFormatFlags.html' title='perfcnt::linux::perf_format::ReadFormatFlags'>ReadFormatFlags</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.settings' class='structfield'>
+                           <span id='settings.v' class='invisible'>
+                           <code>settings: <a class='struct' href='../../../perfcnt/linux/perf_format/struct.EventAttrFlags.html' title='perfcnt::linux::perf_format::EventAttrFlags'>EventAttrFlags</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.wakeup_events_watermark' class='structfield'>
+                           <span id='wakeup_events_watermark.v' class='invisible'>
+                           <code>wakeup_events_watermark: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.bp_type' class='structfield'>
+                           <span id='bp_type.v' class='invisible'>
+                           <code>bp_type: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.config1_or_bp_addr' class='structfield'>
+                           <span id='config1_or_bp_addr.v' class='invisible'>
+                           <code>config1_or_bp_addr: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.config2_or_bp_len' class='structfield'>
+                           <span id='config2_or_bp_len.v' class='invisible'>
+                           <code>config2_or_bp_len: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.branch_sample_type' class='structfield'>
+                           <span id='branch_sample_type.v' class='invisible'>
+                           <code>branch_sample_type: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.sample_regs_user' class='structfield'>
+                           <span id='sample_regs_user.v' class='invisible'>
+                           <code>sample_regs_user: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.sample_stack_user' class='structfield'>
+                           <span id='sample_stack_user.v' class='invisible'>
+                           <code>sample_stack_user: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.clock_id' class='structfield'>
+                           <span id='clock_id.v' class='invisible'>
+                           <code>clock_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.sample_regs_intr' class='structfield'>
+                           <span id='sample_regs_intr.v' class='invisible'>
+                           <code>sample_regs_intr: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code>
+                           </span></span><span class='stab '></span><span id='structfield.aux_watermark' class='structfield'>
+                           <span id='aux_watermark.v' class='invisible'>
+                           <code>aux_watermark: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code>
+                           </span></span><span class='stab '></span><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../../perfcnt/linux/perf_format/struct.EventAttr.html' title='perfcnt::linux::perf_format::EventAttr'>EventAttr</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1101' class='srclink' href='../../../src/perfcnt/linux/perf_format.rs.html#401' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "perfcnt";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script defer src="../../../search-index.js"></script>
+</body>
+</html>

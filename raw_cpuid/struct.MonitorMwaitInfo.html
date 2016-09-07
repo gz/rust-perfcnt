@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,38 +44,41 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>raw_cpuid</a>::<wbr><a class='struct' href=''>MonitorMwaitInfo</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-781' class='srclink' href='../src/raw_cpuid/lib.rs.html#1200-1205' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-780' class='srclink' href='../src/raw_cpuid/lib.rs.html#1199-1204' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct MonitorMwaitInfo {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../raw_cpuid/struct.MonitorMwaitInfo.html' title='raw_cpuid::MonitorMwaitInfo'>MonitorMwaitInfo</a></code></h3><div class='impl-items'><h4 id='method.smallest_monitor_line' class='method'><code>fn <a href='#method.smallest_monitor_line' class='fnname'>smallest_monitor_line</a>(&amp;self) -&gt; u16</code></h4>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../raw_cpuid/struct.MonitorMwaitInfo.html' title='raw_cpuid::MonitorMwaitInfo'>MonitorMwaitInfo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-785' class='srclink' href='../src/raw_cpuid/lib.rs.html#1206-1267' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.smallest_monitor_line' class='method'><span id='smallest_monitor_line.v' class='invisible'><code>fn <a href='#method.smallest_monitor_line' class='fnname'>smallest_monitor_line</a>(&amp;self) -&gt; u16</code></span></h4>
 <div class='docblock'><p>Smallest monitor-line size in bytes (default is processor&#39;s monitor granularity)</p>
-</div><h4 id='method.largest_monitor_line' class='method'><code>fn <a href='#method.largest_monitor_line' class='fnname'>largest_monitor_line</a>(&amp;self) -&gt; u16</code></h4>
+</div><h4 id='method.largest_monitor_line' class='method'><span id='largest_monitor_line.v' class='invisible'><code>fn <a href='#method.largest_monitor_line' class='fnname'>largest_monitor_line</a>(&amp;self) -&gt; u16</code></span></h4>
 <div class='docblock'><p>Largest monitor-line size in bytes (default is processor&#39;s monitor granularity</p>
-</div><h4 id='method.extensions_supported' class='method'><code>fn <a href='#method.extensions_supported' class='fnname'>extensions_supported</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.extensions_supported' class='method'><span id='extensions_supported.v' class='invisible'><code>fn <a href='#method.extensions_supported' class='fnname'>extensions_supported</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>Enumeration of Monitor-Mwait extensions (beyond EAX and EBX registers) supported</p>
-</div><h4 id='method.interrupts_as_break_event' class='method'><code>fn <a href='#method.interrupts_as_break_event' class='fnname'>interrupts_as_break_event</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.interrupts_as_break_event' class='method'><span id='interrupts_as_break_event.v' class='invisible'><code>fn <a href='#method.interrupts_as_break_event' class='fnname'>interrupts_as_break_event</a>(&amp;self) -&gt; bool</code></span></h4>
 <div class='docblock'><p>Supports treating interrupts as break-event for MWAIT, even when interrupts disabled</p>
-</div><h4 id='method.supported_c0_states' class='method'><code>fn <a href='#method.supported_c0_states' class='fnname'>supported_c0_states</a>(&amp;self) -&gt; u16</code></h4>
+</div><h4 id='method.supported_c0_states' class='method'><span id='supported_c0_states.v' class='invisible'><code>fn <a href='#method.supported_c0_states' class='fnname'>supported_c0_states</a>(&amp;self) -&gt; u16</code></span></h4>
 <div class='docblock'><p>Number of C0 sub C-states supported using MWAIT (Bits 03 - 00)</p>
-</div><h4 id='method.supported_c1_states' class='method'><code>fn <a href='#method.supported_c1_states' class='fnname'>supported_c1_states</a>(&amp;self) -&gt; u16</code></h4>
+</div><h4 id='method.supported_c1_states' class='method'><span id='supported_c1_states.v' class='invisible'><code>fn <a href='#method.supported_c1_states' class='fnname'>supported_c1_states</a>(&amp;self) -&gt; u16</code></span></h4>
 <div class='docblock'><p>Number of C1 sub C-states supported using MWAIT (Bits 07 - 04)</p>
-</div><h4 id='method.supported_c2_states' class='method'><code>fn <a href='#method.supported_c2_states' class='fnname'>supported_c2_states</a>(&amp;self) -&gt; u16</code></h4>
+</div><h4 id='method.supported_c2_states' class='method'><span id='supported_c2_states.v' class='invisible'><code>fn <a href='#method.supported_c2_states' class='fnname'>supported_c2_states</a>(&amp;self) -&gt; u16</code></span></h4>
 <div class='docblock'><p>Number of C2 sub C-states supported using MWAIT (Bits 11 - 08)</p>
-</div><h4 id='method.supported_c3_states' class='method'><code>fn <a href='#method.supported_c3_states' class='fnname'>supported_c3_states</a>(&amp;self) -&gt; u16</code></h4>
+</div><h4 id='method.supported_c3_states' class='method'><span id='supported_c3_states.v' class='invisible'><code>fn <a href='#method.supported_c3_states' class='fnname'>supported_c3_states</a>(&amp;self) -&gt; u16</code></span></h4>
 <div class='docblock'><p>Number of C3 sub C-states supported using MWAIT (Bits 15 - 12)</p>
-</div><h4 id='method.supported_c4_states' class='method'><code>fn <a href='#method.supported_c4_states' class='fnname'>supported_c4_states</a>(&amp;self) -&gt; u16</code></h4>
+</div><h4 id='method.supported_c4_states' class='method'><span id='supported_c4_states.v' class='invisible'><code>fn <a href='#method.supported_c4_states' class='fnname'>supported_c4_states</a>(&amp;self) -&gt; u16</code></span></h4>
 <div class='docblock'><p>Number of C4 sub C-states supported using MWAIT (Bits 19 - 16)</p>
-</div><h4 id='method.supported_c5_states' class='method'><code>fn <a href='#method.supported_c5_states' class='fnname'>supported_c5_states</a>(&amp;self) -&gt; u16</code></h4>
+</div><h4 id='method.supported_c5_states' class='method'><span id='supported_c5_states.v' class='invisible'><code>fn <a href='#method.supported_c5_states' class='fnname'>supported_c5_states</a>(&amp;self) -&gt; u16</code></span></h4>
 <div class='docblock'><p>Number of C5 sub C-states supported using MWAIT (Bits 23 - 20)</p>
-</div><h4 id='method.supported_c6_states' class='method'><code>fn <a href='#method.supported_c6_states' class='fnname'>supported_c6_states</a>(&amp;self) -&gt; u16</code></h4>
+</div><h4 id='method.supported_c6_states' class='method'><span id='supported_c6_states.v' class='invisible'><code>fn <a href='#method.supported_c6_states' class='fnname'>supported_c6_states</a>(&amp;self) -&gt; u16</code></span></h4>
 <div class='docblock'><p>Number of C6 sub C-states supported using MWAIT (Bits 27 - 24)</p>
-</div><h4 id='method.supported_c7_states' class='method'><code>fn <a href='#method.supported_c7_states' class='fnname'>supported_c7_states</a>(&amp;self) -&gt; u16</code></h4>
+</div><h4 id='method.supported_c7_states' class='method'><span id='supported_c7_states.v' class='invisible'><code>fn <a href='#method.supported_c7_states' class='fnname'>supported_c7_states</a>(&amp;self) -&gt; u16</code></span></h4>
 <div class='docblock'><p>Number of C7 sub C-states supported using MWAIT (Bits 31 - 28)</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.MonitorMwaitInfo.html' title='raw_cpuid::MonitorMwaitInfo'>MonitorMwaitInfo</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../raw_cpuid/struct.MonitorMwaitInfo.html' title='raw_cpuid::MonitorMwaitInfo'>MonitorMwaitInfo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-771' class='srclink' href='../src/raw_cpuid/lib.rs.html#1198' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -97,6 +101,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

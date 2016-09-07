@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/gz/.multirust/toolchains/nightly/cargo/registry/src/github.com-88ac128001ac3a9a/x86-0.6.0/src/irq.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/zgerd/.cargo/registry/src/github.com-1ecc6299db9ec823/x86-0.6.1/src/irq.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>irq.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -597,30 +598,30 @@
 <span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Debug</span> <span class='kw'>for</span> <span class='ident'>PageFaultError</span> {
     <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
         <span class='kw'>let</span> <span class='ident'>p</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>PFAULT_ERROR_P</span>) {
-            <span class='boolval'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The fault was caused by a non-present page.&quot;</span>,
-            <span class='boolval'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The fault was caused by a page-level protection violation.&quot;</span>,
+            <span class='bool-val'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The fault was caused by a non-present page.&quot;</span>,
+            <span class='bool-val'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The fault was caused by a page-level protection violation.&quot;</span>,
         };
         <span class='kw'>let</span> <span class='ident'>wr</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>PFAULT_ERROR_WR</span>) {
-            <span class='boolval'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The access causing the fault was a read.&quot;</span>,
-            <span class='boolval'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The access causing the fault was a write.&quot;</span>,
+            <span class='bool-val'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The access causing the fault was a read.&quot;</span>,
+            <span class='bool-val'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The access causing the fault was a write.&quot;</span>,
         };
         <span class='kw'>let</span> <span class='ident'>us</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>PFAULT_ERROR_US</span>) {
-            <span class='boolval'>false</span> <span class='op'>=&gt;</span> {
+            <span class='bool-val'>false</span> <span class='op'>=&gt;</span> {
                 <span class='string'>&quot;The access causing the fault originated when the processor was executing in \
                  supervisor mode.&quot;</span>
             }
-            <span class='boolval'>true</span> <span class='op'>=&gt;</span> {
+            <span class='bool-val'>true</span> <span class='op'>=&gt;</span> {
                 <span class='string'>&quot;The access causing the fault originated when the processor was executing in user \
                  mode.&quot;</span>
             }
         };
         <span class='kw'>let</span> <span class='ident'>rsvd</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>PFAULT_ERROR_RSVD</span>) {
-            <span class='boolval'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The fault was not caused by reserved bit violation.&quot;</span>,
-            <span class='boolval'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The fault was caused by reserved bits set to 1 in a page directory.&quot;</span>,
+            <span class='bool-val'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The fault was not caused by reserved bit violation.&quot;</span>,
+            <span class='bool-val'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The fault was caused by reserved bits set to 1 in a page directory.&quot;</span>,
         };
         <span class='kw'>let</span> <span class='ident'>id</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>contains</span>(<span class='ident'>PFAULT_ERROR_ID</span>) {
-            <span class='boolval'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The fault was not caused by an instruction fetch.&quot;</span>,
-            <span class='boolval'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The fault was caused by an instruction fetch.&quot;</span>,
+            <span class='bool-val'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The fault was not caused by an instruction fetch.&quot;</span>,
+            <span class='bool-val'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The fault was caused by an instruction fetch.&quot;</span>,
         };
 
         <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;{}\n{}\n{}\n{}\n{}&quot;</span>, <span class='ident'>p</span>, <span class='ident'>wr</span>, <span class='ident'>us</span>, <span class='ident'>rsvd</span>, <span class='ident'>id</span>)
@@ -660,6 +661,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
