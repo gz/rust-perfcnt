@@ -18,8 +18,12 @@ mod hw_breakpoint;
 #[allow(dead_code, non_camel_case_types)]
 mod perf_event;
 
+pub mod perf_format;
+pub mod parser;
+
 use ::AbstractPerfCounter;
 use x86::perfcnt::intel::description::{IntelPerformanceCounterDescription, Tuple};
+
 
 const IOCTL: usize = 16;
 const PERF_EVENT_OPEN: usize = 298;

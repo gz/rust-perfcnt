@@ -1,4 +1,25 @@
+//! Uses the `nom` library to parse the in memory format of perf data structures and
+//! transforms them into more rust-like data-strutures.
+//!
+//! `bin/parse.rs` serves as an example program how-to use the parser.
+//!
+//! # References
+//! The code is inspired by the following articles and existing parser to make sense of the
+//! (poorly documented) format:
+//!  * https://lwn.net/Articles/644919/
+//!  * http://man7.org/linux/man-pages/man2/perf_event_open.2.html
+//!  * https://github.com/andikleen/pmu-tools/tree/master/parser
+//!
+//! # Current limitations
+//!  * Only version 2 of the data format
+//!  * No support for AUX stuff
+//!  * Sample ID at the end of records is currently ignored
+//!  * I'm not sure if I'm parsing the BuildId correctly, it seems it can not be recognized
+//!  * Only support little endian machines
+//!
+
 use nom::*;
+use super::perf_format::*;
 
 macro_rules! stderr {
     ($($arg:tt)*) => (
@@ -8,39 +29,6 @@ macro_rules! stderr {
             Err(x) => panic!("Unable to write to stderr (file handle closed?): {}", x),
         }
     )
-}
-
-#[derive(Debug)]
-struct ThreadId {
-    pid: i32,
-    tid: i32
-}
-
-named!(parse_thread_id<&[u8], ThreadId>,
-    chain!(
-        pid: le_i32 ~
-        tid: le_i32,
-        || ThreadId { pid: pid, tid: tid }
-    )
-);
-
-/*
-TODO:
-
-#[derive(Debug)]
-struct SampleId {
-    /// if PERF_SAMPLE_TID set
-    ptid: ThreadId,
-    /// if PERF_SAMPLE_TIME set
-    time: u64,
-    /// if PERF_SAMPLE_ID set
-    id: u64,
-    /// if PERF_SAMPLE_STREAM_ID set
-    stream_id: u64,
-    /// if PERF_SAMPLE_CPU set
-    cpu: Cpu,
-    /// if PERF_SAMPLE_IDENTIFIER set
-    identifier: u64
 }
 
 // TODO: Needs sample flags!
@@ -62,13 +50,26 @@ named!(parse_sample_id<&[u8], SampleId>,
         }
     )
 );
-*/
 
-#[derive(Debug)]
-struct Cpu {
-    cpu: u32,
-    res: u32
+fn is_nul_byte(c: &u8) -> bool {
+    *c == 0x0
 }
+
+fn iresult_to_option<I, O, E>(result: IResult<I, O, E>) -> Option<O> {
+    match result {
+        IResult::Done(_, res) => Some(res),
+        IResult::Error(_) => None,
+        IResult::Incomplete(_) => None
+    }
+}
+
+named!(parse_thread_id<&[u8], ThreadId>,
+    chain!(
+        pid: le_i32 ~
+        tid: le_i32,
+        || ThreadId { pid: pid, tid: tid }
+    )
+);
 
 named!(parse_cpu<&[u8], Cpu>,
     chain!(
@@ -77,17 +78,6 @@ named!(parse_cpu<&[u8], Cpu>,
         || Cpu { cpu: cpu, res: res }
     )
 );
-
-/// This record indicates a fork event.
-#[derive(Debug)]
-pub struct ForkRecord {
-    pid: u32,
-    ppid: u32,
-    tid: u32,
-    ptid: u32,
-    time: u64,
-    // TOOD: sample_id
-}
 
 named!(parse_fork_record<&[u8], ForkRecord>,
     chain!(
@@ -106,18 +96,6 @@ named!(parse_fork_record<&[u8], ForkRecord>,
     )
 );
 
-
-/// This record indicates a process exit event.
-#[derive(Debug)]
-pub struct ExitRecord {
-    pid: u32,
-    ppid: u32,
-    tid: u32,
-    ptid: u32,
-    time: u64
-    // TOOD: sample_id
-}
-
 named!(parse_exit_record<&[u8], ExitRecord>,
     chain!(
         pid: le_u32 ~
@@ -135,14 +113,6 @@ named!(parse_exit_record<&[u8], ExitRecord>,
     )
 );
 
-#[derive(Debug)]
-pub struct ThrottleRecord {
-    time: u64,
-    id: u64,
-    stream_id: u64
-    // TODO: sample id?
-}
-
 named!(parse_throttle_record<&[u8], ThrottleRecord>,
     chain!(
         time: le_u64 ~
@@ -155,14 +125,6 @@ named!(parse_throttle_record<&[u8], ThrottleRecord>,
         }
     )
 );
-
-#[derive(Debug)]
-pub struct UnthrottleRecord {
-    time: u64,
-    id: u64,
-    stream_id: u64
-    // TODO: sample id?
-}
 
 named!(parse_unthrottle_record<&[u8], UnthrottleRecord>,
     chain!(
@@ -177,77 +139,6 @@ named!(parse_unthrottle_record<&[u8], UnthrottleRecord>,
     )
 );
 
-#[derive(Debug, Eq, PartialEq)]
-enum EventType {
-    Mmap,
-    Lost,
-    Comm,
-    Exit,
-    Throttle,
-    Unthrottle,
-    Fork,
-    Read,
-    Sample,
-    Mmap2,
-    // Aux, // 11
-    // ITraceStart, // 12
-    // LostSamples, // 13
-    // Switch, // 14
-    // SwitchCpuWide, // 15
-    // HeaderAttr, // 64
-    // HeaderEventType, // 65, deprecated
-    // HeaderTracingData, // 66
-    BuildId, // 67
-    FinishedRound, // 68
-    // RecordIdIndex, // 69
-    // AuxTraceInfo, // 70
-    // AuxTrace, // 71
-    // AuxtraceError, // 72
-
-    Unknown(u32)
-}
-
-impl EventType {
-    fn new(event_type: u32) -> EventType {
-        match event_type {
-            1 => EventType::Mmap,
-            2 => EventType::Lost,
-            3 => EventType::Comm,
-            4 => EventType::Exit,
-            5 => EventType::Throttle,
-            6 => EventType::Unthrottle,
-            7 => EventType::Fork,
-            8 => EventType::Read,
-            9 => EventType::Sample,
-            10 => EventType::Mmap2,
-            67 => EventType::BuildId,
-            68 => EventType::FinishedRound,
-            _ => EventType::Unknown(event_type)
-        }
-    }
-
-    fn is_unknown(&self) -> bool {
-        match *self {
-            EventType::Unknown(_) => true,
-            _ => false
-        }
-    }
-}
-
-#[derive(Debug)]
-struct EventHeader {
-    event_type: EventType,
-    misc: u16,
-    size: u16,
-}
-
-impl EventHeader {
-    pub fn size(&self) -> usize {
-        self.size as usize
-    }
-}
-
-/// Parse a file section
 named!(parse_event_header<&[u8], EventHeader>,
     chain!(
         event_type: le_u32 ~
@@ -256,17 +147,6 @@ named!(parse_event_header<&[u8], EventHeader>,
         || EventHeader { event_type: EventType::new(event_type), misc: misc, size: size }
     )
 );
-
-/// The MMAP events record the PROT_EXEC mappings so that we can correlate user-space IPs to code.
-#[derive(Debug)]
-pub struct MMAPRecord {
-    pid: i32,
-    tid: u32,
-    addr: u64,
-    len: u64,
-    pgoff: u64,
-    filename: String
-}
 
 named!(parse_mmap_record<&[u8], MMAPRecord>,
     chain!(
@@ -286,22 +166,6 @@ named!(parse_mmap_record<&[u8], MMAPRecord>,
         }
     )
 );
-
-#[derive(Debug)]
-pub struct MMAP2Record {
-    ptid: ThreadId,
-    addr: u64,
-    len: u64,
-    pgoff: u64,
-    maj: u32,
-    min: u32,
-    ino: u64,
-    ino_generation: u64,
-    prot: u32,
-    flags: u32,
-    filename: String,
-    //TODO: sample_id: SampleId
-}
 
 named!(parse_mmap2_record<&[u8], MMAP2Record>,
     chain!(
@@ -332,18 +196,6 @@ named!(parse_mmap2_record<&[u8], MMAP2Record>,
         }
     )
 );
-
-
-/// We use the same read format for READ_FORMAT_GROUP and non-grouped reads for simplicity
-#[derive(Default, Debug)]
-pub struct ReadFormat {
-    /// if PERF_FORMAT_TOTAL_TIME_ENABLED
-    time_enabled: Option<u64>,
-    /// if PERF_FORMAT_TOTAL_TIME_RUNNING
-    time_running: Option<u64>,
-    /// Collection of (value, Some(id) if PERF_FORMAT_ID)
-    values: Vec<(u64, Option<u64>)>
-}
 
 fn parse_read_value(input: &[u8], flags: ReadFormatFlags) -> IResult<&[u8], (u64, Option<u64>)> {
     chain!(input,
@@ -380,20 +232,6 @@ fn parse_read_format(input: &[u8], flags: ReadFormatFlags) -> IResult<&[u8], Rea
     }
 }
 
-#[derive(Debug)]
-pub struct ReadRecord {
-    pid: u32,
-    tid: u32,
-    value: ReadFormat,
-}
-
-#[derive(Debug)]
-struct BranchEntry {
-    pub from: u64,
-    pub to: u64,
-    flags: u64,
-}
-
 named!(parse_branch_entry<&[u8], BranchEntry>,
     chain!(
         from: le_u64 ~
@@ -418,56 +256,6 @@ fn parse_branch_entries(input: &[u8], flags: SampleFormatFlags) -> IResult<&[u8]
         entries: count!(parse_branch_entry, bnr as usize),
         || entries
     )
-}
-
-/// This record indicates a sample.
-#[derive(Debug)]
-pub struct SampleRecord {
-    /// if PERF_SAMPLE_IDENTIFIER
-    sample_id: Option<u64>,
-    /// if PERF_SAMPLE_IP
-    ip: Option<u64>,
-    /// if PERF_SAMPLE_TID
-    ptid: Option<ThreadId>,
-    /// if PERF_SAMPLE_TIME
-    time: Option<u64>,
-    /// if PERF_SAMPLE_ADDR
-
-    addr: Option<u64>,
-    /// if PERF_SAMPLE_ID
-    id: Option<u64>,
-    /// if PERF_SAMPLE_STREAM_ID
-    stream_id: Option<u64>,
-    /// if PERF_SAMPLE_CPU
-    cpu: Option<Cpu>,
-    /// if PERF_SAMPLE_PERIOD
-    period: Option<u64>,
-    /// if PERF_SAMPLE_READ
-    v: Option<ReadFormat>,
-    /// if PERF_SAMPLE_CALLCHAIN
-    ips: Option<Vec<u64>>,
-    /// if PERF_SAMPLE_RAW
-    raw: Option<Vec<u8>>,
-    /// if PERF_SAMPLE_REGS_USER & PERF_SAMPLE_BRANCH_STACK
-    lbr: Option<Vec<BranchEntry>>,
-    /// PERF_SAMPLE_STACK_USER
-    abi_user: Option<u64>,
-    /// PERF_SAMPLE_STACK_USER
-    regs_user: Option<Vec<u64>>,
-    /// PERF_SAMPLE_STACK_USER
-    user_stack: Option<Vec<u8>>,
-    /// PERF_SAMPLE_STACK_USER
-    dyn_size: Option<u64>,
-    /// if PERF_SAMPLE_WEIGHT
-    weight: Option<u64>,
-    /// if PERF_SAMPLE_DATA_SRC
-    data_src: Option<u64>,
-    /// if PERF_SAMPLE_TRANSACTION
-    transaction: Option<u64>,
-    /// if PERF_SAMPLE_REGS_INTR
-    abi: Option<u64>,
-    /// if PERF_SAMPLE_REGS_INTR
-    regs_intr: Option<Vec<u64>>
 }
 
 pub fn parse_sample_record<'a>(input: &'a [u8], attr: &'a EventAttr) -> IResult<&'a [u8], SampleRecord> {
@@ -525,13 +313,6 @@ pub fn parse_sample_record<'a>(input: &'a [u8], attr: &'a EventAttr) -> IResult<
     )
 }
 
-#[derive(Debug)]
-pub struct CommRecord {
-    ptid: ThreadId,
-    comm: String,
-    // TODO: sample_id
-}
-
 pub fn parse_comm_record(input: &[u8]) -> IResult<&[u8], CommRecord> {
     chain!(input,
         ptid: parse_thread_id ~
@@ -542,37 +323,6 @@ pub fn parse_comm_record(input: &[u8]) -> IResult<&[u8], CommRecord> {
                 comm: unsafe { String::from_utf8_unchecked(comm.to_vec()) }
         }
     )
-}
-
-#[derive(Debug)]
-pub struct LostRecord {
-
-}
-
-#[derive(Debug)]
-pub struct Event {
-    header: EventHeader,
-    data: EventData,
-}
-
-#[derive(Debug)]
-pub enum EventData {
-    MMAP(MMAPRecord),
-    Lost(LostRecord),
-    Comm(CommRecord),
-    Exit(ExitRecord),
-    Throttle(ThrottleRecord),
-    Unthrottle(UnthrottleRecord),
-    Fork(ForkRecord),
-    //Read(ReadRecord),
-    Sample(SampleRecord),
-    MMAP2(MMAP2Record),
-    BuildId(BuildIdRecord),
-    None,
-}
-
-fn is_nul_byte(c: &u8) -> bool {
-    *c == 0x0
 }
 
 named!(parse_c_string, take_till!(is_nul_byte));
@@ -626,22 +376,6 @@ fn parse_event<'a>(input: &'a [u8], attrs: &'a Vec<EventAttr>) -> IResult<&'a [u
     )
 }
 
-#[derive(Debug, Clone, Copy)]
-pub struct PerfFileSection {
-    offset: u64,
-    size: u64
-}
-
-impl PerfFileSection {
-    fn start(&self) -> usize {
-        self.offset as usize
-    }
-
-    fn end(&self) -> usize {
-        (self.offset + self.size) as usize
-    }
-}
-
 /// Parse a perf file section.
 named!(parse_file_section<&[u8], PerfFileSection>,
     chain!(
@@ -673,13 +407,6 @@ named!(parse_perf_string_list<&[u8], Vec<String> >,
     )
 );
 
-#[derive(Debug)]
-pub struct NrCpus {
-    /// How many CPUs are online
-    online: u32,
-    /// CPUs not yet online
-    available: u32
-}
 
 named!(parse_nrcpus<&[u8], NrCpus>,
     chain!(
@@ -689,12 +416,6 @@ named!(parse_nrcpus<&[u8], NrCpus>,
     )
 );
 
-#[derive(Debug)]
-pub struct EventDesc {
-    attr: EventAttr,
-    event_string: String,
-    ids: Vec<u64>
-}
 
 fn parse_event_desc(input: &[u8]) -> IResult<&[u8], Vec<EventDesc>> {
     chain!(input,
@@ -716,11 +437,6 @@ fn parse_event_desc(input: &[u8]) -> IResult<&[u8], Vec<EventDesc>> {
     )
 }
 
-#[derive(Debug)]
-pub struct CpuTopology {
-    cores: Vec<String>,
-    threads: Vec<String>
-}
 
 named!(parse_cpu_topology<&[u8], CpuTopology>,
     chain!(
@@ -730,13 +446,7 @@ named!(parse_cpu_topology<&[u8], CpuTopology>,
     )
 );
 
-#[derive(Debug)]
-pub struct NumaNode {
-    node_nr: u32,
-    mem_total: u64,
-    mem_free: u64,
-    cpus: String
-}
+
 
 named!(parse_numa_node<&[u8], NumaNode>,
     chain!(
@@ -757,11 +467,6 @@ named!(parse_numa_topology<&[u8], Vec<NumaNode> >,
 );
 
 
-#[derive(Debug)]
-pub struct PmuMapping {
-    pmu_type: u32,
-    pmu_name: String
-}
 
 named!(parse_pmu_mapping<&[u8], PmuMapping>,
     chain!(
@@ -778,13 +483,6 @@ named!(parse_pmu_mappings<&[u8], Vec<PmuMapping> >,
         || nodes
     )
 );
-
-#[derive(Debug)]
-pub struct GroupDesc {
-    string: String,
-    leader_idx: u32,
-    nr_members: u32
-}
 
 named!(parse_group_description<&[u8], GroupDesc>,
     chain!(
@@ -803,14 +501,6 @@ named!(parse_group_descriptions<&[u8], Vec<GroupDesc> >,
     )
 );
 
-
-#[derive(Debug)]
-pub struct BuildIdRecord {
-	pid: i32,
-	build_id: Vec<u8>,
-    filename: String,
-}
-
 fn parse_build_id_record<'a>(input: &'a [u8], record_size: usize) -> IResult<&'a [u8], BuildIdRecord> {
     chain!(input,
         pid: le_i32 ~
@@ -822,124 +512,6 @@ fn parse_build_id_record<'a>(input: &'a [u8], record_size: usize) -> IResult<&'a
             filename: unsafe { String::from_utf8_unchecked(filename.to_vec()) }
         }
     )
-}
-
-
-#[derive(Debug, Clone, Copy, Eq, PartialEq)]
-pub enum HeaderFlag {
-    NrCpus,
-    Arch,
-    Version,
-    OsRelease,
-    Hostname,
-    BuildId,
-    TracingData,
-    BranchStack,
-    NumaTopology,
-    CpuTopology,
-    EventDesc,
-    CmdLine,
-    TotalMem,
-    CpuId,
-    CpuDesc,
-    GroupDesc,
-    PmuMappings
-}
-
-#[derive(Debug)]
-pub struct HeaderFlags {
-    nrcpus: bool,
-    arch: bool,
-    version: bool,
-    osrelease: bool,
-    hostname: bool,
-    build_id: bool,
-    tracing_data: bool,
-    branch_stack: bool,
-    numa_topology: bool,
-    cpu_topology: bool,
-    event_desc: bool,
-    cmdline: bool,
-    total_mem: bool,
-    cpuid: bool,
-    cpudesc: bool,
-    group_desc: bool,
-    pmu_mappings: bool,
-}
-
-impl HeaderFlags {
-    fn collect(&self) -> Vec<HeaderFlag> {
-        // The order in which these flags are pushed is important!
-        // Must be in the exact order as they appear in the binary format
-        // otherwise we parse the wrong file sections!
-        let mut flags = Vec::with_capacity(17);
-
-        if self.tracing_data {
-            flags.push(HeaderFlag::TracingData);
-        }
-        if self.build_id {
-            flags.push(HeaderFlag::BuildId);
-        }
-        if self.hostname {
-            flags.push(HeaderFlag::Hostname);
-        }
-        if self.osrelease {
-            flags.push(HeaderFlag::OsRelease);
-        }
-        if self.version {
-            flags.push(HeaderFlag::Version);
-        }
-        if self.arch {
-            flags.push(HeaderFlag::Arch);
-        }
-        if self.nrcpus {
-            flags.push(HeaderFlag::NrCpus);
-        }
-
-        if self.cpudesc {
-            flags.push(HeaderFlag::CpuDesc);
-        }
-        if self.cpuid {
-            flags.push(HeaderFlag::CpuId);
-        }
-        if self.total_mem {
-            flags.push(HeaderFlag::TotalMem);
-        }
-        if self.cmdline {
-            flags.push(HeaderFlag::CmdLine);
-        }
-        if self.event_desc {
-            flags.push(HeaderFlag::EventDesc);
-        }
-        if self.cpu_topology {
-            flags.push(HeaderFlag::CpuTopology);
-        }
-        if self.numa_topology {
-            flags.push(HeaderFlag::NumaTopology);
-        }
-        if self.branch_stack {
-            flags.push(HeaderFlag::BranchStack);
-        }
-
-        if self.pmu_mappings {
-            flags.push(HeaderFlag::PmuMappings);
-        }
-        if self.group_desc {
-            flags.push(HeaderFlag::GroupDesc);
-        }
-        flags
-    }
-}
-
-#[derive(Debug)]
-pub struct PerfFileHeader {
-    size: u64,
-    attr_size: u64,
-    attrs: PerfFileSection,
-    data: PerfFileSection,
-    event_types: PerfFileSection,
-
-    flags: HeaderFlags,
 }
 
 /// Parse a perf header
@@ -1000,274 +572,6 @@ named!(parse_header<&[u8], PerfFileHeader>,
     )
 );
 
-#[derive(Debug)]
-pub struct EventAttr {
-    pub attr_type: EventAttrType,
-    pub size: u32,
-    pub config: u64,
-    pub sample_period_freq: u64,
-    pub sample_type: SampleFormatFlags,
-    pub read_format: ReadFormatFlags,
-    pub settings: EventAttrFlags,
-
-    pub wakeup_events_watermark: u32,
-    pub bp_type: u32,
-
-    pub config1_or_bp_addr: u64,
-    pub config2_or_bp_len: u64,
-
-    pub branch_sample_type: u64,
-    pub sample_regs_user: u64,
-    pub sample_stack_user: u32,
-    pub clock_id: i32,
-    pub sample_regs_intr: u64,
-    pub aux_watermark: u32,
-}
-
-#[derive(Debug)]
-pub enum EventAttrType {
-    Hardware,
-    Software,
-    TracePoint,
-    HwCache,
-    Raw,
-    Breakpoint
-}
-
-impl EventAttrType {
-    fn new(attr_type: u32) -> EventAttrType {
-        match attr_type {
-            0 => EventAttrType::Hardware,
-            1 => EventAttrType::Software,
-            2 => EventAttrType::TracePoint,
-            3 => EventAttrType::HwCache,
-            4 => EventAttrType::Raw,
-            5 => EventAttrType::Breakpoint,
-            _ => panic!("Unknown Event Attribute type?")
-        }
-    }
-}
-
-
-bitflags!{
-    #[derive(Debug)]
-    flags ReadFormatFlags: u64 {
-        /// Adds the 64-bit time_enabled field.  This can be used to calculate estimated totals if the PMU is overcommitted
-        /// and multiplexing is happening.
-        const FORMAT_TOTAL_TIME_ENABLED = 1,
-        /// Adds the 64-bit time_running field.  This can be used to calculate estimated totals if the PMU is  overcommitted
-        /// and  multiplexing is happening.
-        const FORMAT_TOTAL_TIME_RUNNING = 2,
-        /// Adds a 64-bit unique value that corresponds to the event group.
-        const FORMAT_ID = 4,
-        /// Allows all counter values in an event group to be read with one read.
-        const FORMAT_GROUP = 8,
-    }
-}
-
-impl ReadFormatFlags {
-    pub fn has_total_time_enabled(&self) -> bool {
-        self.contains(FORMAT_TOTAL_TIME_ENABLED)
-    }
-
-    pub fn has_total_time_running(&self) -> bool {
-        self.contains(FORMAT_TOTAL_TIME_RUNNING)
-    }
-
-    pub fn has_id(&self) -> bool {
-        self.contains(FORMAT_ID)
-    }
-
-    pub fn has_group(&self) -> bool {
-        self.contains(FORMAT_GROUP)
-    }
-}
-
-// Generated by using `cat /usr/include/linux/perf_event.h | grep PERF_SAMPLE_`
-bitflags!{
-    #[derive(Debug)]
-    flags SampleFormatFlags: u64 {
-        /// Records instruction pointer.
-        const PERF_SAMPLE_IP = 1 << 0,
-        /// Records the process and thread IDs.
-        const PERF_SAMPLE_TID = 1 << 1,
-        /// Records a timestamp.
-        const PERF_SAMPLE_TIME = 1 << 2,
-        /// Records an address, if applicable.
-        const PERF_SAMPLE_ADDR = 1 << 3,
-        /// Record counter values for all events in a group, not just the group leader.
-        const PERF_SAMPLE_READ = 1 << 4,
-        /// Records the callchain (stack backtrace).
-        const PERF_SAMPLE_CALLCHAIN = 1 << 5,
-        /// Records a unique ID for the opened event's group leader.
-        const PERF_SAMPLE_ID = 1 << 6,
-        /// Records CPU number.
-        const PERF_SAMPLE_CPU = 1 << 7,
-        /// Records the current sampling period.
-        const PERF_SAMPLE_PERIOD = 1 << 8,
-        /// Records  a  unique  ID  for  the  opened  event.  Unlike PERF_SAMPLE_ID the actual ID is returned, not the group
-        /// leader.  This ID is the same as the one returned by PERF_FORMAT_ID.
-        const PERF_SAMPLE_STREAM_ID = 1 << 9,
-        /// Records additional data, if applicable.  Usually returned by tracepoint events.
-        const PERF_SAMPLE_RAW = 1 << 10,
-        /// This provides a record of recent branches, as provided by CPU branch  sampling  hardware  (such  as  Intel  Last
-        /// Branch Record).  Not all hardware supports this feature.
-        /// See the branch_sample_type field for how to filter which branches are reported.
-        const PERF_SAMPLE_BRANCH_STACK = 1 << 11,
-        /// Records the current user-level CPU register state (the values in the process before the kernel was called).
-        const PERF_SAMPLE_REGS_USER = 1 << 12,
-        /// Records the user level stack, allowing stack unwinding.
-        const PERF_SAMPLE_STACK_USER = 1 << 13,
-        /// Records a hardware provided weight value that expresses how costly the sampled event was.
-        /// This allows the hardware to highlight expensive events in a profile.
-        const PERF_SAMPLE_WEIGHT = 1 << 14,
-        /// Records the data source: where in the memory hierarchy the data associated with the sampled instruction came from.
-        /// This is only available if the underlying hardware supports this feature.
-        const PERF_SAMPLE_DATA_SRC = 1 << 15,
-        const PERF_SAMPLE_IDENTIFIER = 1 << 16,
-        const PERF_SAMPLE_TRANSACTION = 1 << 17,
-        const PERF_SAMPLE_REGS_INTR = 1 << 18,
-    }
-}
-
-impl SampleFormatFlags {
-    pub fn has_ip(&self) -> bool {
-        self.contains(PERF_SAMPLE_IP)
-    }
-
-    pub fn has_tid(&self) -> bool {
-        self.contains(PERF_SAMPLE_TID)
-    }
-
-    pub fn has_time(&self) -> bool {
-        self.contains(PERF_SAMPLE_TIME)
-    }
-
-    pub fn has_addr(&self) -> bool {
-        self.contains(PERF_SAMPLE_ADDR)
-    }
-
-    pub fn has_read(&self) -> bool {
-        self.contains(PERF_SAMPLE_READ)
-    }
-
-    pub fn has_callchain(&self) -> bool {
-        self.contains(PERF_SAMPLE_CALLCHAIN)
-    }
-
-    pub fn has_sample_id(&self) -> bool {
-        self.contains(PERF_SAMPLE_ID)
-    }
-
-    pub fn has_cpu(&self) -> bool {
-        self.contains(PERF_SAMPLE_CPU)
-    }
-
-    pub fn has_period(&self) -> bool {
-        self.contains(PERF_SAMPLE_PERIOD)
-    }
-
-    pub fn has_stream_id(&self) -> bool {
-        self.contains(PERF_SAMPLE_STREAM_ID)
-    }
-
-    pub fn has_raw(&self) -> bool {
-        self.contains(PERF_SAMPLE_RAW)
-    }
-
-    pub fn has_branch_stack(&self) -> bool {
-        self.contains(PERF_SAMPLE_BRANCH_STACK)
-    }
-
-    pub fn has_regs_user(&self) -> bool {
-        self.contains(PERF_SAMPLE_REGS_USER)
-    }
-
-    pub fn has_stack_user(&self) -> bool {
-        self.contains(PERF_SAMPLE_STACK_USER)
-    }
-
-    pub fn has_weight(&self) -> bool {
-        self.contains(PERF_SAMPLE_WEIGHT)
-    }
-
-    pub fn has_data_src(&self) -> bool {
-        self.contains(PERF_SAMPLE_DATA_SRC)
-    }
-
-    pub fn has_identifier(&self) -> bool {
-        self.contains(PERF_SAMPLE_IDENTIFIER)
-    }
-
-    pub fn has_transaction(&self) -> bool {
-        self.contains(PERF_SAMPLE_TRANSACTION)
-    }
-
-    pub fn has_regs_intr(&self) -> bool {
-        self.contains(PERF_SAMPLE_REGS_INTR)
-    }
-}
-
-bitflags! {
-    #[derive(Debug)]
-    flags EventAttrFlags: u64 {
-        /// off by default
-        const EVENT_ATTR_DISABLED       =  1 << 0,
-        /// children inherit it
-        const EVENT_ATTR_INHERIT        =  1 << 1,
-        /// must always be on PMU
-        const EVENT_ATTR_PINNED         =  1 << 2,
-        /// only group on PMU
-        const EVENT_ATTR_EXCLUSIVE      =  1 << 3,
-        /// don't count user
-        const EVENT_ATTR_EXCLUDE_USER   =  1 << 4,
-        /// ditto kernel
-        const EVENT_ATTR_EXCLUDE_KERNEL =  1 << 5,
-        /// ditto hypervisor
-        const EVENT_ATTR_EXCLUDE_HV     =  1 << 6,
-        /// don't count when idle
-        const EVENT_ATTR_EXCLUDE_IDLE   =  1 << 7,
-        /// include mmap data
-        const EVENT_ATTR_MMAP           =  1 << 8,
-        /// include comm data
-        const EVENT_ATTR_COMM           =  1 << 9,
-        /// use freq, not period
-        const EVENT_ATTR_FREQ           =  1 << 10,
-        /// per task counts
-        const EVENT_ATTR_INHERIT_STAT   =  1 << 11,
-        /// next exec enables
-        const EVENT_ATTR_ENABLE_ON_EXEC =  1 << 12,
-        /// trace fork/exit
-        const EVENT_ATTR_TASK           =  1 << 13,
-        /// wakeup_watermark
-        const EVENT_ATTR_WATERMARK      =  1 << 14,
-
-        /// SAMPLE_IP can have arbitrary skid
-        const EVENT_ATTR_SAMPLE_IP_ARBITRARY_SKID = 0 << 15,
-        /// SAMPLE_IP must have constant skid
-        const EVENT_ATTR_SAMPLE_IP_CONSTANT_SKID = 1 << 15,
-        /// SAMPLE_IP requested to have 0 skid
-        const EVENT_ATTR_SAMPLE_IP_REQ_ZERO_SKID = 2 << 15,
-        /// SAMPLE_IP must have 0 skid
-        const EVENT_ATTR_SAMPLE_IP_ZERO_SKID = 3 << 15,
-
-        /// non-exec mmap data
-        const EVENT_ATTR_MMAP_DATA =  1 << 17,
-        /// sample_type all events
-        const EVENT_ATTR_SAMPLE_ID_ALL =  1 << 18,
-        /// don't count in host
-        const EVENT_ATTR_EXCLUDE_HOST =  1 << 19,
-        /// don't count in guest
-        const EVENT_ATTR_EXCLUDE_GUEST =  1 << 20,
-        /// exclude kernel callchains
-        const EVENT_ATTR_EXCLUDE_CALLCHAIN_KERNEL = 1 << 21,
-        /// exclude user callchains
-        const EVENT_ATTR_EXCLUDE_CALLCHAIN_USER = 1 << 22,
-        /// include mmap with inode data
-        const EVENT_ATTR_MMAP2  =  1 << 23,
-    }
-}
-
 /// Parse a perf header
 named!(parse_event_attr<&[u8], EventAttr>,
     chain!(
@@ -1311,7 +615,6 @@ named!(parse_event_attr<&[u8], EventAttr>,
 ));
 
 
-
 #[derive(Debug)]
 pub struct PerfFile {
     pub header: PerfFileHeader,
@@ -1353,15 +656,6 @@ impl<'a> Iterator for PerfFileEventDataIter<'a> {
         }
     }
 }
-
-fn iresult_to_option<I, O, E>(result: IResult<I, O, E>) -> Option<O> {
-    match result {
-        IResult::Done(_, res) => Some(res),
-        IResult::Error(_) => None,
-        IResult::Incomplete(_) => None
-    }
-}
-
 
 impl PerfFile {
 

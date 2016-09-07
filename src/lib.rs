@@ -11,7 +11,6 @@ extern crate nom;
 #[cfg(target_os = "linux")]
 extern crate mmap;
 
-pub mod parser;
 pub mod linux;
 pub use linux::{PerfCounter};
 
