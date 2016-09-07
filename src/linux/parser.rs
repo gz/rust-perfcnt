@@ -4,6 +4,7 @@
 //! # References
 //! The code is inspired by the following articles and existing parser to make sense of the
 //! (poorly documented) format:
+//! 
 //!   * https://lwn.net/Articles/644919/
 //!   * http://man7.org/linux/man-pages/man2/perf_event_open.2.html
 //!   * https://github.com/andikleen/pmu-tools/tree/master/parser
