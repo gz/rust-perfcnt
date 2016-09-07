@@ -154,7 +154,7 @@ pub const PERF_TXN_ABORT_SHIFT: ::libc::c_ulong = 32;
 
 
 bitflags!{
-    flags SampleFormatFlags: u64 {
+    pub flags SampleFormatFlags: u64 {
         /// Records instruction pointer.
         const PERF_SAMPLE_IP = 1,
         /// Records the process and thread IDs.
@@ -198,7 +198,7 @@ bitflags!{
 }
 
 bitflags!{
-    flags ReadFormatFlags: u64 {
+    pub flags ReadFormatFlags: u64 {
         /// Adds the 64-bit time_enabled field.  This can be used to calculate estimated totals if the PMU is overcommitted
         /// and multiplexing is happening.
         const FORMAT_TOTAL_TIME_ENABLED = 1,
@@ -213,7 +213,7 @@ bitflags!{
 }
 
 bitflags! {
-    flags EventAttrFlags: u64 {
+    pub flags EventAttrFlags: u64 {
                     /// off by default
                     const EVENT_ATTR_DISABLED       =  1 << 0,
                     /// children inherit it

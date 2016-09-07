@@ -594,7 +594,7 @@ named!(parse_event_attr<&[u8], EventAttr>,
         aux_watermark: le_u32 ~
         le_u32, // reserved
         || EventAttr {
-            attr_type: EventAttrType::new(attr_type),
+            attr_type: attr_type,
             size: size,
             config: config,
             sample_period_freq: sample_period_freq,
@@ -611,6 +611,7 @@ named!(parse_event_attr<&[u8], EventAttr>,
             clock_id: clock_id,
             sample_regs_intr: sample_regs_intr,
             aux_watermark: aux_watermark,
+            reserved: 0
         }
 ));
 
