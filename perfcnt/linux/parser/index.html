@@ -47,11 +47,9 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2787' class='srclink' href='../../../src/perfcnt/src/linux/parser.rs.html#1-817' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-2953' class='srclink' href='../../../src/perfcnt/src/linux/parser.rs.html#1-599' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Uses the <code>nom</code> library to parse the in memory format of perf data structures and
 transforms them into more rust-like data-strutures.</p>
-
-<p><code>bin/parse.rs</code> serves as an example program how-to use the parser.</p>
 
 <h1 id='references' class='section-header'><a href='#references'>References</a></h1>
 <p>The code is inspired by the following articles and existing parser to make sense of the
@@ -68,26 +66,199 @@ transforms them into more rust-like data-strutures.</p>
 <li>I&#39;m not sure if I&#39;m parsing the BuildId correctly, it seems it can not be recognized</li>
 <li>Only support little endian machines</li>
 </ul>
-</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+
+<h1 id='see-also' class='section-header'><a href='#see-also'>See also</a></h1>
+<ul>
+<li><code>perf_file.rs</code> -- as an example on how to use the parser function to parse a perf.data file</li>
+<li><code>perf_format.rs</code> -- for all the struct definitions that are parsed here</li>
+</ul>
+</div><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='struct' href='struct.PerfFile.html'
-                                  title='perfcnt::linux::parser::PerfFile'>PerfFile</a></td>
+                           <td><a class='fn' href='fn.parse_branch_entries.html'
+                                  title='perfcnt::linux::parser::parse_branch_entries'>parse_branch_entries</a></td>
                            <td class='docblock short'>
                                 
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='struct' href='struct.PerfFileEventDataIter.html'
-                                  title='perfcnt::linux::parser::PerfFileEventDataIter'>PerfFileEventDataIter</a></td>
+                           <td><a class='fn' href='fn.parse_branch_entry.html'
+                                  title='perfcnt::linux::parser::parse_branch_entry'>parse_branch_entry</a></td>
                            <td class='docblock short'>
                                 
                            </td>
-                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
-<table>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_build_id_record.html'
+                                  title='perfcnt::linux::parser::parse_build_id_record'>parse_build_id_record</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.parse_comm_record.html'
                                   title='perfcnt::linux::parser::parse_comm_record'>parse_comm_record</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_cpu.html'
+                                  title='perfcnt::linux::parser::parse_cpu'>parse_cpu</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_cpu_topology.html'
+                                  title='perfcnt::linux::parser::parse_cpu_topology'>parse_cpu_topology</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_event.html'
+                                  title='perfcnt::linux::parser::parse_event'>parse_event</a></td>
+                           <td class='docblock short'>
+                                <p>Parse an event record.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_event_attr.html'
+                                  title='perfcnt::linux::parser::parse_event_attr'>parse_event_attr</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_event_desc.html'
+                                  title='perfcnt::linux::parser::parse_event_desc'>parse_event_desc</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_event_header.html'
+                                  title='perfcnt::linux::parser::parse_event_header'>parse_event_header</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_exit_record.html'
+                                  title='perfcnt::linux::parser::parse_exit_record'>parse_exit_record</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_file_section.html'
+                                  title='perfcnt::linux::parser::parse_file_section'>parse_file_section</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_fork_record.html'
+                                  title='perfcnt::linux::parser::parse_fork_record'>parse_fork_record</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_group_description.html'
+                                  title='perfcnt::linux::parser::parse_group_description'>parse_group_description</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_group_descriptions.html'
+                                  title='perfcnt::linux::parser::parse_group_descriptions'>parse_group_descriptions</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_header.html'
+                                  title='perfcnt::linux::parser::parse_header'>parse_header</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_mmap2_record.html'
+                                  title='perfcnt::linux::parser::parse_mmap2_record'>parse_mmap2_record</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_mmap_record.html'
+                                  title='perfcnt::linux::parser::parse_mmap_record'>parse_mmap_record</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_nrcpus.html'
+                                  title='perfcnt::linux::parser::parse_nrcpus'>parse_nrcpus</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_numa_node.html'
+                                  title='perfcnt::linux::parser::parse_numa_node'>parse_numa_node</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_numa_topology.html'
+                                  title='perfcnt::linux::parser::parse_numa_topology'>parse_numa_topology</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_perf_string.html'
+                                  title='perfcnt::linux::parser::parse_perf_string'>parse_perf_string</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_perf_string_list.html'
+                                  title='perfcnt::linux::parser::parse_perf_string_list'>parse_perf_string_list</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_pmu_mapping.html'
+                                  title='perfcnt::linux::parser::parse_pmu_mapping'>parse_pmu_mapping</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_pmu_mappings.html'
+                                  title='perfcnt::linux::parser::parse_pmu_mappings'>parse_pmu_mappings</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_read_format.html'
+                                  title='perfcnt::linux::parser::parse_read_format'>parse_read_format</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_read_value.html'
+                                  title='perfcnt::linux::parser::parse_read_value'>parse_read_value</a></td>
                            <td class='docblock short'>
                                 
                            </td>
@@ -102,6 +273,27 @@ transforms them into more rust-like data-strutures.</p>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.parse_sample_record.html'
                                   title='perfcnt::linux::parser::parse_sample_record'>parse_sample_record</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_thread_id.html'
+                                  title='perfcnt::linux::parser::parse_thread_id'>parse_thread_id</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_throttle_record.html'
+                                  title='perfcnt::linux::parser::parse_throttle_record'>parse_throttle_record</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.parse_unthrottle_record.html'
+                                  title='perfcnt::linux::parser::parse_unthrottle_record'>parse_unthrottle_record</a></td>
                            <td class='docblock short'>
                                 
                            </td>
