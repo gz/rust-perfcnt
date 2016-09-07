@@ -1,7 +1,7 @@
 //! Contains the various data format structures as used by perf
 //!
 //! In order to parse these structures from perf files or perf MMAP buffers, please
-//! have a look in parser.rs.
+//! have a look at the functions in parser.rs.
 
 /// Unique thread descriptor. Used in many different perf structures.
 #[derive(Debug)]

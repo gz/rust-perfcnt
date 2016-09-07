@@ -19,6 +19,7 @@ mod hw_breakpoint;
 mod perf_event;
 
 pub mod perf_format;
+pub mod perf_file;
 pub mod parser;
 
 use ::AbstractPerfCounter;

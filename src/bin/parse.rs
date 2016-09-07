@@ -5,7 +5,7 @@ use std::fs::File;
 use std::env;
 use std::path::Path;
 
-use perfcnt::linux::parser::PerfFile;
+use perfcnt::linux::perf_file::PerfFile;
 
 fn main() {
     for argument in env::args().skip(1) {

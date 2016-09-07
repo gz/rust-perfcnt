@@ -1,14 +1,12 @@
 //! Uses the `nom` library to parse the in memory format of perf data structures and
 //! transforms them into more rust-like data-strutures.
 //!
-//! `bin/parse.rs` serves as an example program how-to use the parser.
-//!
 //! # References
 //! The code is inspired by the following articles and existing parser to make sense of the
 //! (poorly documented) format:
-//!  * https://lwn.net/Articles/644919/
-//!  * http://man7.org/linux/man-pages/man2/perf_event_open.2.html
-//!  * https://github.com/andikleen/pmu-tools/tree/master/parser
+//!   * https://lwn.net/Articles/644919/
+//!   * http://man7.org/linux/man-pages/man2/perf_event_open.2.html
+//!   * https://github.com/andikleen/pmu-tools/tree/master/parser
 //!
 //! # Current limitations
 //!  * Only version 2 of the data format
@@ -17,22 +15,51 @@
 //!  * I'm not sure if I'm parsing the BuildId correctly, it seems it can not be recognized
 //!  * Only support little endian machines
 //!
+//! # See also
+//!   * `perf_file.rs` -- as an example on how to use the parser function to parse a perf.data file
+//!   * `perf_format.rs` -- for all the struct definitions that are parsed here
+//!
+
 
 use nom::*;
 use super::perf_format::*;
 
-macro_rules! stderr {
-    ($($arg:tt)*) => (
-        use std::io::Write;
-        match writeln!(&mut ::std::io::stderr(), $($arg)* ) {
-            Ok(_) => {},
-            Err(x) => panic!("Unable to write to stderr (file handle closed?): {}", x),
-        }
+fn is_nul_byte(c: &u8) -> bool {
+    *c == 0x0
+}
+
+named!(parse_c_string, take_till!(is_nul_byte));
+
+named!(parse_vec_u64<&[u8], Vec<u64> >,
+    chain!(
+        len: le_u64 ~
+        vec: count!(le_u64, len as usize),
+        || vec
     )
+);
+
+named!(parse_vec_u32_u8<&[u8], Vec<u8> >,
+    chain!(
+        len: le_u32 ~
+        vec: count!(le_u8, len as usize),
+        || vec
+    )
+);
+
+fn parse_vec_u64_variable(input: &[u8], count: usize) -> IResult<&[u8], Vec<u64>> {
+    count!(input, le_u64, count)
+}
+
+fn parse_vec_u8_variable(input: &[u8], count: usize) -> IResult<&[u8], Vec<u8>> {
+    count!(input, le_u8, count)
+}
+
+fn no_event(input: &[u8]) -> IResult<&[u8], EventData> {
+    IResult::Done(input, EventData::None)
 }
 
 // TODO: Needs sample flags!
-named!(parse_sample_id<&[u8], SampleId>,
+named!(pub parse_sample_id<&[u8], SampleId>,
     chain!(
         ptid: parse_thread_id ~
         time: le_u64 ~
@@ -51,19 +78,7 @@ named!(parse_sample_id<&[u8], SampleId>,
     )
 );
 
-fn is_nul_byte(c: &u8) -> bool {
-    *c == 0x0
-}
-
-fn iresult_to_option<I, O, E>(result: IResult<I, O, E>) -> Option<O> {
-    match result {
-        IResult::Done(_, res) => Some(res),
-        IResult::Error(_) => None,
-        IResult::Incomplete(_) => None
-    }
-}
-
-named!(parse_thread_id<&[u8], ThreadId>,
+named!(pub parse_thread_id<&[u8], ThreadId>,
     chain!(
         pid: le_i32 ~
         tid: le_i32,
@@ -71,7 +86,7 @@ named!(parse_thread_id<&[u8], ThreadId>,
     )
 );
 
-named!(parse_cpu<&[u8], Cpu>,
+named!(pub parse_cpu<&[u8], Cpu>,
     chain!(
         cpu: le_u32 ~
         res: le_u32,
@@ -79,7 +94,7 @@ named!(parse_cpu<&[u8], Cpu>,
     )
 );
 
-named!(parse_fork_record<&[u8], ForkRecord>,
+named!(pub parse_fork_record<&[u8], ForkRecord>,
     chain!(
         pid: le_u32 ~
         ppid: le_u32 ~
@@ -96,7 +111,7 @@ named!(parse_fork_record<&[u8], ForkRecord>,
     )
 );
 
-named!(parse_exit_record<&[u8], ExitRecord>,
+named!(pub parse_exit_record<&[u8], ExitRecord>,
     chain!(
         pid: le_u32 ~
         ppid: le_u32 ~
@@ -113,7 +128,7 @@ named!(parse_exit_record<&[u8], ExitRecord>,
     )
 );
 
-named!(parse_throttle_record<&[u8], ThrottleRecord>,
+named!(pub parse_throttle_record<&[u8], ThrottleRecord>,
     chain!(
         time: le_u64 ~
         id: le_u64 ~
@@ -126,7 +141,7 @@ named!(parse_throttle_record<&[u8], ThrottleRecord>,
     )
 );
 
-named!(parse_unthrottle_record<&[u8], UnthrottleRecord>,
+named!(pub parse_unthrottle_record<&[u8], UnthrottleRecord>,
     chain!(
         time: le_u64 ~
         id: le_u64 ~
@@ -139,7 +154,7 @@ named!(parse_unthrottle_record<&[u8], UnthrottleRecord>,
     )
 );
 
-named!(parse_event_header<&[u8], EventHeader>,
+named!(pub parse_event_header<&[u8], EventHeader>,
     chain!(
         event_type: le_u32 ~
         misc: le_u16 ~
@@ -148,7 +163,7 @@ named!(parse_event_header<&[u8], EventHeader>,
     )
 );
 
-named!(parse_mmap_record<&[u8], MMAPRecord>,
+named!(pub parse_mmap_record<&[u8], MMAPRecord>,
     chain!(
         pid: le_i32 ~
         tid: le_u32 ~
@@ -167,7 +182,7 @@ named!(parse_mmap_record<&[u8], MMAPRecord>,
     )
 );
 
-named!(parse_mmap2_record<&[u8], MMAP2Record>,
+named!(pub parse_mmap2_record<&[u8], MMAP2Record>,
     chain!(
         ptid: parse_thread_id ~
         addr: le_u64 ~
@@ -197,7 +212,7 @@ named!(parse_mmap2_record<&[u8], MMAP2Record>,
     )
 );
 
-fn parse_read_value(input: &[u8], flags: ReadFormatFlags) -> IResult<&[u8], (u64, Option<u64>)> {
+pub fn parse_read_value(input: &[u8], flags: ReadFormatFlags) -> IResult<&[u8], (u64, Option<u64>)> {
     chain!(input,
         value: le_u64 ~
         id: cond!(flags.has_id(), le_u64),
@@ -205,7 +220,7 @@ fn parse_read_value(input: &[u8], flags: ReadFormatFlags) -> IResult<&[u8], (u64
     )
 }
 
-fn parse_read_format(input: &[u8], flags: ReadFormatFlags) -> IResult<&[u8], ReadFormat> {
+pub fn parse_read_format(input: &[u8], flags: ReadFormatFlags) -> IResult<&[u8], ReadFormat> {
     if flags.has_group() {
         return chain!(input,
             nr: le_u64 ~
@@ -232,7 +247,7 @@ fn parse_read_format(input: &[u8], flags: ReadFormatFlags) -> IResult<&[u8], Rea
     }
 }
 
-named!(parse_branch_entry<&[u8], BranchEntry>,
+named!(pub parse_branch_entry<&[u8], BranchEntry>,
     chain!(
         from: le_u64 ~
         to: le_u64 ~
@@ -245,7 +260,7 @@ named!(parse_branch_entry<&[u8], BranchEntry>,
     )
 );
 
-fn parse_branch_entries(input: &[u8], flags: SampleFormatFlags) -> IResult<&[u8], Vec<BranchEntry>> {
+pub fn parse_branch_entries(input: &[u8], flags: SampleFormatFlags) -> IResult<&[u8], Vec<BranchEntry>> {
     // TODO: bug? https://github.com/Geal/nom/issues/302
     assert!(flags.has_branch_stack() && flags.has_regs_user());
     chain!(input,
@@ -325,38 +340,8 @@ pub fn parse_comm_record(input: &[u8]) -> IResult<&[u8], CommRecord> {
     )
 }
 
-named!(parse_c_string, take_till!(is_nul_byte));
-
-named!(parse_vec_u64<&[u8], Vec<u64> >,
-    chain!(
-        len: le_u64 ~
-        vec: count!(le_u64, len as usize),
-        || vec
-    )
-);
-
-named!(parse_vec_u32_u8<&[u8], Vec<u8> >,
-    chain!(
-        len: le_u32 ~
-        vec: count!(le_u8, len as usize),
-        || vec
-    )
-);
-
-fn parse_vec_u64_variable(input: &[u8], count: usize) -> IResult<&[u8], Vec<u64>> {
-    count!(input, le_u64, count)
-}
-
-fn parse_vec_u8_variable(input: &[u8], count: usize) -> IResult<&[u8], Vec<u8>> {
-    count!(input, le_u8, count)
-}
-
-fn no_event(input: &[u8]) -> IResult<&[u8], EventData> {
-    IResult::Done(input, EventData::None)
-}
-
 /// Parse an event record.
-fn parse_event<'a>(input: &'a [u8], attrs: &'a Vec<EventAttr>) -> IResult<&'a [u8], Event> {
+pub fn parse_event<'a>(input: &'a [u8], attrs: &'a Vec<EventAttr>) -> IResult<&'a [u8], Event> {
     chain!(input,
         header: parse_event_header ~
         event: alt!(
@@ -377,7 +362,7 @@ fn parse_event<'a>(input: &'a [u8], attrs: &'a Vec<EventAttr>) -> IResult<&'a [u
 }
 
 /// Parse a perf file section.
-named!(parse_file_section<&[u8], PerfFileSection>,
+named!(pub parse_file_section<&[u8], PerfFileSection>,
     chain!(
         offset: le_u64 ~
         size: le_u64,
@@ -386,7 +371,7 @@ named!(parse_file_section<&[u8], PerfFileSection>,
 );
 
 /// Parse a perf string.
-named!(parse_perf_string<&[u8], String>,
+named!(pub parse_perf_string<&[u8], String>,
     chain!(
         length: le_u32 ~
         bytes: take!(length as usize),
@@ -399,7 +384,7 @@ named!(parse_perf_string<&[u8], String>,
 );
 
 /// Parse a perf string list.
-named!(parse_perf_string_list<&[u8], Vec<String> >,
+named!(pub parse_perf_string_list<&[u8], Vec<String> >,
     chain!(
         nr: le_u32 ~
         strings: count!(parse_perf_string, nr as usize),
@@ -408,7 +393,7 @@ named!(parse_perf_string_list<&[u8], Vec<String> >,
 );
 
 
-named!(parse_nrcpus<&[u8], NrCpus>,
+named!(pub parse_nrcpus<&[u8], NrCpus>,
     chain!(
         nr_online: le_u32 ~
         nr_available: le_u32,
@@ -417,7 +402,7 @@ named!(parse_nrcpus<&[u8], NrCpus>,
 );
 
 
-fn parse_event_desc(input: &[u8]) -> IResult<&[u8], Vec<EventDesc>> {
+pub fn parse_event_desc(input: &[u8]) -> IResult<&[u8], Vec<EventDesc>> {
     chain!(input,
         nr: le_u32 ~
         attr_size: le_u32 ~
@@ -438,7 +423,7 @@ fn parse_event_desc(input: &[u8]) -> IResult<&[u8], Vec<EventDesc>> {
 }
 
 
-named!(parse_cpu_topology<&[u8], CpuTopology>,
+named!(pub parse_cpu_topology<&[u8], CpuTopology>,
     chain!(
         cores: parse_perf_string_list ~
         threads: parse_perf_string_list,
@@ -446,9 +431,7 @@ named!(parse_cpu_topology<&[u8], CpuTopology>,
     )
 );
 
-
-
-named!(parse_numa_node<&[u8], NumaNode>,
+named!(pub parse_numa_node<&[u8], NumaNode>,
     chain!(
         nr: le_u32 ~
         mem_total: le_u64 ~
@@ -458,7 +441,7 @@ named!(parse_numa_node<&[u8], NumaNode>,
     )
 );
 
-named!(parse_numa_topology<&[u8], Vec<NumaNode> >,
+named!(pub parse_numa_topology<&[u8], Vec<NumaNode> >,
     chain!(
         nr: le_u32 ~
         nodes: count!(parse_numa_node, nr as usize),
@@ -468,7 +451,7 @@ named!(parse_numa_topology<&[u8], Vec<NumaNode> >,
 
 
 
-named!(parse_pmu_mapping<&[u8], PmuMapping>,
+named!(pub parse_pmu_mapping<&[u8], PmuMapping>,
     chain!(
         pmu_type: le_u32 ~
         pmu_name: parse_perf_string,
@@ -476,7 +459,7 @@ named!(parse_pmu_mapping<&[u8], PmuMapping>,
     )
 );
 
-named!(parse_pmu_mappings<&[u8], Vec<PmuMapping> >,
+named!(pub parse_pmu_mappings<&[u8], Vec<PmuMapping> >,
     chain!(
         nr: le_u32 ~
         nodes: count!(parse_pmu_mapping, nr as usize),
@@ -484,7 +467,7 @@ named!(parse_pmu_mappings<&[u8], Vec<PmuMapping> >,
     )
 );
 
-named!(parse_group_description<&[u8], GroupDesc>,
+named!(pub parse_group_description<&[u8], GroupDesc>,
     chain!(
         string: parse_perf_string ~
         leader_idx: le_u32 ~
@@ -493,7 +476,7 @@ named!(parse_group_description<&[u8], GroupDesc>,
     )
 );
 
-named!(parse_group_descriptions<&[u8], Vec<GroupDesc> >,
+named!(pub parse_group_descriptions<&[u8], Vec<GroupDesc> >,
     chain!(
         nr: le_u32 ~
         nodes: count!(parse_group_description, nr as usize),
@@ -501,7 +484,7 @@ named!(parse_group_descriptions<&[u8], Vec<GroupDesc> >,
     )
 );
 
-fn parse_build_id_record<'a>(input: &'a [u8], record_size: usize) -> IResult<&'a [u8], BuildIdRecord> {
+pub fn parse_build_id_record<'a>(input: &'a [u8], record_size: usize) -> IResult<&'a [u8], BuildIdRecord> {
     chain!(input,
         pid: le_i32 ~
         build_id: take!(24) ~
@@ -515,7 +498,7 @@ fn parse_build_id_record<'a>(input: &'a [u8], record_size: usize) -> IResult<&'a
 }
 
 /// Parse a perf header
-named!(parse_header<&[u8], PerfFileHeader>,
+named!(pub parse_header<&[u8], PerfFileHeader>,
     chain!(
         tag!("PERFILE2") ~
         size: le_u64 ~
@@ -573,7 +556,7 @@ named!(parse_header<&[u8], PerfFileHeader>,
 );
 
 /// Parse a perf header
-named!(parse_event_attr<&[u8], EventAttr>,
+named!(pub parse_event_attr<&[u8], EventAttr>,
     chain!(
         attr_type: le_u32 ~
         size: le_u32 ~
@@ -614,204 +597,3 @@ named!(parse_event_attr<&[u8], EventAttr>,
             reserved: 0
         }
 ));
-
-
-#[derive(Debug)]
-pub struct PerfFile {
-    pub header: PerfFileHeader,
-    pub attrs: Vec<EventAttr>,
-    bytes: Vec<u8>,
-    //sections: Vec<PerfFileSection>,
-}
-
-pub struct PerfFileEventDataIter<'a> {
-    attrs: &'a Vec<EventAttr>,
-    data: &'a [u8],
-    offset: usize
-}
-
-impl<'a> Iterator for PerfFileEventDataIter<'a> {
-    type Item = Event;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        let slice = &self.data[self.offset..];
-        if slice.len() > 8 {
-            let r = parse_event(slice, self.attrs);
-            match r {
-                IResult::Done(_, ev) => {
-                    self.offset += ev.header.size();
-                    Some(ev)
-                },
-                IResult::Error(_) => {
-                    stderr!("Error when parsing data section.");
-                    None
-                },
-                IResult::Incomplete(n) => {
-                    stderr!("Got incomplete data ({:?}) when parsing data section.", n);
-                    None
-                }
-            }
-        }
-        else {
-            None
-        }
-    }
-}
-
-impl PerfFile {
-
-    pub fn new(bytes: Vec<u8>) -> PerfFile {
-        let header = match parse_header(bytes.as_slice()) {
-            IResult::Done(_, h) => h,
-            IResult::Error(e) => panic!("{:?}", e),
-            IResult::Incomplete(_) => panic!("Incomplete data?"),
-        };
-
-        let attrs = {
-            let attr_size = header.attr_size as usize;
-            let slice: &[u8] = &bytes[header.attrs.start()..header.attrs.end()];
-            slice.chunks(attr_size).map(|c| parse_event_attr(c).unwrap().1 ).collect()
-        };
-
-        PerfFile { bytes: bytes, header: header, attrs: attrs }
-    }
-
-    pub fn data(&self) -> PerfFileEventDataIter {
-        let slice: &[u8] = &self.bytes[self.header.data.start()..self.header.data.end()];
-        PerfFileEventDataIter { attrs: &self.attrs, data: slice, offset: 0 }
-    }
-
-    pub fn get_build_id(&self) -> Option<BuildIdRecord> {
-        self.get_section_slice(HeaderFlag::BuildId).and_then(|slice| {
-            iresult_to_option(chain!(slice,
-                header: parse_event_header ~
-                build_id: call!(parse_build_id_record, header.size()),
-                || build_id
-            ))
-        })
-    }
-
-    pub fn get_hostname(&self) -> Option<String> {
-        self.get_section_slice(HeaderFlag::Hostname)
-            .and_then(|slice| {
-                iresult_to_option(parse_perf_string(slice))
-            })
-    }
-
-    pub fn get_os_release(&self) -> Option<String> {
-        self.get_section_slice(HeaderFlag::OsRelease)
-            .and_then(|slice| {
-                iresult_to_option(parse_perf_string(slice))
-            })
-    }
-
-    pub fn get_version(&self) -> Option<String> {
-        self.get_section_slice(HeaderFlag::Version)
-            .and_then(|slice| {
-                iresult_to_option(parse_perf_string(slice))
-            })
-    }
-
-    pub fn get_arch(&self) -> Option<String> {
-        self.get_section_slice(HeaderFlag::Arch)
-            .and_then(|slice| {
-                iresult_to_option(parse_perf_string(slice))
-            })
-    }
-
-    pub fn get_nr_cpus(&self) -> Option<NrCpus> {
-        self.get_section_slice(HeaderFlag::NrCpus)
-            .and_then(|slice| {
-                iresult_to_option(parse_nrcpus(slice))
-            })
-    }
-
-    pub fn get_cpu_description(&self) -> Option<String> {
-        self.get_section_slice(HeaderFlag::CpuDesc)
-            .and_then(|slice| {
-                iresult_to_option(parse_perf_string(slice))
-            })
-    }
-
-    pub fn get_cpu_id(&self) -> Option<String> {
-        self.get_section_slice(HeaderFlag::CpuId)
-            .and_then(|slice| {
-                iresult_to_option(parse_perf_string(slice))
-            })
-    }
-
-    pub fn get_total_memory(&self) -> Option<u64> {
-        self.get_section_slice(HeaderFlag::TotalMem)
-            .and_then(|slice| {
-                iresult_to_option(le_u64(slice))
-            })
-    }
-
-    pub fn get_cmd_line(&self) -> Option<String> {
-        self.get_section_slice(HeaderFlag::CmdLine)
-            .and_then(|slice| {
-                iresult_to_option(parse_perf_string(slice))
-            })
-    }
-
-    pub fn get_event_description(&self) -> Option<Vec<EventDesc>> {
-        self.get_section_slice(HeaderFlag::EventDesc)
-            .and_then(|slice| {
-                iresult_to_option(parse_event_desc(slice))
-            })
-    }
-
-    pub fn get_cpu_topology(&self) -> Option<CpuTopology> {
-        self.get_section_slice(HeaderFlag::CpuTopology)
-            .and_then(|slice| {
-                iresult_to_option(parse_cpu_topology(slice))
-            })
-    }
-
-    pub fn get_numa_topology(&self) -> Option<Vec<NumaNode>> {
-        self.get_section_slice(HeaderFlag::NumaTopology)
-            .and_then(|slice| {
-                iresult_to_option(parse_numa_topology(slice))
-            })
-    }
-
-    pub fn get_pmu_mappings(&self) -> Option<Vec<PmuMapping>> {
-        self.get_section_slice(HeaderFlag::PmuMappings)
-            .and_then(|slice| {
-                iresult_to_option(parse_pmu_mappings(slice))
-            })
-    }
-
-    pub fn get_group_descriptions(&self) -> Option<Vec<GroupDesc>> {
-        self.get_section_slice(HeaderFlag::GroupDesc)
-            .and_then(|slice| {
-                iresult_to_option(parse_group_descriptions(slice))
-            })
-    }
-
-    fn sections(&self) -> Vec<(HeaderFlag, PerfFileSection)> {
-        let sections: Vec<PerfFileSection> = self.parse_header_sections().unwrap().1;
-        let flags: Vec<HeaderFlag> = self.header.flags.collect();
-        assert!(sections.len() == flags.len());
-
-        flags.into_iter().zip(sections).collect()
-    }
-
-    fn get_section(&self, sec: HeaderFlag) -> Option<PerfFileSection> {
-        let sections = self.sections();
-        sections.iter().find(|c| c.0 == sec).map(|c| c.1)
-    }
-
-    fn get_section_slice(&self, sec: HeaderFlag) -> Option<&[u8]> {
-        self.get_section(sec).map(|sec| &self.bytes[sec.start()..sec.end()])
-    }
-
-    fn parse_header_sections(&self) -> IResult<&[u8], Vec<PerfFileSection>> {
-        let flags: Vec<HeaderFlag> = self.header.flags.collect();
-        // TODO: if flags.len() == 0
-        let sections_start: usize = (self.header.data.offset + self.header.data.size) as usize;
-        let slice: &[u8] = &self.bytes[sections_start..];
-
-        count!(slice, parse_file_section, flags.len())
-    }
-}
