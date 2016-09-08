@@ -7,7 +7,7 @@ homepage = "https://github.com/gz/rust-perfcnt"
 repository = "https://github.com/gz/rust-perfcnt"
 documentation = "http://gz.github.io/rust-perfcnt/perfcnt/"
 readme = "README.md"
-keywords = ["amd64", "x86", "performance", "counter", "hardware"]
+keywords = ["performance", "counter", "events", "pmu", "perf"]
 license = "MIT"
 
 [dependencies]
