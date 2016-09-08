@@ -11,7 +11,7 @@ keywords = ["amd64", "x86", "performance", "counter", "hardware"]
 license = "MIT"
 
 [dependencies]
-bitflags = "*"
+bitflags = "0.7.*"
 libc = "0.1.10"
 x86 = "0.6.0"
 mmap = "0.1.*"
