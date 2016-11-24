@@ -25,8 +25,8 @@
 use nom::*;
 use super::perf_format::*;
 
-fn is_nul_byte(c: &u8) -> bool {
-    *c == 0x0
+fn is_nul_byte(c: u8) -> bool {
+    c == 0x0
 }
 
 named!(parse_c_string, take_till!(is_nul_byte));

@@ -16,7 +16,7 @@ libc = "0.1.10"
 x86 = "0.6.0"
 mmap = "0.1.*"
 byteorder = "0.5"
-nom = "^1.2.4"
+nom = "^2.0"
 
 [[bin]]
 name = "perfcnt-list"
