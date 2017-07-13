@@ -1,5 +1,3 @@
-#![feature(type_macros)]
-
 extern crate libc;
 #[macro_use]
 extern crate x86;
