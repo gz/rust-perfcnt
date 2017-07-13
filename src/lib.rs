@@ -1,4 +1,17 @@
-#![feature(type_macros)]
+//! Example usage:
+//!
+//! ```
+//! use perfcnt::{AbstractPerfCounter, PerfCounter};
+//! use perfcnt::linux::{PerfCounterBuilderLinux, HardwareEventType};
+//!
+//! let mut pc: PerfCounter =
+//!     PerfCounterBuilderLinux::from_hardware_event(HardwareEventType::CacheMisses)
+//!         .finish().expect("Can not create the counter");
+//! pc.start().expect("Can not start the counter");
+//! pc.stop().expect("Can not start the counter");
+//! let res = pc.read().expect("Can not read the counter");
+//! println!("Measured {} cache misses.", res);
+//! ```
 
 extern crate libc;
 #[macro_use]
