@@ -3,7 +3,6 @@ extern crate perfcnt;
 use std::io::prelude::*;
 use std::fs::File;
 use std::env;
-use std::path::Path;
 
 use perfcnt::linux::perf_file::PerfFile;
 
@@ -15,7 +14,7 @@ fn main() {
         let mut file = File::open(argument).expect("File does not exist");
         let mut buf: Vec<u8> = Vec::with_capacity(2*4096*4096);
         match file.read_to_end(&mut buf) {
-            Ok(len) => {
+            Ok(_) => {
                 let pf = PerfFile::new(buf);
                 println!("Header: {:?}", pf.header);
                 println!("Attributes: {:?}", pf.attrs);
