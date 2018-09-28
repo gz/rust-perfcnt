@@ -12,17 +12,21 @@ license = "MIT"
 
 [dependencies]
 bitflags = "0.7.*"
-libc = "0.1.10"
-x86 = "0.6.0"
+libc = "0.2"
+x86 = { version = "0.10.1", features = ["performance-counter"] }
 mmap = "0.1.*"
 byteorder = "0.5"
 nom = "^2.0"
+phf = "0.7.23"
 
 [[bin]]
 name = "perfcnt-list"
 path = "src/bin/list.rs"
 
-
 [[bin]]
 name = "perfcnt-parse"
 path = "src/bin/parse.rs"
+
+[[bin]]
+name = "perfcnt-stats"
+path = "src/bin/stats.rs"

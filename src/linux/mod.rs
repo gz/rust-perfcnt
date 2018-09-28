@@ -1,16 +1,16 @@
 //! A wrapper around perf_event open (http://lxr.free-electrons.com/source/tools/perf/design.txt)
 
-use std::slice;
-use std::fs::File;
-use std::os::unix::io::FromRawFd;
-use std::io;
-use std::io::{Read, Error};
-use std::mem;
 use std::fmt;
-use std::str;
+use std::fs::File;
+use std::io;
+use std::io::{Error, Read};
+use std::mem;
+use std::os::unix::io::FromRawFd;
 use std::ptr;
+use std::slice;
+use std::str;
 
-use libc::{pid_t, MAP_SHARED, strlen};
+use libc::{pid_t, strlen, MAP_SHARED};
 use mmap;
 
 #[allow(dead_code, non_camel_case_types)]
@@ -18,30 +18,37 @@ mod hw_breakpoint;
 #[allow(dead_code, non_camel_case_types)]
 mod perf_event;
 
-pub mod perf_format;
-pub mod perf_file;
 pub mod parser;
+pub mod perf_file;
+pub mod perf_format;
 
-use ::AbstractPerfCounter;
-use x86::perfcnt::intel::description::{IntelPerformanceCounterDescription, Tuple};
+use x86::perfcnt::intel::{EventDescription, Tuple};
+use AbstractPerfCounter;
 
 const IOCTL: usize = 16;
 const PERF_EVENT_OPEN: usize = 298;
 
-fn perf_event_open(hw_event: &perf_format::EventAttr,
-                   pid: perf_event::__kernel_pid_t,
-                   cpu:  ::libc::c_int,
-                   group_fd:  ::libc::c_int,
-                   flags:  ::libc::c_int) -> isize {
+fn perf_event_open(
+    hw_event: &perf_format::EventAttr,
+    pid: perf_event::__kernel_pid_t,
+    cpu: ::libc::c_int,
+    group_fd: ::libc::c_int,
+    flags: ::libc::c_int,
+) -> isize {
     unsafe {
-        syscall!(PERF_EVENT_OPEN, hw_event as *const perf_format::EventAttr as usize, pid, cpu, group_fd, flags) as isize
+        syscall!(
+            PERF_EVENT_OPEN,
+            hw_event as *const perf_format::EventAttr as usize,
+            pid,
+            cpu,
+            group_fd,
+            flags
+        ) as isize
     }
 }
 
 fn ioctl(fd: ::libc::c_int, request: u64, value: ::libc::c_int) -> isize {
-    unsafe {
-        syscall!(IOCTL, fd, request, value) as isize
-    }
+    unsafe { syscall!(IOCTL, fd, request, value) as isize }
 }
 
 pub struct PerfCounterBuilderLinux {
@@ -53,13 +60,13 @@ pub struct PerfCounterBuilderLinux {
 }
 
 impl Default for PerfCounterBuilderLinux {
-    fn default () -> PerfCounterBuilderLinux {
+    fn default() -> PerfCounterBuilderLinux {
         PerfCounterBuilderLinux {
             group: -1,
             pid: 0,
             cpu: -1,
             flags: 0,
-            attrs: Default::default()
+            attrs: Default::default(),
         }
     }
 }
@@ -97,7 +104,6 @@ pub enum HardwareEventType {
 }
 
 pub enum SoftwareEventType {
-
     /// This reports the CPU clock, a high-resolution per-CPU timer.
     CpuClock = perf_event::PERF_COUNT_SW_CPU_CLOCK as isize,
 
@@ -135,7 +141,6 @@ pub enum SoftwareEventType {
     ///
     /// (Since Linux 2.6.33)
     EmulationFaults = perf_event::PERF_COUNT_SW_EMULATION_FAULTS as isize,
-
 }
 
 pub enum CacheId {
@@ -183,7 +188,6 @@ pub enum CacheOpResultId {
 }
 
 impl PerfCounterBuilderLinux {
-
     /// Instantiate a generic performance counter for hardware events as defined by the Linux interface.
     pub fn from_hardware_event(event: HardwareEventType) -> PerfCounterBuilderLinux {
         let mut pc: PerfCounterBuilderLinux = Default::default();
@@ -203,11 +207,16 @@ impl PerfCounterBuilderLinux {
     }
 
     /// Instantiate a generic performance counter for software events as defined by the Linux interface.
-    pub fn from_cache_event(cache_id: CacheId, cache_op_id: CacheOpId, cache_op_result_id: CacheOpResultId) -> PerfCounterBuilderLinux {
+    pub fn from_cache_event(
+        cache_id: CacheId,
+        cache_op_id: CacheOpId,
+        cache_op_result_id: CacheOpResultId,
+    ) -> PerfCounterBuilderLinux {
         let mut pc: PerfCounterBuilderLinux = Default::default();
 
         pc.attrs.attr_type = perf_event::PERF_TYPE_HW_CACHE;
-        pc.attrs.config = (cache_id as u64) | (cache_op_id as u64) << 8 | (cache_op_result_id as u64) << 16;
+        pc.attrs.config =
+            (cache_id as u64) | (cache_op_id as u64) << 8 | (cache_op_result_id as u64) << 16;
         pc
     }
 
@@ -216,17 +225,17 @@ impl PerfCounterBuilderLinux {
     //}
 
     /// Instantiate a H/W performance counter using a hardware event as described in Intels SDM.
-    pub fn from_intel_event_description(counter: &IntelPerformanceCounterDescription) -> PerfCounterBuilderLinux {
+    pub fn from_intel_event_description(counter: &EventDescription) -> PerfCounterBuilderLinux {
         let mut pc: PerfCounterBuilderLinux = Default::default();
         let mut config: u64 = 0;
 
         match counter.event_code {
-            Tuple::One(code) =>  config |= (code as u64) << 0,
-            Tuple::Two(_, _) => unreachable!() // NYI
+            Tuple::One(code) => config |= (code as u64) << 0,
+            Tuple::Two(_, _) => unreachable!(), // NYI
         };
         match counter.umask {
-            Tuple::One(code) =>  config |= (code as u64) << 8,
-            Tuple::Two(_, _) => unreachable!() // NYI
+            Tuple::One(code) => config |= (code as u64) << 8,
+            Tuple::Two(_, _) => unreachable!(), // NYI
         };
         config |= (counter.counter_mask as u64) << 24;
 
@@ -278,7 +287,10 @@ impl PerfCounterBuilderLinux {
     }
 
     /// Add a sample frequency.
-    pub fn set_sample_frequency<'a>(&'a mut self, frequency: u64) -> &'a mut PerfCounterBuilderLinux {
+    pub fn set_sample_frequency<'a>(
+        &'a mut self,
+        frequency: u64,
+    ) -> &'a mut PerfCounterBuilderLinux {
         self.attrs.sample_period_freq = frequency;
         self.attrs.settings.insert(perf_format::EVENT_ATTR_FREQ);
         self
@@ -306,31 +318,41 @@ impl PerfCounterBuilderLinux {
     /// The counter is exclusive i.e., when this counter's group is on the CPU,
     /// it should be the only group using the CPU's counters.
     pub fn exclusive<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_EXCLUSIVE);
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_EXCLUSIVE);
         self
     }
 
     /// The counter excludes events that happen in user space.
     pub fn exclude_user<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_EXCLUDE_USER);
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_EXCLUDE_USER);
         self
     }
 
     /// The counter excludes events that happen in the kernel.
     pub fn exclude_kernel<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_EXCLUDE_KERNEL);
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_EXCLUDE_KERNEL);
         self
     }
 
     /// The counter excludes events that happen in the hypervisor.
     pub fn exclude_hv<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_EXCLUDE_HV);
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_EXCLUDE_HV);
         self
     }
 
     /// The counter doesn't count when the CPU is idle.
     pub fn exclude_idle<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_EXCLUDE_IDLE);
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_EXCLUDE_IDLE);
         self
     }
 
@@ -343,13 +365,17 @@ impl PerfCounterBuilderLinux {
     /// The counter will save event counts on context switch for inherited tasks.
     /// This is meaningful only if the inherit field is set.
     pub fn inherit_stat<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_INHERIT_STAT);
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_INHERIT_STAT);
         self
     }
 
     /// The counter is automatically enabled after a call to exec.
     pub fn enable_on_exec<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_ENABLE_ON_EXEC);
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_ENABLE_ON_EXEC);
         self
     }
 
@@ -361,66 +387,85 @@ impl PerfCounterBuilderLinux {
 
     /// The counter has  a  sampling  interrupt happen when we cross the wakeup_watermark
     /// boundary.  Otherwise interrupts happen after wakeup_events samples.
-    pub fn enable_watermark<'a>(&'a mut self, watermark_events: u32) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_WATERMARK);
+    pub fn enable_watermark<'a>(
+        &'a mut self,
+        watermark_events: u32,
+    ) -> &'a mut PerfCounterBuilderLinux {
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_WATERMARK);
         self.attrs.wakeup_events_watermark = watermark_events;
         self
     }
 
     /// Sampled IP counter can have arbitrary skid.
     pub fn set_ip_sample_arbitrary_skid<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_SAMPLE_IP_ARBITRARY_SKID);
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_SAMPLE_IP_ARBITRARY_SKID);
         self
     }
 
     /// Sampled IP counter requested to have constant skid.
     pub fn set_ip_sample_constant_skid<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_SAMPLE_IP_CONSTANT_SKID);
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_SAMPLE_IP_CONSTANT_SKID);
         self
     }
 
     /// Sampled IP counter requested to have 0 skid.
     pub fn set_ip_sample_req_zero_skid<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_SAMPLE_IP_REQ_ZERO_SKID);
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_SAMPLE_IP_REQ_ZERO_SKID);
         self
     }
 
     /// The counterpart of enable_mmap, but enables including data mmap events in the ring-buffer.
     pub fn enable_mmap_data<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_MMAP_DATA);
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_MMAP_DATA);
         self
     }
 
     /// Sampled IP counter must have 0 skid.
     pub fn set_ip_sample_zero_skid<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.attrs.settings.insert(perf_format::EVENT_ATTR_SAMPLE_IP_ZERO_SKID);
+        self.attrs
+            .settings
+            .insert(perf_format::EVENT_ATTR_SAMPLE_IP_ZERO_SKID);
         self
     }
 
     /// Adds the 64-bit time_enabled field.  This can be used to calculate estimated totals if the PMU is overcommitted
     /// and multiplexing is happening.
     pub fn enable_read_format_time_enabled<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-         self.attrs.read_format.insert(perf_format::FORMAT_TOTAL_TIME_ENABLED);
-         self
+        self.attrs
+            .read_format
+            .insert(perf_format::FORMAT_TOTAL_TIME_ENABLED);
+        self
     }
 
     /// Adds the 64-bit time_running field.  This can be used to calculate estimated totals if the PMU is  overcommitted
     /// and  multiplexing is happening.
     pub fn enable_read_format_time_running<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-         self.attrs.read_format.insert(perf_format::FORMAT_TOTAL_TIME_RUNNING);
-         self
+        self.attrs
+            .read_format
+            .insert(perf_format::FORMAT_TOTAL_TIME_RUNNING);
+        self
     }
 
     /// Adds a 64-bit unique value that corresponds to the event group.
     pub fn enable_read_format_id<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-         self.attrs.read_format.insert(perf_format::FORMAT_ID);
-         self
+        self.attrs.read_format.insert(perf_format::FORMAT_ID);
+        self
     }
 
     /// Allows all counter values in an event group to be read with one read.
     pub fn enable_read_format_group<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-         self.attrs.read_format.insert(perf_format::FORMAT_GROUP);
-         self
+        self.attrs.read_format.insert(perf_format::FORMAT_GROUP);
+        self
     }
 
     pub fn enable_sampling_ip<'a>(&'a mut self) -> &'a PerfCounterBuilderLinux {
@@ -449,7 +494,9 @@ impl PerfCounterBuilderLinux {
     }
 
     pub fn enable_sampling_callchain<'a>(&'a mut self) -> &'a PerfCounterBuilderLinux {
-        self.attrs.sample_type.insert(perf_format::PERF_SAMPLE_CALLCHAIN);
+        self.attrs
+            .sample_type
+            .insert(perf_format::PERF_SAMPLE_CALLCHAIN);
         self
     }
 
@@ -464,12 +511,16 @@ impl PerfCounterBuilderLinux {
     }
 
     pub fn enable_sampling_period<'a>(&'a mut self) -> &'a PerfCounterBuilderLinux {
-        self.attrs.sample_type.insert(perf_format::PERF_SAMPLE_PERIOD);
+        self.attrs
+            .sample_type
+            .insert(perf_format::PERF_SAMPLE_PERIOD);
         self
     }
 
     pub fn enable_sampling_stream_id<'a>(&'a mut self) -> &'a PerfCounterBuilderLinux {
-        self.attrs.sample_type.insert(perf_format::PERF_SAMPLE_STREAM_ID);
+        self.attrs
+            .sample_type
+            .insert(perf_format::PERF_SAMPLE_STREAM_ID);
         self
     }
 
@@ -479,42 +530,56 @@ impl PerfCounterBuilderLinux {
     }
 
     pub fn enable_sampling_branch_stack<'a>(&'a mut self) -> &'a PerfCounterBuilderLinux {
-        self.attrs.sample_type.insert(perf_format::PERF_SAMPLE_BRANCH_STACK);
+        self.attrs
+            .sample_type
+            .insert(perf_format::PERF_SAMPLE_BRANCH_STACK);
         self
     }
 
     pub fn enable_sampling_regs_user<'a>(&'a mut self) -> &'a PerfCounterBuilderLinux {
-        self.attrs.sample_type.insert(perf_format::PERF_SAMPLE_REGS_USER);
+        self.attrs
+            .sample_type
+            .insert(perf_format::PERF_SAMPLE_REGS_USER);
         self
     }
 
     pub fn enable_sampling_stack_user<'a>(&'a mut self) -> &'a PerfCounterBuilderLinux {
-        self.attrs.sample_type.insert(perf_format::PERF_SAMPLE_STACK_USER);
+        self.attrs
+            .sample_type
+            .insert(perf_format::PERF_SAMPLE_STACK_USER);
         self
     }
 
     pub fn enable_sampling_sample_weight<'a>(&'a mut self) -> &'a PerfCounterBuilderLinux {
-        self.attrs.sample_type.insert(perf_format::PERF_SAMPLE_WEIGHT);
+        self.attrs
+            .sample_type
+            .insert(perf_format::PERF_SAMPLE_WEIGHT);
         self
     }
 
     pub fn enable_sampling_data_src<'a>(&'a mut self) -> &'a PerfCounterBuilderLinux {
-        self.attrs.sample_type.insert(perf_format::PERF_SAMPLE_DATA_SRC);
+        self.attrs
+            .sample_type
+            .insert(perf_format::PERF_SAMPLE_DATA_SRC);
         self
     }
 
     pub fn enable_sampling_identifier<'a>(&'a mut self) -> &'a PerfCounterBuilderLinux {
-        self.attrs.sample_type.insert(perf_format::PERF_SAMPLE_IDENTIFIER);
+        self.attrs
+            .sample_type
+            .insert(perf_format::PERF_SAMPLE_IDENTIFIER);
         self
     }
 
     pub fn enable_sampling_transaction<'a>(&'a mut self) -> &'a PerfCounterBuilderLinux {
-        self.attrs.sample_type.insert(perf_format::PERF_SAMPLE_TRANSACTION);
+        self.attrs
+            .sample_type
+            .insert(perf_format::PERF_SAMPLE_TRANSACTION);
         self
     }
 
     /// Measure for all PIDs on the core.
-    pub fn for_all_pids<'a>(&'a mut self) ->  &'a mut PerfCounterBuilderLinux {
+    pub fn for_all_pids<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
         self.pid = -1;
         self
     }
@@ -539,23 +604,43 @@ impl PerfCounterBuilderLinux {
 
     pub fn finish_sampling_counter(&self) -> Result<PerfCounter, io::Error> {
         let flags = 0;
-        let fd = perf_event_open(&self.attrs, self.pid, self.cpu as i32, self.group as i32, flags) as ::libc::c_int;
+        let fd = perf_event_open(
+            &self.attrs,
+            self.pid,
+            self.cpu as i32,
+            self.group as i32,
+            flags,
+        ) as ::libc::c_int;
         if fd < 0 {
             return Err(Error::from_raw_os_error(-fd));
         }
 
-        Ok(PerfCounter { fd: fd, file: unsafe { File::from_raw_fd(fd) }, attributes: self.attrs })
+        Ok(PerfCounter {
+            fd: fd,
+            file: unsafe { File::from_raw_fd(fd) },
+            attributes: self.attrs,
+        })
     }
 
     /// Instantiate the performance counter.
     pub fn finish(&self) -> Result<PerfCounter, io::Error> {
         let flags = 0;
-        let fd = perf_event_open(&self.attrs, self.pid, self.cpu as i32, self.group as i32, flags) as ::libc::c_int;
+        let fd = perf_event_open(
+            &self.attrs,
+            self.pid,
+            self.cpu as i32,
+            self.group as i32,
+            flags,
+        ) as ::libc::c_int;
         if fd < 0 {
             return Err(Error::from_raw_os_error(-fd));
         }
 
-        Ok(PerfCounter { fd: fd, file: unsafe { File::from_raw_fd(fd) }, attributes: self.attrs })
+        Ok(PerfCounter {
+            fd: fd,
+            file: unsafe { File::from_raw_fd(fd) },
+            attributes: self.attrs,
+        })
     }
 }
 
@@ -579,10 +664,14 @@ impl FileReadFormat {
         let time_running: u64 = read(ptr, 16);
         let id: u64 = read(ptr, 24);
 
-        FileReadFormat { value: value, time_enabled: time_enabled, time_running: time_running, id: id }
+        FileReadFormat {
+            value: value,
+            time_enabled: time_enabled,
+            time_running: time_running,
+            id: id,
+        }
     }
 }
-
 
 #[repr(C)]
 pub struct MMAPPage {
@@ -626,11 +715,10 @@ impl fmt::Debug for MMAPPage {
 pub struct PerfCounter {
     fd: ::libc::c_int,
     file: File,
-    attributes: perf_format::EventAttr
+    attributes: perf_format::EventAttr,
 }
 
 impl PerfCounter {
-
     /// Read the file descriptor and parse the return format.
     pub fn read_fd(&mut self) -> Result<FileReadFormat, io::Error> {
         unsafe {
@@ -644,7 +732,6 @@ impl PerfCounter {
 }
 
 impl<'a> AbstractPerfCounter for PerfCounter {
-
     fn reset(&self) -> Result<(), io::Error> {
         let ret = ioctl(self.fd, perf_event::PERF_EVENT_IOC_RESET, 0);
         if ret == -1 {
@@ -671,17 +758,17 @@ impl<'a> AbstractPerfCounter for PerfCounter {
 
     fn read(&mut self) -> Result<u64, io::Error> {
         let value: FileReadFormat = try!(self.read_fd());
-        return Ok(value.value)
+        return Ok(value.value);
     }
 }
 
 pub struct SamplingPerfCounter {
     pc: PerfCounter,
     map: mmap::MemoryMap,
-    events_size: usize
+    events_size: usize,
 }
 
-unsafe fn read<U : Copy>(ptr: *const u8, offset: isize) -> U {
+unsafe fn read<U: Copy>(ptr: *const u8, offset: isize) -> U {
     let newptr = mem::transmute::<*const u8, *const U>(ptr.offset(offset));
     ptr::read(newptr)
 }
@@ -721,7 +808,6 @@ enum EventHeaderMisc {
 
 }*/
 
-
 #[derive(Default, Debug)]
 struct EventHeader {
     event_type: u32,
@@ -734,7 +820,11 @@ impl EventHeader {
         let event_type: u32 = read(ptr, 0);
         let misc: u16 = read(ptr, 4);
         let size: u16 = read(ptr, 6);
-        EventHeader { event_type: event_type, misc: misc, size: size }
+        EventHeader {
+            event_type: event_type,
+            misc: misc,
+            size: size,
+        }
     }
 }
 
@@ -748,7 +838,7 @@ pub struct MMAPRecord {
     addr: u64,
     len: u64,
     pgoff: u64,
-    filename: String
+    filename: String,
 }
 
 impl MMAPRecord {
@@ -756,7 +846,7 @@ impl MMAPRecord {
         let header: EventHeader = EventHeader::copy_from_raw_ptr(ptr);
         let pid: u32 = read(ptr, 8);
         let tid: u32 = read(ptr, 12);
-        let addr: u64  = read(ptr, 16);
+        let addr: u64 = read(ptr, 16);
         let len: u64 = read(ptr, 24);
         let pgoff: u64 = read(ptr, 32);
         let filename = {
@@ -767,7 +857,15 @@ impl MMAPRecord {
             String::from(str::from_utf8(slice).unwrap())
         };
 
-        MMAPRecord { header: header, pid: pid, tid: tid, addr: addr, len: len, pgoff: pgoff, filename: filename}
+        MMAPRecord {
+            header: header,
+            pid: pid,
+            tid: tid,
+            addr: addr,
+            len: len,
+            pgoff: pgoff,
+            filename: filename,
+        }
     }
 }
 
@@ -787,10 +885,13 @@ impl LostRecord {
         let id: u64 = read(ptr, 8);
         let lost: u64 = read(ptr, 16);
 
-        LostRecord { header: header, id: id, lost: lost }
+        LostRecord {
+            header: header,
+            id: id,
+            lost: lost,
+        }
     }
 }
-
 
 /// This record indicates a change in the process name.
 #[derive(Debug)]
@@ -798,7 +899,7 @@ pub struct CommRecord {
     header: EventHeader,
     pid: u32,
     tid: u32,
-    comm: String
+    comm: String,
 }
 
 impl CommRecord {
@@ -814,10 +915,14 @@ impl CommRecord {
             let slice = slice::from_raw_parts(str_start, length);
             String::from(str::from_utf8(slice).unwrap())
         };
-        CommRecord { header: header, pid: pid, tid: tid, comm: comm  }
+        CommRecord {
+            header: header,
+            pid: pid,
+            tid: tid,
+            comm: comm,
+        }
     }
 }
-
 
 /// This record indicates a process exit event.
 #[derive(Debug)]
@@ -827,9 +932,8 @@ pub struct ExitRecord {
     ppid: u32,
     tid: u32,
     ptid: u32,
-    time: u64
+    time: u64,
 }
-
 
 impl ExitRecord {
     unsafe fn copy_from_raw_ptr(ptr: *const u8) -> ExitRecord {
@@ -840,10 +944,16 @@ impl ExitRecord {
         let ptid: u32 = read(ptr, 20);
         let time: u64 = read(ptr, 24);
 
-        ExitRecord { header: header, pid: pid, ppid: ppid, tid: tid, ptid: ptid, time: time }
+        ExitRecord {
+            header: header,
+            pid: pid,
+            ppid: ppid,
+            tid: tid,
+            ptid: ptid,
+            time: time,
+        }
     }
 }
-
 
 /// This record indicates a throttle/unthrottle event.
 #[repr(C)]
@@ -862,7 +972,12 @@ impl ThrottleRecord {
         let id: u64 = read(ptr, 16);
         let stream_id: u64 = read(ptr, 24);
 
-        ThrottleRecord { header: header, time: time, id: id, stream_id: stream_id }
+        ThrottleRecord {
+            header: header,
+            time: time,
+            id: id,
+            stream_id: stream_id,
+        }
     }
 }
 
@@ -886,10 +1001,16 @@ impl ForkRecord {
         let ptid: u32 = read(ptr, 20);
         let time: u64 = read(ptr, 24);
 
-        ForkRecord { header: header, pid: pid, ppid: ppid, tid: tid, ptid: ptid, time: time }
+        ForkRecord {
+            header: header,
+            pid: pid,
+            ppid: ppid,
+            tid: tid,
+            ptid: ptid,
+            time: time,
+        }
     }
 }
-
 
 /// This record indicates a read event.
 #[repr(C)]
@@ -908,7 +1029,12 @@ impl ReadRecord {
         let tid: u32 = read(ptr, 12);
         let frf: FileReadFormat = FileReadFormat::copy_from_raw_ptr(ptr.offset(16));
 
-        ReadRecord { header: header, pid: pid, tid: tid, value: frf }
+        ReadRecord {
+            header: header,
+            pid: pid,
+            tid: tid,
+            value: frf,
+        }
     }
 }
 
@@ -1032,8 +1158,6 @@ impl SampleRecord {
     }
 }
 
-
-
 #[derive(Debug)]
 pub enum Event {
     MMAP(MMAPRecord),
@@ -1068,44 +1192,49 @@ impl Iterator for SamplingPerfCounter {
                 perf_event::PERF_RECORD_MMAP => {
                     let record: MMAPRecord = unsafe { MMAPRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::MMAP(record))
-                },
+                }
                 perf_event::PERF_RECORD_LOST => {
                     let record: LostRecord = unsafe { LostRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Lost(record))
-                },
+                }
                 perf_event::PERF_RECORD_COMM => {
                     let record: CommRecord = unsafe { CommRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Comm(record))
-                },
+                }
                 perf_event::PERF_RECORD_EXIT => {
                     let record: ExitRecord = unsafe { ExitRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Exit(record))
-                },
+                }
                 perf_event::PERF_RECORD_THROTTLE => {
-                    let record: ThrottleRecord = unsafe { ThrottleRecord::copy_from_raw_ptr(event_ptr) };
+                    let record: ThrottleRecord =
+                        unsafe { ThrottleRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Throttle(record))
-                },
+                }
                 perf_event::PERF_RECORD_UNTHROTTLE => {
-                    let record: ThrottleRecord = unsafe { ThrottleRecord::copy_from_raw_ptr(event_ptr) };
+                    let record: ThrottleRecord =
+                        unsafe { ThrottleRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Unthrottle(record))
-                },
+                }
                 perf_event::PERF_RECORD_FORK => {
                     let record: ForkRecord = unsafe { ForkRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Fork(record))
-                },
+                }
                 perf_event::PERF_RECORD_READ => {
                     let record: ReadRecord = unsafe { ReadRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Read(record))
-                },
+                }
                 perf_event::PERF_RECORD_SAMPLE => {
-                    let record: SampleRecord = unsafe { SampleRecord::copy_from_raw_ptr(event_ptr) };
+                    let record: SampleRecord =
+                        unsafe { SampleRecord::copy_from_raw_ptr(event_ptr) };
                     Some(Event::Sample(record))
-                },
+                }
                 perf_event::PERF_RECORD_MMAP2 => {
                     // XXX: Not described in the man page?
                     unreachable!();
-                },
-                _ => { panic!("Unknown type!"); }
+                }
+                _ => {
+                    panic!("Unknown type!");
+                }
             };
 
             //bytes_read += size;
@@ -1114,24 +1243,31 @@ impl Iterator for SamplingPerfCounter {
             header.data_tail = bytes_read;
 
             record
-        }
-        else {
+        } else {
             None
         }
     }
 }
 
 impl SamplingPerfCounter {
-
     pub fn new(pc: PerfCounter) -> SamplingPerfCounter {
-        let size = (1+16)*4096;
-        let res: mmap::MemoryMap = mmap::MemoryMap::new(size,
-            &[ mmap::MapOption::MapFd(pc.fd),
-               mmap::MapOption::MapOffset(0),
-               mmap::MapOption::MapNonStandardFlags(MAP_SHARED),
-               mmap::MapOption::MapReadable ]).unwrap();
+        let size = (1 + 16) * 4096;
+        let res: mmap::MemoryMap = mmap::MemoryMap::new(
+            size,
+            &[
+                mmap::MapOption::MapFd(pc.fd),
+                mmap::MapOption::MapOffset(0),
+                mmap::MapOption::MapNonStandardFlags(MAP_SHARED),
+                mmap::MapOption::MapReadable,
+            ],
+        )
+        .unwrap();
 
-        SamplingPerfCounter{ pc: pc, map: res, events_size: 16*4096 }
+        SamplingPerfCounter {
+            pc: pc,
+            map: res,
+            events_size: 16 * 4096,
+        }
     }
 
     fn header(&self) -> &MMAPPage {
@@ -1145,7 +1281,6 @@ impl SamplingPerfCounter {
     fn events(&self) -> *const u8 {
         unsafe { self.map.data().offset(4096) }
     }
-
 
     pub fn print(&mut self) {
         let event: Event = self.next().unwrap();

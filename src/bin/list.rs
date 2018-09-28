@@ -1,9 +1,9 @@
 extern crate perfcnt;
 extern crate x86;
 
-use x86::perfcnt::{core_counters, uncore_counters};
+use x86::perfcnt::intel::{core_counters, uncore_counters};
 
-fn print_counter(id: &str, info: &x86::perfcnt::intel::description::IntelPerformanceCounterDescription) {
+fn print_counter(id: &str, info: &x86::perfcnt::intel::EventDescription) {
     println!("{}:", id);
 
     let desc: &str = info.brief_description;
@@ -21,7 +21,6 @@ fn print_counter(id: &str, info: &x86::perfcnt::intel::description::IntelPerform
     }
     println!(" ");
     println!(" ");
-
 }
 
 fn main() {
@@ -45,8 +44,8 @@ fn main() {
         }
     });
 
-    let cc_count = cc.map(|c| { c.len() } ).unwrap_or(0);
-    let uc_count = uc.map(|c| { c.len() } ).unwrap_or(0);
+    let cc_count = cc.map(|c| c.len()).unwrap_or(0);
+    let uc_count = uc.map(|c| c.len()).unwrap_or(0);
 
     println!("Total H/W counters: {}", cc_count + uc_count);
 }

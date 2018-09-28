@@ -18,15 +18,13 @@ extern crate libc;
 extern crate x86;
 #[macro_use]
 extern crate bitflags;
-#[macro_use]
 extern crate nom;
 
 #[cfg(target_os = "linux")]
 extern crate mmap;
 
 pub mod linux;
-pub use linux::{PerfCounter};
-
+pub use linux::PerfCounter;
 
 use std::io;
 
