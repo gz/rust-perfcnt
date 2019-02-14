@@ -13,18 +13,8 @@
 //! println!("Measured {} cache misses.", res);
 //! ```
 
-extern crate libc;
-#[macro_use]
-extern crate x86;
-#[macro_use]
-extern crate bitflags;
-extern crate nom;
-
-#[cfg(target_os = "linux")]
-extern crate mmap;
-
 pub mod linux;
-pub use linux::PerfCounter;
+pub use crate::linux::PerfCounter;
 
 use std::io;
 

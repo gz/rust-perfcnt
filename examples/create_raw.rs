@@ -5,7 +5,7 @@ use perfcnt::{PerfCounter, AbstractPerfCounter};
 use perfcnt::linux::{PerfCounterBuilderLinux};
 
 pub fn main() {
-    let counter_description = x86::perfcnt::core_counters().unwrap().get("BR_INST_RETIRED.ALL_BRANCHES").unwrap();
+    let counter_description = x86::perfcnt::intel::core_counters().unwrap().get("BR_INST_RETIRED.ALL_BRANCHES").unwrap();
     let mut pc: PerfCounter = PerfCounterBuilderLinux::from_intel_event_description(counter_description)
         .exclude_idle()
         .exclude_kernel()

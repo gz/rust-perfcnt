@@ -3,6 +3,8 @@
 //! In order to parse these structures from perf files or perf MMAP buffers, please
 //! have a look at the functions in parser.rs.
 
+use bitflags::*;
+
 /// Unique thread descriptor. Used in many different perf structures.
 #[derive(Debug)]
 pub struct ThreadId {
