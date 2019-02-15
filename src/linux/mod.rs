@@ -12,6 +12,7 @@ use std::str;
 
 use libc::{pid_t, strlen, MAP_SHARED};
 use mmap;
+use x86::*;
 
 #[allow(dead_code, non_camel_case_types)]
 mod hw_breakpoint;
@@ -23,7 +24,7 @@ pub mod perf_file;
 pub mod perf_format;
 
 use x86::perfcnt::intel::{EventDescription, Tuple};
-use AbstractPerfCounter;
+use crate::AbstractPerfCounter;
 
 const IOCTL: usize = 16;
 const PERF_EVENT_OPEN: usize = 298;
@@ -725,7 +726,7 @@ impl PerfCounter {
             let mut value: FileReadFormat = Default::default();
             let ptr = mem::transmute::<&mut FileReadFormat, &mut u8>(&mut value);
             let slice = slice::from_raw_parts_mut::<u8>(ptr, mem::size_of::<FileReadFormat>());
-            try!(self.file.read_exact(slice));
+            self.file.read_exact(slice)?;
             Ok(value)
         }
     }
@@ -757,7 +758,7 @@ impl<'a> AbstractPerfCounter for PerfCounter {
     }
 
     fn read(&mut self) -> Result<u64, io::Error> {
-        let value: FileReadFormat = try!(self.read_fd());
+        let value: FileReadFormat = self.read_fd()?;
         return Ok(value.value);
     }
 }

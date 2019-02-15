@@ -9,11 +9,12 @@ documentation = "http://gz.github.io/rust-perfcnt/perfcnt/"
 readme = "README.md"
 keywords = ["performance", "counter", "events", "pmu", "perf"]
 license = "MIT"
+edition = '2018'
 
 [dependencies]
 bitflags = "0.7.*"
 libc = "0.2"
-x86 = { version = "0.10.1", features = ["performance-counter"] }
+x86 = { version = "0.15.1", features = ["performance-counter"] }
 mmap = "0.1.*"
 byteorder = "0.5"
 nom = "^2.0"
