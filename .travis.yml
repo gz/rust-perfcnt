@@ -1,2 +1,23 @@
 language: rust
-rust: nightly
+sudo: required
+env: TYPE=default RUST_BACKTRACE=1
+cache:
+  directories:
+  - $HOME/.cargo
+  - $TRAVIS_BUILD_DIR/target/debug
+  - $TRAVIS_BUILD_DIR/target/release
+script:
+- cargo build --verbose
+- cargo test --verbose
+- cargo build --release --verbose
+- cargo test --release --verbose
+matrix:
+  include:
+    - os: linux
+      rust: nightly
+    - os: linux
+      rust: nightly
+      env: TYPE=example RUST_BACKTRACE=1
+      script:
+        - cargo build --release --example context_switches
+        - sudo target/release/examples/context_switches
