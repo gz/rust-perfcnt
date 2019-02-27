@@ -56,7 +56,7 @@ pub struct PerfCounterBuilderLinux {
     group: isize,
     pid: pid_t,
     cpu: isize,
-    flags: usize,
+    flags: i32,
     attrs: perf_format::EventAttr,
 }
 
@@ -265,7 +265,7 @@ impl PerfCounterBuilderLinux {
     ///
     /// This flag re-routes the output from an event to the group leader.
     pub fn set_flag_fd_output<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.flags |= 0x0; //PERF_FLAG_FD_OUTPUT;
+        self.flags |= 0x02; //PERF_FLAG_FD_OUTPUT;
         self
     }
 
@@ -277,7 +277,7 @@ impl PerfCounterBuilderLinux {
     /// event  is  measured  only if the thread running on the monitored
     /// CPU belongs to the designated container (cgroup).
     pub fn set_flag_pid_cgroup<'a>(&'a mut self) -> &'a mut PerfCounterBuilderLinux {
-        self.flags |= 0x0; //PERF_FLAG_PID_CGROUP;
+        self.flags |= 0x04; //PERF_FLAG_PID_CGROUP;
         self
     }
 
@@ -604,13 +604,12 @@ impl PerfCounterBuilderLinux {
     }
 
     pub fn finish_sampling_counter(&self) -> Result<PerfCounter, io::Error> {
-        let flags = 0;
         let fd = perf_event_open(
             &self.attrs,
             self.pid,
             self.cpu as i32,
             self.group as i32,
-            flags,
+            self.flags,
         ) as ::libc::c_int;
         if fd < 0 {
             return Err(Error::from_raw_os_error(-fd));
@@ -625,13 +624,12 @@ impl PerfCounterBuilderLinux {
 
     /// Instantiate the performance counter.
     pub fn finish(&self) -> Result<PerfCounter, io::Error> {
-        let flags = 0;
         let fd = perf_event_open(
             &self.attrs,
             self.pid,
             self.cpu as i32,
             self.group as i32,
-            flags,
+            self.flags,
         ) as ::libc::c_int;
         if fd < 0 {
             return Err(Error::from_raw_os_error(-fd));
