@@ -1,12 +1,12 @@
 //! Example usage:
 //!
-//! ```
+//! ```no_run
 //! use perfcnt::{AbstractPerfCounter, PerfCounter};
 //! use perfcnt::linux::{PerfCounterBuilderLinux, HardwareEventType};
 //!
 //! let mut pc: PerfCounter =
 //!     PerfCounterBuilderLinux::from_hardware_event(HardwareEventType::CacheMisses)
-//!         .finish()?;
+//!         .finish().expect("Could not create the counter");
 //! pc.start().expect("Can not start the counter");
 //! pc.stop().expect("Can not start the counter");
 //! let res = pc.read().expect("Can not read the counter");
