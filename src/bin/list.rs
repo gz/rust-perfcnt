@@ -1,9 +1,9 @@
 extern crate perfcnt;
 extern crate x86;
 
-use x86::perfcnt::intel::{core_counters, uncore_counters};
+use x86::perfcnt::intel::{events, EventDescription};
 
-fn print_counter(id: &str, info: &x86::perfcnt::intel::EventDescription) {
+fn print_counter(id: &str, info: &EventDescription) {
     println!("{}:", id);
 
     let desc: &str = info.brief_description;
@@ -24,11 +24,10 @@ fn print_counter(id: &str, info: &x86::perfcnt::intel::EventDescription) {
 }
 
 fn main() {
-    println!("All supported core performance counters on this hardware:");
+    println!("All supported events on this hardware:");
     println!("----------------------------------------------------------");
 
-    let cc = core_counters();
-    let uc = uncore_counters();
+    let cc = events();
 
     cc.map(|counters| {
         for (id, cd) in counters {
@@ -36,16 +35,6 @@ fn main() {
         }
     });
 
-    println!("All supported uncore performance counters on this hardware:");
-    println!("------------------------------------------------------------");
-    uc.map(|counters| {
-        for (id, cd) in counters {
-            print_counter(id, cd);
-        }
-    });
-
     let cc_count = cc.map(|c| c.len()).unwrap_or(0);
-    let uc_count = uc.map(|c| c.len()).unwrap_or(0);
-
-    println!("Total H/W counters: {}", cc_count + uc_count);
+    println!("Total H/W performance events: {}", cc_count);
 }
