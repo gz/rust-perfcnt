@@ -14,7 +14,7 @@ pub fn main() {
 
     pc.start().expect("Can not start the counter");
     std::thread::sleep(std::time::Duration::new(1,0));
-    pc.stop().expect("Can not stop the counter");;
+    pc.stop().expect("Can not stop the counter");
 
     println!("Context Switches/s: {:?}", pc.read().expect("Can not read counter"));
     pc.reset().expect("Can not reset the counter");
