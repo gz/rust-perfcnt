@@ -156,120 +156,120 @@ pub const PERF_TXN_ABORT_SHIFT: ::libc::c_ulong = 32;
 
 
 bitflags!{
-    pub flags SampleFormatFlags: u64 {
+    pub struct SampleFormatFlags: u64 {
         /// Records instruction pointer.
-        const PERF_SAMPLE_IP = 1,
+        const PERF_SAMPLE_IP = 1 << 0;
         /// Records the process and thread IDs.
-        const PERF_SAMPLE_TID = 2,
+        const PERF_SAMPLE_TID = 1 << 1;
         /// Records a timestamp.
-        const PERF_SAMPLE_TIME = 4,
+        const PERF_SAMPLE_TIME = 1 << 2;
         /// Records an address, if applicable.
-        const PERF_SAMPLE_ADDR = 8,
+        const PERF_SAMPLE_ADDR = 1 << 3;
         /// Record counter values for all events in a group, not just the group leader.
-        const PERF_SAMPLE_READ = 16,
+        const PERF_SAMPLE_READ = 1 << 4;
         /// Records the callchain (stack backtrace).
-        const PERF_SAMPLE_CALLCHAIN = 32,
+        const PERF_SAMPLE_CALLCHAIN = 1 << 5;
         /// Records a unique ID for the opened event's group leader.
-        const PERF_SAMPLE_ID = 64,
+        const PERF_SAMPLE_ID = 1 << 6;
         /// Records CPU number.
-        const PERF_SAMPLE_CPU = 128,
+        const PERF_SAMPLE_CPU = 1 << 7;
         /// Records the current sampling period.
-        const PERF_SAMPLE_PERIOD = 256,
+        const PERF_SAMPLE_PERIOD = 1 << 8;
         /// Records  a  unique  ID  for  the  opened  event.  Unlike PERF_SAMPLE_ID the actual ID is returned, not the group
         /// leader.  This ID is the same as the one returned by PERF_FORMAT_ID.
-        const PERF_SAMPLE_STREAM_ID = 512,
+        const PERF_SAMPLE_STREAM_ID = 1 << 9;
         /// Records additional data, if applicable.  Usually returned by tracepoint events.
-        const PERF_SAMPLE_RAW = 1024,
+        const PERF_SAMPLE_RAW = 1 << 10;
         /// This provides a record of recent branches, as provided by CPU branch  sampling  hardware  (such  as  Intel  Last
         /// Branch Record).  Not all hardware supports this feature.
         /// See the branch_sample_type field for how to filter which branches are reported.
-        const PERF_SAMPLE_BRANCH_STACK = 2048,
+        const PERF_SAMPLE_BRANCH_STACK = 1 << 11;
         /// Records the current user-level CPU register state (the values in the process before the kernel was called).
-        const PERF_SAMPLE_REGS_USER = 4096,
+        const PERF_SAMPLE_REGS_USER = 1 << 12;
         /// Records the user level stack, allowing stack unwinding.
-        const PERF_SAMPLE_STACK_USER = 8192,
+        const PERF_SAMPLE_STACK_USER = 1 << 13;
         /// Records a hardware provided weight value that expresses how costly the sampled event was.
         /// This allows the hardware to highlight expensive events in a profile.
-        const PERF_SAMPLE_WEIGHT = 16384,
+        const PERF_SAMPLE_WEIGHT = 1 << 14;
         /// Records the data source: where in the memory hierarchy the data associated with the sampled instruction came from.
         /// This is only available if the underlying hardware supports this feature.
-        const PERF_SAMPLE_DATA_SRC = 32768,
-        const PERF_SAMPLE_IDENTIFIER = 65536,
-        const PERF_SAMPLE_TRANSACTION = 131072,
+        const PERF_SAMPLE_DATA_SRC = 1 << 15;
+        const PERF_SAMPLE_IDENTIFIER = 1 << 16;
+        const PERF_SAMPLE_TRANSACTION = 1 << 17;
     }
 }
 
 bitflags!{
-    pub flags ReadFormatFlags: u64 {
+    pub struct ReadFormatFlags: u64 {
         /// Adds the 64-bit time_enabled field.  This can be used to calculate estimated totals if the PMU is overcommitted
         /// and multiplexing is happening.
-        const FORMAT_TOTAL_TIME_ENABLED = 1,
+        const FORMAT_TOTAL_TIME_ENABLED = 1 << 0;
         /// Adds the 64-bit time_running field.  This can be used to calculate estimated totals if the PMU is  overcommitted
         /// and  multiplexing is happening.
-        const FORMAT_TOTAL_TIME_RUNNING = 2,
+        const FORMAT_TOTAL_TIME_RUNNING = 1 << 1;
         /// Adds a 64-bit unique value that corresponds to the event group.
-        const FORMAT_ID = 4,
+        const FORMAT_ID = 1 << 2;
         /// Allows all counter values in an event group to be read with one read.
-        const FORMAT_GROUP = 8,
+        const FORMAT_GROUP = 1 << 3;
     }
 }
 
 bitflags! {
-    pub flags EventAttrFlags: u64 {
+    pub struct EventAttrFlags: u64 {
                     /// off by default
-                    const EVENT_ATTR_DISABLED       =  1 << 0,
+                    const EVENT_ATTR_DISABLED       =  1 << 0;
                     /// children inherit it
-                    const EVENT_ATTR_INHERIT        =  1 << 1,
+                    const EVENT_ATTR_INHERIT        =  1 << 1;
                     /// must always be on PMU
-                    const EVENT_ATTR_PINNED         =  1 << 2,
+                    const EVENT_ATTR_PINNED         =  1 << 2;
                     /// only group on PMU
-                    const EVENT_ATTR_EXCLUSIVE      =  1 << 3,
+                    const EVENT_ATTR_EXCLUSIVE      =  1 << 3;
                     /// don't count user
-                    const EVENT_ATTR_EXCLUDE_USER   =  1 << 4,
+                    const EVENT_ATTR_EXCLUDE_USER   =  1 << 4;
                     /// ditto kernel
-                    const EVENT_ATTR_EXCLUDE_KERNEL =  1 << 5,
+                    const EVENT_ATTR_EXCLUDE_KERNEL =  1 << 5;
                     /// ditto hypervisor
-                    const EVENT_ATTR_EXCLUDE_HV     =  1 << 6,
+                    const EVENT_ATTR_EXCLUDE_HV     =  1 << 6;
                     /// don't count when idle
-                    const EVENT_ATTR_EXCLUDE_IDLE   =  1 << 7,
+                    const EVENT_ATTR_EXCLUDE_IDLE   =  1 << 7;
                     /// include mmap data
-                    const EVENT_ATTR_MMAP           =  1 << 8,
+                    const EVENT_ATTR_MMAP           =  1 << 8;
                     /// include comm data
-                    const EVENT_ATTR_COMM           =  1 << 9,
+                    const EVENT_ATTR_COMM           =  1 << 9;
                     /// use freq, not period
-                    const EVENT_ATTR_FREQ           =  1 << 10,
+                    const EVENT_ATTR_FREQ           =  1 << 10;
                     /// per task counts
-                    const EVENT_ATTR_INHERIT_STAT   =  1 << 11,
+                    const EVENT_ATTR_INHERIT_STAT   =  1 << 11;
                     /// next exec enables
-                    const EVENT_ATTR_ENABLE_ON_EXEC =  1 << 12,
+                    const EVENT_ATTR_ENABLE_ON_EXEC =  1 << 12;
                     /// trace fork/exit
-                    const EVENT_ATTR_TASK           =  1 << 13,
+                    const EVENT_ATTR_TASK           =  1 << 13;
                     /// wakeup_watermark
-                    const EVENT_ATTR_WATERMARK      =  1 << 14,
+                    const EVENT_ATTR_WATERMARK      =  1 << 14;
 
                     /// SAMPLE_IP can have arbitrary skid
-                    const EVENT_ATTR_SAMPLE_IP_ARBITRARY_SKID = 0 << 15,
+                    const EVENT_ATTR_SAMPLE_IP_ARBITRARY_SKID = 0 << 15;
                     /// SAMPLE_IP must have constant skid
-                    const EVENT_ATTR_SAMPLE_IP_CONSTANT_SKID = 1 << 15,
+                    const EVENT_ATTR_SAMPLE_IP_CONSTANT_SKID = 1 << 15;
                     /// SAMPLE_IP requested to have 0 skid
-                    const EVENT_ATTR_SAMPLE_IP_REQ_ZERO_SKID = 2 << 15,
+                    const EVENT_ATTR_SAMPLE_IP_REQ_ZERO_SKID = 2 << 15;
                     /// SAMPLE_IP must have 0 skid
-                    const EVENT_ATTR_SAMPLE_IP_ZERO_SKID = 3 << 15,
+                    const EVENT_ATTR_SAMPLE_IP_ZERO_SKID = 3 << 15;
 
                     /// non-exec mmap data
-                    const EVENT_ATTR_MMAP_DATA =  1 << 17,
+                    const EVENT_ATTR_MMAP_DATA =  1 << 17;
                     /// sample_type all events
-                    const EVENT_ATTR_SAMPLE_ID_ALL =  1 << 18,
+                    const EVENT_ATTR_SAMPLE_ID_ALL =  1 << 18;
                     /// don't count in host
-                    const EVENT_ATTR_EXCLUDE_HOST =  1 << 19,
+                    const EVENT_ATTR_EXCLUDE_HOST =  1 << 19;
                     /// don't count in guest
-                    const EVENT_ATTR_EXCLUDE_GUEST =  1 << 20,
+                    const EVENT_ATTR_EXCLUDE_GUEST =  1 << 20;
                     /// exclude kernel callchains
-                    const EVENT_ATTR_EXCLUDE_CALLCHAIN_KERNEL = 1 << 21,
+                    const EVENT_ATTR_EXCLUDE_CALLCHAIN_KERNEL = 1 << 21;
                     /// exclude user callchains
-                    const EVENT_ATTR_EXCLUDE_CALLCHAIN_USER = 1 << 22,
+                    const EVENT_ATTR_EXCLUDE_CALLCHAIN_USER = 1 << 22;
                     /// include mmap with inode data
-                    const EVENT_ATTR_MMAP2  =  1 << 23,
+                    const EVENT_ATTR_MMAP2  =  1 << 23;
     }
 }
 
