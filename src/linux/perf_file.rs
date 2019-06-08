@@ -24,9 +24,8 @@ macro_rules! stderr {
 
 fn iresult_to_option<I, O, E>(result: IResult<I, O, E>) -> Option<O> {
     match result {
-        IResult::Done(_, res) => Some(res),
-        IResult::Error(_) => None,
-        IResult::Incomplete(_) => None
+        Ok((_, res)) => Some(res),
+        Err(_) => None,
     }
 }
 
@@ -52,15 +51,15 @@ impl<'a> Iterator for PerfFileEventDataIter<'a> {
         if slice.len() > 8 {
             let r = parse_event(slice, self.attrs);
             match r {
-                IResult::Done(_, ev) => {
+                Ok((_, ev)) => {
                     self.offset += ev.header.size();
                     Some(ev)
                 },
-                IResult::Error(_) => {
+                Err(nom::Err::Error(_)) | Err(nom::Err::Failure(_)) => {
                     stderr!("Error when parsing data section.");
                     None
                 },
-                IResult::Incomplete(n) => {
+                Err(nom::Err::Incomplete(n)) => {
                     stderr!("Got incomplete data ({:?}) when parsing data section.", n);
                     None
                 }
@@ -76,9 +75,9 @@ impl PerfFile {
 
     pub fn new(bytes: Vec<u8>) -> PerfFile {
         let header = match parse_header(bytes.as_slice()) {
-            IResult::Done(_, h) => h,
-            IResult::Error(e) => panic!("{:?}", e),
-            IResult::Incomplete(_) => panic!("Incomplete data?"),
+            Ok((_, h)) => h,
+            Err(nom::Err::Error(e)) | Err(nom::Err::Failure(e)) => panic!("{:?}", e),
+            Err(nom::Err::Incomplete(_)) => panic!("Incomplete data?"),
         };
 
         let attrs = {
@@ -97,10 +96,10 @@ impl PerfFile {
 
     pub fn get_build_id(&self) -> Option<BuildIdRecord> {
         self.get_section_slice(HeaderFlag::BuildId).and_then(|slice| {
-            iresult_to_option(chain!(slice,
-                header: parse_event_header ~
-                build_id: call!(parse_build_id_record, header.size()),
-                || build_id
+            iresult_to_option(do_parse!(slice,
+                header: parse_event_header >>
+                build_id: call!(parse_build_id_record, header.size()) >>
+                (build_id)
             ))
         })
     }
