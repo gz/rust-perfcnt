@@ -1,8 +1,11 @@
 extern crate perfcnt;
 
+use perfcnt::linux::{
+    CacheId, CacheOpId, CacheOpResultId, HardwareEventType, PerfCounterBuilderLinux,
+    SamplingPerfCounter, SoftwareEventType,
+};
+use perfcnt::{AbstractPerfCounter, PerfCounter};
 use std::io::Result;
-use perfcnt::{PerfCounter, AbstractPerfCounter};
-use perfcnt::linux::{SoftwareEventType, PerfCounterBuilderLinux, CacheId, CacheOpId, CacheOpResultId, HardwareEventType, SamplingPerfCounter};
 
 //#[test]
 pub fn sample_event() {
@@ -30,8 +33,12 @@ pub fn sample_event() {
 
 #[test]
 pub fn test_cache_events() {
-    let ret: Result<PerfCounter> = PerfCounterBuilderLinux::from_cache_event(CacheId::L1D, CacheOpId::Read, CacheOpResultId::Miss)
-                 .finish();
+    let ret: Result<PerfCounter> = PerfCounterBuilderLinux::from_cache_event(
+        CacheId::L1D,
+        CacheOpId::Read,
+        CacheOpResultId::Miss,
+    )
+    .finish();
 
     match ret {
         Ok(mut pc) => {
@@ -40,16 +47,17 @@ pub fn test_cache_events() {
             let res = pc.read().expect("Can not read the counter");
             assert!(res > 0);
         }
-        Err(e) => assert_eq!(e.raw_os_error().unwrap(), 13)
+        Err(e) => assert_eq!(e.raw_os_error().unwrap(), 13),
     }
 }
 
 #[test]
 pub fn test_hardware_counter() {
-    let ret: Result<PerfCounter> = PerfCounterBuilderLinux::from_hardware_event(HardwareEventType::CacheMisses)
-        .exclude_kernel()
-        .exclude_idle()
-        .finish();
+    let ret: Result<PerfCounter> =
+        PerfCounterBuilderLinux::from_hardware_event(HardwareEventType::CacheMisses)
+            .exclude_kernel()
+            .exclude_idle()
+            .finish();
 
     match ret {
         Ok(mut pc) => {
@@ -59,7 +67,7 @@ pub fn test_hardware_counter() {
             let res = pc.read().expect("Can not read the counter");
             assert!(res < 100);
         }
-        Err(e) => assert_eq!(e.raw_os_error().unwrap(), 2)
+        Err(e) => assert_eq!(e.raw_os_error().unwrap(), 2),
     }
 }
 /*

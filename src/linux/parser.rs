@@ -4,7 +4,7 @@
 //! # References
 //! The code is inspired by the following articles and existing parser to make sense of the
 //! (poorly documented) format:
-//! 
+//!
 //!   * https://lwn.net/Articles/644919/
 //!   * http://man7.org/linux/man-pages/man2/perf_event_open.2.html
 //!   * https://github.com/andikleen/pmu-tools/tree/master/parser
@@ -21,9 +21,8 @@
 //!   * `perf_format.rs` -- for all the struct definitions that are parsed here
 //!
 
-
-use nom::*;
 use super::perf_format::*;
+use nom::*;
 
 fn is_nul_byte(c: u8) -> bool {
     c == 0x0
@@ -213,38 +212,42 @@ named!(pub parse_mmap2_record<&[u8], MMAP2Record>,
     )
 );
 
-pub fn parse_read_value(input: &[u8], flags: ReadFormatFlags) -> IResult<&[u8], (u64, Option<u64>)> {
-    do_parse!(input,
-        value: le_u64 >>
-        id: cond!(flags.has_id(), le_u64) >>
-        (value, id)
+pub fn parse_read_value(
+    input: &[u8],
+    flags: ReadFormatFlags,
+) -> IResult<&[u8], (u64, Option<u64>)> {
+    do_parse!(
+        input,
+        value: le_u64 >> id: cond!(flags.has_id(), le_u64) >> (value, id)
     )
 }
 
 pub fn parse_read_format(input: &[u8], flags: ReadFormatFlags) -> IResult<&[u8], ReadFormat> {
     if flags.has_group() {
-        do_parse!(input,
-            nr: le_u64 >>
-            time_enabled: cond!(flags.has_total_time_enabled(), le_u64) >>
-            time_running: cond!(flags.has_total_time_running(), le_u64) >>
-            values: count!(call!(parse_read_value, flags), nr as usize) >>
-            (ReadFormat {
-                time_enabled: time_enabled,
-                time_running: time_running,
-                values: values
-            })
+        do_parse!(
+            input,
+            nr: le_u64
+                >> time_enabled: cond!(flags.has_total_time_enabled(), le_u64)
+                >> time_running: cond!(flags.has_total_time_running(), le_u64)
+                >> values: count!(call!(parse_read_value, flags), nr as usize)
+                >> (ReadFormat {
+                    time_enabled: time_enabled,
+                    time_running: time_running,
+                    values: values
+                })
         )
     } else {
-        do_parse!(input,
-            value: le_u64 >>
-            time_enabled: cond!(flags.has_total_time_enabled(), le_u64) >>
-            time_running: cond!(flags.has_total_time_running(), le_u64) >>
-            id: cond!(flags.has_id(), le_u64) >>
-            (ReadFormat {
-                time_enabled: time_enabled,
-                time_running: time_running,
-                values: vec![(value, id)]
-            })
+        do_parse!(
+            input,
+            value: le_u64
+                >> time_enabled: cond!(flags.has_total_time_enabled(), le_u64)
+                >> time_running: cond!(flags.has_total_time_running(), le_u64)
+                >> id: cond!(flags.has_id(), le_u64)
+                >> (ReadFormat {
+                    time_enabled: time_enabled,
+                    time_running: time_running,
+                    values: vec![(value, id)]
+                })
         )
     }
 }
@@ -262,76 +265,99 @@ named!(pub parse_branch_entry<&[u8], BranchEntry>,
     )
 );
 
-pub fn parse_branch_entries(input: &[u8], flags: SampleFormatFlags) -> IResult<&[u8], Vec<BranchEntry>> {
+pub fn parse_branch_entries(
+    input: &[u8],
+    flags: SampleFormatFlags,
+) -> IResult<&[u8], Vec<BranchEntry>> {
     // TODO: bug? https://github.com/Geal/nom/issues/302
     assert!(flags.has_branch_stack() && flags.has_regs_user());
-    do_parse!(input,
+    do_parse!(
+        input,
         // TODO: bug? https://github.com/Geal/nom/issues/302
         //bnr: cond!(flags.has_branch_stack(), le_u64) ~
         //entries: cond!(flags.has_branch_stack() && flags.has_regs_user(), count!(parse_branch_entry, 3)),
-        bnr: le_u64 >>
-        entries: count!(parse_branch_entry, bnr as usize) >>
-        (entries)
+        bnr: le_u64 >> entries: count!(parse_branch_entry, bnr as usize) >> (entries)
     )
 }
 
-pub fn parse_sample_record<'a>(input: &'a [u8], attr: &'a EventAttr) -> IResult<&'a [u8], SampleRecord> {
+pub fn parse_sample_record<'a>(
+    input: &'a [u8],
+    attr: &'a EventAttr,
+) -> IResult<&'a [u8], SampleRecord> {
     let flags = attr.sample_type;
     let regcnt_user = attr.sample_regs_user.count_ones() as usize;
     let regcnt_intr = attr.sample_regs_intr.count_ones() as usize;
-    do_parse!(input,
-        sample_id: cond!(flags.has_identifier(), le_u64) >>
-        ip: cond!(flags.has_ip(), le_u64) >>
-        ptid: cond!(flags.has_tid(), parse_thread_id) >>
-        time: cond!(flags.has_time(), le_u64) >>
-        addr: cond!(flags.has_addr(), le_u64) >>
-        id: cond!(flags.has_sample_id(), le_u64) >>
-        stream_id: cond!(flags.has_stream_id(), le_u64) >>
-        cpu: cond!(flags.has_cpu(), parse_cpu) >>
-        period: cond!(flags.has_period(), le_u64) >>
-        v: cond!(flags.has_read(), call!(parse_read_format, attr.read_format)) >>
-        ips: cond!(flags.has_callchain(), parse_vec_u64) >>
-        raw: cond!(flags.has_raw(), parse_vec_u32_u8) >>
-        lbr: cond!(flags.has_branch_stack(), call!(parse_branch_entries, flags)) >>
-        abi_user: cond!(flags.has_stack_user(), le_u64) >>
-        regs_user: cond!(flags.has_stack_user(), call!(parse_vec_u64_variable, regcnt_user)) >>
-        user_stack_len: cond!(flags.has_stack_user(), le_u64) >>
-        user_stack: cond!(flags.has_stack_user(), call!(parse_vec_u8_variable, user_stack_len.unwrap() as usize)) >>
-        dyn_size: cond!(flags.has_stack_user() && user_stack_len.unwrap() != 0, le_u64) >>
-        weight: cond!(flags.has_weight(), le_u64) >>
-        data_src: cond!(flags.has_data_src(), le_u64) >>
-        transaction: cond!(flags.has_transaction(), le_u64) >>
-        abi: cond!(flags.has_regs_intr(), le_u64) >>
-        regs_intr: cond!(flags.has_regs_intr(), call!(parse_vec_u64_variable, regcnt_intr)) >>
-        (SampleRecord {
-            sample_id: sample_id,
-            ip: ip,
-            ptid: ptid,
-            time: time,
-            addr: addr,
-            id: id,
-            stream_id: stream_id,
-            cpu: cpu,
-            period: period,
-            v: v,
-            ips: ips,
-            raw: raw,
-            lbr: lbr,
-            abi_user: abi_user,
-            regs_user: regs_user,
-            user_stack: user_stack,
-            dyn_size: dyn_size,
-            weight: weight,
-            data_src: data_src,
-            transaction: transaction,
-            abi: abi,
-            regs_intr: regs_intr
-        })
+    do_parse!(
+        input,
+        sample_id: cond!(flags.has_identifier(), le_u64)
+            >> ip: cond!(flags.has_ip(), le_u64)
+            >> ptid: cond!(flags.has_tid(), parse_thread_id)
+            >> time: cond!(flags.has_time(), le_u64)
+            >> addr: cond!(flags.has_addr(), le_u64)
+            >> id: cond!(flags.has_sample_id(), le_u64)
+            >> stream_id: cond!(flags.has_stream_id(), le_u64)
+            >> cpu: cond!(flags.has_cpu(), parse_cpu)
+            >> period: cond!(flags.has_period(), le_u64)
+            >> v: cond!(flags.has_read(), call!(parse_read_format, attr.read_format))
+            >> ips: cond!(flags.has_callchain(), parse_vec_u64)
+            >> raw: cond!(flags.has_raw(), parse_vec_u32_u8)
+            >> lbr: cond!(flags.has_branch_stack(), call!(parse_branch_entries, flags))
+            >> abi_user: cond!(flags.has_stack_user(), le_u64)
+            >> regs_user:
+                cond!(
+                    flags.has_stack_user(),
+                    call!(parse_vec_u64_variable, regcnt_user)
+                )
+            >> user_stack_len: cond!(flags.has_stack_user(), le_u64)
+            >> user_stack:
+                cond!(
+                    flags.has_stack_user(),
+                    call!(parse_vec_u8_variable, user_stack_len.unwrap() as usize)
+                )
+            >> dyn_size:
+                cond!(
+                    flags.has_stack_user() && user_stack_len.unwrap() != 0,
+                    le_u64
+                )
+            >> weight: cond!(flags.has_weight(), le_u64)
+            >> data_src: cond!(flags.has_data_src(), le_u64)
+            >> transaction: cond!(flags.has_transaction(), le_u64)
+            >> abi: cond!(flags.has_regs_intr(), le_u64)
+            >> regs_intr:
+                cond!(
+                    flags.has_regs_intr(),
+                    call!(parse_vec_u64_variable, regcnt_intr)
+                )
+            >> (SampleRecord {
+                sample_id: sample_id,
+                ip: ip,
+                ptid: ptid,
+                time: time,
+                addr: addr,
+                id: id,
+                stream_id: stream_id,
+                cpu: cpu,
+                period: period,
+                v: v,
+                ips: ips,
+                raw: raw,
+                lbr: lbr,
+                abi_user: abi_user,
+                regs_user: regs_user,
+                user_stack: user_stack,
+                dyn_size: dyn_size,
+                weight: weight,
+                data_src: data_src,
+                transaction: transaction,
+                abi: abi,
+                regs_intr: regs_intr
+            })
     )
 }
 
 pub fn parse_comm_record(input: &[u8]) -> IResult<&[u8], CommRecord> {
-    do_parse!(input,
+    do_parse!(
+        input,
         ptid: parse_thread_id >>
         comm: parse_c_string >>
         // TODO: sample_id: parse_sample_id,
@@ -344,22 +370,48 @@ pub fn parse_comm_record(input: &[u8]) -> IResult<&[u8], CommRecord> {
 
 /// Parse an event record.
 pub fn parse_event<'a>(input: &'a [u8], attrs: &'a Vec<EventAttr>) -> IResult<&'a [u8], Event> {
-    do_parse!(input,
-        header: parse_event_header >>
-        event: alt!(
-            cond_reduce!(header.event_type == EventType::Mmap, map!(parse_mmap_record, EventData::MMAP)) |
-            cond_reduce!(header.event_type == EventType::Mmap2, map!(parse_mmap2_record, EventData::MMAP2)) |
-            cond_reduce!(header.event_type == EventType::Comm, map!(parse_comm_record, EventData::Comm)) |
-            cond_reduce!(header.event_type == EventType::Exit, map!(parse_exit_record, EventData::Exit)) |
-            cond_reduce!(header.event_type == EventType::Sample, map!(call!(parse_sample_record, &attrs[0]), EventData::Sample)) |
-            cond_reduce!(header.event_type == EventType::Fork, map!(parse_fork_record, EventData::Fork)) |
-            cond_reduce!(header.event_type == EventType::Unthrottle, map!(parse_unthrottle_record, EventData::Unthrottle)) |
-            cond_reduce!(header.event_type == EventType::Throttle, map!(parse_throttle_record, EventData::Throttle)) |
-            cond_reduce!(header.event_type == EventType::BuildId, map!(call!(parse_build_id_record, header.size()), EventData::BuildId)) |
-            cond_reduce!(header.event_type == EventType::FinishedRound, no_event) |
-            cond_reduce!(header.event_type.is_unknown(), no_event)
-        ) >>
-        (Event { header: header, data: event })
+    do_parse!(
+        input,
+        header: parse_event_header
+            >> event:
+                alt!(
+                    cond_reduce!(
+                        header.event_type == EventType::Mmap,
+                        map!(parse_mmap_record, EventData::MMAP)
+                    ) | cond_reduce!(
+                        header.event_type == EventType::Mmap2,
+                        map!(parse_mmap2_record, EventData::MMAP2)
+                    ) | cond_reduce!(
+                        header.event_type == EventType::Comm,
+                        map!(parse_comm_record, EventData::Comm)
+                    ) | cond_reduce!(
+                        header.event_type == EventType::Exit,
+                        map!(parse_exit_record, EventData::Exit)
+                    ) | cond_reduce!(
+                        header.event_type == EventType::Sample,
+                        map!(call!(parse_sample_record, &attrs[0]), EventData::Sample)
+                    ) | cond_reduce!(
+                        header.event_type == EventType::Fork,
+                        map!(parse_fork_record, EventData::Fork)
+                    ) | cond_reduce!(
+                        header.event_type == EventType::Unthrottle,
+                        map!(parse_unthrottle_record, EventData::Unthrottle)
+                    ) | cond_reduce!(
+                        header.event_type == EventType::Throttle,
+                        map!(parse_throttle_record, EventData::Throttle)
+                    ) | cond_reduce!(
+                        header.event_type == EventType::BuildId,
+                        map!(
+                            call!(parse_build_id_record, header.size()),
+                            EventData::BuildId
+                        )
+                    ) | cond_reduce!(header.event_type == EventType::FinishedRound, no_event)
+                        | cond_reduce!(header.event_type.is_unknown(), no_event)
+                )
+            >> (Event {
+                header: header,
+                data: event
+            })
     )
 }
 
@@ -394,7 +446,6 @@ named!(pub parse_perf_string_list<&[u8], Vec<String> >,
     )
 );
 
-
 named!(pub parse_nrcpus<&[u8], NrCpus>,
     do_parse!(
         nr_online: le_u32 >>
@@ -403,27 +454,29 @@ named!(pub parse_nrcpus<&[u8], NrCpus>,
     )
 );
 
-
 pub fn parse_event_desc(input: &[u8]) -> IResult<&[u8], Vec<EventDesc>> {
-    do_parse!(input,
-        nr: le_u32 >>
-        attr_size: le_u32 >>
-        descs: count!(
-            do_parse!(
-                attr: flat_map!(take!(attr_size as usize), parse_event_attr) >>
-                nr_ids: le_u32 >>
-                event_string: parse_perf_string >>
-                ids: call!(parse_vec_u64_variable, nr_ids as usize) >>
-                (EventDesc {
-                    attr: attr,
-                    event_string: event_string,
-                    ids: ids
-                })
-            ), nr as usize) >>
-        (descs)
+    do_parse!(
+        input,
+        nr: le_u32
+            >> attr_size: le_u32
+            >> descs:
+                count!(
+                    do_parse!(
+                        attr: flat_map!(take!(attr_size as usize), parse_event_attr)
+                            >> nr_ids: le_u32
+                            >> event_string: parse_perf_string
+                            >> ids: call!(parse_vec_u64_variable, nr_ids as usize)
+                            >> (EventDesc {
+                                attr: attr,
+                                event_string: event_string,
+                                ids: ids
+                            })
+                    ),
+                    nr as usize
+                )
+            >> (descs)
     )
 }
-
 
 named!(pub parse_cpu_topology<&[u8], CpuTopology>,
     do_parse!(
@@ -450,8 +503,6 @@ named!(pub parse_numa_topology<&[u8], Vec<NumaNode> >,
         (nodes)
     )
 );
-
-
 
 named!(pub parse_pmu_mapping<&[u8], PmuMapping>,
     do_parse!(
@@ -486,8 +537,12 @@ named!(pub parse_group_descriptions<&[u8], Vec<GroupDesc> >,
     )
 );
 
-pub fn parse_build_id_record<'a>(input: &'a [u8], record_size: usize) -> IResult<&'a [u8], BuildIdRecord> {
-    do_parse!(input,
+pub fn parse_build_id_record<'a>(
+    input: &'a [u8],
+    record_size: usize,
+) -> IResult<&'a [u8], BuildIdRecord> {
+    do_parse!(
+        input,
         pid: le_i32 >>
         build_id: take!(24) >>
         filename: take!(record_size - 4 - 24) >> // header.size - offsetof(struct build_id_event, filename)
