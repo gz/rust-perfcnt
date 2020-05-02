@@ -17,15 +17,18 @@ pub struct Struct_Unnamed1 {
     pub fds_bits: [::libc::c_ulong; 16usize],
 }
 impl ::std::clone::Clone for Struct_Unnamed1 {
-    fn clone(&self) -> Self { *self }
+    fn clone(&self) -> Self {
+        *self
+    }
 }
 impl ::std::default::Default for Struct_Unnamed1 {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
 }
 
 pub type __kernel_fd_set = Struct_Unnamed1;
-pub type __kernel_sighandler_t =
-    ::std::option::Option<extern "C" fn(arg1: ::libc::c_int) -> ()>;
+pub type __kernel_sighandler_t = ::std::option::Option<extern "C" fn(arg1: ::libc::c_int) -> ()>;
 pub type __kernel_key_t = ::libc::c_int;
 pub type __kernel_mqd_t = ::libc::c_int;
 pub type __kernel_old_uid_t = ::libc::c_ushort;
@@ -52,10 +55,14 @@ pub struct Struct_Unnamed2 {
     pub val: [::libc::c_int; 2usize],
 }
 impl ::std::clone::Clone for Struct_Unnamed2 {
-    fn clone(&self) -> Self { *self }
+    fn clone(&self) -> Self {
+        *self
+    }
 }
 impl ::std::default::Default for Struct_Unnamed2 {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
 }
 pub type __kernel_fsid_t = Struct_Unnamed2;
 pub type __kernel_off_t = __kernel_long_t;
@@ -154,8 +161,7 @@ pub const PERF_TXN_MAX: ::libc::c_ulong = 256;
 pub const PERF_TXN_ABORT_MASK: ::libc::c_ulong = 18446744069414584320;
 pub const PERF_TXN_ABORT_SHIFT: ::libc::c_ulong = 32;
 
-
-bitflags!{
+bitflags! {
     pub struct SampleFormatFlags: u64 {
         /// Records instruction pointer.
         const PERF_SAMPLE_IP = 1 << 0;
@@ -199,7 +205,7 @@ bitflags!{
     }
 }
 
-bitflags!{
+bitflags! {
     pub struct ReadFormatFlags: u64 {
         /// Adds the 64-bit time_enabled field.  This can be used to calculate estimated totals if the PMU is overcommitted
         /// and multiplexing is happening.
@@ -272,7 +278,6 @@ bitflags! {
                     const EVENT_ATTR_MMAP2  =  1 << 23;
     }
 }
-
 
 pub type Enum_perf_event_ioc_flags = ::libc::c_uint;
 
