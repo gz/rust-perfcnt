@@ -4,7 +4,7 @@ A library to program performance counters in rust.
 
 ## Documentation
 
-  * [API Documentation](http://gz.github.io/rust-perfcnt/perfcnt/)
+  * [API Documentation](https://docs.rs/crate/perfcnt/)
   * See the [`examples/`](https://github.com/gz/rust-perfcnt/tree/master/examples) directory for more code-snippets on how to use the library to create counters.
 
 ## Provided Programs
