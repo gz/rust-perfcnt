@@ -1,7 +1,7 @@
 [package]
 name = "perfcnt"
-version = "0.6.0"
-authors = ["Gerd Zellweger <mail@gerdzellweger.com>", "Brian Martin <bmartin@twitter.com>", "Jens Breitbart <jbreitbart@gmail.com>"]
+version = "0.7.0"
+authors = ["Gerd Zellweger <mail@gerdzellweger.com>", "Brian Martin <bmartin@twitter.com>", "Jens Breitbart <jbreitbart@gmail.com>", "Marshall Pierce <marshall@mpierce.org>"]
 description = "Library to configure and read hardware performance counters in rust."
 homepage = "https://github.com/gz/rust-perfcnt"
 repository = "https://github.com/gz/rust-perfcnt"
