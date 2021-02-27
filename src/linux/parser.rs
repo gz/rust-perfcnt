@@ -415,7 +415,7 @@ pub fn parse_event<'a>(input: &'a [u8], attrs: &'a Vec<EventAttr>) -> IResult<&'
     )
 }
 
-/// Parse a perf file section.
+// Parse a perf file section.
 named!(pub parse_file_section<&[u8], PerfFileSection>,
     do_parse!(
         offset: le_u64 >>
@@ -424,7 +424,7 @@ named!(pub parse_file_section<&[u8], PerfFileSection>,
     )
 );
 
-/// Parse a perf string.
+// Parse a perf string.
 named!(pub parse_perf_string<&[u8], String>,
     do_parse!(
         length: le_u32 >>
@@ -437,7 +437,7 @@ named!(pub parse_perf_string<&[u8], String>,
     )
 );
 
-/// Parse a perf string list.
+// Parse a perf string list.
 named!(pub parse_perf_string_list<&[u8], Vec<String> >,
     do_parse!(
         nr: le_u32 >>
@@ -554,7 +554,7 @@ pub fn parse_build_id_record<'a>(
     )
 }
 
-/// Parse a perf header
+// Parse a perf header
 named!(pub parse_header<&[u8], PerfFileHeader>,
     do_parse!(
         tag!("PERFILE2") >>
@@ -612,7 +612,7 @@ named!(pub parse_header<&[u8], PerfFileHeader>,
     )
 );
 
-/// Parse a perf header
+// Parse a perf header
 named!(pub parse_event_attr<&[u8], EventAttr>,
     do_parse!(
         attr_type: le_u32 >>
