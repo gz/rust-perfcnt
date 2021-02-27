@@ -74,20 +74,26 @@ impl Default for PerfCounterBuilderLinux {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub enum HardwareEventType {
     /// Total cycles.  Be wary of what happens during CPU frequency scaling.
     CPUCycles = perf_event::PERF_COUNT_HW_CPU_CYCLES as isize,
 
-    /// Retired instructions.  Be careful, these can be affected by various issues, most notably hardware interrupt counts.
+    /// Retired instructions.  Be careful, these can be affected by various issues, most notably
+    /// hardware interrupt counts.
     Instructions = perf_event::PERF_COUNT_HW_INSTRUCTIONS as isize,
 
-    /// Cache  accesses.  Usually this indicates Last Level Cache accesses but this may vary depending on your CPU. This may include prefetches and
+    /// Cache accesses. Usually this indicates Last Level Cache accesses but this may vary depending
+    /// on your CPU. This may include prefetches and coherency messages; again this depends on the
+    /// design of your CPU.
     CacheReferences = perf_event::PERF_COUNT_HW_CACHE_REFERENCES as isize,
 
-    /// Cache misses.  Usually this indicates Last Level Cache misses; this is intended to be used  in  conjunction with the
+    /// Cache misses. Usually this indicates Last Level Cache misses; this is intended to be used in
+    /// conjunction with the [CacheReferences] event to calculate cache miss rates.
     CacheMisses = perf_event::PERF_COUNT_HW_CACHE_MISSES as isize,
 
-    /// Retired branch instructions.  Prior to Linux 2.6.34, this used the wrong event on AMD processors.
+    /// Retired branch instructions.  Prior to Linux 2.6.34, this used the wrong event on AMD
+    /// processors.
     BranchInstructions = perf_event::PERF_COUNT_HW_BRANCH_INSTRUCTIONS as isize,
 
     /// Mispredicted branch instructions.
@@ -106,6 +112,7 @@ pub enum HardwareEventType {
     RefCPUCycles = perf_event::PERF_COUNT_HW_REF_CPU_CYCLES as isize,
 }
 
+#[derive(Debug, Clone, Copy)]
 pub enum SoftwareEventType {
     /// This reports the CPU clock, a high-resolution per-CPU timer.
     CpuClock = perf_event::PERF_COUNT_SW_CPU_CLOCK as isize,
@@ -146,6 +153,7 @@ pub enum SoftwareEventType {
     EmulationFaults = perf_event::PERF_COUNT_SW_EMULATION_FAULTS as isize,
 }
 
+#[derive(Debug, Clone, Copy)]
 pub enum CacheId {
     /// For measuring Level 1 Data Cache
     L1D = perf_event::PERF_COUNT_HW_CACHE_L1D as isize,
@@ -171,6 +179,7 @@ pub enum CacheId {
     NODE = perf_event::PERF_COUNT_HW_CACHE_NODE as isize,
 }
 
+#[derive(Debug, Clone, Copy)]
 pub enum CacheOpId {
     /// For read accesses
     Read = perf_event::PERF_COUNT_HW_CACHE_OP_READ as isize,
@@ -182,6 +191,7 @@ pub enum CacheOpId {
     Prefetch = perf_event::PERF_COUNT_HW_CACHE_OP_PREFETCH as isize,
 }
 
+#[derive(Debug, Clone, Copy)]
 pub enum CacheOpResultId {
     /// To measure accesses.
     Access = perf_event::PERF_COUNT_HW_CACHE_RESULT_ACCESS as isize,
@@ -640,7 +650,7 @@ impl PerfCounterBuilderLinux {
         }
 
         Ok(PerfCounter {
-            fd: fd,
+            fd,
             file: unsafe { File::from_raw_fd(fd) },
             attributes: self.attrs,
         })
@@ -660,7 +670,7 @@ impl PerfCounterBuilderLinux {
         }
 
         Ok(PerfCounter {
-            fd: fd,
+            fd,
             file: unsafe { File::from_raw_fd(fd) },
             attributes: self.attrs,
         })
@@ -688,10 +698,10 @@ impl FileReadFormat {
         let id: u64 = read(ptr, 24);
 
         FileReadFormat {
-            value: value,
-            time_enabled: time_enabled,
-            time_running: time_running,
-            id: id,
+            value,
+            time_enabled,
+            time_running,
+            id,
         }
     }
 }
@@ -844,9 +854,9 @@ impl EventHeader {
         let misc: u16 = read(ptr, 4);
         let size: u16 = read(ptr, 6);
         EventHeader {
-            event_type: event_type,
-            misc: misc,
-            size: size,
+            event_type,
+            misc,
+            size,
         }
     }
 }
@@ -881,13 +891,13 @@ impl MMAPRecord {
         };
 
         MMAPRecord {
-            header: header,
-            pid: pid,
-            tid: tid,
-            addr: addr,
-            len: len,
-            pgoff: pgoff,
-            filename: filename,
+            header,
+            pid,
+            tid,
+            addr,
+            len,
+            pgoff,
+            filename,
         }
     }
 }
@@ -909,9 +919,9 @@ impl LostRecord {
         let lost: u64 = read(ptr, 16);
 
         LostRecord {
-            header: header,
-            id: id,
-            lost: lost,
+            header,
+            id,
+            lost,
         }
     }
 }
@@ -939,10 +949,10 @@ impl CommRecord {
             String::from(str::from_utf8(slice).unwrap())
         };
         CommRecord {
-            header: header,
-            pid: pid,
-            tid: tid,
-            comm: comm,
+            header,
+            pid,
+            tid,
+            comm,
         }
     }
 }
@@ -968,12 +978,12 @@ impl ExitRecord {
         let time: u64 = read(ptr, 24);
 
         ExitRecord {
-            header: header,
-            pid: pid,
-            ppid: ppid,
-            tid: tid,
-            ptid: ptid,
-            time: time,
+            header,
+            pid,
+            ppid,
+            tid,
+            ptid,
+            time,
         }
     }
 }
@@ -996,10 +1006,10 @@ impl ThrottleRecord {
         let stream_id: u64 = read(ptr, 24);
 
         ThrottleRecord {
-            header: header,
-            time: time,
-            id: id,
-            stream_id: stream_id,
+            header,
+            time,
+            id,
+            stream_id,
         }
     }
 }
@@ -1025,12 +1035,12 @@ impl ForkRecord {
         let time: u64 = read(ptr, 24);
 
         ForkRecord {
-            header: header,
-            pid: pid,
-            ppid: ppid,
-            tid: tid,
-            ptid: ptid,
-            time: time,
+            header,
+            pid,
+            ppid,
+            tid,
+            ptid,
+            time,
         }
     }
 }
@@ -1053,9 +1063,9 @@ impl ReadRecord {
         let frf: FileReadFormat = FileReadFormat::copy_from_raw_ptr(ptr.offset(16));
 
         ReadRecord {
-            header: header,
-            pid: pid,
-            tid: tid,
+            header,
+            pid,
+            tid,
             value: frf,
         }
     }
@@ -1156,27 +1166,27 @@ impl SampleRecord {
         let data_str: u64 = 0;
 
         SampleRecord {
-            header: header,
-            ip: ip,
-            pid: pid,
-            tid: tid,
-            time: time,
-            addr: addr,
-            id: id,
-            stream_id: stream_id,
-            cpu: cpu,
-            res: res,
-            period: period,
-            v: v,
-            ips: ips,
-            raw_sample: raw_sample,
-            lbr: lbr,
-            abi: abi,
-            regs: regs,
-            user_stack: user_stack,
-            dyn_size: dyn_size,
-            weight: weight,
-            data_str: data_str,
+            header,
+            ip,
+            pid,
+            tid,
+            time,
+            addr,
+            id,
+            stream_id,
+            cpu,
+            res,
+            period,
+            v,
+            ips,
+            raw_sample,
+            lbr,
+            abi,
+            regs,
+            user_stack,
+            dyn_size,
+            weight,
+            data_str,
         }
     }
 }
@@ -1287,7 +1297,7 @@ impl SamplingPerfCounter {
         .unwrap();
 
         SamplingPerfCounter {
-            pc: pc,
+            pc,
             map: res,
             events_size: 16 * 4096,
         }
