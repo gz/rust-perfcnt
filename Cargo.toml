@@ -1,6 +1,6 @@
 [package]
 name = "perfcnt"
-version = "0.7.0"
+version = "0.7.1"
 authors = ["Gerd Zellweger <mail@gerdzellweger.com>", "Brian Martin <bmartin@twitter.com>", "Jens Breitbart <jbreitbart@gmail.com>", "Marshall Pierce <marshall@mpierce.org>"]
 description = "Library to configure and read hardware performance counters in rust."
 homepage = "https://github.com/gz/rust-perfcnt"
@@ -14,7 +14,7 @@ edition = '2018'
 [dependencies]
 bitflags = "1.2.1"
 libc = "0.2"
-x86 = { version = "0.34.0", features = ["performance-counter"] }
+x86 = { version = "0.37.0", features = ["performance-counter"] }
 mmap = "0.1.*"
 byteorder = "1.3.4"
 nom = "4.2.3"
