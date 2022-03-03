@@ -1,7 +1,3 @@
-extern crate perfcnt;
-extern crate phf;
-extern crate x86;
-
 use x86::perfcnt::intel::events;
 
 fn print_stats(year: &'static str, name: &'static str, size: usize) {

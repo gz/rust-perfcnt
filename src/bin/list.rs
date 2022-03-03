@@ -1,6 +1,3 @@
-extern crate perfcnt;
-extern crate x86;
-
 use x86::perfcnt::intel::{events, EventDescription};
 
 fn print_counter(id: &str, info: &EventDescription) {
