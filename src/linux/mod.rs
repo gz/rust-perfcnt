@@ -12,7 +12,6 @@ use std::str;
 
 use libc::{pid_t, strlen, MAP_SHARED};
 use mmap;
-use x86::*;
 
 #[allow(dead_code, non_camel_case_types)]
 mod hw_breakpoint;
@@ -26,10 +25,6 @@ pub mod perf_format;
 use self::perf_format::{EventAttrFlags, ReadFormatFlags, SampleFormatFlags};
 
 use crate::AbstractPerfCounter;
-use x86::perfcnt::intel::{EventDescription, Tuple};
-
-const IOCTL: usize = 16;
-const PERF_EVENT_OPEN: usize = 298;
 
 fn perf_event_open(
     hw_event: &perf_format::EventAttr,
@@ -39,8 +34,8 @@ fn perf_event_open(
     flags: ::libc::c_int,
 ) -> isize {
     unsafe {
-        syscall!(
-            PERF_EVENT_OPEN,
+        libc::syscall(
+            libc::SYS_perf_event_open,
             hw_event as *const perf_format::EventAttr as usize,
             pid,
             cpu,
@@ -51,7 +46,7 @@ fn perf_event_open(
 }
 
 fn ioctl(fd: ::libc::c_int, request: u64, value: ::libc::c_int) -> isize {
-    unsafe { syscall!(IOCTL, fd, request, value) as isize }
+    unsafe { libc::ioctl(fd, request, value) as isize }
 }
 
 pub struct PerfCounterBuilderLinux {
@@ -238,7 +233,9 @@ impl PerfCounterBuilderLinux {
     //}
 
     /// Instantiate a H/W performance counter using a hardware event as described in Intels SDM.
-    pub fn from_intel_event_description(counter: &EventDescription) -> PerfCounterBuilderLinux {
+    #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
+    pub fn from_intel_event_description(counter: &x86::perfcnt::intel::EventDescription) -> PerfCounterBuilderLinux {
+        use x86::perfcnt::intel::Tuple;
         let mut pc: PerfCounterBuilderLinux = Default::default();
         let mut config: u64 = 0;
 
@@ -884,7 +881,7 @@ impl MMAPRecord {
         let pgoff: u64 = read(ptr, 32);
         let filename = {
             let str_start = ptr.offset(40);
-            let strlen_ptr = mem::transmute::<*const u8, &i8>(str_start);
+            let strlen_ptr = str_start as *const libc::c_char;
             let length = strlen(strlen_ptr) as usize;
             let slice = slice::from_raw_parts(str_start, length);
             String::from(str::from_utf8(slice).unwrap())
@@ -943,7 +940,7 @@ impl CommRecord {
 
         let comm = {
             let str_start = ptr.offset(16);
-            let strlen_ptr = mem::transmute::<*const u8, &i8>(str_start);
+            let strlen_ptr = str_start as *const libc::c_char;
             let length = strlen(strlen_ptr) as usize;
             let slice = slice::from_raw_parts(str_start, length);
             String::from(str::from_utf8(slice).unwrap())
