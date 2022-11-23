@@ -14,3 +14,8 @@ A library to program performance counters in rust.
  * Linux support without breakpoints and tracepoints
  * No Windows or MacOS X support
  * Missing raw AMD and ARM aarch64 events
+
+## Linux Kernel Capabilities
+
+ * Generally, this requires the **CAP_PERFMON** and **CAP_SYS_PTRACE** capabilities to run
+ * On Kubernetes/Docker these are referred to as **PERFMON** and **SYS_PTRACE**
